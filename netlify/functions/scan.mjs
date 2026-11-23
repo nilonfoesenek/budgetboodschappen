@@ -95,6 +95,8 @@ export async function readPage(raw) {
       href = nu.href;
     }
     clearTimeout(t);
+    if ([401, 403, 429, 451].includes(r.status)) return { error: 'Deze site laat de app niet meelezen (zoals AH Allerhande). Maak een screenshot van de ingrediënten en gebruik 📷 Foto.' };
+    if (r.status === 404) return { error: 'Deze pagina bestaat niet (meer). Controleer de link.' };
     if (!r.ok) return { error: `De pagina gaf een fout (${r.status}).` };
     html = (await r.text()).slice(0, 2_000_000);
   } catch { return { error: 'De pagina kon niet geladen worden.' }; }

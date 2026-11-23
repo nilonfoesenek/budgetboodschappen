@@ -110,6 +110,9 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .tile .tf{display:flex;justify-content:space-between;align-items:center}.tile .now{font-weight:800}.pc{font-size:12px;font-weight:800;background:var(--okbg);color:var(--ok);border-radius:6px;padding:1px 6px}
 .add{flex:none;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--card);font:700 20px/1 Figtree,sans-serif;color:var(--ink);cursor:pointer}.add.ok{background:var(--ok);border-color:var(--ok);color:#fff;font-size:16px}
 .off .end{display:flex;align-items:center;gap:10px}.why{display:block;color:var(--ok);font-size:12.5px;font-weight:600}
+#welcome{position:fixed;inset:0;z-index:60}#welcome[hidden]{display:none}
+.wst{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0 14px}.wst button{display:flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:10px 12px;font:700 15px Figtree,sans-serif;color:var(--ink);cursor:pointer;text-align:left}.wst button[aria-pressed=true]{border-color:var(--ink);background:var(--field)}.wst small{display:block;font-weight:500;color:var(--mute);font-size:11px}
+.wtip{background:var(--okbg);color:var(--ink);border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.4}
 .fin{width:100%;box-sizing:border-box;font:500 16px Figtree,sans-serif;background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:4px}
 .thumbs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.thumbs img{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
 .ing{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}.ing input{width:20px;height:20px;flex:none}.ing input[type=text]{flex:1;width:auto;height:auto;font:500 15px Figtree,sans-serif;border:0;background:none;color:var(--ink);padding:2px 0}
@@ -177,6 +180,13 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
     </div>
   </section>
 </main>
+<div id="welcome" hidden><div class="sh-bg"></div><div class="sh" role="dialog" aria-modal="true" aria-labelledby="wTitle" style="max-height:92vh;overflow-y:auto">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><img src="icons/logo.svg" alt="" width="40" height="40" style="border-radius:10px"><h2 id="wTitle" style="margin:0">Welkom bij BudgetBoodschappen</h2></div>
+  <p class="muted" style="margin:0 0 12px">Zet je boodschappen erin en zie bij welke supermarkt je het goedkoopst uit bent, met de aanbiedingen van deze week.</p>
+  <b>Bij welke supermarkten doe je boodschappen?</b>
+  <div id="wStores" class="wst"></div>
+  <div class="wtip" id="wInstall"><b>Tip: zet de app op je beginscherm</b><br>iPhone: tik in Safari op <b>Deel</b> en dan <b>Zet op beginscherm</b>. Android: menu ⋮ en dan <b>App installeren</b>.</div>
+  <button class="btn" id="wGo" style="width:100%;margin-top:14px">Aan de slag</button></div></div>
 <div id="sheet" hidden><div class="sh-bg" data-shclose></div><div class="sh" role="dialog" aria-modal="true" aria-labelledby="shTitle">
   <div class="sh-hd"><div><b id="shTitle"></b><div class="muted" id="shSub" style="font-size:13px"></div></div><button class="x" data-shclose aria-label="Sluiten">×</button></div>
   <input id="shQ" class="fin" type="search" placeholder="Zoek een ander product" aria-label="Zoek product" style="margin:0 0 6px"><div id="shList"></div></div></div>
@@ -264,6 +274,7 @@ function render(){
   const order=['aldi','lidl','dirk','plus','jumbo','ah'].filter(s=>groups[s]);lastShare=()=>shareList(groups,order,miss,split);
   $('bons').innerHTML=order.map(s=>{const g=groups[s],sub=g.reduce((a,r)=>a+r.per[s].total,0);
     return `<div class="bon"><div class="hd"><b>${dot(s)}${S[s].full}</b><span>${eur(sub)}</span></div>${itemsByCat(g,s,sel)}</div>`}).join('')
+   +(R.some(r=>state.done[r.k])?`<div style="text-align:center;margin:4px 0 14px"><button class="btn sec" id="clearDone">Afgevinkte producten weghalen (${R.filter(r=>state.done[r.k]).length})</button></div>`:'')
    +(miss.length?`<div class="bon"><div class="hd"><b class="miss">Niet gevonden</b><span></span></div>${miss.map(r=>`<div class="it"><div class="row" style="cursor:default"><span></span><div><div class="lbl">${esc(r.line)}</div><div class="pn">Probeer een andere omschrijving in je lijst.</div></div><span></span></div></div>`).join('')}</div>`:'');
 }
 function item(r,s,sel){const x=r.per[s],done=!!state.done[r.k],isOpen=open===r.k;
@@ -375,6 +386,13 @@ function renderOffers(){if(!O)return;const live=liveOffers(),sel=state.stores.fi
   const q=Match.norm($('q').value),L=live.filter(o=>(ofil==='all'||o.s===ofil)&&(!q||Match.norm(o.n).includes(q)));
   $('offList').innerHTML=L.map(o=>offRow(o)).join('')||'<div class="empty">Geen aanbiedingen gevonden.</div>'}
 
+/* ---------- welkom (eerste keer) ---------- */
+if(!state.onboarded&&(state.text||(state.favs&&state.favs.length)))state.onboarded=true;
+function renderWelcome(){$('wStores').innerHTML=Object.keys(S).map(s=>`<button data-ws="${s}" aria-pressed="${state.stores.includes(s)}">${dot(s)}<span>${S[s].full}${S[s].noOffers?'<small>geen acties</small>':''}</span></button>`).join('')}
+if(!state.onboarded){const sa=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;$('wInstall').hidden=sa;renderWelcome();$('welcome').hidden=false}
+$('welcome').addEventListener('click',e=>{const b=e.target.closest('[data-ws]');if(b){const s=b.dataset.ws,on=state.stores.includes(s);
+    state.stores=on?state.stores.filter(x=>x!==s):[...state.stores,s].sort((a,c)=>Object.keys(S).indexOf(a)-Object.keys(S).indexOf(c));renderWelcome();return}
+  if(e.target.id==='wGo'){if(!state.stores.length){$('wGo').textContent='Kies minstens één winkel';return}state.onboarded=true;persist();$('welcome').hidden=true;render()}});
 /* ---------- product kiezen ---------- */
 let lastR=[],sheetCtx=null,shT=null;
 function openSheet(k,s){const r=lastR.find(x=>x.k===k);if(!r)return;sheetCtx={r,s};
@@ -397,6 +415,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sheetCtx)closeSheet
 document.addEventListener('click',e=>{const t=e.target;
   const po=t.closest('[data-pickopen]');if(po){const i=po.dataset.pickopen.lastIndexOf('|');openSheet(po.dataset.pickopen.slice(0,i),po.dataset.pickopen.slice(i+1));return}
   if(t.id==='shareBtn'&&lastShare){lastShare();return}
+  if(t.id==='clearDone'){state.text=favLines(state.text).filter(l=>!state.done[keyOf(l)]).join('\n');state.done={};persist();render();return}
   const st=t.closest('[data-s]');if(st){const s=st.dataset.s,on=state.stores.includes(s);
     if(on&&state.stores.length===1)return;state.stores=on?state.stores.filter(x=>x!==s):[...state.stores,s].sort((a,b)=>Object.keys(S).indexOf(a)-Object.keys(S).indexOf(b));
     persist();render();return}
