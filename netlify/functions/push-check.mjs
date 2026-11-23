@@ -1,5 +1,5 @@
 // Draait op maandag en woensdag (na de prijs-update) en stuurt een melding als een favoriet recept ≥ 20% goedkoper is.
-import { store, vapid, webpush, loadData, recipeCost } from './lib.mjs';
+import { store, vapid, webpush, loadData, recipeCost, followHits } from './lib.mjs';
 const eur = n => '€' + n.toFixed(2).replace('.', ',');
 
 export async function run({ dry = false } = {}) {
@@ -19,17 +19,27 @@ export async function run({ dry = false } = {}) {
       if (rec.sent[f.id] === key) continue; // deze aanbiedingen al gemeld
       hits.push({ f, c, key });
     }
-    if (!hits.length) continue;
+    // gevolgde producten die nu in de aanbieding zijn
+    const fh = followHits(rec.follow || [], offers, rec.stores, today).filter(x => rec.sent['f:' + x.line] !== x.key);
+    if (!hits.length && !fh.length) continue;
     hits.sort((a, b) => b.c.saving - a.c.saving);
-    const h = hits[0], pct = Math.round(h.c.saving * 100);
-    const title = hits.length === 1 ? `${h.f.title}: ${pct}% goedkoper` : `${hits.length} favorieten in de aanbieding`;
-    const body = hits.length === 1 ? `Deze week ${eur(h.c.deal)} i.p.v. ${eur(h.c.regular)}.`
-      : hits.slice(0, 3).map(x => `${x.f.title} −${Math.round(x.c.saving * 100)}%`).join(' · ');
+    let title, body;
+    if (hits.length) {
+      const h = hits[0], pct = Math.round(h.c.saving * 100);
+      title = hits.length === 1 ? `${h.f.title}: ${pct}% goedkoper` : `${hits.length} favorieten in de aanbieding`;
+      body = hits.length === 1 ? `Deze week ${eur(h.c.deal)} i.p.v. ${eur(h.c.regular)}.` : hits.slice(0, 3).map(x => `${x.f.title} −${Math.round(x.c.saving * 100)}%`).join(' · ');
+      if (fh.length) body += ` · En ${fh.length} gevolgd${fh.length === 1 ? ' product' : 'e producten'} in de aanbieding.`;
+    } else {
+      const x = fh[0];
+      title = fh.length === 1 ? `${x.label} in de aanbieding` : `${fh.length} gevolgde producten in de aanbieding`;
+      body = fh.slice(0, 3).map(y => `${y.label}: ${y.deal} bij ${y.storeName}`).join(' · ');
+    }
     log.push({ title, body });
     if (dry) continue;
     try {
-      await webpush.sendNotification(rec.subscription, JSON.stringify({ title, body, url: '/?tab=recipes' }), { TTL: 60 * 60 * 24 });
+      await webpush.sendNotification(rec.subscription, JSON.stringify({ title, body, url: hits.length ? '/?tab=recipes' : '/?tab=offers' }), { TTL: 60 * 60 * 24 });
       for (const x of hits) rec.sent[x.f.id] = x.key;
+      for (const x of fh) rec.sent['f:' + x.line] = x.key;
       await s.setJSON(b.key, rec); sent++;
     } catch (e) {
       if (e.statusCode === 404 || e.statusCode === 410) await s.delete(b.key); // afgemeld of verlopen

@@ -60,3 +60,17 @@ export async function loadData() {
   return { IDX, offers: O.offers };
 }
 export { addDays };
+
+const NAMES = { ah: 'AH', jumbo: 'Jumbo', aldi: 'Aldi', dirk: 'Dirk', plus: 'Plus', lidl: 'Lidl' };
+// gevolgde producten: welke zijn nu bij een van je winkels in de aanbieding?
+export function followHits(lines, offers, stores, today) {
+  const live = offers.filter(o => o.to >= today && o.from <= today), out = [];
+  for (const line of lines) {
+    const it = Match.parseLine(line); if (!it) continue;
+    let best = null;
+    const disc = o => o.pct || (o.was && o.p != null && o.was > o.p ? 1 - o.p / o.was : 0);
+    for (const s of stores) { const o = Match.offerFor(it, live, s); if (o && disc(o) >= 0.15 && (!best || disc(o) > disc(best))) best = o; }
+    if (best) out.push({ line, label: it.label.charAt(0).toUpperCase() + it.label.slice(1), deal: best.d, storeName: NAMES[best.s] || best.s, key: best.s + best.n + best.to });
+  }
+  return out;
+}

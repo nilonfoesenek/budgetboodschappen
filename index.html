@@ -118,6 +118,15 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .ci{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:19px;background:var(--field);flex:none}
 .wk{display:grid;grid-template-columns:26px 34px minmax(0,1fr);gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}.wk:first-child{border-top:0}.wk input[type=checkbox]{width:22px;height:22px;accent-color:var(--ok)}.wk.wkoff .wkm{opacity:.45}.wkm{min-width:0}.wkm .qin{width:100%;box-sizing:border-box;padding:2px 4px;margin-left:-4px}.wkb{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:2px}.wkb .pr{display:flex;align-items:center;gap:6px}.wk .pr{font-weight:700;white-space:nowrap;font-size:14px}
 .qb.del{color:var(--mute);font-size:18px}.tog{display:flex;gap:10px;align-items:center;margin-top:14px;font-weight:600;font-size:15px}.tog input{width:22px;height:22px;accent-color:var(--ok)}
+.bell{margin-left:auto;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--card);font-size:19px;cursor:pointer;flex:none}.bell.on{background:var(--okbg);border-color:var(--ok)}
+#toast{position:fixed;left:16px;right:16px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:70;max-width:520px;margin:0 auto;background:var(--ink);color:#fff;border-radius:14px;padding:12px 14px;font-weight:600;font-size:14.5px;line-height:1.35;opacity:0;transform:translateY(10px);transition:.2s;pointer-events:none}#toast.show{opacity:1;transform:none}
+.fol{background:none;border:0;font-size:17px;cursor:pointer;padding:0 2px;filter:grayscale(1);opacity:.45}.fol.on{filter:none;opacity:1}
+.tag.stock{background:#fff2d6;color:#8a5a00;display:inline-block;margin-top:4px}
+.mform{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.mform label{font-size:12.5px;color:var(--mute);display:flex;flex-direction:column;gap:4px}.mform select{height:42px;border-radius:12px;border:1px solid var(--line);background:var(--card);padding:0 8px;font:inherit;color:var(--ink)}
+.ck{display:flex;align-items:center;gap:8px;margin:10px 0 2px;font-weight:600}.ck input{width:20px;height:20px}
+.meal{border-top:1px solid var(--line);padding:12px 0 4px}.meal h3{margin:0 0 2px;font-size:16.5px}.meal ul{margin:6px 0;padding-left:18px;font-size:14px}.meal ol{margin:6px 0;padding-left:18px;font-size:13.5px;color:var(--mute)}.deal{display:inline-block;background:var(--okbg);color:var(--ok);border-radius:8px;padding:2px 7px;font-size:12px;font-weight:700;margin:2px 4px 2px 0}
+.hist{display:block;color:#8a5a00;font-size:12px;font-weight:600}
+.sav{margin-top:4px}.savm{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.savm span{font-size:12.5px;color:var(--mute);background:var(--bg);border-radius:10px;padding:4px 8px}.savm b{margin-left:5px;color:var(--ink)}
 .fin{width:100%;box-sizing:border-box;font:500 16px Figtree,sans-serif;background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:4px}
 .thumbs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.thumbs img{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
 .ing{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}.ing input{width:20px;height:20px;flex:none}.ing input[type=text]{flex:1;width:auto;height:auto;font:500 15px Figtree,sans-serif;border:0;background:none;color:var(--ink);padding:2px 0}
@@ -136,7 +145,7 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 </head>
 <body>
 <header class="wrap">
-  <div class="brand"><img src="icons/logo.svg" alt="" width="44" height="44"><h1>Budget<span>Boodschappen</span></h1></div>
+  <div class="brand"><img src="icons/logo.svg" alt="" width="44" height="44"><h1>Budget<span>Boodschappen</span></h1><button class="bell" id="pushBtn" aria-pressed="false" aria-label="Meldingen" hidden>🔕</button></div>
 </header>
 <nav><div class="seg" role="tablist">
   <button role="tab" data-tab="route" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21c-1.7 0-3-1.3-3-3s1.3-3 3-3h12c1.7 0 3-1.3 3-3s-1.3-3-3-3H9"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="2.5"/></svg>Route</button>
@@ -158,6 +167,7 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
       <div class="btns"><button class="btn" id="save">Opslaan en vergelijken</button><button class="btn sec" id="clear">Lijst leegmaken</button></div>
       <div class="status" id="lstat"></div>
     </div>
+    <div class="card" id="shareBox"></div>
     <div class="card"><h2>Altijd in huis</h2>
       <div id="pan" class="pan"></div>
       <div class="btns tight"><input id="panIn" class="fin" placeholder="Bijv. olijfolie, rijst, zout" aria-label="Product dat je altijd in huis hebt" style="margin:0"><button class="btn sec" id="panAdd" style="flex:0 0 auto">Toevoegen</button></div>
@@ -173,9 +183,19 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
     </div>
   </section>
   <section id="t-recipes" hidden>
-    <div class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2 style="margin:0">Favorieten</h2><button class="chip" id="pushBtn" aria-pressed="false" hidden>🔔 Meldingen</button></div><div class="status" id="pushSt" style="min-height:0"></div>
+    <div class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2 style="margin:0">Favorieten</h2></div>
       <div class="btns tight"><button class="btn" id="favNew">+ Nieuw</button><label class="btn sec" for="impFile" style="display:inline-flex;align-items:center">📷 Foto</label><button class="btn sec" id="impLinkBtn">🔗 Link</button></div>
       <div id="favForm"></div></div>
+    <div class="card" id="menuCard"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2 style="margin:0">Weekmenu</h2><button class="chip" id="menuOpen" style="white-space:nowrap">✨ Uit aanbiedingen</button></div>
+      <p class="muted" style="margin:6px 0 0;font-size:13.5px">Claude bedenkt gerechten met de aanbiedingen van jouw winkels.</p>
+      <div id="menuForm" hidden>
+        <div class="mform"><label>Gerechten<select id="mCount"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option><option>7</option></select></label>
+        <label>Personen<select id="mPers"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>6</option></select></label>
+        <label>Kcal p.p.<select id="mKcal"><option value="0" selected>Maakt niet uit</option><option>450</option><option>600</option><option>750</option><option>900</option></select></label></div>
+        <label class="ck"><input type="checkbox" id="mProt"> Eiwitrijk</label>
+        <input id="mWish" class="fin" maxlength="200" placeholder="Wensen, bijv. vegetarisch, geen vis, snel" aria-label="Wensen">
+        <div class="btns tight"><button class="btn" id="menuGo">Maak menu</button></div></div>
+      <div id="menuOut"></div></div>
     <div id="favs"></div>
     <div id="planBar" hidden></div>
     <div class="card" id="imp" hidden><h2>Recept importeren</h2>
@@ -203,6 +223,7 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
   <div id="wStores" class="wst"></div>
   <div class="wtip" id="wInstall"><b>Tip: zet de app op je beginscherm</b><br>iPhone: tik in Safari op <b>Deel</b> en dan <b>Zet op beginscherm</b>. Android: menu ⋮ en dan <b>App installeren</b>.</div>
   <button class="btn" id="wGo" style="width:100%;margin-top:14px">Aan de slag</button></div></div>
+<div id="toast" role="status" aria-live="polite"></div>
 <div id="sheet" hidden><div class="sh-bg" data-shclose></div><div class="sh" role="dialog" aria-modal="true" aria-labelledby="shTitle">
   <div class="sh-hd"><div><b id="shTitle"></b><div class="muted" id="shSub" style="font-size:13px"></div></div><button class="x" data-shclose aria-label="Sluiten">×</button></div>
   <input id="shQ" class="fin" type="search" placeholder="Zoek een ander product" aria-label="Zoek product" style="margin:0 0 6px"><div id="shList"></div></div></div>
@@ -218,13 +239,14 @@ const dot=s=>`<span class="sb" style="background:${S[s].c};color:${AB[s][1]}" ar
 const dnl=d=>new Date(d+'T12:00').toLocaleDateString('nl-NL',{day:'numeric',month:'short'});
 const today=new Date().toISOString().slice(0,10);
 let P=null,O=null,IDX={},state={text:'',done:{},picks:{},stores:['ah','jumbo','aldi'],mode:'split'},open=null,ofil='all',otop=false;
-let docRef=null,saving=Promise.resolve();
+let docRef=null,saving=Promise.resolve(),adopting=false;
 
 /* ---------- opslag ---------- */
 const LK='boodschappen-v1';
 try{Object.assign(state,JSON.parse(localStorage.getItem(LK)||'{}'))}catch(e){}
 function persist(){try{localStorage.setItem(LK,JSON.stringify(state))}catch(e){}
   if(state.push)pushSyncSoon();
+  if(state.share&&!adopting)listSyncSoon();
   if(docRef){const body={text:state.text,done:state.done,picks:state.picks,stores:state.stores,mode:state.mode,updated:new Date().toISOString()};
     saving=saving.then(()=>docRef.set(body)).catch(()=>{})}}
 const keyOf=l=>Match.norm(l);
@@ -262,6 +284,8 @@ const CATS=[
  ['Diepvries',/(diepvries|\bijs\b|pizza|friet|patat|bevroren)/]];
 const catOf=r=>{const t=(r.line+' '+(r.per&&Object.values(r.per).find(Boolean)?.pick?.p?.name||'')).toLowerCase();for(let i=0;i<CATS.length;i++)if(CATS[i][1].test(t))return i;return CATS.length};
 const catName=i=>i<CATS.length?CATS[i][0]:'Overig';
+const KEEP=/(koffie|thee|pasta|spaghetti|penne|macaroni|fusilli|noedel|rijst|couscous|bulgur|quinoa|pindakaas|blik|bonen|kikkererwt|linzen|tomatenblokjes|passata|tomatenpuree|olie|havermout|muesli|cruesli|noten|amandel|cashew|chocola|hagelslag|jam|honing|wc-?papier|toiletpapier|keukenrol|wasmiddel|vaatwas|tandpasta|shampoo|douchegel|kruiden|bouillon|sojasaus|ketjap|pesto|mayonaise|ketchup|cola|frisdrank|bier|sap|limonade|chips|crackers|beschuit|knäck|diepvries)/i;
+function stockTip(line,deal){if(!deal||!KEEP.test(line))return '';const d=disc(deal);if(d<0.3)return '';const n=d>=0.45?3:2;return `<span class="tag stock">📦 Houdbaar en −${Math.round(d*100)}%: neem er ${n} mee</span>`}
 const CICON=['🥕','🍞','🥩','🥛','🍝','🥫','🍫','🥤','🧊','🛒'],CBG=['#e9f6e6','#fbf0e1','#fdeaea','#fff6d9','#f6efe6','#eef0f6','#f7ebf2','#e6f2fb','#e8f4fa','#f1f2ee'];
 const catIcon=i=>`<span class="ci" style="background:${CBG[i]}" aria-hidden="true">${CICON[i]}</span>`;
 const catOfText=t=>{t=t.toLowerCase();for(let i=0;i<CATS.length;i++)if(CATS[i][1].test(t))return i;return CATS.length};
@@ -294,14 +318,28 @@ function render(){
   $('bons').innerHTML=order.map(s=>{const g=groups[s],sub=g.reduce((a,r)=>a+r.per[s].total,0);
     return `<div class="bon"><div class="hd"><b>${dot(s)}${S[s].full}</b><span>${eur(sub)}</span></div>${itemsByCat(g,s,sel)}</div>`}).join('')
    +(R.some(r=>state.done[r.k])?`<div style="text-align:center;margin:4px 0 14px"><button class="btn sec" id="clearDone">Afgevinkte producten weghalen (${R.filter(r=>state.done[r.k]).length})</button></div>`:'')
+   +savingsHtml()
    +(miss.length?`<div class="bon"><div class="hd"><b class="miss">Niet gevonden</b><span></span></div>${miss.map(r=>`<div class="it"><div class="row" style="cursor:default"><span></span><span></span><div><div class="lbl">${esc(r.line)}</div><div class="pn">Probeer een andere omschrijving in je lijst.</div></div><span></span></div></div>`).join('')}</div>`:'');
 }
+/* ---------- bespaaroverzicht: telt mee bij afvinken ---------- */
+if(!state.spend||typeof state.spend!=='object')state.spend={};if(!state.booked||typeof state.booked!=='object')state.booked={};
+const monthKey=()=>new Date().toLocaleDateString('sv-SE').slice(0,7);
+function book(k,s){const r=(lastR||[]).find(x=>x.k===k),x=r&&r.per[s];if(!x||state.booked[k])return;
+  const m=monthKey(),sv=x.deal?Math.max(0,x.regular-x.total):0,e=state.spend[m]=state.spend[m]||{sp:0,sv:0,n:0};
+  e.sp+=x.total;e.sv+=sv;e.n++;state.booked[k]={m,sp:x.total,sv}}
+function unbook(k){const b=state.booked[k];if(!b)return;const e=state.spend[b.m];if(e){e.sp=Math.max(0,e.sp-b.sp);e.sv=Math.max(0,e.sv-b.sv);e.n=Math.max(0,e.n-1)}delete state.booked[k]}
+function savingsHtml(){const ms=Object.keys(state.spend).filter(m=>state.spend[m].n).sort().reverse();if(!ms.length)return '';
+  const nm=m=>new Date(m+'-15').toLocaleDateString('nl-NL',{month:'long'}),cur=state.spend[ms[0]];
+  const tot=ms.reduce((a,m)=>a+state.spend[m].sv,0);
+  return `<div class="card sav"><div class="muted" style="font-size:13px">Bespaard met aanbiedingen · ${nm(ms[0])}</div><div class="big" style="color:var(--ok)">${eur(cur.sv)}</div>
+    <div class="muted" style="font-size:13px">${cur.n} producten afgevinkt voor ${eur(cur.sp)}${ms.length>1?` · totaal bespaard ${eur(tot)}`:''}</div>
+    ${ms.length>1?`<div class="savm">${ms.slice(0,6).map(m=>`<span>${nm(m)}<b>${eur(state.spend[m].sv)}</b></span>`).join('')}</div>`:''}</div>`}
 function item(r,s,sel){const x=r.per[s],done=!!state.done[r.k],isOpen=open===r.k;
   const p=x.pick.p,sz=p.size?` · ${esc(p.size)}`:'',pk=x.packs>1?`${x.packs}× `:'';
-  return `<div class="it${done?' done':''}"><div class="row" data-open="${esc(r.k)}"><input type="checkbox" aria-label="${esc(r.line)} afvinken" data-done="${esc(r.k)}"${done?' checked':''}>${catIcon(catOf(r))}
-  <div><div class="lbl">${esc(r.line)}</div><div class="pn">${x.sub?'<span class="subtag">lijkt op</span> ':''}${pk}${esc(p.name)}${sz}</div>${x.deal?`<span class="tag">${esc(x.deal.d)}</span>`:''}</div>
+  return `<div class="it${done?' done':''}"><div class="row" data-open="${esc(r.k)}"><input type="checkbox" aria-label="${esc(r.line)} afvinken" data-done="${esc(r.k)}" data-st="${s}"${done?' checked':''}>${catIcon(catOf(r))}
+  <div><div class="lbl">${esc(r.line)}</div><div class="pn">${x.sub?'<span class="subtag">lijkt op</span> ':''}${pk}${esc(p.name)}${sz}</div>${x.deal?`<span class="tag">${esc(x.deal.d)}</span>`:''}${stockTip(r.line,x.deal)}</div>
   <div class="pr">${x.deal&&x.regular>x.total+0.005?`<s>${eur(x.regular)}</s><span class="now">${eur(x.total)}</span>`:eur(x.total)}</div></div>
-  ${isOpen?`<div class="det">${Object.keys(S).filter(t=>sel.includes(t)).map(t=>{const y=r.per[t];if(!y)return `<div class="cmp"><span>${dot(t)}</span><span class="muted">${S[t].label}: niet gevonden</span><span></span></div>`;
+  ${isOpen?`<div class="det"><div style="display:flex;justify-content:flex-end;align-items:center;gap:6px;font-size:13px;color:var(--mute);padding:2px 0 4px">Melding bij aanbieding ${folBtn(r.line)}</div>${Object.keys(S).filter(t=>sel.includes(t)).map(t=>{const y=r.per[t];if(!y)return `<div class="cmp"><span>${dot(t)}</span><span class="muted">${S[t].label}: niet gevonden</span><span></span></div>`;
     return `<button class="cmp pickb${t===s?' best':''}" data-pickopen="${esc(r.k)}|${t}" aria-label="Ander product kiezen bij ${S[t].full}"><span>${dot(t)}</span><span class="pnm">${y.packs>1?y.packs+'× ':''}${esc(y.pick.p.name)}${y.pick.p.size?' · '+esc(y.pick.p.size):''}<small>Wissel ›</small></span><span class="pr">${y.sub?'<span class="subtag">≈</span> ':''}${y.deal&&y.regular>y.total+0.005?`<s>${eur(y.regular)}</s><span class="now">${eur(y.total)}</span>`:eur(y.total)}</span></button>`}).join('')}</div>`:''}</div>`}
 
 /* ---------- recepten ---------- */
@@ -337,7 +375,9 @@ function planLines(){let all=[];for(const f of state.favs){const n=state.plan[f.
 function renderPlan(){const n=state.favs.reduce((a,f)=>a+(state.plan[f.id]||0),0),bar=$('planBar');
   if(!n||$('t-recipes').hidden){bar.hidden=true;return}
   const lines=planLines(),c=costOfLines(lines.filter(l=>!inPantry(l)));
-  bar.hidden=false;bar.innerHTML=`<div class="pt">${n} ${n===1?'gerecht':'gerechten'} · ± ${eur(c.sum)}<small>${lines.length} producten, dubbele opgeteld</small></div><button class="btn" id="planAdd">Op lijst</button><button class="x" id="planClear" aria-label="Wissen">×</button>`}
+  let kc=0,pr=0,known=0;for(const f of state.favs){const m=state.plan[f.id]||0;if(m&&(f.kcal||f.protein)){kc+=(f.kcal||0)*m;pr+=(f.protein||0)*m;known+=m}}
+  const nut=known?`p.p. ${pr?pr+' g eiwit':''}${pr&&kc?' · ':''}${kc?kc.toLocaleString('nl-NL')+' kcal':''}${known<n?' (deels)':''}`:`${lines.length} producten, dubbele opgeteld`;
+  bar.hidden=false;bar.innerHTML=`<div class="pt">${n} ${n===1?'gerecht':'gerechten'} · ± ${eur(c.sum)}<small>${nut}</small></div><button class="btn" id="planAdd">Op lijst</button><button class="x" id="planClear" aria-label="Wissen">×</button>`}
 function renderRecipes(){
   $('favForm').innerHTML=fedit==='new'?favFormHtml(null):'';
   if(!state.favs.length){$('favs').innerHTML='<div class="empty">Nog geen favorieten. Voeg een recept toe of importeer er een met een foto of link.</div>';renderPlan();return}
@@ -389,11 +429,24 @@ const offLine=o=>{let n=o.n.split(/,| of /)[0].replace(/^(AH|Jumbo|PLUS|Plus|Ald
 const priceHtml=o=>o.was&&o.p!=null&&o.was>o.p?`<span class="pr"><s>${eur(o.was)}</s><span class="now">${eur(o.p)}</span></span>`:o.p!=null?`<span class="pr"><span class="now">${eur(o.p)}</span></span>`:'';
 const onList=l=>{const k=pkey(l);return favLines(state.text).some(x=>pkey(x)===k)};
 const addBtn=o=>{const l=offLine(o),on=onList(l);return `<button class="add${on?' ok':''}" data-oadd="${esc(l)}" aria-label="${esc(o.n)} op je lijst zetten">${on?'✓':'+'}</button>`};
-function offRow(o,why){const d=disc(o),hasP=o.was&&o.p!=null&&o.was>o.p;const meta=[hasP?'':o.d,d>=0.1?`−${Math.round(d*100)}%`:'',o.from>today?'vanaf '+dnl(o.from):''].filter(Boolean).join(' · ');return `<div class="off">${dot(o.s)}<div>${esc(o.n)}${why?`<span class="why">${esc(why)}</span>`:''}${meta?`<small>${esc(meta)}</small>`:''}</div><span class="end">${priceHtml(o)}${addBtn(o)}</span></div>`}
+/* prijsgeschiedenis: tags bij aanbiedingen */
+var H={};
+const hkey=o=>o.s+'|'+o.n.toLowerCase().replace(/\s+/g,' ').trim();
+function histTag(o){const rows=H[hkey(o)];if(!rows)return '';const all=Object.values(H).flat();if(!all.length)return '';
+  const first=all.reduce((a,r)=>r[0]<a?r[0]:a,'9'),wk=(()=>{const d=new Date(o.from+'T12:00');d.setDate(d.getDate()-((d.getDay()+6)%7));return d.toLocaleDateString('sv-SE')})();
+  const span=Math.round((new Date(wk)-new Date(first))/6048e5);if(span<3)return '';
+  const prev=rows.filter(r=>r[0]<wk),recent=prev.filter(r=>(new Date(wk)-new Date(r[0]))/6048e5<=8);
+  const ps=prev.map(r=>r[1]).filter(x=>x!=null);
+  if(!prev.length)return `⭐ Eerste keer in actie in ${span} weken`;
+  if(o.p!=null&&ps.length&&o.p<Math.min(...ps)-0.005)return `📉 Laagste actieprijs in ${span} weken`;
+  if(o.p!=null&&ps.length&&o.p>Math.min(...ps)+0.005)return `Eerder in actie voor ${eur(Math.min(...ps))}`;
+  if(recent.length>=4)return 'Vaak in actie, geen haast';
+  return ''}
+function offRow(o,why){const ht=histTag(o);const d=disc(o),hasP=o.was&&o.p!=null&&o.was>o.p;const meta=[hasP?'':o.d,d>=0.1?`−${Math.round(d*100)}%`:'',o.from>today?'vanaf '+dnl(o.from):''].filter(Boolean).join(' · ');return `<div class="off">${dot(o.s)}<div>${esc(o.n)}${why?`<span class="why">${esc(why)}</span>`:''}${ht?`<span class="hist">${esc(ht)}</span>`:''}${meta?`<small>${esc(meta)}</small>`:''}</div><span class="end">${priceHtml(o)}${addBtn(o)}</span></div>`}
 function renderOffers(){if(!O)return;const live=liveOffers(),sel=state.stores.filter(s=>!S[s].noOffers);
   $('offStores').innerHTML=`Aanbiedingen van ${sel.map(s=>S[s].label).join(', ')||'geen winkels'}${state.stores.includes('lidl')?' (Lidl heeft geen acties)':''} · <a href="#" data-go="route">winkels wijzigen</a>`;
   // voor jou: wat op je lijst of in je favorieten staat
-  const mine=[],seen=new Set();const src=[...favLines(state.text).map(l=>[l,'Op je lijst']),...state.favs.flatMap(f=>f.items.map(l=>[l,'Voor '+f.title]))];
+  const mine=[],seen=new Set();const src=[...state.follow.map(l=>[l,'🔔 Gevolgd']),...favLines(state.text).map(l=>[l,'Op je lijst']),...state.weekly.map(w=>[w.l,'Vaste boodschap']),...state.favs.flatMap(f=>f.items.map(l=>[l,'Voor '+f.title]))];
   for(const [l,why] of src){const it=Match.parseLine(l);if(!it)continue;for(const st of sel){const o=Match.offerFor(it,live,st);if(!o)continue;const k=o.s+o.n;if(seen.has(k))continue;seen.add(k);mine.push([o,why])}}
   mine.sort((a,b)=>disc(b[0])-disc(a[0]));
   $('offMineCard').hidden=!mine.length;$('offMine').innerHTML=mine.slice(0,6).map(([o,w])=>offRow(o,w)).join('');
@@ -436,7 +489,7 @@ function renderWeekly(){const box=$('wkList');let sum=0;
   const R=P?computeLines(state.weekly.map(w=>w.l)):[];
   box.innerHTML=state.weekly.map((w,i)=>{const r=R[i],b=r?bestOf(r):null,pr=b?r.per[b].total:null;if(w.on&&pr)sum+=pr;
     return `<div class="wk${w.on?'':' wkoff'}"><input type="checkbox" data-wkon="${i}"${w.on?' checked':''} aria-label="Deze week kopen">${catIcon(catOfText(w.l))}
-      <div class="wkm"><input class="qin" data-wki="${i}" value="${esc(w.l)}" aria-label="Product en hoeveelheid"><div class="wkb"><span class="pr">${pr!=null?(b?dot(b)+' ':'')+eur(pr):'<span class="muted">niet gevonden</span>'}</span><span class="qrow"><button class="qb" data-wkq="${i}|-1" aria-label="Minder">−</button><button class="qb" data-wkq="${i}|1" aria-label="Meer">+</button><button class="qb del" data-wkdel="${i}" aria-label="Verwijderen">×</button></span></div></div></div>`}).join('');
+      <div class="wkm"><input class="qin" data-wki="${i}" value="${esc(w.l)}" aria-label="Product en hoeveelheid">${b?stockTip(w.l,r.per[b].deal):''}<div class="wkb"><span class="pr">${pr!=null?(b?dot(b)+' ':'')+eur(pr):'<span class="muted">niet gevonden</span>'}${b&&r.per[b].deal?` <span class="tag" style="margin:0">${esc(r.per[b].deal.d)}</span>`:''}</span><span class="qrow">${folBtn(w.l)}<button class="qb" data-wkq="${i}|-1" aria-label="Minder">−</button><button class="qb" data-wkq="${i}|1" aria-label="Meer">+</button><button class="qb del" data-wkdel="${i}" aria-label="Verwijderen">×</button></span></div></div></div>`}).join('');
   $('wkSum').textContent=P?'± '+eur(sum):'';$('wkAuto').checked=!!state.wkAuto}
 function addWeekly(list){for(const l of list){const v=l.trim();if(v&&!state.weekly.some(w=>pkey(w.l)===pkey(v)))state.weekly.push({l:v,on:true})}persist();renderWeekly()}
 $('wkAdd').addEventListener('click',()=>{const v=$('wkIn').value.split(',').map(x=>x.trim()).filter(Boolean);if(!v.length)return;addWeekly(v);$('wkIn').value=''});
@@ -452,6 +505,15 @@ $('t-weekly').addEventListener('change',e=>{const c=e.target.closest('[data-wkon
 // automatisch: één keer per week, bij de eerste keer openen in een nieuwe week
 function autoWeekly(){if(!state.wkAuto||!state.weekly.length)return;const wk=weekKey(today);if(state.wkLast===wk)return;
   const on=state.weekly.filter(w=>w.on).map(w=>w.l);state.wkLast=wk;if(on.length){addLines(on)}persist()}
+/* ---------- melding in beeld + producten volgen ---------- */
+let toastT=null;function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),3200)}
+if(!Array.isArray(state.follow))state.follow=[];
+const isFollowed=l=>state.follow.some(x=>pkey(x)===pkey(l));
+const folBtn=l=>`<button class="fol${isFollowed(l)?' on':''}" data-fol="${esc(l)}" aria-label="${isFollowed(l)?'Niet meer volgen':'Volgen: melding bij aanbieding'}" title="Melding als dit in de aanbieding is">🔔</button>`;
+document.addEventListener('click',e=>{const b=e.target.closest('[data-fol]');if(!b)return;e.stopPropagation();const l=b.dataset.fol;
+  if(isFollowed(l)){state.follow=state.follow.filter(x=>pkey(x)!==pkey(l));toast('Je volgt dit product niet meer.')}
+  else{state.follow.push(l.replace(/^[\d.,]+\s*(g|kg|ml|l|cl|stuks?|st)?\s+/i,''));toast(state.push?'Gevolgd: je krijgt een melding als dit in de aanbieding is.':'Gevolgd. Zet meldingen aan met 🔕 bovenin om een seintje te krijgen.')}
+  persist();document.querySelectorAll(`[data-fol="${CSS.escape(l)}"]`).forEach(x=>x.classList.toggle('on',isFollowed(l)));if(!$('t-offers').hidden)renderOffers()},true);
 /* ---------- product kiezen ---------- */
 let lastR=[],sheetCtx=null,shT=null;
 function openSheet(k,s){const r=lastR.find(x=>x.k===k);if(!r)return;sheetCtx={r,s};
@@ -474,21 +536,21 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sheetCtx)closeSheet
 document.addEventListener('click',e=>{const t=e.target;
   const po=t.closest('[data-pickopen]');if(po){const i=po.dataset.pickopen.lastIndexOf('|');openSheet(po.dataset.pickopen.slice(0,i),po.dataset.pickopen.slice(i+1));return}
   if(t.id==='shareBtn'&&lastShare){lastShare();return}
-  if(t.id==='clearDone'){state.text=favLines(state.text).filter(l=>!state.done[keyOf(l)]).join('\n');state.done={};persist();render();return}
+  if(t.id==='clearDone'){state.text=favLines(state.text).filter(l=>!state.done[keyOf(l)]).join('\n');state.done={};state.booked={};persist();render();return}
   const st=t.closest('[data-s]');if(st){const s=st.dataset.s,on=state.stores.includes(s);
     if(on&&state.stores.length===1)return;state.stores=on?state.stores.filter(x=>x!==s):[...state.stores,s].sort((a,b)=>Object.keys(S).indexOf(a)-Object.keys(S).indexOf(b));
     persist();render();return}
   const go=t.closest('[data-go]');if(go){e.preventDefault();tab(go.dataset.go);return}
   const oa=t.closest('[data-oadd]');if(oa){if(!oa.classList.contains('ok'))addLines([oa.dataset.oadd]);document.querySelectorAll(`[data-oadd="${CSS.escape(oa.dataset.oadd)}"]`).forEach(b=>{b.textContent='✓';b.classList.add('ok')});return}
   const of=t.closest('[data-ofil]');if(of){ofil=of.dataset.ofil;renderOffers();return}
-  if(t.matches('[data-done]')){const k=t.dataset.done;if(t.checked)state.done[k]=true;else delete state.done[k];persist();render();return}
+  if(t.matches('[data-done]')){const k=t.dataset.done;if(t.checked){state.done[k]=true;book(k,t.dataset.st)}else{delete state.done[k];unbook(k)}persist();render();return}
   if(t.closest('select'))return;
   const op=t.closest('[data-open]');if(op){open=open===op.dataset.open?null:op.dataset.open;render()}
 });
 document.addEventListener('change',e=>{const t=e.target;if(!t.matches('[data-pick]'))return;const[k,s]=t.dataset.pick.split('|');
   const name=t.value.split(' · ')[0].split(' — ')[0];const it=Match.parseLine(k)||{t:[]};const pk=it.t.length?'p:'+it.t.join(' '):k;(state.picks[pk]=state.picks[pk]||{})[s]=name;if(state.picks[k]&&k!==pk)delete state.picks[k][s];persist();render()});
 $('save').addEventListener('click',()=>{state.text=$('txt').value;persist();$('lstat').textContent='Opgeslagen ✓';render();tab('route')});
-$('clear').addEventListener('click',e=>{const b=e.currentTarget;if(b.dataset.sure){state.text='';state.done={};$('txt').value='';persist();render();b.textContent='Lijst leegmaken';delete b.dataset.sure;$('lstat').textContent='Lijst leeggemaakt.'}else{b.dataset.sure=1;b.textContent='Zeker weten?';setTimeout(()=>{if(b.dataset.sure){delete b.dataset.sure;b.textContent='Lijst leegmaken'}},3000)}});
+$('clear').addEventListener('click',e=>{const b=e.currentTarget;if(b.dataset.sure){state.text='';state.done={};state.booked={};$('txt').value='';persist();render();b.textContent='Lijst leegmaken';delete b.dataset.sure;$('lstat').textContent='Lijst leeggemaakt.'}else{b.dataset.sure=1;b.textContent='Zeker weten?';setTimeout(()=>{if(b.dataset.sure){delete b.dataset.sure;b.textContent='Lijst leegmaken'}},3000)}});
 $('q').addEventListener('input',renderOffers);
 function tab(t){if(t!=='recipes')$('planBar').hidden=true;document.querySelectorAll('nav [data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
   document.querySelectorAll('main>section').forEach(s=>s.hidden=s.id!=='t-'+t);if(t==='list')$('txt').value=state.text;if(t==='offers')renderOffers();if(t==='recipes')renderRecipes();if(t==='weekly')renderWeekly();window.scrollTo(0,0)}
@@ -500,6 +562,7 @@ const getJ=f=>fetch(GH+f,{cache:'no-cache'}).then(r=>{if(!r.ok)throw 0;return r.
 Promise.all([getJ('prices.json'),getJ('offers.json')]).then(([p,o])=>{
   P=p;O=o;for(const s in P.stores)IDX[s]=Match.indexStore(P.stores[s]);
   autoWeekly();render();if(!$('t-recipes').hidden)renderRecipes();if(!$('t-weekly').hidden)renderWeekly();if(!$('t-offers').hidden)renderOffers()}).catch(()=>{$('sum').innerHTML='<p class="muted">Prijzen konden niet geladen worden. Probeer het later opnieuw.</p>'});
+getJ('history.json').then(h=>{H=h.items||{};if(!$('t-offers').hidden)renderOffers()}).catch(()=>{});
 render();
 
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
@@ -542,17 +605,82 @@ $('impOut').addEventListener('click',e=>{const t=e.target;
   if(t.id==='impFav'){const items=impLines();if(!items.length)return;state.favs.unshift({id:'f'+Date.now().toString(36),title:($('impTitle').value.trim()||'Recept'),items,kcal:scan&&scan.kcal||null,protein:scan&&scan.protein||null});persist();renderRecipes();t.textContent='Bewaard ✓';return}
   if(t.id==='impAdd'){t.textContent=addMsg(addLines(impLines()))}});
 
+/* ---------- menu uit aanbiedingen ---------- */
+let menu=null;
+$('menuOpen').addEventListener('click',()=>{const f=$('menuForm');f.hidden=!f.hidden});
+$('menuGo').addEventListener('click',async()=>{const out=$('menuOut'),st=state.stores.filter(x=>x!=='lidl');
+  if(!st.length){out.innerHTML='<p class="muted">Kies eerst een winkel met aanbiedingen bij Route.</p>';return}
+  out.innerHTML='<p class="muted">Claude bekijkt de aanbiedingen en maakt een menu… (± 20 seconden)</p>';$('menuGo').disabled=true;
+  try{const r=await fetch('/api/menu',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({stores:st,count:+$('mCount').value,persons:+$('mPers').value,kcal:+$('mKcal').value,protein:$('mProt').checked,wish:$('mWish').value,avoid:state.favs.map(f=>f.title),device:devId})});
+    const d=await r.json().catch(()=>({error:'Het menu maken is niet gelukt.'}));
+    if(!r.ok||d.error){out.innerHTML=`<p class="muted">${esc(d.error||'Het menu maken is niet gelukt.')}</p>`;return}
+    menu=d;$('menuForm').hidden=true;showMenu()}
+  catch(e){out.innerHTML='<p class="muted">Het menu maken is niet gelukt. Controleer je internet.</p>'}
+  finally{$('menuGo').disabled=false}});
+function showMenu(){if(!menu)return;const c=P?menu.meals.map(m=>costOfLines(m.items.filter(l=>!inPantry(l))).sum):[];
+  $('menuOut').innerHTML=menu.meals.map((m,i)=>`<div class="meal"><h3>${esc(m.title)}</h3>
+    <div class="muted" style="font-size:13px">${[m.time,P?'± '+eur(c[i]):'',m.kcal?m.kcal+' kcal':'',m.protein?m.protein+' g eiwit p.p.':''].filter(Boolean).join(' · ')}</div>
+    <div>${m.deals.map(d=>`<span class="deal">${esc(d)}</span>`).join('')}</div>
+    <ul>${m.items.map(l=>`<li>${esc(l)}</li>`).join('')}</ul>${m.pantry.length?`<div class="muted" style="font-size:12.5px">Uit de kast: ${esc(m.pantry.join(', '))}</div>`:''}
+    <details><summary class="muted" style="font-size:13px;cursor:pointer;margin-top:4px">Bereiding</summary><ol>${m.steps.map(x=>`<li>${esc(x)}</li>`).join('')}</ol></details>
+    <div class="btns tight"><button class="btn" data-madd="${i}">Op lijst</button><button class="btn sec" data-mfav="${i}">${m.saved?'Bewaard ✓':'Bewaar'}</button></div></div>`).join('')
+    +`<div class="btns"><button class="btn sec" id="menuAll">Alles op lijst</button><button class="btn sec" id="menuClose">Sluiten</button></div>`}
+$('menuOut').addEventListener('click',e=>{const t=e.target;
+  if(t.id==='menuClose'){menu=null;$('menuOut').innerHTML='';return}
+  if(t.id==='menuAll'){t.textContent=addMsg(addLines(menu.meals.flatMap(m=>m.items)));return}
+  if(t.dataset.madd){t.textContent=addMsg(addLines(menu.meals[+t.dataset.madd].items));return}
+  if(t.dataset.mfav){const m=menu.meals[+t.dataset.mfav];if(m.saved)return;m.saved=true;state.favs.unshift({id:'f'+Date.now().toString(36),title:m.title,items:m.items,kcal:m.kcal,protein:m.protein,steps:m.steps});persist();renderRecipes();t.textContent='Bewaard ✓'}});
+/* ---------- samen delen (geheime link, geen account) ---------- */
+const SITE='https://budgetboodschappen.netlify.app/';
+const listLines=()=>favLines(state.text);
+const sameDone=(a,b)=>{const x=Object.keys(a).sort().join('\n'),y=Object.keys(b).sort().join('\n');return x===y};
+const dirty=()=>state.share&&(state.text.trim()!==state.share.bt.trim()||!sameDone(state.done,state.share.bd));
+function adopt(l){adopting=true;state.text=l.text.join('\n');state.done={...l.done};state.share={...state.share,v:l.v,bt:state.text,bd:{...l.done},at:l.updated};
+  persist();adopting=false;render();const ta=$('txt');if(ta&&document.activeElement!==ta)ta.value=state.text;renderShare()}
+let listBusy=false,listT=null;
+function listSyncSoon(){clearTimeout(listT);listT=setTimeout(listSync,1000)}
+async function listSync(){if(!state.share||listBusy)return;listBusy=true;const sh=state.share;
+  try{let r;
+    if(dirty())r=await fetch('/api/list',{method:'PUT',headers:{'content-type':'application/json'},body:JSON.stringify({id:sh.id,base:sh.v,baseText:sh.bt,baseDone:sh.bd,text:state.text,done:state.done})});
+    else r=await fetch('/api/list?id='+encodeURIComponent(sh.id),{cache:'no-store'});
+    if(r.status===404){state.share=null;persist();renderShare();toast('De gedeelde lijst bestaat niet meer.');return}
+    const l=await r.json();if(r.ok&&state.share&&state.share.id===sh.id&&(l.v!==sh.v||dirty()))adopt(l)}
+  catch(e){}finally{listBusy=false}}
+setInterval(()=>{if(state.share&&document.visibilityState==='visible')listSync()},15000);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')listSync()});
+const shareLink=()=>SITE+'?lijst='+state.share.id;
+function sendLink(){const text='Doe mee met onze boodschappenlijst in BudgetBoodschappen: '+shareLink();
+  if(navigator.share)navigator.share({text}).catch(()=>{});else window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank')}
+function renderShare(){const b=$('shareBox');if(!b)return;
+  if(!state.share){b.innerHTML=`<h2>Samen boodschappen doen</h2><p class="muted" style="margin:0 0 4px;font-size:13.5px">Deel je lijst met huisgenoten. Iedereen met de link ziet dezelfde lijst en kan toevoegen en afvinken. Geen account nodig.</p><div class="btns tight"><button class="btn" id="shStart">👥 Samen delen</button></div>`;return}
+  const t=state.share.at?new Date(state.share.at).toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'}):'';
+  b.innerHTML=`<h2>👥 Gedeelde lijst</h2><p class="muted" style="margin:0 0 4px;font-size:13.5px">Wijzigingen komen vanzelf bij iedereen binnen.${t?' Laatst bijgewerkt '+t+'.':''} Iedereen met de link kan de lijst zien en aanpassen.</p>
+    <div class="btns tight"><button class="btn" id="shSend">Link sturen</button><button class="btn sec" id="shStop">Stoppen</button></div>`}
+$('shareBox').addEventListener('click',async e=>{const t=e.target;
+  if(t.id==='shStart'){t.disabled=true;try{const r=await fetch('/api/list',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({text:state.text,done:state.done})});const l=await r.json();if(!r.ok)throw 0;
+      state.share={id:l.id,v:l.v,bt:l.text.join('\n'),bd:{...l.done},at:l.updated};persist();renderShare();sendLink()}
+    catch(err){t.disabled=false;toast('Delen lukte niet. Controleer je internet.')}return}
+  if(t.id==='shSend'){sendLink();return}
+  if(t.id==='shStop'){if(!t.dataset.sure){t.dataset.sure=1;t.textContent='Zeker?';return}state.share=null;persist();renderShare();toast('Je lijst wordt niet meer gedeeld. Je houdt je eigen kopie.')}});
+(async()=>{const id=new URLSearchParams(location.search).get('lijst');if(!id)return;history.replaceState(null,'',location.pathname);
+  if(state.share&&state.share.id===id){listSync();return}
+  try{const r=await fetch('/api/list?id='+encodeURIComponent(id),{cache:'no-store'});const l=await r.json();if(!r.ok){toast(l.error||'Deze link werkt niet.');return}
+    const mine=listLines().filter(x=>!l.text.some(y=>Match.norm(y)===Match.norm(x)));
+    state.share={id,v:l.v,bt:l.text.join('\n'),bd:{...l.done},at:l.updated};adopting=true;state.text=[...l.text,...mine].join('\n');state.done={...l.done};persist();adopting=false;
+    render();renderShare();if(dirty())listSync();toast(mine.length?`Je doet mee met de gedeelde lijst. ${mine.length} van jouw producten zijn toegevoegd.`:'Je doet nu mee met de gedeelde lijst.')}
+  catch(e){toast('De gedeelde lijst kon niet geladen worden.')}})();
+renderShare();if(state.share)listSync();
 /* ---------- pushmeldingen ---------- */
 const canPush='serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window;
 const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
 const isIOS=/iPhone|iPad|iPod/.test(navigator.userAgent);
-function pushUI(){const b=$('pushBtn');b.hidden=false;b.classList.toggle('on',!!state.push);b.setAttribute('aria-pressed',!!state.push);b.textContent=state.push?'🔔 Meldingen aan':'🔕 Meldingen'}
+function pushUI(){const b=$('pushBtn');b.hidden=false;b.classList.toggle('on',!!state.push);b.setAttribute('aria-pressed',!!state.push);b.textContent=state.push?'🔔':'🔕';b.setAttribute('aria-label',state.push?'Meldingen staan aan':'Meldingen aanzetten')}
 const b64u=s=>{const p='='.repeat((4-s.length%4)%4),r=atob((s+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(r,c=>c.charCodeAt(0))};
 async function pushSub(){const reg=await navigator.serviceWorker.ready;return reg.pushManager.getSubscription()}
 async function pushSync(){const sub=await pushSub();if(!sub)return;
-  await fetch('/api/push',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({subscription:sub.toJSON(),favs:state.favs,stores:state.stores})})}
+  await fetch('/api/push',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({subscription:sub.toJSON(),favs:state.favs,follow:state.follow,stores:state.stores})})}
 var pushT=null;function pushSyncSoon(){clearTimeout(pushT);pushT=setTimeout(()=>pushSync().catch(()=>{}),1500)}
-$('pushBtn').addEventListener('click',async()=>{const st=$('pushSt');st.textContent='';
+$('pushBtn').addEventListener('click',async()=>{const st={set textContent(v){if(v)toast(v)}};
   if(state.push){try{const sub=await pushSub();if(sub){await fetch('/api/push',{method:'DELETE',headers:{'content-type':'application/json'},body:JSON.stringify({subscription:sub.toJSON()})});await sub.unsubscribe()}}catch(e){}
     state.push=false;persist();pushUI();st.textContent='Meldingen uit.';return}
   if(isIOS&&!standalone){st.textContent='Zet de app eerst op je beginscherm (Deel → Zet op beginscherm) en open hem daar.';return}
