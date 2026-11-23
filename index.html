@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#f4f5f2">
+<meta name="theme-color" content="#fbfbfa">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="description" content="Zet je boodschappenlijst erin en zie bij welke supermarkt je het goedkoopst uit bent, met de aanbiedingen van deze week.">
 <meta property="og:title" content="BudgetBoodschappen">
@@ -26,19 +26,19 @@
    PICTURE: de totaalkaart met per winkel een balk, daaronder de bonnetjes
    COLOUR and TYPE: wit, inkt, groen voor besparing; winkelstipjes in eigen kleur; Figtree
    LAYOUT: één kolom op telefoonbreedte, tabbladen bovenaan */
-:root{color-scheme:light;--bg:#f4f5f2;--card:#fff;--ink:#15171a;--mute:#6a6d73;--line:#e3e4df;--field:#f1f2ee;--ok:#16834a;--okbg:#e5f4ea;--warn:#b25a00;--ah:#00a0e2;--jumbo:#f2c200;--aldi:#1c3f94;--dirk:#d6001c;--plus:#2f9e44;--lidl:#7b4fc9}
-:root[data-theme=dark]{color-scheme:dark;--bg:#111213;--card:#1b1c1f;--ink:#f0f1ee;--mute:#9b9ea4;--line:#2d2f33;--field:#24262a;--ok:#4cc985;--okbg:#173525;--warn:#f0a24a}
-@media(prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#111213;--card:#1b1c1f;--ink:#f0f1ee;--mute:#9b9ea4;--line:#2d2f33;--field:#24262a;--ok:#4cc985;--okbg:#173525;--warn:#f0a24a}}
+:root{color-scheme:light;--bg:#fbfbfa;--card:#fff;--ink:#15171a;--mute:#6a6d73;--line:#e3e4df;--field:#f1f2ee;--ok:#16834a;--okbg:#e5f4ea;--warn:#b25a00;--ah:#00a0e2;--jumbo:#f2c200;--aldi:#1c3f94;--dirk:#d6001c;--plus:#2f9e44;--lidl:#7b4fc9}
 *{box-sizing:border-box;min-width:0}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 Figtree,system-ui,sans-serif;overflow-x:clip}
 .wrap{max-width:680px;margin:0 auto;padding:0 16px}
-header{padding:20px 0 4px}
-h1{font-size:clamp(25px,7.4vw,34px);letter-spacing:-.5px;line-height:1.05;margin:0;font-weight:800}
+header{padding:calc(14px + env(safe-area-inset-top)) 0 12px}
+header .stores{margin-top:12px}
+h1{font-size:clamp(23px,6.6vw,30px);letter-spacing:-.5px;line-height:1.05;margin:0;font-weight:800}
 h2{font-size:20px;margin:0 0 8px;font-weight:700}
-.brand{display:flex;align-items:center;gap:10px}.brand img{flex:none;border-radius:11px;box-shadow:0 2px 6px rgba(15,107,58,.25)}
+.brand{display:flex;align-items:center;gap:10px}.brand img{flex:none;width:38px;height:38px;border-radius:11px;box-shadow:0 2px 6px rgba(15,107,58,.25)}
 h1 span{color:var(--ok)}
 .pct{display:inline-block;background:var(--okbg);color:var(--ok);font-weight:800;font-size:12px;border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:1px}
 .sub{color:var(--mute);font-size:14px;margin-top:4px}
+.stores[hidden]{display:none}
 .stores{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:14px 0 4px}
 .st{display:flex;align-items:center;gap:8px;justify-content:center;border:1.5px solid var(--line);background:var(--card);color:var(--mute);border-radius:12px;min-height:48px;font:700 15px Figtree,sans-serif;cursor:pointer;padding:6px}
 .st[aria-pressed=true]{border-color:var(--ink);color:var(--ink)}
@@ -52,18 +52,18 @@ nav button{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:
 nav svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 nav button[aria-selected=true]{color:var(--ink)}nav button[aria-selected=true] svg{stroke-width:2.4}nav button[data-tab=recipes][aria-selected=true] svg{fill:currentColor}
 section[hidden]{display:none}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
-.total{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 1px 2px rgba(20,24,20,.04)}
+.total{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
 .big{font-size:clamp(36px,10vw,48px);font-weight:800;line-height:1;white-space:nowrap}
 .subtag{display:inline-block;background:#fff2d6;color:#8a5a00;font-weight:700;font-size:11px;border-radius:5px;padding:0 5px;margin-right:2px}
 .subn{color:#8a5a00;font-weight:700;font-size:13px}
-@media(prefers-color-scheme:dark){.subn{color:#f0b44a}.subtag{background:#3a2c10;color:#f0c46a}}
 .save{display:inline-block;background:var(--okbg);color:var(--ok);font-weight:700;border-radius:8px;padding:4px 10px;font-size:14px;margin-top:8px}
 .bars{margin-top:14px;display:grid;gap:8px}
 .bar{display:grid;grid-template-columns:72px minmax(0,1fr) 74px;gap:8px;align-items:center;font-size:14px}
 .bar .tr{height:12px;background:var(--field);border-radius:6px;overflow:hidden}.bar .tr i{display:block;height:100%;border-radius:6px}
 .bar .r{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .mode{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.mode.hscroll{display:flex;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-left:-16px;margin-right:-16px;padding:0 16px}.mode.hscroll::-webkit-scrollbar{display:none}.mode.hscroll .chip{flex:none}
 .chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;min-height:40px;font:600 14px Figtree,sans-serif;cursor:pointer}
 .chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .bon{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:12px;overflow:hidden}
@@ -85,9 +85,10 @@ section[hidden]{display:none}
 .miss{color:var(--warn)}
 textarea{width:100%;min-height:260px;font:16px/1.5 Figtree,sans-serif;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:12px;padding:12px;resize:vertical}
 input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-height:44px}
-.btn{background:var(--ink);color:var(--bg);border:0;border-radius:12px;font:700 16px Figtree,sans-serif;min-height:48px;padding:0 18px;cursor:pointer}
+.btn{background:var(--ink);color:#fff;border:0;border-radius:12px;font:700 15px Figtree,sans-serif;min-height:44px;padding:0 16px;cursor:pointer}
 .btn.sec{background:var(--card);color:var(--ink);border:1px solid var(--line)}
 .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.btns.tight{flex-wrap:nowrap}.btns.tight .btn{flex:1 1 auto;padding:0 10px;justify-content:center;white-space:nowrap}
 .fin{width:100%;box-sizing:border-box;font:500 16px Figtree,sans-serif;background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:4px}
 .thumbs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.thumbs img{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
 .ing{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}.ing input{width:20px;height:20px;flex:none}.ing input[type=text]{flex:1;width:auto;height:auto;font:500 15px Figtree,sans-serif;border:0;background:none;color:var(--ink);padding:2px 0}
@@ -107,7 +108,6 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 <body>
 <header class="wrap">
   <div class="brand"><img src="icons/logo.svg" alt="" width="44" height="44"><h1>Budget<span>Boodschappen</span></h1></div>
-  <div class="sub" id="fresh">Prijzen laden…</div>
   <div class="stores" id="stores"></div>
 </header>
 <nav><div class="seg" role="tablist">
@@ -123,38 +123,30 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
   </section>
   <section id="t-list" hidden>
     <div class="card">
-      <h2>Je boodschappenlijst</h2>
-      <p class="muted" style="margin:0 0 10px">Eén product per regel. Hoeveelheden helpen: <b>500 g kipfilet</b>, <b>1 l halfvolle melk</b>, <b>2 paprika</b>. Hoe specifieker (bijv. <b>gele uien</b> i.p.v. <b>uien</b>), hoe beter de match.</p>
-      <label for="txt" class="muted">Lijst</label>
+      <h2>Lijst</h2>
       <textarea id="txt" placeholder="500 g kipfilet&#10;1 l halfvolle melk&#10;spaghetti 500 g&#10;2 rode paprika&#10;gele uien"></textarea>
       <div class="btns"><button class="btn" id="save">Opslaan en vergelijken</button><button class="btn sec" id="clear">Lijst leegmaken</button></div>
       <div class="status" id="lstat"></div>
     </div>
   </section>
   <section id="t-recipes" hidden>
-    <div class="card"><h2>Favoriete recepten</h2>
-      <p class="muted" style="margin:0">Recepten die je vaker maakt. Met één tik staan alle boodschappen op je lijst.</p>
-      <div class="btns"><button class="btn" id="favNew">+ Nieuw recept</button><button class="btn sec" id="favFromList">Huidige lijst bewaren</button></div>
+    <div class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2 style="margin:0">Favorieten</h2><button class="chip" id="pushBtn" aria-pressed="false" hidden>🔔 Meldingen</button></div><div class="status" id="pushSt" style="min-height:0"></div>
+      <div class="btns tight"><button class="btn" id="favNew">+ Nieuw</button><label class="btn sec" for="impFile" style="display:inline-flex;align-items:center">📷 Uit foto</label><button class="btn sec" id="favFromList">Bewaar lijst</button></div>
       <div id="favForm"></div></div>
     <div id="favs"></div>
-    <div class="card" id="imp"><h2>Recept uit foto</h2>
-      <p class="muted" style="margin:0">Maak een foto of screenshot van een recept met een ingrediëntenlijst. Je telefoon leest de tekst en zet de ingrediënten klaar voor je lijst. Een foto van alleen een gerecht werkt hier niet.</p>
-      <div class="btns"><label class="btn" for="impFile" style="display:inline-flex;align-items:center">📷 Importeer uit foto's</label>
-        <select id="impPers" class="btn sec" aria-label="Aantal personen" style="padding:0 12px"><option value="0" selected>Personen zoals recept</option><option value="1">1 persoon</option><option value="2">2 personen</option><option value="3">3 personen</option><option value="4">4 personen</option><option value="6">6 personen</option></select></div>
+    <div class="card" id="imp" hidden><h2>Uit foto</h2>
+      <div class="btns"><select id="impPers" class="btn sec" aria-label="Aantal personen" style="padding:0 12px"><option value="0" selected>Personen zoals recept</option><option value="1">1 persoon</option><option value="2">2 personen</option><option value="3">3 personen</option><option value="4">4 personen</option><option value="6">6 personen</option></select></div>
       <input type="file" id="impFile" accept="image/*" multiple hidden>
       <div id="impThumbs" class="thumbs"></div><div id="impOut"></div></div>
 
   </section>
   <section id="t-offers" hidden>
     <div class="card">
-      <input type="search" id="q" placeholder="Zoek in de aanbiedingen (bijv. kip, kaas, fruit)" aria-label="Zoek in aanbiedingen">
-      <div class="mode" id="ofil"></div>
-      <div class="mode"><button class="chip" id="otop" aria-pressed="false">🔥 Hoogste korting eerst</button></div>
-      <p class="muted" style="margin:4px 0 8px;font-size:13px">Lidl staat hier niet bij: van Lidl zijn alleen de gewone prijzen bekend, geen aanbiedingen.</p>
+      <input type="search" id="q" placeholder="Zoek in aanbiedingen" aria-label="Zoek in aanbiedingen">
+      <div class="mode hscroll"><button class="chip" id="otop" aria-pressed="false">🔥 Hoogste korting</button><span id="ofil" style="display:contents"></span></div>
       <div id="offList" style="margin-top:8px"></div>
     </div>
   </section>
-  <p class="muted" id="where" style="text-align:center"></p>
 </main>
 <script src="match.js"></script>
 <script>
@@ -173,6 +165,7 @@ let docRef=null,saving=Promise.resolve();
 const LK='boodschappen-v1';
 try{Object.assign(state,JSON.parse(localStorage.getItem(LK)||'{}'))}catch(e){}
 function persist(){try{localStorage.setItem(LK,JSON.stringify(state))}catch(e){}
+  if(state.push)pushSyncSoon();
   if(docRef){const body={text:state.text,done:state.done,picks:state.picks,stores:state.stores,mode:state.mode,updated:new Date().toISOString()};
     saving=saving.then(()=>docRef.set(body)).catch(()=>{})}}
 const keyOf=l=>Match.norm(l);
@@ -212,9 +205,8 @@ function render(){
   const saveTxt=state.mode==='split'&&bestOne&&one[bestOne].sum-split>0.005?`<div class="save">${eur(one[bestOne].sum-split)} goedkoper dan alles bij ${S[bestOne].label}</div>`:'';
   const maxv=Math.max(...sel.map(s=>one[s].sum),1);
   $('sum').innerHTML=`<div class="total"><div><div class="muted">${state.mode==='split'?'Totaal, slim verdeeld':'Totaal bij '+S[state.mode].full}</div><div class="big">${eur(split)}</div>${saveTxt}</div>
-    <div class="muted" style="text-align:right">${R.length} producten<br>${Object.keys(groups).length} ${Object.keys(groups).length===1?'winkel':'winkels'}</div></div>
+    </div>
     <div class="bars">${sel.map(s=>`<div class="bar"><span>${dot(s)} ${S[s].label}</span><span class="tr"><i style="width:${one[s].sum/maxv*100}%;background:${S[s].c}"></i></span><span class="r">${eur(one[s].sum)}${one[s].sub?` <span class="subn">≈${one[s].sub}</span>`:''}${one[s].miss?` <span class="miss">−${one[s].miss}</span>`:''}</span></div>`).join('')}</div>
-    <p class="muted" style="margin:8px 0 0">Balken: wat je hele lijst bij één winkel kost${sel.some(s=>one[s].miss)?' (−n = zoveel producten niet gevonden)':''}${sel.some(s=>one[s].sub)?' ≈n = zoveel producten vervangen door iets wat erop lijkt.':''}</p>
     <div class="mode"><button class="chip${state.mode==='split'?' on':''}" data-mode="split">Goedkoopst verdeeld</button>${sel.map(s=>`<button class="chip${state.mode===s?' on':''}" data-mode="${s}">Alles bij ${S[s].label}</button>`).join('')}</div>`;
   const order=['aldi','lidl','dirk','plus','jumbo','ah'].filter(s=>groups[s]);
   $('bons').innerHTML=order.map(s=>{const g=groups[s],sub=g.reduce((a,r)=>a+r.per[s].total,0);
@@ -227,8 +219,7 @@ function item(r,s,sel){const x=r.per[s],done=!!state.done[r.k],isOpen=open===r.k
   <div><div class="lbl">${esc(r.line)}</div><div class="pn">${x.sub?'<span class="subtag">lijkt op</span> ':''}${pk}${esc(p.name)}${sz}</div>${x.deal?`<span class="tag">${esc(x.deal.d)}</span>`:''}</div>
   <div class="pr">${x.deal&&x.regular>x.total+0.005?`<s>${eur(x.regular)}</s><span class="now">${eur(x.total)}</span>`:eur(x.total)}</div></div>
   ${isOpen?`<div class="det">${sel.map(t=>{const y=r.per[t];if(!y)return `<div class="cmp"><span>${dot(t)}</span><span class="muted">${S[t].label}: niet gevonden</span><span></span></div>`;
-    return `<div class="cmp${t===s?' best':''}"><span>${dot(t)}</span><select aria-label="Product bij ${S[t].full}" data-pick="${esc(r.k)}|${t}">${y.cands.map(c=>`<option${c.p.name===y.pick.p.name?' selected':''}>${esc(c.p.name)}${c.p.size?' · '+esc(c.p.size):''} — ${eur(c.p.price)}</option>`).join('')}</select><span class="pr">${y.sub?'<span class="subtag">≈</span> ':''}${y.deal&&y.regular>y.total+0.005?`<s>${eur(y.regular)}</s><span class="now">${eur(y.total)}</span>`:eur(y.total)}</span></div>`}).join('')}
-    <div class="muted" style="margin-top:6px">Klopt het product niet? Kies hierboven een ander product per winkel.</div></div>`:''}</div>`}
+    return `<div class="cmp${t===s?' best':''}"><span>${dot(t)}</span><select aria-label="Product bij ${S[t].full}" data-pick="${esc(r.k)}|${t}">${y.cands.map(c=>`<option${c.p.name===y.pick.p.name?' selected':''}>${esc(c.p.name)}${c.p.size?' · '+esc(c.p.size):''} — ${eur(c.p.price)}</option>`).join('')}</select><span class="pr">${y.sub?'<span class="subtag">≈</span> ':''}${y.deal&&y.regular>y.total+0.005?`<s>${eur(y.regular)}</s><span class="now">${eur(y.total)}</span>`:eur(y.total)}</span></div>`}).join('')}</div>`:''}</div>`}
 
 /* ---------- recepten ---------- */
 function bestOf(r){let b=null;const ex=state.stores.some(s=>r.per[s]&&!r.per[s].sub);for(const s of state.stores){const y=r.per[s];if(y&&(!ex||!y.sub)&&(!b||y.total<r.per[b].total))b=s}return b}
@@ -249,9 +240,9 @@ function renderRecipes(){
       const x=r.per[b];sum+=x.total;return `<div class="cmp"><span>${dot(b)}</span><span>${esc(r.line)}<span class="pn" style="display:block">${x.packs>1?x.packs+'× ':''}${esc(x.pick.p.name)}${x.deal?' · <b style="color:var(--ok)">'+esc(x.deal.d)+'</b>':''}</span></span><span class="pr">${x.deal&&x.regular>x.total+0.005?`<s>${eur(x.regular)}</s><span class="now">${eur(x.total)}</span>`:eur(x.total)}</span></div>`}).join('')}
     const open=fopen===f.id;
     return `<div class="card rc"><div class="rh" data-fopen="${f.id}" style="display:flex;justify-content:space-between;gap:10px;align-items:baseline"><h2 style="margin:0">${esc(f.title)}</h2><b style="white-space:nowrap">${P?'± '+eur(sum):''}</b></div>
-      <div class="muted">${f.items.length} producten${miss?` · ${miss} niet gevonden`:''} · prijs bij jouw winkels</div>
+      <div class="muted">${f.items.length} producten${miss?` · ${miss} niet gevonden`:''}</div>
       ${open?`<div style="margin-top:8px">${rows}</div>`:''}
-      <div class="btns"><button class="btn" data-fadd="${f.id}">Zet op mijn lijst</button><button class="btn sec" data-fopen="${f.id}">${open?'Minder':'Bekijk'}</button><button class="btn sec" data-fedit="${f.id}">Bewerk</button></div></div>`}).join('')}
+      <div class="btns"><button class="btn" data-fadd="${f.id}">Op lijst</button><button class="btn sec" data-fopen="${f.id}">${open?'Minder':'Bekijk'}</button><button class="btn sec" data-fedit="${f.id}">Bewerk</button></div></div>`}).join('')}
 function saveFav(id){const title=$('fTitle').value.trim()||'Mijn recept',items=favLines($('fItems').value);if(!items.length){$('fItems').focus();return}
   if(id&&id!=='new'){const f=state.favs.find(x=>x.id===id);if(f){f.title=title;f.items=items}}else state.favs.unshift({id:'f'+Date.now().toString(36),title,items});
   fedit=null;persist();renderRecipes()}
@@ -272,7 +263,7 @@ function renderOffers(){if(!O)return;const q=Match.norm($('q').value);
   $('otop').setAttribute('aria-pressed',otop);$('otop').classList.toggle('on',otop);
   let L=O.offers.filter(o=>o.to>=today&&(ofil==='all'||o.s===ofil)&&(!q||Match.norm(o.n).includes(q)));
   if(otop)L=L.filter(o=>disc(o)>=0.2).sort((a,b)=>disc(b)-disc(a));
-  $('offList').innerHTML=L.map(o=>`<div class="off">${dot(o.s)}<div>${esc(o.n)}${otop?`<span class="pct">−${Math.round(disc(o)*100)}%</span>`:''}<small>${S[o.s].label} · ${o.from>today?'vanaf '+dnl(o.from)+' · ':''}t/m ${dnl(o.to)}</small></div><span class="d">${o.was&&o.p!=null&&o.was>o.p?`<span class="pr"><s>${eur(o.was)}</s><span class="now">${eur(o.p)}</span></span><small style="font-weight:600">${esc(o.d)}</small>`:esc(o.d)}</span></div>`).join('')||'<div class="empty">Geen aanbiedingen gevonden.</div>'}
+  $('offList').innerHTML=L.map(o=>`<div class="off">${dot(o.s)}<div>${esc(o.n)}${otop?`<span class="pct">−${Math.round(disc(o)*100)}%</span>`:''}<small>${S[o.s].label}${o.from>today?' · vanaf '+dnl(o.from):''}</small></div><span class="d">${o.was&&o.p!=null&&o.was>o.p?`<span class="pr"><s>${eur(o.was)}</s><span class="now">${eur(o.p)}</span></span><small style="font-weight:600">${esc(o.d)}</small>`:esc(o.d)}</span></div>`).join('')||'<div class="empty">Geen aanbiedingen gevonden.</div>'}
 
 /* ---------- events ---------- */
 document.addEventListener('click',e=>{const t=e.target;
@@ -292,23 +283,23 @@ document.addEventListener('change',e=>{const t=e.target;if(!t.matches('[data-pic
 $('save').addEventListener('click',()=>{state.text=$('txt').value;persist();$('lstat').textContent='Opgeslagen ✓';render();tab('route')});
 $('clear').addEventListener('click',e=>{const b=e.currentTarget;if(b.dataset.sure){state.text='';state.done={};state.picks={};$('txt').value='';persist();render();b.textContent='Lijst leegmaken';delete b.dataset.sure;$('lstat').textContent='Lijst leeggemaakt.'}else{b.dataset.sure=1;b.textContent='Zeker weten?';setTimeout(()=>{if(b.dataset.sure){delete b.dataset.sure;b.textContent='Lijst leegmaken'}},3000)}});
 $('q').addEventListener('input',renderOffers);
-function tab(t){document.querySelectorAll('nav [data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
+function tab(t){$('stores').hidden=!(t==='route'||t==='offers');document.querySelectorAll('nav [data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
   document.querySelectorAll('main>section').forEach(s=>s.hidden=s.id!=='t-'+t);if(t==='list')$('txt').value=state.text;if(t==='offers')renderOffers();if(t==='recipes')renderRecipes();window.scrollTo(0,0)}
 document.querySelector('nav').addEventListener('click',e=>{const t=e.target.closest('[data-tab]');if(t)tab(t.dataset.tab)});
 
 /* ---------- data laden ---------- */
-Promise.all([fetch('data/prices.json').then(r=>r.json()),fetch('data/offers.json').then(r=>r.json())]).then(([p,o])=>{
+const GH='https://raw.githubusercontent.com/nilonfoesenek/budgetboodschappen/main/data/';
+const getJ=f=>fetch(GH+f,{cache:'no-cache'}).then(r=>{if(!r.ok)throw 0;return r.json()}).catch(()=>fetch('data/'+f).then(r=>r.json()));
+Promise.all([getJ('prices.json'),getJ('offers.json')]).then(([p,o])=>{
   P=p;O=o;for(const s in P.stores)IDX[s]=Match.indexStore(P.stores[s]);
-  const w=O.weeks;$('fresh').textContent='Aanbiedingen: '+Object.keys(S).filter(s=>w[s]).map(s=>`${S[s].label} t/m ${dnl(w[s].to)}`).join(' · ')+' · Lidl: alleen gewone prijzen';
-  render()}).catch(()=>{$('fresh').textContent='Prijzen konden niet geladen worden. Probeer het later opnieuw.'});
-$('where').textContent='Je lijst staat op dit apparaat.';
+  render();if(!$('t-recipes').hidden)renderRecipes();if(!$('t-offers').hidden)renderOffers()}).catch(()=>{$('sum').innerHTML='<p class="muted">Prijzen konden niet geladen worden. Probeer het later opnieuw.</p>'});
 render();
 
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 /* ---------- recept uit foto (tekstherkenning op het toestel) ---------- */
 let ocrText='',ocrBase=0;
 function loadTess(){return window.Tesseract?Promise.resolve():new Promise((ok,no)=>{const sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';sc.onload=ok;sc.onerror=no;document.head.appendChild(sc)})}
-$('impFile').addEventListener('change',async e=>{const fs=[...e.target.files].slice(0,5);e.target.value='';if(!fs.length)return;const out=$('impOut');
+$('impFile').addEventListener('change',async e=>{const fs=[...e.target.files].slice(0,5);e.target.value='';if(!fs.length)return;$('imp').hidden=false;$('imp').scrollIntoView({behavior:'smooth',block:'start'});const out=$('impOut');
   $('impThumbs').innerHTML='';for(const f of fs){const i=document.createElement('img');i.alt='';i.src=URL.createObjectURL(f);$('impThumbs').appendChild(i)}
   out.innerHTML='<p class="muted" id="ocrSt">Tekstherkenning laden… (de eerste keer duurt dit even)</p>';
   try{await loadTess();const w=await Tesseract.createWorker(['nld','eng'],1,{logger:m=>{const st=$('ocrSt');if(st&&m.status==='recognizing text')st.textContent=`Tekst lezen… ${Math.round(m.progress*100)}%`}});
@@ -333,12 +324,34 @@ function showOcr(){const out=$('impOut'),lines=parseRecipe(ocrText).map(cleanLin
   out.innerHTML=`<p class="muted" style="margin:12px 0 6px">${ocrBase?`Recept voor ${ocrBase} personen${k!==1?`, omgerekend naar ${want}`:''}. `:want?'Aantal personen niet gevonden in het recept, hoeveelheden zijn niet omgerekend. ':''}Controleer de regels: tik erop om iets te verbeteren, vink uit wat je al hebt.</p>
     ${lines.map(row).join('')}<div class="btns"><button class="btn" id="impAdd">Zet op mijn lijst</button><button class="btn sec" id="impFav">Bewaar als favoriet</button><button class="btn sec" id="impClear">Wissen</button></div>`}
 $('impOut').addEventListener('click',e=>{const t=e.target;
-  if(t.id==='impClear'){ocrText='';$('impThumbs').innerHTML='';$('impOut').innerHTML='';return}
+  if(t.id==='impClear'){$('imp').hidden=true;ocrText='';$('impThumbs').innerHTML='';$('impOut').innerHTML='';return}
   if(t.id==='impFav'){const items=[...$('impOut').querySelectorAll('.ing')].filter(l=>l.querySelector('input[type=checkbox]').checked).map(l=>l.querySelector('input[type=text]').value.trim()).filter(Boolean);if(!items.length)return;
     const h=$('impOut').querySelector('h3');state.favs.unshift({id:'f'+Date.now().toString(36),title:h?h.textContent:'Recept uit foto',items});persist();if(!h){fedit=state.favs[0].id;renderRecipes();$('fTitle').select();$('fTitle').scrollIntoView({block:'center'})}else renderRecipes();t.textContent='Bewaard bij je favorieten ✓';return}
   if(t.id==='impAdd'){const lines=[...$('impOut').querySelectorAll('.ing')].filter(l=>l.querySelector('input[type=checkbox]').checked).map(l=>l.querySelector('input[type=text]').value.trim()).filter(Boolean);
     const have=new Set(state.text.split('\n').map(l=>Match.norm(l)));const add=lines.filter(l=>!have.has(Match.norm(l)));
     state.text=(state.text.trim()?state.text.trim()+'\n':'')+add.join('\n');persist();render();t.textContent=add.length?`${add.length} producten toegevoegd ✓`:'Staat al op je lijst ✓'}});
+/* ---------- pushmeldingen ---------- */
+const canPush='serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window;
+const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+const isIOS=/iPhone|iPad|iPod/.test(navigator.userAgent);
+function pushUI(){const b=$('pushBtn');b.hidden=false;b.classList.toggle('on',!!state.push);b.setAttribute('aria-pressed',!!state.push);b.textContent=state.push?'🔔 Meldingen aan':'🔕 Meldingen'}
+const b64u=s=>{const p='='.repeat((4-s.length%4)%4),r=atob((s+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(r,c=>c.charCodeAt(0))};
+async function pushSub(){const reg=await navigator.serviceWorker.ready;return reg.pushManager.getSubscription()}
+async function pushSync(){const sub=await pushSub();if(!sub)return;
+  await fetch('/api/push',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({subscription:sub.toJSON(),favs:state.favs,stores:state.stores})})}
+var pushT=null;function pushSyncSoon(){clearTimeout(pushT);pushT=setTimeout(()=>pushSync().catch(()=>{}),1500)}
+$('pushBtn').addEventListener('click',async()=>{const st=$('pushSt');st.textContent='';
+  if(state.push){try{const sub=await pushSub();if(sub){await fetch('/api/push',{method:'DELETE',headers:{'content-type':'application/json'},body:JSON.stringify({subscription:sub.toJSON()})});await sub.unsubscribe()}}catch(e){}
+    state.push=false;persist();pushUI();st.textContent='Meldingen uit.';return}
+  if(isIOS&&!standalone){st.textContent='Zet de app eerst op je beginscherm (Deel → Zet op beginscherm) en open hem daar.';return}
+  if(!canPush){st.textContent='Je browser ondersteunt geen meldingen.';return}
+  try{const perm=await Notification.requestPermission();if(perm!=='granted'){st.textContent='Meldingen zijn niet toegestaan. Zet ze aan in Instellingen → Meldingen.';return}
+    const {key}=await fetch('/api/push').then(r=>r.json());const reg=await navigator.serviceWorker.ready;
+    const sub=(await reg.pushManager.getSubscription())||await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(key)});
+    state.push=true;persist();await pushSync();pushUI();st.textContent='Aan: je krijgt een melding als een favoriet recept minstens 20% goedkoper is.'}
+  catch(e){st.textContent='Aanzetten is niet gelukt. Probeer het opnieuw.'}});
+pushUI();
+{const t=new URLSearchParams(location.search).get('tab');if(t&&['route','list','recipes','offers'].includes(t))tab(t)}
 }
 </script>
 </body>
