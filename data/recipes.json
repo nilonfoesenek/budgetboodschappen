@@ -1,0 +1,102 @@
+{
+ "updated": "2026-11-23",
+ "week": "23 t/m 29 november",
+ "note": "Calorieën en eiwit zijn schattingen per persoon. Kosten = wat je voor 4 personen aan boodschappen koopt (hele verpakkingen), zonder voorraadkast-items.",
+ "recipes": [
+  {
+   "id": "stamppot-boerenkool",
+   "title": "Boerenkoolstamppot met rookworst",
+   "time": "35 min",
+   "kcal": 600,
+   "protein": 22,
+   "deals": ["Boerenkool (Aldi/AH)", "Rookworst (Aldi)", "Kruimige aardappelen (Aldi)"],
+   "ingredients": ["1,5 kg kruimige aardappelen", "900 g boerenkool", "1 slagersrookworst", "1 l halfvolle melk"],
+   "pantry": ["20 g roomboter", "mosterd", "zout en peper"],
+   "steps": [
+    "Schil de aardappelen, snijd ze in stukken en kook ze in 20 minuten gaar met de boerenkool erbovenop.",
+    "Verwarm de rookworst 10 minuten in heet (niet kokend) water.",
+    "Giet af, stamp fijn met een scheut warme melk en de boter. Breng op smaak met zout, peper en mosterd.",
+    "Serveer met plakjes rookworst."
+   ]
+  },
+  {
+   "id": "ovengnocchi-kip",
+   "title": "Ovengnocchi met kip, courgette en paprika",
+   "time": "35 min",
+   "kcal": 660,
+   "protein": 44,
+   "deals": ["Kipfilet (Aldi)", "Gnocchi (Aldi)", "Courgette (Aldi)", "Rode paprika's (Aldi)"],
+   "ingredients": ["500 g kipfilet", "800 g gnocchi", "2 courgette", "3 rode paprika", "250 g kastanjechampignons", "150 g geraspte kaas"],
+   "pantry": ["2 el olijfolie", "Italiaanse kruiden", "zout en peper"],
+   "steps": [
+    "Verwarm de oven voor op 210 °C.",
+    "Snijd kip, courgette, paprika en champignons in stukken. Meng met de gnocchi, olijfolie, kruiden, zout en peper op een bakplaat.",
+    "Bak 25 minuten, schep halverwege om.",
+    "Strooi de kaas erover en bak nog 5 minuten tot hij gesmolten is."
+   ]
+  },
+  {
+   "id": "zalm-preipuree",
+   "title": "Zalm met preipuree",
+   "time": "30 min",
+   "kcal": 530,
+   "protein": 33,
+   "deals": ["Zalmfilets op huid (Aldi)", "Prei (Aldi)"],
+   "ingredients": ["500 g zalmfilets op huid", "1 kg kruimige aardappelen", "3 prei", "1 l halfvolle melk"],
+   "pantry": ["20 g roomboter", "zout en peper", "citroen (optioneel)"],
+   "steps": [
+    "Kook de geschilde aardappelen in 20 minuten gaar.",
+    "Snijd de prei in ringen en smoor 8 minuten in een pan met een klontje boter.",
+    "Bak de zalm 4 minuten op de huid en 2 minuten op de andere kant.",
+    "Stamp de aardappelen met een scheut melk en de rest van de boter, roer de prei erdoor en serveer met de zalm."
+   ]
+  },
+  {
+   "id": "kipgehakt-pasta",
+   "title": "Pasta met kipgehakt, paprika en champignons",
+   "time": "25 min",
+   "kcal": 640,
+   "protein": 35,
+   "deals": ["Kipgehakt (Aldi)", "Rode paprika's (Aldi)"],
+   "ingredients": ["400 g kipgehakt", "spaghetti 500 g", "2 tomatenblokjes", "3 rode paprika", "250 g champignons", "gele uien"],
+   "pantry": ["1 el olijfolie", "2 tenen knoflook", "Italiaanse kruiden", "zout en peper"],
+   "steps": [
+    "Kook de spaghetti volgens de verpakking.",
+    "Fruit de gesnipperde ui en knoflook in olie, bak het kipgehakt rul.",
+    "Voeg paprika en champignons toe en bak 5 minuten mee.",
+    "Schenk de tomatenblokjes erbij, breng op smaak met kruiden en laat 10 minuten pruttelen. Meng met de pasta."
+   ]
+  },
+  {
+   "id": "varkensfilet-spruitjes",
+   "title": "Varkensfilet met spruitjes en krieltjes",
+   "time": "40 min",
+   "kcal": 520,
+   "protein": 39,
+   "deals": ["Culinaire varkensfilet (Aldi)"],
+   "ingredients": ["500 g culinaire varkensfilet", "750 g spruiten", "1 kg krieltjes"],
+   "pantry": ["2 el olie", "1 el mosterd", "1 el honing", "zout en peper"],
+   "steps": [
+    "Verwarm de oven voor op 200 °C. Kook de spruiten 5 minuten voor.",
+    "Meng krieltjes en spruiten met olie, zout en peper en rooster 30 minuten in de oven.",
+    "Bestrijk de varkensfilet met mosterd en honing, schroei rondom aan en gaar de laatste 15–20 minuten mee in de oven.",
+    "Laat het vlees 5 minuten rusten en snijd in plakken."
+   ]
+  },
+  {
+   "id": "kwarkbowl",
+   "title": "Ontbijt: kwarkbowl met mandarijn en havermout",
+   "time": "5 min",
+   "kcal": 400,
+   "protein": 29,
+   "deals": ["Magere kwark (Aldi)", "Mandarijnen (Aldi)"],
+   "ingredients": ["1 kg magere kwark", "havermout", "mandarijnen"],
+   "pantry": ["kaneel", "honing (optioneel)"],
+   "steps": [
+    "Verdeel de kwark over 4 kommen.",
+    "Strooi per kom 50 g havermout erover.",
+    "Pel 2 mandarijnen per persoon en verdeel de partjes erover. Maak af met kaneel."
+   ]
+  }
+ ]
+}

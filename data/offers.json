@@ -1,0 +1,1731 @@
+{
+ "updated": "2026-11-23",
+ "weeks": {
+  "ah": {
+   "from": "2026-11-23",
+   "to": "2026-11-29",
+   "source": "folderz.nl (AH Bonus)"
+  },
+  "jumbo": {
+   "from": "2026-11-18",
+   "to": "2026-11-24",
+   "source": "jumbo.com/aanbiedingen"
+  },
+  "aldi": {
+   "from": "2026-11-23",
+   "to": "2026-11-29",
+   "source": "aldi.nl/aanbiedingen"
+  },
+  "dirk": {
+   "from": "2026-11-18",
+   "to": "2026-11-24",
+   "source": "dirk.nl/aanbiedingen"
+  },
+  "plus": {
+   "from": "2026-11-18",
+   "to": "2026-11-24",
+   "source": "plus.nl/aanbiedingen"
+  }
+ },
+ "offers": [
+  {
+   "s": "ah",
+   "n": "AH verspakket curry madras, groentesoep, lasagne, Mexicaanse burrito's of tomatensoep",
+   "d": "1+1 gratis",
+   "pct": 0.5,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "ah",
+   "n": "AH Boerenkool 300 g",
+   "d": "van 1,99 voor 0,99",
+   "p": 0.99,
+   "was": 1.99,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "ah",
+   "n": "AH Borstplaat",
+   "d": "voor 2,69",
+   "p": 2.69,
+   "was": 2.79,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "ah",
+   "n": "AH Amandel speculaas reepjes 300 g",
+   "d": "van 2,29 voor 1,14",
+   "p": 1.14,
+   "was": 2.29,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "ah",
+   "n": "AH Varkensribeye naturel 2 stuks",
+   "d": "15% korting",
+   "p": 3.82,
+   "was": 4.49,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "ah",
+   "n": "AH Ananas zonder kroon",
+   "d": "2 voor 4,00",
+   "p": 2.0,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "ah",
+   "n": "AH Cookie speculaas caramel",
+   "d": "2e halve prijs",
+   "pct": 0.25,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "ah",
+   "n": "AH kruidnoten",
+   "d": "2 voor 5,00",
+   "p": 2.5,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "ah",
+   "n": "AH koekjes en gebak: appeltaartkoeken, krakelingen, spritsen, kletsmajoors, oranjekoek",
+   "d": "2 voor 3,50",
+   "p": 1.75,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "ah",
+   "n": "AH borrelnoten en snacks: cashewmix, pistachenoten, pinda's, bananenchips, rijstcrackers, borrelmix",
+   "d": "3 voor 7,00",
+   "p": 2.33,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "ah",
+   "n": "AH Borreltoast, Scrocchi of Picos",
+   "d": "2 voor 4,00",
+   "p": 2.0,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "ah",
+   "n": "AH kleintje dips en spreads: bruschetta, roomkaas, aioli",
+   "d": "3 voor 3,00",
+   "p": 1.0,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "ah",
+   "n": "AH Excellent kroketjes en bitterballen",
+   "d": "2 voor 7,00",
+   "p": 3.5,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "ah",
+   "n": "AH Excellent roomijs 70 g",
+   "d": "3 voor 3,00",
+   "p": 1.0,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "ah",
+   "n": "AH Handsinaasappelen 2 kg",
+   "d": "van 3,19 voor 2,19",
+   "p": 2.19,
+   "was": 3.19,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "ah",
+   "n": "AH Kabeljauwburger gepaneerd 2 stuks",
+   "d": "10% korting",
+   "p": 3.14,
+   "was": 3.49,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "jumbo",
+   "n": "Rode uien",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Mango",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Jonagold appels per kilo",
+   "d": "1,00 per kilo (alleen in de winkel)",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Mandarijnen",
+   "d": "voor 1,89",
+   "p": 1.89,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Frambozen",
+   "d": "voor 2,49",
+   "p": 2.49,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Prei",
+   "d": "2 voor 1,00",
+   "p": 0.5,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Bleekselderij",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Conference peren",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Waspeen",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "IJsbergsla of ijsbergsla gemengd",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Avocado",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Minikrieltjes",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Fijne champignons",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Snackwortelen of geschrapte wortelen",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Babyspinazie of spinazie",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Spruiten, kruimige aardappelen of vastkokende aardappelen",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Hutspot, zuurkool of stamppot aardappelen",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Jumbo tofu of tempeh naturel",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Jumbo kipdijfiletblokjes",
+   "d": "voor 3,50",
+   "p": 3.5,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Jumbo surimisticks",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Riblappen",
+   "d": "1,00 per 100 gram",
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Jumbo gemarineerde pangasiusfilet",
+   "d": "1,00 per 100 gram",
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Kipschnitzel, kip cordon bleu, kipburger of kipgehaktbal",
+   "d": "2 voor 5,00",
+   "p": 2.5,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Hamburgers",
+   "d": "2 voor 6,00",
+   "p": 3.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Kipreepjes of kipflakes",
+   "d": "2 voor 5,00",
+   "p": 2.5,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Knorr maaltijdmix",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Knorr Cup-a-Soup",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "HAK groenten in pot",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Rivella",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Pepsi, Crystal Clear of Royal Club",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Appelsientje fruitdrink",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Douwe Egberts Aroma Rood koffie",
+   "d": "voor 6,49",
+   "p": 6.49,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Conimex kroepoek",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Chio chips",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Vifit",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Jumbo aardappelspecialiteiten",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "Jumbo tijgerbollen of meergranen triangels",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "jumbo",
+   "n": "JAN poffertjes",
+   "d": "voor 1,00",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "aldi",
+   "n": "Mandarijnen 1 kg",
+   "d": "van 1,99 voor 1,39",
+   "p": 1.39,
+   "was": 1.99,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Zalmfilets op huid 4 stuks 500 g",
+   "d": "voor 7,99",
+   "p": 7.99,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Waddenbrood heel",
+   "d": "van 2,09 voor 1,59",
+   "p": 1.59,
+   "was": 2.09,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Calvé pindakaas 650 g",
+   "d": "van 4,65 voor 3,49",
+   "p": 3.49,
+   "was": 4.65,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Tonic, ginger ale of bitter lemon 1 l",
+   "d": "van 0,97 voor 0,79",
+   "p": 0.79,
+   "was": 0.97,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Kiwi gold per stuk",
+   "d": "voor 0,69",
+   "p": 0.69,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Frambozen 125 g",
+   "d": "van 2,29 voor 1,99",
+   "p": 1.99,
+   "was": 2.29,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Elstar appels 1,5 kg",
+   "d": "van 2,45 voor 1,99",
+   "p": 1.99,
+   "was": 2.45,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Rode paprika's 500 g",
+   "d": "voor 1,79",
+   "p": 1.79,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Trio sla op kluit",
+   "d": "van 1,19 voor 0,99",
+   "p": 0.99,
+   "was": 1.19,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Bosui",
+   "d": "van 0,89 voor 0,59",
+   "p": 0.59,
+   "was": 0.89,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Prei per stuk",
+   "d": "van 0,55 voor 0,39",
+   "p": 0.39,
+   "was": 0.55,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Courgette per stuk",
+   "d": "van 0,72 voor 0,59",
+   "p": 0.59,
+   "was": 0.72,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Biologische rode bieten 500 g",
+   "d": "van 1,25 voor 0,99",
+   "p": 0.99,
+   "was": 1.25,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Kruimige aardappelen 10 kg",
+   "d": "van 9,98 voor 4,99",
+   "p": 4.99,
+   "was": 9.98,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Boerenkool fijn 500 g",
+   "d": "van 1,99 voor 1,49",
+   "p": 1.49,
+   "was": 1.99,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Boerenkool 450 g",
+   "d": "van 0,99 voor 0,79",
+   "p": 0.79,
+   "was": 0.99,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Bieslook of basilicum in pot",
+   "d": "van 1,79 voor 1,49",
+   "p": 1.49,
+   "was": 1.79,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Kipfilet 500 g",
+   "d": "van 6,98 voor 5,49",
+   "p": 5.49,
+   "was": 6.98,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Kipgehakt 400 g",
+   "d": "van 4,99 voor 3,99",
+   "p": 3.99,
+   "was": 4.99,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Culinaire varkensfilet ca. 500 g",
+   "d": "voor 3,99",
+   "p": 3.99,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Slagersrookworst 275 g",
+   "d": "van 2,69 voor 1,99",
+   "p": 1.99,
+   "was": 2.69,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Gerookte zalm 220 g",
+   "d": "voor 4,99",
+   "p": 4.99,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Spekreepjes 2x190 g",
+   "d": "voor 2,99",
+   "p": 2.99,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Gekookte achterham 250 g",
+   "d": "voor 1,69",
+   "p": 1.69,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Filet americain 175 g",
+   "d": "voor 1,99",
+   "p": 1.99,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Goudse kaas 48+ plakken 500 g",
+   "d": "vanaf 2,99",
+   "p": 2.99,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Goudse kaas 48+ stuk 450 g",
+   "d": "van 4,29 voor 2,99",
+   "p": 2.99,
+   "was": 4.29,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Volle kwark 500 g",
+   "d": "van 1,35 voor 1,09",
+   "p": 1.09,
+   "was": 1.35,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Magere kwark 500 g",
+   "d": "van 0,95 voor 0,89",
+   "p": 0.89,
+   "was": 0.95,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Roomyoghurt 500 g",
+   "d": "van 1,99 voor 1,49",
+   "p": 1.49,
+   "was": 1.99,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Verse erwtensoep 500 ml",
+   "d": "voor 1,99",
+   "p": 1.99,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Baguettes of petit pains meergranen",
+   "d": "van 0,99 voor 0,89",
+   "p": 0.89,
+   "was": 0.99,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Jam 450 g",
+   "d": "voor 1,59",
+   "p": 1.59,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Gnocchi 400 g",
+   "d": "voor 1,99",
+   "p": 1.99,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Roomboter gezouten of ongezouten 200 g",
+   "d": "voor 1,49",
+   "p": 1.49,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Koffiebonen 1,2 kg",
+   "d": "van 15,35 voor 9,99",
+   "p": 9.99,
+   "was": 15.35,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Ice tea 1,5 l",
+   "d": "van 1,59 voor 1,19",
+   "p": 1.19,
+   "was": 1.59,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Chips 165 g",
+   "d": "van 2,49 voor 1,49",
+   "p": 1.49,
+   "was": 2.49,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Chocomel 1 l",
+   "d": "voor 0,99",
+   "p": 0.99,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Balsamico- of wittewijnazijn 500 ml",
+   "d": "van 2,69 voor 1,99",
+   "p": 1.99,
+   "was": 2.69,
+   "from": "2026-11-23",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Kastanjechampignons 250 g",
+   "d": "van 1,69 voor 1,39",
+   "p": 1.39,
+   "was": 1.69,
+   "from": "2026-11-27",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Quarter pounders 4 stuks 500 g",
+   "d": "van 5,49 voor 3,99",
+   "p": 3.99,
+   "was": 5.49,
+   "from": "2026-11-27",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Gegrilde kalkoenfilet 100 g",
+   "d": "van 1,97 voor 1,59",
+   "p": 1.59,
+   "was": 1.97,
+   "from": "2026-11-27",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Tonijn 5-pack",
+   "d": "voor 5,99",
+   "p": 5.99,
+   "from": "2026-11-27",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "aldi",
+   "n": "Cola regular of zero 330 ml",
+   "d": "2 voor 1,00",
+   "p": 0.5,
+   "from": "2026-11-27",
+   "to": "2026-11-29"
+  },
+  {
+   "s": "dirk",
+   "n": "1 de Beste Boerenkool grof 300 g",
+   "d": "van 1,95 voor 0,99",
+   "p": 0.99,
+   "was": 1.95,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "1 de Beste Spruiten verpakt 750 g",
+   "d": "van 1,89 voor 0,89",
+   "p": 0.89,
+   "was": 1.89,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Hollandse Witlof 1 kg (ca. 5 stuks)",
+   "d": "van 2,30 voor 1,98",
+   "p": 1.98,
+   "was": 2.3,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "1 de Beste Handsinaasappelen verpakt 2 kg",
+   "d": "van 2,89 voor 1,99",
+   "p": 1.99,
+   "was": 2.89,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Kesbeke tafelzuren",
+   "d": "van 2,69 voor 1,29",
+   "p": 1.29,
+   "was": 2.69,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "1 de Beste Blauwe bessen 300 g",
+   "d": "actie 3,99",
+   "p": 3.99,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Eat Me Avocado ready to eat, schaal 2 stuks",
+   "d": "actie 1,99",
+   "p": 1.99,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "1 de Beste Aardbeien 400 g",
+   "d": "actie 3,99",
+   "p": 3.99,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Bospeen per bos",
+   "d": "van 1,39 voor 1,29",
+   "p": 1.29,
+   "was": 1.39,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Pijnboompitten 100 g",
+   "d": "van 3,99 voor 3,69",
+   "p": 3.69,
+   "was": 3.99,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Sukkari dadels 500 g",
+   "d": "van 3,99 voor 2,99",
+   "p": 2.99,
+   "was": 3.99,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Vleeschmeesters kippenboutfilet 800 g",
+   "d": "actie 8,52",
+   "p": 8.52,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Vleeschmeesters rundergehakt 300 g",
+   "d": "van 3,89 voor 3,29",
+   "p": 3.29,
+   "was": 3.89,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Vleeschmeesters varkensfiletrollade 750 g",
+   "d": "actie 5,99",
+   "p": 5.99,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "De Vegetarische Slager",
+   "d": "van 4,49 voor 1,99",
+   "p": 1.99,
+   "was": 4.49,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Grote garnalen met staart, gepelde of cocktailgarnalen",
+   "d": "van 3,45 voor 1,99",
+   "p": 1.99,
+   "was": 3.45,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "1 de Beste Kipfilet gebraden 100 g",
+   "d": "van 2,09 voor 1,99",
+   "p": 1.99,
+   "was": 2.09,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "1 de Beste Wijncervelaat gerookt 125 g",
+   "d": "van 2,24 voor 1,99",
+   "p": 1.99,
+   "was": 2.24,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "1 de Beste Schouderham ovengebakken 100 g",
+   "d": "van 1,75 voor 1,59",
+   "p": 1.59,
+   "was": 1.75,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Ouwehand vis",
+   "d": "van 3,29 voor 2,49",
+   "p": 2.49,
+   "was": 3.29,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Bakker van der Akker Kaas-ui bollen 4 stuks",
+   "d": "van 2,49 voor 1,79",
+   "p": 1.79,
+   "was": 2.49,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Batard",
+   "d": "van 1,99 voor 1,69",
+   "p": 1.69,
+   "was": 1.99,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Mini speculaas gevulde koek met amandelspijs 45 g",
+   "d": "actie 0,33",
+   "p": 0.33,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Muffins chocolade 2 stuks",
+   "d": "van 1,79 voor 1,69",
+   "p": 1.69,
+   "was": 1.79,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Saucijzenbroodje afbak 1 stuk",
+   "d": "van 0,97 voor 0,79",
+   "p": 0.79,
+   "was": 0.97,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Oreo enrobed",
+   "d": "van 2,85 voor 1,49",
+   "p": 1.49,
+   "was": 2.85,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Hero jam",
+   "d": "van 3,35 voor 1,79",
+   "p": 1.79,
+   "was": 3.35,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Echte Enkhuizer Jodekoeken",
+   "d": "van 2,69 voor 1,39",
+   "p": 1.39,
+   "was": 2.69,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "LU Time Out granenbiscuits",
+   "d": "van 2,09 voor 1,69",
+   "p": 1.69,
+   "was": 2.09,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Calvé pindakaas met stukjes pinda 1 kg",
+   "d": "van 7,39 voor 3,99",
+   "p": 3.99,
+   "was": 7.39,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Maaslander of Old Amsterdam kaas",
+   "d": "van 2,75 voor 1,49",
+   "p": 1.49,
+   "was": 2.75,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Danone Actimel drink aardbei 12-pack",
+   "d": "actie 3,99",
+   "p": 3.99,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Optimel kwark of Griekse stijl yoghurt",
+   "d": "van 2,39 voor 1,69",
+   "p": 1.69,
+   "was": 2.39,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Philadelphia zuivelspread",
+   "d": "van 2,99 voor 1,99",
+   "p": 1.99,
+   "was": 2.99,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Uniekaas rasp geraspte kaas",
+   "d": "actie 1,99",
+   "p": 1.99,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Dr. Oetker Paula mini vanille 300 g",
+   "d": "van 1,79 voor 0,99",
+   "p": 0.99,
+   "was": 1.79,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Ehrmann Grand dessert",
+   "d": "van 1,14 voor 0,59",
+   "p": 0.59,
+   "was": 1.14,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Croma vloeibaar 750 ml",
+   "d": "van 4,29 voor 2,99",
+   "p": 2.99,
+   "was": 4.29,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Vifit Goedemorgen of drink",
+   "d": "van 1,59 voor 0,89",
+   "p": 0.89,
+   "was": 1.59,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Campina Langlekker houdbare melk",
+   "d": "van 2,19 voor 0,79",
+   "p": 0.79,
+   "was": 2.19,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Innocent sap of smoothie",
+   "d": "van 2,69 voor 1,49",
+   "p": 1.49,
+   "was": 2.69,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Wicky",
+   "d": "van 2,15 voor 1,19",
+   "p": 1.19,
+   "was": 2.15,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Texels Skuumkoppe 0.0% 6x300 ml",
+   "d": "van 8,49 voor 2,99",
+   "p": 2.99,
+   "was": 8.49,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Starbucks Frappuccino caramel 250 ml",
+   "d": "van 2,25 voor 0,99",
+   "p": 0.99,
+   "was": 2.25,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Lipton thee",
+   "d": "van 2,94 voor 1,49",
+   "p": 1.49,
+   "was": 2.94,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Nescafé Gold oploskoffie 200 g",
+   "d": "van 9,75 voor 6,99",
+   "p": 6.99,
+   "was": 9.75,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Aquarius of Powerade",
+   "d": "van 1,69 voor 0,79",
+   "p": 0.79,
+   "was": 1.69,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Dubbelfrisss Boost",
+   "d": "van 1,92 voor 0,99",
+   "p": 0.99,
+   "was": 1.92,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Fanta, Sprite of Fernandes",
+   "d": "van 2,89 voor 1,49",
+   "p": 1.49,
+   "was": 2.89,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Spa Intense of Reine",
+   "d": "van 1,09 voor 0,79",
+   "p": 0.79,
+   "was": 1.09,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Amstel bier",
+   "d": "van 1,05 voor 0,79",
+   "p": 0.79,
+   "was": 1.05,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Grolsch Pilsener 6x50 cl",
+   "d": "van 7,29 voor 5,94",
+   "p": 5.94,
+   "was": 7.29,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Hertog Jan Pilsener 24 x 300 ml",
+   "d": "van 19,95 voor 14,96",
+   "p": 14.96,
+   "was": 19.95,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Amstel Pilsener krat 24 x 300 ml",
+   "d": "van 16,89 voor 12,67",
+   "p": 12.67,
+   "was": 16.89,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Zaanse mayonaise",
+   "d": "van 3,89 voor 2,79",
+   "p": 2.79,
+   "was": 3.89,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "1 de Beste Olijfolie",
+   "d": "van 9,19 voor 4,89",
+   "p": 4.89,
+   "was": 9.19,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "XXL Nutrition reep",
+   "d": "van 2,55 voor 0,99",
+   "p": 0.99,
+   "was": 2.55,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Patak's of Koh Thai",
+   "d": "van 3,45 voor 1,79",
+   "p": 1.79,
+   "was": 3.45,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Silvo kruiden",
+   "d": "van 4,59 voor 1,49",
+   "p": 1.49,
+   "was": 4.59,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Johma brood- of toastsalade",
+   "d": "van 3,75 voor 1,99",
+   "p": 1.99,
+   "was": 3.75,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Daily Chef wereldgerecht",
+   "d": "van 5,49 voor 3,99",
+   "p": 3.99,
+   "was": 5.49,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Unox soep",
+   "d": "van 4,75 voor 1,69",
+   "p": 1.69,
+   "was": 4.75,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Aardappel Anders",
+   "d": "van 3,49 voor 1,89",
+   "p": 1.89,
+   "was": 3.49,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Honig soep",
+   "d": "van 1,95 voor 0,99",
+   "p": 0.99,
+   "was": 1.95,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Verspakket tagliatella pomodoro",
+   "d": "actie 4,69",
+   "p": 4.69,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Topking diepvries",
+   "d": "van 4,75 voor 2,49",
+   "p": 2.49,
+   "was": 4.75,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Duca kip snacks",
+   "d": "van 4,69 voor 2,49",
+   "p": 2.49,
+   "was": 4.69,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Magnum ijs",
+   "d": "van 7,15 voor 3,49",
+   "p": 3.49,
+   "was": 7.15,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Iglo Viskraam of Fish & Fun",
+   "d": "van 4,69 voor 2,39",
+   "p": 2.39,
+   "was": 4.69,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Chio Heartbreakers",
+   "d": "van 1,87 voor 0,99",
+   "p": 0.99,
+   "was": 1.87,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Milka Mmmax",
+   "d": "van 5,69 voor 2,79",
+   "p": 2.79,
+   "was": 5.69,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Red Band snoep",
+   "d": "van 2,95 voor 1,99",
+   "p": 1.99,
+   "was": 2.95,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Lay's MAX chips",
+   "d": "van 2,39 voor 1,49",
+   "p": 1.49,
+   "was": 2.39,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Stëlz",
+   "d": "van 2,19 voor 1,69",
+   "p": 1.69,
+   "was": 2.19,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Van 't Huijs Uienchutney 110 g",
+   "d": "actie 1,59",
+   "p": 1.59,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "dirk",
+   "n": "Noord-Hollandse overjarige kaas 48+ 360 g",
+   "d": "actie 2,99",
+   "p": 2.99,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "Go-Tan kokosmelk 250 ml",
+   "d": "1+1 gratis",
+   "pct": 0.5,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "Iglo Viskraam, Groente-idee, Fish cuisine of Fish & Fun",
+   "d": "1+1 gratis",
+   "pct": 0.5,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "Appelsientje of Dubbeldrank 1 l",
+   "d": "1+1 gratis",
+   "pct": 0.5,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "XXL Nutrition repen",
+   "d": "5 voor 4,99",
+   "p": 1.0,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "Douwe Egberts Nespresso compatible koffiecups",
+   "d": "voor 3,99",
+   "p": 3.99,
+   "was": 6.19,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "PLUS Kaki en kleine zoete appeltjes",
+   "d": "voor 2,49",
+   "p": 2.49,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "PLUS Hand- en perssinaasappelen",
+   "d": "voor 2,29",
+   "p": 2.29,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "PLUS Blauwe bessen 300 g",
+   "d": "van 4,49 voor 3,99",
+   "p": 3.99,
+   "was": 4.49,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "Zespri Kiwi green 500 g",
+   "d": "van 3,19 voor 2,99",
+   "p": 2.99,
+   "was": 3.19,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "PLUS Druiven rood pitloos 500 g",
+   "d": "van 2,99 voor 2,19",
+   "p": 2.19,
+   "was": 2.99,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "PLUS Pruimen los 500 g",
+   "d": "500 g voor 1,49",
+   "p": 1.49,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "PLUS Nederlandse aardappelen",
+   "d": "van 3,85 voor 2,49",
+   "p": 2.49,
+   "was": 3.85,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "Biologisch PLUS Portobello en oesterzwammen",
+   "d": "voor 1,69",
+   "p": 1.69,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "PLUS Kies & Mix vers gesneden fruit",
+   "d": "3 voor 5,00",
+   "p": 1.67,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "PLUS Kies & Mix snoepgroente",
+   "d": "3 voor 5,00",
+   "p": 1.67,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "PLUS Bloemkool- en broccoliroosjes",
+   "d": "voor 1,79",
+   "p": 1.79,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "PLUS Spinazie gewassen 400 g",
+   "d": "van 1,95 voor 0,99",
+   "p": 0.99,
+   "was": 1.95,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "Bio+ Zuurkool",
+   "d": "voor 0,89",
+   "p": 0.89,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "PLUS Sperziebonen 500 g",
+   "d": "van 1,99 voor 1,49",
+   "p": 1.49,
+   "was": 1.99,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "PLUS Flespompoen en pompoen",
+   "d": "voor 1,99",
+   "p": 1.99,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "PLUS Gember los 150 g",
+   "d": "voor 0,75",
+   "p": 0.75,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "PLUS Nasi-bami en macaroni-spaghetti groenten",
+   "d": "van 1,89 voor 1,49",
+   "p": 1.49,
+   "was": 1.89,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  },
+  {
+   "s": "plus",
+   "n": "PLUS Verspakketten soep (ongekoeld)",
+   "d": "alle voor 2,99",
+   "p": 2.99,
+   "from": "2026-11-18",
+   "to": "2026-11-24"
+  }
+ ]
+}

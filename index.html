@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cut">
+<title>BudgetBoodschappen</title>
+<link rel="icon" type="image/svg+xml" href="icons/logo.svg">
+<link rel="icon" type="image/png" sizes="64x64" href="icons/icon-64.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="BudgetBoodschappen">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f4f5f2">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="description" content="Zet je boodschappenlijst erin en zie bij welke supermarkt je het goedkoopst uit bent, met de aanbiedingen van deze week.">
+<meta property="og:title" content="BudgetBoodschappen">
+<meta property="og:description" content="Zie bij welke supermarkt je het goedkoopst uit bent, met de aanbiedingen van deze week.">
+<meta property="og:image" content="icons/icon-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: nuchter en snel, een lijstje dat je in de winkel met één duim gebruikt
+   IDEA: de kassabon: per winkel een bonnetje met regels en een subtotaal
+   PICTURE: de totaalkaart met per winkel een balk, daaronder de bonnetjes
+   COLOUR and TYPE: wit, inkt, groen voor besparing; winkelstipjes in eigen kleur; Figtree
+   LAYOUT: één kolom op telefoonbreedte, tabbladen bovenaan */
+:root{color-scheme:light;--bg:#f4f5f2;--card:#fff;--ink:#15171a;--mute:#6a6d73;--line:#e3e4df;--field:#f1f2ee;--ok:#16834a;--okbg:#e5f4ea;--warn:#b25a00;--ah:#00a0e2;--jumbo:#f2c200;--aldi:#1c3f94;--dirk:#d6001c;--plus:#2f9e44;--lidl:#7b4fc9}
+:root[data-theme=dark]{color-scheme:dark;--bg:#111213;--card:#1b1c1f;--ink:#f0f1ee;--mute:#9b9ea4;--line:#2d2f33;--field:#24262a;--ok:#4cc985;--okbg:#173525;--warn:#f0a24a}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#111213;--card:#1b1c1f;--ink:#f0f1ee;--mute:#9b9ea4;--line:#2d2f33;--field:#24262a;--ok:#4cc985;--okbg:#173525;--warn:#f0a24a}}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 Figtree,system-ui,sans-serif;overflow-x:clip}
+.wrap{max-width:680px;margin:0 auto;padding:0 16px}
+header{padding:20px 0 4px}
+h1{font-size:clamp(25px,7.4vw,34px);letter-spacing:-.5px;line-height:1.05;margin:0;font-weight:800}
+h2{font-size:20px;margin:0 0 8px;font-weight:700}
+.brand{display:flex;align-items:center;gap:10px}.brand img{flex:none;border-radius:11px;box-shadow:0 2px 6px rgba(15,107,58,.25)}
+h1 span{color:var(--ok)}
+.pct{display:inline-block;background:var(--okbg);color:var(--ok);font-weight:800;font-size:12px;border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:1px}
+.sub{color:var(--mute);font-size:14px;margin-top:4px}
+.stores{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:14px 0 4px}
+.st{display:flex;align-items:center;gap:8px;justify-content:center;border:1.5px solid var(--line);background:var(--card);color:var(--mute);border-radius:12px;min-height:48px;font:700 15px Figtree,sans-serif;cursor:pointer;padding:6px}
+.st[aria-pressed=true]{border-color:var(--ink);color:var(--ink)}
+.dot{width:12px;height:12px;border-radius:50%;flex:none;display:inline-block}
+.st[aria-pressed=false] .dot{opacity:.3}
+.st small{display:block;font:600 11px Figtree,sans-serif;color:var(--mute);line-height:1.1}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0}
+nav .seg{display:flex;gap:4px;background:var(--field);border:1px solid var(--line);border-radius:12px;padding:4px}
+nav button{flex:1 1 0;background:none;border:0;border-radius:9px;font:600 15px Figtree,sans-serif;color:var(--mute);min-height:40px;cursor:pointer}
+nav button[aria-selected=true]{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+section[hidden]{display:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.total{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.big{font-size:clamp(36px,10vw,48px);font-weight:800;line-height:1;white-space:nowrap}
+.save{display:inline-block;background:var(--okbg);color:var(--ok);font-weight:700;border-radius:8px;padding:4px 10px;font-size:14px;margin-top:8px}
+.bars{margin-top:14px;display:grid;gap:8px}
+.bar{display:grid;grid-template-columns:72px minmax(0,1fr) 74px;gap:8px;align-items:center;font-size:14px}
+.bar .tr{height:12px;background:var(--field);border-radius:6px;overflow:hidden}.bar .tr i{display:block;height:100%;border-radius:6px}
+.bar .r{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.mode{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;min-height:40px;font:600 14px Figtree,sans-serif;cursor:pointer}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.bon{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:12px;overflow:hidden}
+.bon>.hd{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px dashed var(--line)}
+.bon>.hd b{font-size:18px;display:flex;align-items:center;gap:8px}.bon>.hd span{font-weight:700;font-variant-numeric:tabular-nums}
+.it{border-top:1px solid var(--line)}.it:first-of-type{border-top:0}
+.row{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:4px;align-items:center;padding:8px 14px 8px 4px;cursor:pointer}
+.row input{width:22px;height:22px;margin:0 auto;accent-color:var(--ok);cursor:pointer}
+.it.done .lbl,.it.done .pn{text-decoration:line-through;opacity:.5}
+.lbl{font-weight:600}.pn{font-size:13px;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pr{text-align:right;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.pr s{font-weight:500;color:var(--mute);font-size:14px;margin-right:6px}
+.pr .now{color:var(--ok)}
+.tag{display:inline-block;background:var(--okbg);color:var(--ok);font-size:12px;font-weight:700;border-radius:6px;padding:1px 6px;margin-top:2px}
+.det{padding:4px 14px 12px 48px;font-size:14px}
+.cmp{display:grid;grid-template-columns:16px minmax(0,1fr) auto;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--line)}
+.cmp:first-child{border-top:0}.cmp.best{font-weight:700}
+.cmp select{font:13px Figtree,sans-serif;width:100%;background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px;min-height:36px}
+.miss{color:var(--warn)}
+textarea{width:100%;min-height:260px;font:16px/1.5 Figtree,sans-serif;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:12px;padding:12px;resize:vertical}
+input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-height:44px}
+.btn{background:var(--ink);color:var(--bg);border:0;border-radius:12px;font:700 16px Figtree,sans-serif;min-height:48px;padding:0 18px;cursor:pointer}
+.btn.sec{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.muted{color:var(--mute);font-size:14px}
+.off{display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:10px 0;border-top:1px solid var(--line)}
+.off:first-child{border-top:0}.off .dot{width:10px;height:10px}.off small{display:block;color:var(--mute)}
+.off .d{color:var(--ok);font-weight:700;text-align:right;white-space:nowrap;font-size:14px}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:12px}
+.facts div{background:var(--field);border-radius:10px;padding:8px}.facts b{display:block;font-size:18px;white-space:nowrap}.facts small{color:var(--mute);font-size:12px}
+.rh{cursor:pointer}h3{font-size:16px;margin:12px 0 4px}.steps{margin:0;padding-left:20px}.steps li{margin-bottom:6px}
+nav button{font-size:14px}
+.empty{text-align:center;padding:28px 10px;color:var(--mute)}
+:focus-visible{outline:3px solid var(--aldi);outline-offset:2px}
+.status{font-size:14px;color:var(--mute);min-height:20px;margin-top:6px}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="brand"><img src="icons/logo.svg" alt="" width="44" height="44"><h1>Budget<span>Boodschappen</span></h1></div>
+  <div class="sub" id="fresh">Prijzen laden…</div>
+  <div class="stores" id="stores"></div>
+</header>
+<nav><div class="wrap"><div class="seg" role="tablist">
+  <button role="tab" data-tab="route" aria-selected="true">Route</button>
+  <button role="tab" data-tab="list" aria-selected="false">Lijst</button>
+  <button role="tab" data-tab="recipes" aria-selected="false">Recepten</button>
+  <button role="tab" data-tab="offers" aria-selected="false">Acties</button>
+</div></div></nav>
+<main class="wrap">
+  <section id="t-route">
+    <div class="card" id="sum"></div>
+    <div id="bons"></div>
+  </section>
+  <section id="t-list" hidden>
+    <div class="card">
+      <h2>Je boodschappenlijst</h2>
+      <p class="muted" style="margin:0 0 10px">Eén product per regel. Hoeveelheden helpen: <b>500 g kipfilet</b>, <b>1 l halfvolle melk</b>, <b>2 paprika</b>. Hoe specifieker (bijv. <b>gele uien</b> i.p.v. <b>uien</b>), hoe beter de match.</p>
+      <label for="txt" class="muted">Lijst</label>
+      <textarea id="txt" placeholder="500 g kipfilet&#10;1 l halfvolle melk&#10;spaghetti 500 g&#10;2 rode paprika&#10;gele uien"></textarea>
+      <div class="btns"><button class="btn" id="save">Opslaan en vergelijken</button><button class="btn sec" id="clear">Lijst leegmaken</button></div>
+      <div class="status" id="lstat"></div>
+    </div>
+    <div class="card">
+      <h2>Lijst vanuit Claude</h2>
+      <p class="muted" style="margin:0">Tip: laat Claude een boodschappenlijst maken van je recepten, kopieer die en plak hem hierboven.</p>
+    </div>
+  </section>
+  <section id="t-recipes" hidden>
+    <div class="card"><h2>Koken met de aanbiedingen</h2><p class="muted" style="margin:0" id="rnote"></p></div>
+    <div id="recList"></div>
+  </section>
+  <section id="t-offers" hidden>
+    <div class="card">
+      <input type="search" id="q" placeholder="Zoek in de aanbiedingen (bijv. kip, kaas, fruit)" aria-label="Zoek in aanbiedingen">
+      <div class="mode" id="ofil"></div>
+      <div class="mode"><button class="chip" id="otop" aria-pressed="false">🔥 Hoogste korting eerst</button></div>
+      <p class="muted" style="margin:4px 0 8px;font-size:13px">Lidl staat hier niet bij: van Lidl zijn alleen de gewone prijzen bekend, geen aanbiedingen.</p>
+      <div id="offList" style="margin-top:8px"></div>
+    </div>
+  </section>
+  <p class="muted" id="where" style="text-align:center"></p>
+</main>
+<script src="match.js"></script>
+<script>
+{
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const eur=n=>'€'+n.toFixed(2).replace('.',',');
+const S={ah:{label:'AH',full:'AH',c:'var(--ah)'},jumbo:{label:'Jumbo',full:'Jumbo',c:'var(--jumbo)'},aldi:{label:'Aldi',full:'Aldi',c:'var(--aldi)'},dirk:{label:'Dirk',full:'Dirk',c:'var(--dirk)'},plus:{label:'Plus',full:'Plus',c:'var(--plus)'},lidl:{label:'Lidl',full:'Lidl',c:'var(--lidl)',noOffers:true}};
+const dot=s=>`<span class="dot" style="background:${S[s].c}"></span>`;
+const dnl=d=>new Date(d+'T12:00').toLocaleDateString('nl-NL',{day:'numeric',month:'short'});
+const today=new Date().toISOString().slice(0,10);
+let P=null,O=null,IDX={},state={text:'',done:{},picks:{},stores:['ah','jumbo','aldi'],mode:'split'},open=null,ofil='all',otop=false;
+let docRef=null,saving=Promise.resolve();
+
+/* ---------- opslag ---------- */
+const LK='boodschappen-v1';
+try{Object.assign(state,JSON.parse(localStorage.getItem(LK)||'{}'))}catch(e){}
+function persist(){try{localStorage.setItem(LK,JSON.stringify(state))}catch(e){}
+  if(docRef){const body={text:state.text,done:state.done,picks:state.picks,stores:state.stores,mode:state.mode,updated:new Date().toISOString()};
+    saving=saving.then(()=>docRef.set(body)).catch(()=>{})}}
+const keyOf=l=>Match.norm(l);
+
+/* ---------- berekening ---------- */
+function compute(){return computeLines(state.text.split('\n').map(s=>s.trim()).filter(Boolean))}
+function computeLines(lines){const res=[];
+  for(const line of lines){const it=Match.parseLine(line);if(!it)continue;const k=keyOf(line),per={};
+    for(const s of state.stores){if(!IDX[s])continue;
+      const cands=Match.candidates(it,IDX[s],6);let pick=cands[0];
+      const want=state.picks[k]?.[s];if(want){const f=cands.find(c=>c.p.name===want);if(f)pick=f}
+      const o=Match.offerFor(it,O.offers.filter(o=>o.to>=today&&o.from<=addDays(today,6)),s);
+      if(!pick&&o&&o.p!=null){const pq=Match.parseQty(o.n);const fake={name:o.n,price:o.p,size:'',qty:pq};pick={p:fake,cost:Match.costOf(it,fake,pq&&pq.d)};cands.unshift(pick)}
+      if(!pick){per[s]=null;continue}
+      const cost=pick.cost||Match.costOf(it,pick.p,pick.p.qty&&pick.p.qty.d);
+      let total=cost.total,deal=null;
+      if(o){let op=cost.packs;const oq=Match.parseQty(o.n);if(it.req&&oq&&oq.d===it.req.d&&oq.q>0)op=Math.max(1,Math.ceil(it.req.q/oq.q-1e-9));
+        if(o.p!=null&&o.p*op<total){deal=o;total=o.p*op;cost.packs=op}else if(o.pct&&!want){deal=o;total=total*(1-o.pct)}}
+      const regular=deal&&deal.was&&deal.p!=null?deal.was*cost.packs:cost.total;
+      per[s]={pick,cands,total,regular,packs:cost.packs,deal}}
+    res.push({line,k,it,per})}
+  return res}
+function addDays(d,n){const x=new Date(d+'T12:00');x.setDate(x.getDate()+n);return x.toISOString().slice(0,10)}
+
+function render(){
+  if(!P)return;
+  $('stores').innerHTML=Object.keys(S).map(s=>`<button class="st" aria-pressed="${state.stores.includes(s)}" data-s="${s}">${dot(s)}${S[s].noOffers?`<span>${S[s].full}<small>geen acties</small></span>`:S[s].full}</button>`).join('');
+  const R=compute(),sel=state.stores;
+  if(!R.length){$('sum').innerHTML=`<div class="empty">Je lijst is nog leeg.<br><button class="btn" style="margin-top:12px" data-go="list">Lijst maken</button></div>`;$('bons').innerHTML='';return}
+  const one={};for(const s of sel){one[s]={sum:0,miss:0};for(const r of R){if(r.per[s])one[s].sum+=r.per[s].total;else one[s].miss++}}
+  const assign=r=>{if(state.mode!=='split'){return r.per[state.mode]?state.mode:null}
+    let b=null;for(const s of sel)if(r.per[s]&&(!b||r.per[s].total<r.per[b].total-1e-9))b=s;return b};
+  const groups={},miss=[];let split=0;
+  for(const r of R){const s=assign(r);if(!s){miss.push(r);continue}(groups[s]=groups[s]||[]).push(r);split+=r.per[s].total}
+  const full=sel.filter(s=>one[s].miss===miss.length).sort((a,b)=>one[a].sum-one[b].sum);
+  const bestOne=full[0];
+  const saveTxt=state.mode==='split'&&bestOne&&one[bestOne].sum-split>0.005?`<div class="save">${eur(one[bestOne].sum-split)} goedkoper dan alles bij ${S[bestOne].label}</div>`:'';
+  const maxv=Math.max(...sel.map(s=>one[s].sum),1);
+  $('sum').innerHTML=`<div class="total"><div><div class="muted">${state.mode==='split'?'Totaal, slim verdeeld':'Totaal bij '+S[state.mode].full}</div><div class="big">${eur(split)}</div>${saveTxt}</div>
+    <div class="muted" style="text-align:right">${R.length} producten<br>${Object.keys(groups).length} ${Object.keys(groups).length===1?'winkel':'winkels'}</div></div>
+    <div class="bars">${sel.map(s=>`<div class="bar"><span>${dot(s)} ${S[s].label}</span><span class="tr"><i style="width:${one[s].sum/maxv*100}%;background:${S[s].c}"></i></span><span class="r">${eur(one[s].sum)}${one[s].miss?` <span class="miss">−${one[s].miss}</span>`:''}</span></div>`).join('')}</div>
+    <p class="muted" style="margin:8px 0 0">Balken: wat je hele lijst bij één winkel kost${sel.some(s=>one[s].miss)?' (−n = zoveel producten niet gevonden)':''}.</p>
+    <div class="mode"><button class="chip${state.mode==='split'?' on':''}" data-mode="split">Goedkoopst verdeeld</button>${sel.map(s=>`<button class="chip${state.mode===s?' on':''}" data-mode="${s}">Alles bij ${S[s].label}</button>`).join('')}</div>`;
+  const order=['aldi','lidl','dirk','plus','jumbo','ah'].filter(s=>groups[s]);
+  $('bons').innerHTML=order.map(s=>{const g=groups[s],sub=g.reduce((a,r)=>a+r.per[s].total,0);
+    return `<div class="bon"><div class="hd"><b>${dot(s)}${S[s].full}</b><span>${eur(sub)}</span></div>${g.map(r=>item(r,s,sel)).join('')}</div>`}).join('')
+   +(miss.length?`<div class="bon"><div class="hd"><b class="miss">Niet gevonden</b><span></span></div>${miss.map(r=>`<div class="it"><div class="row" style="cursor:default"><span></span><div><div class="lbl">${esc(r.line)}</div><div class="pn">Probeer een andere omschrijving in je lijst.</div></div><span></span></div></div>`).join('')}</div>`:'');
+}
+function item(r,s,sel){const x=r.per[s],done=!!state.done[r.k],isOpen=open===r.k;
+  const p=x.pick.p,sz=p.size?` · ${esc(p.size)}`:'',pk=x.packs>1?`${x.packs}× `:'';
+  return `<div class="it${done?' done':''}"><div class="row" data-open="${esc(r.k)}"><input type="checkbox" aria-label="${esc(r.line)} afvinken" data-done="${esc(r.k)}"${done?' checked':''}>
+  <div><div class="lbl">${esc(r.line)}</div><div class="pn">${pk}${esc(p.name)}${sz}</div>${x.deal?`<span class="tag">${esc(x.deal.d)}</span>`:''}</div>
+  <div class="pr">${x.deal&&x.regular>x.total+0.005?`<s>${eur(x.regular)}</s><span class="now">${eur(x.total)}</span>`:eur(x.total)}</div></div>
+  ${isOpen?`<div class="det">${sel.map(t=>{const y=r.per[t];if(!y)return `<div class="cmp"><span>${dot(t)}</span><span class="muted">${S[t].label}: niet gevonden</span><span></span></div>`;
+    return `<div class="cmp${t===s?' best':''}"><span>${dot(t)}</span><select aria-label="Product bij ${S[t].full}" data-pick="${esc(r.k)}|${t}">${y.cands.map(c=>`<option${c.p.name===y.pick.p.name?' selected':''}>${esc(c.p.name)}${c.p.size?' · '+esc(c.p.size):''} — ${eur(c.p.price)}</option>`).join('')}</select><span class="pr">${y.deal&&y.regular>y.total+0.005?`<s>${eur(y.regular)}</s><span class="now">${eur(y.total)}</span>`:eur(y.total)}</span></div>`}).join('')}
+    <div class="muted" style="margin-top:6px">Klopt het product niet? Kies hierboven een ander product per winkel.</div></div>`:''}</div>`}
+
+/* ---------- recepten ---------- */
+let RC=null,ropen=null;
+function bestOf(r){let b=null;for(const s of state.stores)if(r.per[s]&&(!b||r.per[s].total<r.per[b].total))b=s;return b}
+function renderRecipes(){if(!RC||!P)return;$('rnote').textContent=`Week ${RC.week}. ${RC.note}`;
+  $('recList').innerHTML=RC.recipes.map(rc=>{const R=computeLines(rc.ingredients);let sum=0,miss=0;const rows=R.map(r=>{const b=bestOf(r);if(!b){miss++;return `<div class="cmp"><span></span><span class="miss">${esc(r.line)}: niet gevonden</span><span></span></div>`}
+      const x=r.per[b];sum+=x.total;return `<div class="cmp"><span>${dot(b)}</span><span>${esc(r.line)}<span class="pn" style="display:block">${x.packs>1?x.packs+'× ':''}${esc(x.pick.p.name)}${x.deal?' · <b style="color:var(--ok)">'+esc(x.deal.d)+'</b>':''}</span></span><span class="pr">${x.deal&&x.regular>x.total+0.005?`<s>${eur(x.regular)}</s><span class="now">${eur(x.total)}</span>`:eur(x.total)}</span></div>`}).join('');
+    const isOpen=ropen===rc.id;
+    return `<div class="card rc"><div class="rh" data-ropen="${rc.id}"><div><h2 style="margin:0">${esc(rc.title)}</h2>
+      <div class="muted">${esc(rc.time)} · ${rc.deals.map(esc).join(' · ')}</div></div></div>
+      <div class="facts"><div><b>${eur(sum)}</b><small>4 personen${miss?' (excl. '+miss+')':''}</small></div><div><b>${eur(sum/4)}</b><small>per persoon</small></div><div><b>${rc.kcal}</b><small>kcal p.p.</small></div><div><b>${rc.protein} g</b><small>eiwit p.p.</small></div></div>
+      ${isOpen?`<div style="margin-top:10px"><h3>Boodschappen</h3>${rows}<p class="muted" style="margin:6px 0 0">Uit de voorraadkast: ${rc.pantry.map(esc).join(', ')}</p>
+        <h3>Bereiding</h3><ol class="steps">${rc.steps.map(t=>`<li>${esc(t)}</li>`).join('')}</ol></div>`:''}
+      <div class="btns"><button class="btn sec" data-ropen="${rc.id}">${isOpen?'Minder tonen':'Recept en boodschappen'}</button><button class="btn" data-radd="${rc.id}">Zet op mijn lijst</button></div></div>`}).join('')}
+function addRecipe(id){const rc=RC.recipes.find(r=>r.id===id);if(!rc)return;const have=new Set(state.text.split('\n').map(l=>Match.norm(l)));
+  const add=rc.ingredients.filter(l=>!have.has(Match.norm(l)));state.text=(state.text.trim()?state.text.trim()+'\n':'')+add.join('\n');persist();render();return add.length}
+
+/* ---------- aanbiedingen ---------- */
+function disc(o){if(o.pct)return o.pct;if(o.was&&o.p!=null&&o.was>o.p)return 1-o.p/o.was;return 0}
+function renderOffers(){if(!O)return;const q=Match.norm($('q').value);
+  $('ofil').innerHTML=['all',...Object.keys(S).filter(s=>!S[s].noOffers)].map(s=>`<button class="chip${ofil===s?' on':''}" data-ofil="${s}">${s==='all'?'Alle':S[s].label}</button>`).join('');
+  $('otop').setAttribute('aria-pressed',otop);$('otop').classList.toggle('on',otop);
+  let L=O.offers.filter(o=>o.to>=today&&(ofil==='all'||o.s===ofil)&&(!q||Match.norm(o.n).includes(q)));
+  if(otop)L=L.filter(o=>disc(o)>=0.2).sort((a,b)=>disc(b)-disc(a));
+  $('offList').innerHTML=L.map(o=>`<div class="off">${dot(o.s)}<div>${esc(o.n)}${otop?`<span class="pct">−${Math.round(disc(o)*100)}%</span>`:''}<small>${S[o.s].label} · ${o.from>today?'vanaf '+dnl(o.from)+' · ':''}t/m ${dnl(o.to)}</small></div><span class="d">${o.was&&o.p!=null&&o.was>o.p?`<span class="pr"><s>${eur(o.was)}</s><span class="now">${eur(o.p)}</span></span><small style="font-weight:600">${esc(o.d)}</small>`:esc(o.d)}</span></div>`).join('')||'<div class="empty">Geen aanbiedingen gevonden.</div>'}
+
+/* ---------- events ---------- */
+document.addEventListener('click',e=>{const t=e.target;
+  const st=t.closest('[data-s]');if(st){const s=st.dataset.s,on=state.stores.includes(s);
+    if(on&&state.stores.length===1)return;state.stores=on?state.stores.filter(x=>x!==s):[...state.stores,s].sort((a,b)=>Object.keys(S).indexOf(a)-Object.keys(S).indexOf(b));
+    if(!state.stores.includes(state.mode))state.mode='split';persist();render();return}
+  const md=t.closest('[data-mode]');if(md){state.mode=md.dataset.mode;persist();render();return}
+  const go=t.closest('[data-go]');if(go){tab(go.dataset.go);return}
+  const ro=t.closest('[data-ropen]');if(ro){ropen=ropen===ro.dataset.ropen?null:ro.dataset.ropen;renderRecipes();return}
+  const ra=t.closest('[data-radd]');if(ra){const n=addRecipe(ra.dataset.radd);ra.textContent=n?`${n} producten toegevoegd ✓`:'Staat al op je lijst ✓';return}
+  if(t.closest('#otop')){otop=!otop;renderOffers();return}
+  const of=t.closest('[data-ofil]');if(of){ofil=of.dataset.ofil;renderOffers();return}
+  if(t.matches('[data-done]')){const k=t.dataset.done;if(t.checked)state.done[k]=true;else delete state.done[k];persist();render();return}
+  if(t.closest('select'))return;
+  const op=t.closest('[data-open]');if(op){open=open===op.dataset.open?null:op.dataset.open;render()}
+});
+document.addEventListener('change',e=>{const t=e.target;if(!t.matches('[data-pick]'))return;const[k,s]=t.dataset.pick.split('|');
+  const name=t.value.split(' · ')[0].split(' — ')[0];(state.picks[k]=state.picks[k]||{})[s]=name;persist();render()});
+$('save').addEventListener('click',()=>{state.text=$('txt').value;persist();$('lstat').textContent='Opgeslagen ✓';render();tab('route')});
+$('clear').addEventListener('click',e=>{const b=e.currentTarget;if(b.dataset.sure){state.text='';state.done={};state.picks={};$('txt').value='';persist();render();b.textContent='Lijst leegmaken';delete b.dataset.sure;$('lstat').textContent='Lijst leeggemaakt.'}else{b.dataset.sure=1;b.textContent='Zeker weten?';setTimeout(()=>{if(b.dataset.sure){delete b.dataset.sure;b.textContent='Lijst leegmaken'}},3000)}});
+$('q').addEventListener('input',renderOffers);
+function tab(t){document.querySelectorAll('nav [data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
+  document.querySelectorAll('main>section').forEach(s=>s.hidden=s.id!=='t-'+t);if(t==='list')$('txt').value=state.text;if(t==='offers')renderOffers();if(t==='recipes')renderRecipes()}
+document.querySelector('nav').addEventListener('click',e=>{const t=e.target.closest('[data-tab]');if(t)tab(t.dataset.tab)});
+
+/* ---------- data laden ---------- */
+Promise.all([fetch('data/prices.json').then(r=>r.json()),fetch('data/offers.json').then(r=>r.json()),fetch('data/recipes.json').then(r=>r.json()).catch(()=>null)]).then(([p,o,rc])=>{
+  P=p;O=o;RC=rc;for(const s in P.stores)IDX[s]=Match.indexStore(P.stores[s]);
+  const w=O.weeks;$('fresh').textContent='Aanbiedingen: '+Object.keys(S).filter(s=>w[s]).map(s=>`${S[s].label} t/m ${dnl(w[s].to)}`).join(' · ')+' · Lidl: alleen gewone prijzen';
+  render()}).catch(()=>{$('fresh').textContent='Prijzen konden niet geladen worden. Probeer het later opnieuw.'});
+$('where').textContent='Je lijst staat op dit apparaat.';
+render();
+
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+</script>
+</body>
+</html>

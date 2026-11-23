@@ -1,0 +1,126 @@
+/* Matching-logica voor de boodschappen-app (los bestand zodat het ook in tests draait). */
+(function (root) {
+  const STOP = new Set(['van', 'de', 'het', 'een', 'en', 'of', 'met', 'voor', 'in', 'op', 'vers', 'verse', 'gram', 'gr', 'g', 'kg', 'ml', 'cl', 'l', 'liter', 'stuk', 'stuks', 'st', 'ca', 'x', 'per', 'pak', 'zak', 'bak', 'pot', 'blik', 'fles']);
+  const IGN = new Set(['ah', 'jumbo', 'jumbos', 'aldi', 'milsani', 'golden', 'seafood', 'excellent', 'basic', 'huismerk', 'plus', 'dirk', 'beste', 'lidl', 'zuivelmeester', 'neutraal', 'vleeschmeesters']);
+  const BAN = ['kattenvoer', 'hondenvoer', 'kattensnack', 'hondensnack', 'sheba', 'whiskas', 'felix', 'pedigree', 'kitekat', 'dreamies', 'olvarit', 'hipp', 'nutrilon', 'kat ', 'hond ', 'pets unlimited'];
+  const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/'s\b/g, 's').replace(/[^a-z0-9.,]+/g, ' ').trim();
+  const toks = s => norm(s).split(' ').map(t => t.replace(/[.,]/g, '')).filter(t => t.length > 1 && !STOP.has(t) && !/^\d/.test(t));
+  const stem = t => (t.length > 5 ? t.replace(/(en|s|e)$/, '') : t);
+
+  function parseQty(s) {
+    s = String(s || '').toLowerCase().replace(/,/g, '.');
+    let m = s.match(/(\d+(?:\.\d+)?)\s*x\s*(\d+(?:\.\d+)?)\s*(kg|gram|gr|g|ml|cl|liter|ltr|lt|l)\b/);
+    let n = 1, q, u;
+    if (m) { n = +m[1]; q = +m[2]; u = m[3]; }
+    else {
+      m = s.match(/(\d+(?:\.\d+)?)\s*(kg|kilo|gram|gr|g|ml|cl|liter|ltr|lt|l|stuks|stuk|st)\b/);
+      if (m) { q = +m[1]; u = m[2]; }
+      else if (/per stuk|per krop|per bos|per tros|heel|half/.test(s)) return { q: 1, d: 'st' };
+      else return null;
+    }
+    q *= n;
+    if (u === 'g' || u === 'gr' || u === 'gram') return { q: q / 1000, d: 'kg' };
+    if (u === 'kg' || u === 'kilo') return { q, d: 'kg' };
+    if (u === 'ml') return { q: q / 1000, d: 'l' };
+    if (u === 'cl') return { q: q / 100, d: 'l' };
+    if (u === 'l' || u === 'liter' || u === 'ltr' || u === 'lt') return { q, d: 'l' };
+    return { q, d: 'st' };
+  }
+
+  function indexStore(rows) {
+    const out = [];
+    for (const r of rows) {
+      const name = r[0], low = ' ' + norm(name) + ' ';
+      if (BAN.some(b => low.includes(' ' + b))) continue;
+      const t = toks(name).filter(x => !IGN.has(x));
+      out.push({ name, price: r[1], size: r[2] || '', t, qty: parseQty(r[2]) || parseQty(name) });
+    }
+    return out;
+  }
+
+  function parseLine(line) {
+    let s = String(line || '').replace(/\(.*?\)/g, ' ').replace(/^[\s\-*•·\[\]x✓☐]+/, '').trim();
+    if (!s) return null;
+    let n = 1, req = null, m;
+    const U = '(kg|kilo|gram|gr|g|ml|cl|liter|l|stuks|stuk|st|x)';
+    if ((m = s.match(new RegExp('^(\\d+(?:[.,]\\d+)?)\\s*' + U + '?\\.?\\s+(.+)$', 'i')))) {
+      const v = +m[1].replace(',', '.'), u = (m[2] || '').toLowerCase();
+      s = m[3];
+      if (!u || u === 'x' || u.startsWith('st')) n = Math.max(1, Math.round(v)); else req = parseQty(v + ' ' + u);
+    } else if ((m = s.match(new RegExp('^(.+?)\\s+(\\d+(?:[.,]\\d+)?)\\s*' + U + '$', 'i')))) {
+      const v = +m[2].replace(',', '.'), u = (m[3] || '').toLowerCase();
+      s = m[1];
+      if (!u || u === 'x' || u.startsWith('st')) n = Math.max(1, Math.round(v)); else req = parseQty(v + ' ' + u);
+    }
+    const t = toks(s);
+    return t.length ? { label: s.trim(), t, n, req } : null;
+  }
+
+  function tokScore(q, pt) {
+    const st = stem(q);
+    let best = Infinity;
+    for (const p of pt) {
+      let sc;
+      if (p === q || p === st || (p.startsWith(st) && /^(en|s|e|n|jes|tjes)$/.test(p.slice(st.length)))) sc = 0;
+      else if (p.endsWith(q) || (st.length > 3 && p.endsWith(st))) sc = 0.3;
+      else if (p.startsWith(st)) sc = 1.5;
+      else if (st.length > 3 && p.includes(st)) sc = 2;
+      else continue;
+      if (sc < best) best = sc;
+    }
+    return best;
+  }
+
+  function candidates(item, idx, limit) {
+    const res = [];
+    for (const p of idx) {
+      let sc = 0, used = 0, ok = true;
+      for (const q of item.t) { const s = tokScore(q, p.t); if (s === Infinity) { ok = false; break; } sc += s; used++; }
+      if (!ok) continue;
+      const extra = Math.max(0, p.t.length - used);
+      res.push({ p, m: sc, score: sc + extra });
+    }
+    if (!res.length) return [];
+    // Eerst de beste woord-match (eieren ≠ eierkoeken), daarna zo min mogelijk extra woorden.
+    const minM = Math.min(...res.map(r => r.m));
+    const good = res.filter(r => r.m <= minM + 1);
+    const min = Math.min(...good.map(r => r.score));
+    let pool = good.filter(r => r.score <= min + 0.5);
+    const dim = item.req ? item.req.d : mode(pool.map(r => r.p.qty && r.p.qty.d));
+    for (const r of pool) r.cost = costOf(item, r.p, dim);
+    pool.sort((a, b) => a.cost.rank - b.cost.rank || a.p.price - b.p.price);
+    if (limit) {
+      const rest = res.filter(r => r.score > min + 0.5).sort((a, b) => a.score - b.score).slice(0, limit);
+      for (const r of rest) r.cost = costOf(item, r.p, dim);
+      return pool.slice(0, limit).concat(rest).slice(0, limit);
+    }
+    return pool;
+  }
+  function mode(a) { const c = {}; let b = null; for (const x of a) if (x) { c[x] = (c[x] || 0) + 1; if (!b || c[x] > c[b]) b = x; } return b; }
+  function costOf(item, p, dim) {
+    const q = p.qty;
+    if (item.req && q && q.d === item.req.d && q.q > 0) {
+      const packs = Math.max(1, Math.ceil(item.req.q / q.q - 1e-9));
+      return { packs, total: packs * p.price, rank: packs * p.price };
+    }
+    const unit = q && q.d === dim && q.q > 0 ? p.price / q.q : null;
+    // Aantal stuks gevraagd ("2 uien"): één verpakking volstaat als die groot genoeg is.
+    let packs = item.n;
+    if (q && q.d === 'st' && q.q > 1) packs = Math.max(1, Math.ceil(item.n / q.q - 1e-9));
+    else if (q && q.d !== 'st') packs = 1;
+    const total = packs * p.price;
+    return { packs, total, rank: total + (unit != null ? unit / 1e4 : 0.01) };
+  }
+
+  function offerFor(item, offers, store) {
+    let best = null;
+    for (const o of offers) {
+      if (o.s !== store) continue;
+      const ot = o._t || (o._t = toks(o.n).filter(x => !IGN.has(x)));
+      if (item.t.every(q => tokScore(q, ot) < 1)) { if (!best || (o.p || 99) < (best.p || 99)) best = o; }
+    }
+    return best;
+  }
+
+  root.Match = { norm, toks, parseQty, parseLine, indexStore, candidates, costOf, offerFor };
+})(typeof window !== 'undefined' ? window : globalThis);

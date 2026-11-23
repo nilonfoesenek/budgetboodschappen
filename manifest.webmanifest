@@ -1,0 +1,13 @@
+{
+  "name": "BudgetBoodschappen",
+  "short_name": "BudgetBoodschappen",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f4f5f2",
+  "theme_color": "#f4f5f2",
+  "lang": "nl",
+  "icons": [
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icons/apple-touch-icon.png", "sizes": "180x180", "type": "image/png"}
+  ]
+}

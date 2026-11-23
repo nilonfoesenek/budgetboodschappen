@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1fa25c"/><stop offset="1" stop-color="#0f6b3a"/></linearGradient></defs>
+  <rect width="512" height="512" rx="112" fill="url(#g)"/>
+  <!-- hengsel -->
+  <path d="M168 214 L214 118 M344 214 L298 118" stroke="#fff" stroke-width="30" stroke-linecap="round" fill="none"/>
+  <!-- mand -->
+  <path d="M96 206 H416 a14 14 0 0 1 13.6 17.4 L392 374 a40 40 0 0 1 -38.8 30 H158.8 a40 40 0 0 1 -38.8 -30 L82.4 223.4 A14 14 0 0 1 96 206 Z" fill="#fff"/>
+  <path d="M190 262 V346 M256 262 V346 M322 262 V346" stroke="#16834a" stroke-width="22" stroke-linecap="round" opacity=".28"/>
+  <!-- prijslabel met euro -->
+  <g transform="translate(330 96) rotate(18)">
+    <path d="M0 0 H96 a18 18 0 0 1 18 18 V96 a18 18 0 0 1 -18 18 H0 L-40 57 Z" fill="#ffd23f"/>
+    <circle cx="-14" cy="57" r="9" fill="#0f6b3a"/>
+    <text x="54" y="84" text-anchor="middle" font-family="Figtree, Arial, sans-serif" font-weight="800" font-size="76" fill="#0f6b3a">€</text>
+  </g>
+</svg>
