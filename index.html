@@ -300,7 +300,10 @@ let lastShare=null;
 function render(){
   if(!P)return;
   const R=compute(),sel=state.stores;lastR=R;
-  if(!R.length){$('sum').innerHTML=`<div class="empty">Je lijst is nog leeg.<br><button class="btn" style="margin-top:12px" data-go="list">Lijst maken</button></div>`;$('bons').innerHTML='';return}
+  if(!R.length){const ALL=Object.keys(S).filter(x=>IDX[x]);
+    $('sum').innerHTML=`<div class="muted">Bij welke winkels doe je boodschappen?</div>
+    <div class="bars">${ALL.map(s=>{const on=sel.includes(s);return `<button class="bar${on?' on':''}" data-s="${s}" aria-pressed="${on}"><span class="ck" aria-hidden="true"></span><span class="nm">${dot(s)} ${S[s].label}</span><span class="tr" style="visibility:hidden"></span><span class="r"></span></button>`}).join('')}</div>`;
+    $('bons').innerHTML=`<div class="card empty">Je lijst is nog leeg.<br><button class="btn" style="margin-top:12px" data-go="list">Lijst maken</button></div>`+savingsHtml();return}
   const ALL=Object.keys(S).filter(x=>IDX[x]);state.mode='split';
   const one={};for(const s of ALL){one[s]={sum:0,miss:0,sub:0};for(const r of R){if(r.per[s]){one[s].sum+=r.per[s].total;if(r.per[s].sub)one[s].sub++}else one[s].miss++}}
   const assign=r=>{let b=null;const ex=sel.some(s=>r.per[s]&&!r.per[s].sub),ms=Math.min(...sel.map(s=>r.per[s]&&r.per[s].sub?r.per[s].pick.score:99));for(const s of sel){const y=r.per[s];if(y&&(ex?!y.sub:y.pick.score<=ms+0.1)&&(!b||y.total<r.per[b].total-1e-9))b=s}return b};
