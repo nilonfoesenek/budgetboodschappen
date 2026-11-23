@@ -45,10 +45,12 @@ h1 span{color:var(--ok)}
 .dot{width:12px;height:12px;border-radius:50%;flex:none;display:inline-block}
 .st[aria-pressed=false] .dot{opacity:.3}
 .st small{display:block;font:600 11px Figtree,sans-serif;color:var(--mute);line-height:1.1}
-nav{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0}
-nav .seg{display:flex;gap:4px;background:var(--field);border:1px solid var(--line);border-radius:12px;padding:4px}
-nav button{flex:1 1 0;background:none;border:0;border-radius:9px;font:600 15px Figtree,sans-serif;color:var(--mute);min-height:40px;cursor:pointer}
-nav button[aria-selected=true]{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid var(--line);padding:6px 0 calc(6px + env(safe-area-inset-bottom))}
+body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+nav .seg{display:flex;max-width:560px;margin:0 auto}
+nav button{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:0;font:600 11.5px Figtree,sans-serif;color:var(--mute);min-height:52px;padding:4px 0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+nav svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav button[aria-selected=true]{color:var(--ink)}nav button[aria-selected=true] svg{stroke-width:2.4}nav button[data-tab=recipes][aria-selected=true] svg{fill:currentColor}
 section[hidden]{display:none}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
 .total{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
@@ -86,6 +88,7 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .btn{background:var(--ink);color:var(--bg);border:0;border-radius:12px;font:700 16px Figtree,sans-serif;min-height:48px;padding:0 18px;cursor:pointer}
 .btn.sec{background:var(--card);color:var(--ink);border:1px solid var(--line)}
 .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.fin{width:100%;box-sizing:border-box;font:500 16px Figtree,sans-serif;background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:4px}
 .thumbs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.thumbs img{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
 .ing{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}.ing input{width:20px;height:20px;flex:none}.ing input[type=text]{flex:1;width:auto;height:auto;font:500 15px Figtree,sans-serif;border:0;background:none;color:var(--ink);padding:2px 0}
 .ing.pan input[type=text]{color:var(--mute)}
@@ -96,7 +99,6 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:12px}
 .facts div{background:var(--field);border-radius:10px;padding:8px}.facts b{display:block;font-size:18px;white-space:nowrap}.facts small{color:var(--mute);font-size:12px}
 .rh{cursor:pointer}h3{font-size:16px;margin:12px 0 4px}.steps{margin:0;padding-left:20px}.steps li{margin-bottom:6px}
-nav button{font-size:14px}
 .empty{text-align:center;padding:28px 10px;color:var(--mute)}
 :focus-visible{outline:3px solid var(--aldi);outline-offset:2px}
 .status{font-size:14px;color:var(--mute);min-height:20px;margin-top:6px}
@@ -108,12 +110,12 @@ nav button{font-size:14px}
   <div class="sub" id="fresh">Prijzen laden…</div>
   <div class="stores" id="stores"></div>
 </header>
-<nav><div class="wrap"><div class="seg" role="tablist">
-  <button role="tab" data-tab="route" aria-selected="true">Route</button>
-  <button role="tab" data-tab="list" aria-selected="false">Lijst</button>
-  <button role="tab" data-tab="recipes" aria-selected="false">Recepten</button>
-  <button role="tab" data-tab="offers" aria-selected="false">Acties</button>
-</div></div></nav>
+<nav><div class="seg" role="tablist">
+  <button role="tab" data-tab="route" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21c-1.7 0-3-1.3-3-3s1.3-3 3-3h12c1.7 0 3-1.3 3-3s-1.3-3-3-3H9"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="2.5"/></svg>Route</button>
+  <button role="tab" data-tab="list" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M3.5 6l1 1 2-2M3.5 12l1 1 2-2M3.5 18l1 1 2-2"/></svg>Lijst</button>
+  <button role="tab" data-tab="recipes" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.3-9.2C1.4 8.4 3.6 5 7 5c2.1 0 3.6 1.2 5 3 1.4-1.8 2.9-3 5-3 3.4 0 5.6 3.4 4.3 6.8C19.5 16.4 12 21 12 21z"/></svg>Recepten</button>
+  <button role="tab" data-tab="offers" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9-9-9z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>Acties</button>
+</div></nav>
 <main class="wrap">
   <section id="t-route">
     <div class="card" id="sum"></div>
@@ -128,20 +130,20 @@ nav button{font-size:14px}
       <div class="btns"><button class="btn" id="save">Opslaan en vergelijken</button><button class="btn sec" id="clear">Lijst leegmaken</button></div>
       <div class="status" id="lstat"></div>
     </div>
-    <div class="card">
-      <h2>Lijst vanuit Claude</h2>
-      <p class="muted" style="margin:0">Tip: laat Claude een boodschappenlijst maken van je recepten, kopieer die en plak hem hierboven.</p>
-    </div>
   </section>
   <section id="t-recipes" hidden>
+    <div class="card"><h2>Favoriete recepten</h2>
+      <p class="muted" style="margin:0">Recepten die je vaker maakt. Met één tik staan alle boodschappen op je lijst.</p>
+      <div class="btns"><button class="btn" id="favNew">+ Nieuw recept</button><button class="btn sec" id="favFromList">Huidige lijst bewaren</button></div>
+      <div id="favForm"></div></div>
+    <div id="favs"></div>
     <div class="card" id="imp"><h2>Recept uit foto</h2>
       <p class="muted" style="margin:0">Maak een foto of screenshot van een recept met een ingrediëntenlijst. Je telefoon leest de tekst en zet de ingrediënten klaar voor je lijst. Een foto van alleen een gerecht werkt hier niet.</p>
       <div class="btns"><label class="btn" for="impFile" style="display:inline-flex;align-items:center">📷 Importeer uit foto's</label>
         <select id="impPers" class="btn sec" aria-label="Aantal personen" style="padding:0 12px"><option value="0" selected>Personen zoals recept</option><option value="1">1 persoon</option><option value="2">2 personen</option><option value="3">3 personen</option><option value="4">4 personen</option><option value="6">6 personen</option></select></div>
       <input type="file" id="impFile" accept="image/*" multiple hidden>
       <div id="impThumbs" class="thumbs"></div><div id="impOut"></div></div>
-    <div class="card"><h2>Koken met de aanbiedingen</h2><p class="muted" style="margin:0" id="rnote"></p></div>
-    <div id="recList"></div>
+
   </section>
   <section id="t-offers" hidden>
     <div class="card">
@@ -229,20 +231,39 @@ function item(r,s,sel){const x=r.per[s],done=!!state.done[r.k],isOpen=open===r.k
     <div class="muted" style="margin-top:6px">Klopt het product niet? Kies hierboven een ander product per winkel.</div></div>`:''}</div>`}
 
 /* ---------- recepten ---------- */
-let RC=null,ropen=null;
 function bestOf(r){let b=null;const ex=state.stores.some(s=>r.per[s]&&!r.per[s].sub);for(const s of state.stores){const y=r.per[s];if(y&&(!ex||!y.sub)&&(!b||y.total<r.per[b].total))b=s}return b}
-function renderRecipes(){if(!RC||!P)return;$('rnote').textContent=`Week ${RC.week}. ${RC.note}`;
-  $('recList').innerHTML=RC.recipes.map(rc=>{const R=computeLines(rc.ingredients);let sum=0,miss=0;const rows=R.map(r=>{const b=bestOf(r);if(!b){miss++;return `<div class="cmp"><span></span><span class="miss">${esc(r.line)}: niet gevonden</span><span></span></div>`}
-      const x=r.per[b];sum+=x.total;return `<div class="cmp"><span>${dot(b)}</span><span>${esc(r.line)}<span class="pn" style="display:block">${x.packs>1?x.packs+'× ':''}${esc(x.pick.p.name)}${x.deal?' · <b style="color:var(--ok)">'+esc(x.deal.d)+'</b>':''}</span></span><span class="pr">${x.deal&&x.regular>x.total+0.005?`<s>${eur(x.regular)}</s><span class="now">${eur(x.total)}</span>`:eur(x.total)}</span></div>`}).join('');
-    const isOpen=ropen===rc.id;
-    return `<div class="card rc"><div class="rh" data-ropen="${rc.id}"><div><h2 style="margin:0">${esc(rc.title)}</h2>
-      <div class="muted">${esc(rc.time)} · ${rc.deals.map(esc).join(' · ')}</div></div></div>
-      <div class="facts"><div><b>${eur(sum)}</b><small>4 personen${miss?' (excl. '+miss+')':''}</small></div><div><b>${eur(sum/4)}</b><small>per persoon</small></div><div><b>${rc.kcal}</b><small>kcal p.p.</small></div><div><b>${rc.protein} g</b><small>eiwit p.p.</small></div></div>
-      ${isOpen?`<div style="margin-top:10px"><h3>Boodschappen</h3>${rows}<p class="muted" style="margin:6px 0 0">Uit de voorraadkast: ${rc.pantry.map(esc).join(', ')}</p>
-        <h3>Bereiding</h3><ol class="steps">${rc.steps.map(t=>`<li>${esc(t)}</li>`).join('')}</ol></div>`:''}
-      <div class="btns"><button class="btn sec" data-ropen="${rc.id}">${isOpen?'Minder tonen':'Recept en boodschappen'}</button><button class="btn" data-radd="${rc.id}">Zet op mijn lijst</button></div></div>`}).join('')}
-function addRecipe(id){const rc=RC.recipes.find(r=>r.id===id);if(!rc)return;const have=new Set(state.text.split('\n').map(l=>Match.norm(l)));
-  const add=rc.ingredients.filter(l=>!have.has(Match.norm(l)));state.text=(state.text.trim()?state.text.trim()+'\n':'')+add.join('\n');persist();render();return add.length}
+if(!Array.isArray(state.favs))state.favs=[];
+let fopen=null,fedit=null;
+const favLines=t=>t.split('\n').map(l=>l.trim()).filter(Boolean);
+function addLines(lines){const have=new Set(state.text.split('\n').map(l=>Match.norm(l)));const add=lines.filter(l=>!have.has(Match.norm(l)));
+  state.text=(state.text.trim()?state.text.trim()+'\n':'')+add.join('\n');persist();render();return add.length}
+function favFormHtml(f){return `<div style="margin-top:12px"><label class="muted" for="fTitle">Naam</label><input id="fTitle" class="fin" value="${esc(f?f.title:'')}" placeholder="Bijv. Pasta pesto met kip">
+  <label class="muted" for="fItems" style="display:block;margin-top:8px">Boodschappen, één per regel</label><textarea id="fItems" placeholder="300 g kipfilet&#10;500 g penne&#10;1 potje groene pesto">${esc(f?f.items.join('\n'):'')}</textarea>
+  <div class="btns"><button class="btn" id="fSave">Bewaar</button><button class="btn sec" id="fCancel">Annuleer</button></div></div>`}
+function renderRecipes(){
+  $('favForm').innerHTML=fedit==='new'?favFormHtml(null):'';
+  if(!state.favs.length){$('favs').innerHTML='<div class="empty">Nog geen favorieten. Voeg een recept toe, importeer er een uit een foto, of bewaar je huidige lijst.</div>';return}
+  $('favs').innerHTML=state.favs.map(f=>{
+    if(fedit===f.id)return `<div class="card">${favFormHtml(f)}<div class="btns"><button class="btn sec" data-fdel="${f.id}" style="color:var(--warn)">Verwijderen</button></div></div>`;
+    let sum=0,miss=0,rows='';if(P){const R=computeLines(f.items);rows=R.map(r=>{const b=bestOf(r);if(!b){miss++;return `<div class="cmp"><span></span><span class="miss">${esc(r.line)}: niet gevonden</span><span></span></div>`}
+      const x=r.per[b];sum+=x.total;return `<div class="cmp"><span>${dot(b)}</span><span>${esc(r.line)}<span class="pn" style="display:block">${x.packs>1?x.packs+'× ':''}${esc(x.pick.p.name)}${x.deal?' · <b style="color:var(--ok)">'+esc(x.deal.d)+'</b>':''}</span></span><span class="pr">${x.deal&&x.regular>x.total+0.005?`<s>${eur(x.regular)}</s><span class="now">${eur(x.total)}</span>`:eur(x.total)}</span></div>`}).join('')}
+    const open=fopen===f.id;
+    return `<div class="card rc"><div class="rh" data-fopen="${f.id}" style="display:flex;justify-content:space-between;gap:10px;align-items:baseline"><h2 style="margin:0">${esc(f.title)}</h2><b style="white-space:nowrap">${P?'± '+eur(sum):''}</b></div>
+      <div class="muted">${f.items.length} producten${miss?` · ${miss} niet gevonden`:''} · prijs bij jouw winkels</div>
+      ${open?`<div style="margin-top:8px">${rows}</div>`:''}
+      <div class="btns"><button class="btn" data-fadd="${f.id}">Zet op mijn lijst</button><button class="btn sec" data-fopen="${f.id}">${open?'Minder':'Bekijk'}</button><button class="btn sec" data-fedit="${f.id}">Bewerk</button></div></div>`}).join('')}
+function saveFav(id){const title=$('fTitle').value.trim()||'Mijn recept',items=favLines($('fItems').value);if(!items.length){$('fItems').focus();return}
+  if(id&&id!=='new'){const f=state.favs.find(x=>x.id===id);if(f){f.title=title;f.items=items}}else state.favs.unshift({id:'f'+Date.now().toString(36),title,items});
+  fedit=null;persist();renderRecipes()}
+$('t-recipes').addEventListener('click',e=>{const t=e.target;
+  if(t.id==='favNew'){fedit='new';renderRecipes();$('fTitle').focus();return}
+  if(t.id==='favFromList'){const items=favLines(state.text);if(!items.length){t.textContent='Je lijst is nog leeg';return}fedit='new';renderRecipes();$('fItems').value=items.join('\n');$('fTitle').focus();return}
+  if(t.id==='fCancel'){fedit=null;renderRecipes();return}
+  if(t.id==='fSave'){saveFav(fedit);return}
+  const a=t.closest('[data-fadd]');if(a){const f=state.favs.find(x=>x.id===a.dataset.fadd);if(f){const n=addLines(f.items);a.textContent=n?`${n} toegevoegd ✓`:'Staat al op je lijst ✓'}return}
+  const o=t.closest('[data-fopen]');if(o){fopen=fopen===o.dataset.fopen?null:o.dataset.fopen;renderRecipes();return}
+  const ed=t.closest('[data-fedit]');if(ed){fedit=ed.dataset.fedit;renderRecipes();return}
+  const d=t.closest('[data-fdel]');if(d){if(d.dataset.sure){state.favs=state.favs.filter(x=>x.id!==d.dataset.fdel);fedit=null;persist();renderRecipes()}else{d.dataset.sure='1';d.textContent='Zeker weten? Tik nog een keer'}return}});
 
 /* ---------- aanbiedingen ---------- */
 function disc(o){if(o.pct)return o.pct;if(o.was&&o.p!=null&&o.was>o.p)return 1-o.p/o.was;return 0}
@@ -260,8 +281,6 @@ document.addEventListener('click',e=>{const t=e.target;
     if(!state.stores.includes(state.mode))state.mode='split';persist();render();return}
   const md=t.closest('[data-mode]');if(md){state.mode=md.dataset.mode;persist();render();return}
   const go=t.closest('[data-go]');if(go){tab(go.dataset.go);return}
-  const ro=t.closest('[data-ropen]');if(ro){ropen=ropen===ro.dataset.ropen?null:ro.dataset.ropen;renderRecipes();return}
-  const ra=t.closest('[data-radd]');if(ra){const n=addRecipe(ra.dataset.radd);ra.textContent=n?`${n} producten toegevoegd ✓`:'Staat al op je lijst ✓';return}
   if(t.closest('#otop')){otop=!otop;renderOffers();return}
   const of=t.closest('[data-ofil]');if(of){ofil=of.dataset.ofil;renderOffers();return}
   if(t.matches('[data-done]')){const k=t.dataset.done;if(t.checked)state.done[k]=true;else delete state.done[k];persist();render();return}
@@ -274,12 +293,12 @@ $('save').addEventListener('click',()=>{state.text=$('txt').value;persist();$('l
 $('clear').addEventListener('click',e=>{const b=e.currentTarget;if(b.dataset.sure){state.text='';state.done={};state.picks={};$('txt').value='';persist();render();b.textContent='Lijst leegmaken';delete b.dataset.sure;$('lstat').textContent='Lijst leeggemaakt.'}else{b.dataset.sure=1;b.textContent='Zeker weten?';setTimeout(()=>{if(b.dataset.sure){delete b.dataset.sure;b.textContent='Lijst leegmaken'}},3000)}});
 $('q').addEventListener('input',renderOffers);
 function tab(t){document.querySelectorAll('nav [data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
-  document.querySelectorAll('main>section').forEach(s=>s.hidden=s.id!=='t-'+t);if(t==='list')$('txt').value=state.text;if(t==='offers')renderOffers();if(t==='recipes')renderRecipes()}
+  document.querySelectorAll('main>section').forEach(s=>s.hidden=s.id!=='t-'+t);if(t==='list')$('txt').value=state.text;if(t==='offers')renderOffers();if(t==='recipes')renderRecipes();window.scrollTo(0,0)}
 document.querySelector('nav').addEventListener('click',e=>{const t=e.target.closest('[data-tab]');if(t)tab(t.dataset.tab)});
 
 /* ---------- data laden ---------- */
-Promise.all([fetch('data/prices.json').then(r=>r.json()),fetch('data/offers.json').then(r=>r.json()),fetch('data/recipes.json').then(r=>r.json()).catch(()=>null)]).then(([p,o,rc])=>{
-  P=p;O=o;RC=rc;for(const s in P.stores)IDX[s]=Match.indexStore(P.stores[s]);
+Promise.all([fetch('data/prices.json').then(r=>r.json()),fetch('data/offers.json').then(r=>r.json())]).then(([p,o])=>{
+  P=p;O=o;for(const s in P.stores)IDX[s]=Match.indexStore(P.stores[s]);
   const w=O.weeks;$('fresh').textContent='Aanbiedingen: '+Object.keys(S).filter(s=>w[s]).map(s=>`${S[s].label} t/m ${dnl(w[s].to)}`).join(' · ')+' · Lidl: alleen gewone prijzen';
   render()}).catch(()=>{$('fresh').textContent='Prijzen konden niet geladen worden. Probeer het later opnieuw.'});
 $('where').textContent='Je lijst staat op dit apparaat.';
@@ -312,9 +331,11 @@ function showOcr(){const out=$('impOut'),lines=parseRecipe(ocrText).map(cleanLin
   if(!lines.length){out.innerHTML='<p class="muted">Geen ingrediëntenlijst gevonden. Maak een scherpe foto van alleen het stuk met de ingrediënten, recht van voren.</p>';return}
   const row=l=>{const pan=PANTRY.test(l)&&!/\d{2,}\s*(g|ml)/.test(l);return `<label class="ing${pan?' pan':''}"><input type="checkbox" ${pan?'':'checked'}><input type="text" value="${esc(scaleLine(l,k))}" aria-label="Ingrediënt"></label>`};
   out.innerHTML=`<p class="muted" style="margin:12px 0 6px">${ocrBase?`Recept voor ${ocrBase} personen${k!==1?`, omgerekend naar ${want}`:''}. `:want?'Aantal personen niet gevonden in het recept, hoeveelheden zijn niet omgerekend. ':''}Controleer de regels: tik erop om iets te verbeteren, vink uit wat je al hebt.</p>
-    ${lines.map(row).join('')}<div class="btns"><button class="btn" id="impAdd">Zet op mijn lijst</button><button class="btn sec" id="impClear">Wissen</button></div>`}
+    ${lines.map(row).join('')}<div class="btns"><button class="btn" id="impAdd">Zet op mijn lijst</button><button class="btn sec" id="impFav">Bewaar als favoriet</button><button class="btn sec" id="impClear">Wissen</button></div>`}
 $('impOut').addEventListener('click',e=>{const t=e.target;
   if(t.id==='impClear'){ocrText='';$('impThumbs').innerHTML='';$('impOut').innerHTML='';return}
+  if(t.id==='impFav'){const items=[...$('impOut').querySelectorAll('.ing')].filter(l=>l.querySelector('input[type=checkbox]').checked).map(l=>l.querySelector('input[type=text]').value.trim()).filter(Boolean);if(!items.length)return;
+    const h=$('impOut').querySelector('h3');state.favs.unshift({id:'f'+Date.now().toString(36),title:h?h.textContent:'Recept uit foto',items});persist();if(!h){fedit=state.favs[0].id;renderRecipes();$('fTitle').select();$('fTitle').scrollIntoView({block:'center'})}else renderRecipes();t.textContent='Bewaard bij je favorieten ✓';return}
   if(t.id==='impAdd'){const lines=[...$('impOut').querySelectorAll('.ing')].filter(l=>l.querySelector('input[type=checkbox]').checked).map(l=>l.querySelector('input[type=text]').value.trim()).filter(Boolean);
     const have=new Set(state.text.split('\n').map(l=>Match.norm(l)));const add=lines.filter(l=>!have.has(Match.norm(l)));
     state.text=(state.text.trim()?state.text.trim()+'\n':'')+add.join('\n');persist();render();t.textContent=add.length?`${add.length} producten toegevoegd ✓`:'Staat al op je lijst ✓'}});
