@@ -42,7 +42,7 @@ h1 span{color:var(--ok)}
 .stores{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:14px 0 4px}
 .st{display:flex;align-items:center;gap:8px;justify-content:center;border:1.5px solid var(--line);background:var(--card);color:var(--mute);border-radius:12px;min-height:48px;font:700 15px Figtree,sans-serif;cursor:pointer;padding:6px}
 .st[aria-pressed=true]{border-color:var(--ink);color:var(--ink)}
-.dot{width:12px;height:12px;border-radius:50%;flex:none;display:inline-block}
+.sb{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;font:800 10.5px/1 Figtree,sans-serif;letter-spacing:-.3px;flex:none;vertical-align:-5px}
 .st[aria-pressed=false] .dot{opacity:.3}
 .st small{display:block;font:600 11px Figtree,sans-serif;color:var(--mute);line-height:1.1}
 nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid var(--line);padding:6px 0 calc(6px + env(safe-area-inset-bottom))}
@@ -59,7 +59,9 @@ section[hidden]{display:none}
 .subn{color:#8a5a00;font-weight:700;font-size:13px}
 .save{display:inline-block;background:var(--okbg);color:var(--ok);font-weight:700;border-radius:8px;padding:4px 10px;font-size:14px;margin-top:8px}
 .bars{margin-top:14px;display:grid;gap:8px}
-.bar{display:grid;grid-template-columns:72px minmax(0,1fr) 74px;gap:8px;align-items:center;font-size:14px}
+.bar{display:grid;grid-template-columns:22px 82px minmax(0,1fr) auto;gap:8px;align-items:center;font:500 14px Figtree,sans-serif;color:var(--ink);background:none;border:0;padding:6px 0;width:100%;text-align:left;cursor:pointer}
+.bar .nm{display:flex;align-items:center;gap:6px;font-weight:700}.bar .ck{width:20px;height:20px;border-radius:6px;border:2px solid var(--line);display:grid;place-items:center;box-sizing:border-box}.bar.on .ck{background:var(--ink);border-color:var(--ink)}.bar.on .ck::after{content:'';width:5px;height:10px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.bar:not(.on) .nm,.bar:not(.on) .r{opacity:.45}.bar:not(.on) .tr i{opacity:.25}
 .bar .tr{height:12px;background:var(--field);border-radius:6px;overflow:hidden}.bar .tr i{display:block;height:100%;border-radius:6px}
 .bar .r{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .mode{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
@@ -91,17 +93,25 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .btns.tight{flex-wrap:nowrap}.btns.tight .btn{flex:1 1 auto;padding:0 10px;justify-content:center;white-space:nowrap}
 .pan{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px}.pan:empty::before{content:'Nog niets. Wat hier staat, wordt nooit op je lijst gezet.';color:var(--mute);font-size:14px}
 .pan button{border:1px solid var(--line);background:var(--field);color:var(--ink);border-radius:999px;padding:6px 10px 6px 12px;font:600 14px Figtree,sans-serif;cursor:pointer}.pan button::after{content:' ×';color:var(--mute)}
-.step{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-left:auto}.step button{background:var(--card);border:0;width:40px;height:42px;font:700 20px Figtree,sans-serif;color:var(--ink);cursor:pointer}.step b{min-width:22px;text-align:center}
+.step{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:12px;overflow:hidden;flex:none}
+.rrow{grid-template-columns:22px minmax(0,1fr) auto}.qrow{display:flex;align-items:center;gap:4px}.qin{flex:1;min-width:0;border:1px solid transparent;border-radius:8px;background:none;font:600 15px Figtree,sans-serif;color:var(--ink);padding:4px 6px}.qin:focus{border-color:var(--line);background:var(--field);outline:none}
+.qb{flex:none;width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--card);font:700 17px/1 Figtree,sans-serif;color:var(--ink);cursor:pointer}.step button{background:var(--card);border:0;width:40px;height:42px;font:700 20px Figtree,sans-serif;color:var(--ink);cursor:pointer}.step b{min-width:22px;text-align:center}
 #planBar{position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom));z-index:19;max-width:536px;margin:0 auto;background:var(--ink);color:#fff;border-radius:16px;padding:10px 10px 10px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
 #planBar[hidden]{display:none}#t-recipes{padding-bottom:72px}#planBar .pt{flex:1;font-weight:700;line-height:1.2}#planBar small{display:block;font-weight:500;opacity:.75}#planBar .btn{background:#fff;color:var(--ink)}#planBar .x{background:none;border:0;color:#fff;opacity:.7;font-size:20px;padding:0 6px;cursor:pointer}
 .cath{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);padding:10px 16px 2px}
+.pickb{width:100%;background:none;border:0;font:inherit;color:inherit;text-align:left;cursor:pointer;padding-left:0;padding-right:0}.pnm{min-width:0;font-weight:600;font-size:14px}.pnm small{display:block;color:var(--mute);font-weight:600;font-size:12px}
+#sheet{position:fixed;inset:0;z-index:50}#sheet[hidden]{display:none}.sh-bg{position:absolute;inset:0;background:rgba(10,12,10,.35)}
+.sh{position:absolute;left:0;right:0;bottom:0;max-width:600px;margin:0 auto;background:var(--card);border-radius:20px 20px 0 0;padding:14px 16px calc(16px + env(safe-area-inset-bottom));max-height:82vh;display:flex;flex-direction:column;box-shadow:0 -8px 30px rgba(0,0,0,.15)}
+.sh-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}.sh-hd .x{background:var(--field);border:0;border-radius:50%;width:36px;height:36px;font-size:20px;cursor:pointer;color:var(--ink)}
+#shList{overflow-y:auto;-webkit-overflow-scrolling:touch}.opt{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;background:none;border:0;border-top:1px solid var(--line);padding:11px 2px;font:inherit;color:inherit;text-align:left;cursor:pointer}
+.opt:first-child{border-top:0}.opt b{font-weight:600}.opt small{display:block;color:var(--mute);font-size:12.5px}.opt .pr{text-align:right;font-weight:700;white-space:nowrap}.opt.cur b::before{content:'✓ ';color:var(--ok)}
 .fin{width:100%;box-sizing:border-box;font:500 16px Figtree,sans-serif;background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:4px}
 .thumbs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.thumbs img{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
 .ing{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}.ing input{width:20px;height:20px;flex:none}.ing input[type=text]{flex:1;width:auto;height:auto;font:500 15px Figtree,sans-serif;border:0;background:none;color:var(--ink);padding:2px 0}
 .ing.pan input[type=text]{color:var(--mute)}
 .muted{color:var(--mute);font-size:14px}
-.off{display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:10px 0;border-top:1px solid var(--line)}
-.off:first-child{border-top:0}.off .dot{width:10px;height:10px}.off small{display:block;color:var(--mute)}
+.off{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:10px 0;border-top:1px solid var(--line)}
+.off:first-child{border-top:0}.off .sb{width:20px;height:20px;font-size:10px}.off small{display:block;color:var(--mute)}
 .off .d{color:var(--ok);font-weight:700;text-align:right;white-space:nowrap;font-size:14px}
 .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:12px}
 .facts div{background:var(--field);border-radius:10px;padding:8px}.facts b{display:block;font-size:18px;white-space:nowrap}.facts small{color:var(--mute);font-size:12px}
@@ -114,7 +124,6 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 <body>
 <header class="wrap">
   <div class="brand"><img src="icons/logo.svg" alt="" width="44" height="44"><h1>Budget<span>Boodschappen</span></h1></div>
-  <div class="stores" id="stores"></div>
 </header>
 <nav><div class="seg" role="tablist">
   <button role="tab" data-tab="route" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21c-1.7 0-3-1.3-3-3s1.3-3 3-3h12c1.7 0 3-1.3 3-3s-1.3-3-3-3H9"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="2.5"/></svg>Route</button>
@@ -160,6 +169,9 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
     </div>
   </section>
 </main>
+<div id="sheet" hidden><div class="sh-bg" data-shclose></div><div class="sh" role="dialog" aria-modal="true" aria-labelledby="shTitle">
+  <div class="sh-hd"><div><b id="shTitle"></b><div class="muted" id="shSub" style="font-size:13px"></div></div><button class="x" data-shclose aria-label="Sluiten">×</button></div>
+  <input id="shQ" class="fin" type="search" placeholder="Zoek een ander product" aria-label="Zoek product" style="margin:0 0 6px"><div id="shList"></div></div></div>
 <script src="match.js"></script>
 <script>
 {
@@ -167,7 +179,8 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const eur=n=>'€'+n.toFixed(2).replace('.',',');
 const S={ah:{label:'AH',full:'AH',c:'var(--ah)'},jumbo:{label:'Jumbo',full:'Jumbo',c:'var(--jumbo)'},aldi:{label:'Aldi',full:'Aldi',c:'var(--aldi)'},dirk:{label:'Dirk',full:'Dirk',c:'var(--dirk)'},plus:{label:'Plus',full:'Plus',c:'var(--plus)'},lidl:{label:'Lidl',full:'Lidl',c:'var(--lidl)',noOffers:true}};
-const dot=s=>`<span class="dot" style="background:${S[s].c}"></span>`;
+const AB={ah:['AH','#fff'],jumbo:['J','#111'],aldi:['A','#fff'],dirk:['D','#fff'],plus:['P','#fff'],lidl:['L','#fff']};
+const dot=s=>`<span class="sb" style="background:${S[s].c};color:${AB[s][1]}" aria-hidden="true">${AB[s][0]}</span>`;
 const dnl=d=>new Date(d+'T12:00').toLocaleDateString('nl-NL',{day:'numeric',month:'short'});
 const today=new Date().toISOString().slice(0,10);
 let P=null,O=null,IDX={},state={text:'',done:{},picks:{},stores:['ah','jumbo','aldi'],mode:'split'},open=null,ofil='all',otop=false;
@@ -186,9 +199,9 @@ const keyOf=l=>Match.norm(l);
 function compute(){return computeLines(state.text.split('\n').map(s=>s.trim()).filter(Boolean))}
 function computeLines(lines){const res=[];
   for(const line of lines){const it=Match.parseLine(line);if(!it)continue;const k=keyOf(line),per={};
-    for(const s of state.stores){if(!IDX[s])continue;
+    for(const s of Object.keys(S)){if(!IDX[s])continue;
       const cands=Match.candidates(it,IDX[s],6);let pick=cands[0];
-      const pk='p:'+it.t.join(' '),want=state.picks[pk]?.[s]||state.picks[k]?.[s];if(want){const f=cands.find(c=>c.p.name===want);if(f)pick=f}
+      const pk='p:'+it.t.join(' '),want=state.picks[pk]?.[s]||state.picks[k]?.[s];if(want){let f=cands.find(c=>c.p.name===want);if(!f){const p=IDX[s].find(x=>x.name===want);if(p){f={p,cost:Match.costOf(it,p,p.qty&&p.qty.d)};cands.unshift(f)}}if(f)pick=f}
       const o=Match.offerFor(it,O.offers.filter(o=>o.to>=today&&o.from<=addDays(today,6)),s);
       if(!pick&&o&&o.p!=null){const pq=Match.parseQty(o.n);const fake={name:o.n,price:o.p,size:'',qty:pq};pick={p:fake,cost:Match.costOf(it,fake,pq&&pq.d)};cands.unshift(pick)}
       if(!pick){per[s]=null;continue}
@@ -225,22 +238,21 @@ function shareList(groups,order,miss,total){const lines=[`Boodschappen · ± ${e
 let lastShare=null;
 function render(){
   if(!P)return;
-  $('stores').innerHTML=Object.keys(S).map(s=>`<button class="st" aria-pressed="${state.stores.includes(s)}" data-s="${s}">${dot(s)}${S[s].noOffers?`<span>${S[s].full}<small>geen acties</small></span>`:S[s].full}</button>`).join('');
-  const R=compute(),sel=state.stores;
+  const R=compute(),sel=state.stores;lastR=R;
   if(!R.length){$('sum').innerHTML=`<div class="empty">Je lijst is nog leeg.<br><button class="btn" style="margin-top:12px" data-go="list">Lijst maken</button></div>`;$('bons').innerHTML='';return}
-  const one={};for(const s of sel){one[s]={sum:0,miss:0,sub:0};for(const r of R){if(r.per[s]){one[s].sum+=r.per[s].total;if(r.per[s].sub)one[s].sub++}else one[s].miss++}}
-  const assign=r=>{if(state.mode!=='split'){return r.per[state.mode]?state.mode:null}
-    let b=null;const ex=sel.some(s=>r.per[s]&&!r.per[s].sub),ms=Math.min(...sel.map(s=>r.per[s]&&r.per[s].sub?r.per[s].pick.score:99));for(const s of sel){const y=r.per[s];if(y&&(ex?!y.sub:y.pick.score<=ms+0.1)&&(!b||y.total<r.per[b].total-1e-9))b=s}return b};
+  const ALL=Object.keys(S).filter(x=>IDX[x]);state.mode='split';
+  const one={};for(const s of ALL){one[s]={sum:0,miss:0,sub:0};for(const r of R){if(r.per[s]){one[s].sum+=r.per[s].total;if(r.per[s].sub)one[s].sub++}else one[s].miss++}}
+  const assign=r=>{let b=null;const ex=sel.some(s=>r.per[s]&&!r.per[s].sub),ms=Math.min(...sel.map(s=>r.per[s]&&r.per[s].sub?r.per[s].pick.score:99));for(const s of sel){const y=r.per[s];if(y&&(ex?!y.sub:y.pick.score<=ms+0.1)&&(!b||y.total<r.per[b].total-1e-9))b=s}return b};
   const groups={},miss=[];let split=0;
   for(const r of R){const s=assign(r);if(!s){miss.push(r);continue}(groups[s]=groups[s]||[]).push(r);split+=r.per[s].total}
   const full=sel.filter(s=>one[s].miss===miss.length).sort((a,b)=>one[a].sum-one[b].sum);
-  const bestOne=full[0];
-  const saveTxt=state.mode==='split'&&bestOne&&one[bestOne].sum-split>0.005?`<div class="save">${eur(one[bestOne].sum-split)} goedkoper dan alles bij ${S[bestOne].label}</div>`:'';
-  const maxv=Math.max(...sel.map(s=>one[s].sum),1);
-  $('sum').innerHTML=`<div class="total"><div><div class="muted">${state.mode==='split'?'Totaal, slim verdeeld':'Totaal bij '+S[state.mode].full}</div><div class="big">${eur(split)}</div>${saveTxt}</div>
-    </div>
-    <div class="bars">${sel.map(s=>`<div class="bar"><span>${dot(s)} ${S[s].label}</span><span class="tr"><i style="width:${one[s].sum/maxv*100}%;background:${S[s].c}"></i></span><span class="r">${eur(one[s].sum)}${one[s].sub?` <span class="subn">≈${one[s].sub}</span>`:''}${one[s].miss?` <span class="miss">−${one[s].miss}</span>`:''}</span></div>`).join('')}</div>
-    <div class="mode"><button class="chip" id="shareBtn">↗ Delen</button><button class="chip${state.mode==='split'?' on':''}" data-mode="split">Goedkoopst verdeeld</button>${sel.map(s=>`<button class="chip${state.mode===s?' on':''}" data-mode="${s}">Alles bij ${S[s].label}</button>`).join('')}</div>`;
+  const bestOne=full[0],nGroups=Object.keys(groups).length;
+  const saveTxt=sel.length>1&&bestOne&&one[bestOne].sum-split>0.005?`<div class="save">${eur(one[bestOne].sum-split)} goedkoper dan alles bij ${S[bestOne].label}</div>`:'';
+  const maxv=Math.max(...ALL.map(s=>one[s].sum),1);
+  $('sum').innerHTML=`<div class="total"><div><div class="muted">${sel.length===1?'Alles bij '+S[sel[0]].full:`Totaal bij ${nGroups} ${nGroups===1?'winkel':'winkels'}`}</div><div class="big">${eur(split)}</div>${saveTxt}</div>
+    <button class="chip" id="shareBtn" aria-label="Lijst delen">↗ Delen</button></div>
+    <div class="bars">${ALL.map(s=>{const on=sel.includes(s);return `<button class="bar${on?' on':''}" data-s="${s}" aria-pressed="${on}"><span class="ck" aria-hidden="true"></span><span class="nm">${dot(s)} ${S[s].label}</span><span class="tr"><i style="width:${one[s].sum/maxv*100}%;background:${S[s].c}"></i></span><span class="r">${eur(one[s].sum)}${one[s].sub?` <span class="subn">≈${one[s].sub}</span>`:''}${one[s].miss?` <span class="miss">−${one[s].miss}</span>`:''}</span></button>`}).join('')}</div>
+    <p class="muted" style="margin:10px 0 0;font-size:13px">Vink aan bij welke winkels je wilt halen. Eén winkel aan = alles daar.</p>`;
   const order=['aldi','lidl','dirk','plus','jumbo','ah'].filter(s=>groups[s]);lastShare=()=>shareList(groups,order,miss,split);
   $('bons').innerHTML=order.map(s=>{const g=groups[s],sub=g.reduce((a,r)=>a+r.per[s].total,0);
     return `<div class="bon"><div class="hd"><b>${dot(s)}${S[s].full}</b><span>${eur(sub)}</span></div>${itemsByCat(g,s,sel)}</div>`}).join('')
@@ -251,8 +263,8 @@ function item(r,s,sel){const x=r.per[s],done=!!state.done[r.k],isOpen=open===r.k
   return `<div class="it${done?' done':''}"><div class="row" data-open="${esc(r.k)}"><input type="checkbox" aria-label="${esc(r.line)} afvinken" data-done="${esc(r.k)}"${done?' checked':''}>
   <div><div class="lbl">${esc(r.line)}</div><div class="pn">${x.sub?'<span class="subtag">lijkt op</span> ':''}${pk}${esc(p.name)}${sz}</div>${x.deal?`<span class="tag">${esc(x.deal.d)}</span>`:''}</div>
   <div class="pr">${x.deal&&x.regular>x.total+0.005?`<s>${eur(x.regular)}</s><span class="now">${eur(x.total)}</span>`:eur(x.total)}</div></div>
-  ${isOpen?`<div class="det">${sel.map(t=>{const y=r.per[t];if(!y)return `<div class="cmp"><span>${dot(t)}</span><span class="muted">${S[t].label}: niet gevonden</span><span></span></div>`;
-    return `<div class="cmp${t===s?' best':''}"><span>${dot(t)}</span><select aria-label="Product bij ${S[t].full}" data-pick="${esc(r.k)}|${t}">${y.cands.map(c=>`<option${c.p.name===y.pick.p.name?' selected':''}>${esc(c.p.name)}${c.p.size?' · '+esc(c.p.size):''} — ${eur(c.p.price)}</option>`).join('')}</select><span class="pr">${y.sub?'<span class="subtag">≈</span> ':''}${y.deal&&y.regular>y.total+0.005?`<s>${eur(y.regular)}</s><span class="now">${eur(y.total)}</span>`:eur(y.total)}</span></div>`}).join('')}</div>`:''}</div>`}
+  ${isOpen?`<div class="det">${Object.keys(S).filter(t=>sel.includes(t)).map(t=>{const y=r.per[t];if(!y)return `<div class="cmp"><span>${dot(t)}</span><span class="muted">${S[t].label}: niet gevonden</span><span></span></div>`;
+    return `<button class="cmp pickb${t===s?' best':''}" data-pickopen="${esc(r.k)}|${t}" aria-label="Ander product kiezen bij ${S[t].full}"><span>${dot(t)}</span><span class="pnm">${y.packs>1?y.packs+'× ':''}${esc(y.pick.p.name)}${y.pick.p.size?' · '+esc(y.pick.p.size):''}<small>Wissel ›</small></span><span class="pr">${y.sub?'<span class="subtag">≈</span> ':''}${y.deal&&y.regular>y.total+0.005?`<s>${eur(y.regular)}</s><span class="now">${eur(y.total)}</span>`:eur(y.total)}</span></button>`}).join('')}</div>`:''}</div>`}
 
 /* ---------- recepten ---------- */
 function bestOf(r){let b=null;const ex=state.stores.some(s=>r.per[s]&&!r.per[s].sub);for(const s of state.stores){const y=r.per[s];if(y&&(!ex||!y.sub)&&(!b||y.total<r.per[b].total))b=s}return b}
@@ -291,19 +303,25 @@ function renderRecipes(){
   if(!state.favs.length){$('favs').innerHTML='<div class="empty">Nog geen favorieten. Voeg een recept toe of importeer er een met een foto of link.</div>';renderPlan();return}
   $('favs').innerHTML=state.favs.map(f=>{
     if(fedit===f.id)return `<div class="card">${favFormHtml(f)}<div class="btns"><button class="btn sec" data-fdel="${f.id}" style="color:var(--warn)">Verwijderen</button></div></div>`;
-    let sum=0,miss=0,rows='';if(P){const R=computeLines(f.items);rows=R.map(r=>{const b=bestOf(r);if(!b){miss++;return `<div class="cmp"><span></span><span class="miss">${esc(r.line)}: niet gevonden</span><span></span></div>`}
-      const x=r.per[b];sum+=x.total;return `<div class="cmp"><span>${dot(b)}</span><span>${esc(r.line)}<span class="pn" style="display:block">${x.packs>1?x.packs+'× ':''}${esc(x.pick.p.name)}${x.deal?' · <b style="color:var(--ok)">'+esc(x.deal.d)+'</b>':''}</span></span><span class="pr">${x.deal&&x.regular>x.total+0.005?`<s>${eur(x.regular)}</s><span class="now">${eur(x.total)}</span>`:eur(x.total)}</span></div>`}).join('')}
+    let sum=0,miss=0,rows='';if(P){const R=computeLines(f.items);rows=R.map((r,i)=>{const b=bestOf(r),ed=`<span class="qrow"><button class="qb" data-q="${f.id}|${i}|-1" aria-label="Minder">−</button><input class="qin" data-qi="${f.id}|${i}" value="${esc(r.line)}" aria-label="Product en hoeveelheid"><button class="qb" data-q="${f.id}|${i}|1" aria-label="Meer">+</button></span>`;
+      if(!b){miss++;return `<div class="cmp rrow"><span></span><span>${ed}<span class="pn miss" style="display:block">niet gevonden</span></span><span></span></div>`}
+      const x=r.per[b];sum+=x.total;return `<div class="cmp rrow"><span>${dot(b)}</span><span>${ed}<span class="pn" style="display:block">${x.packs>1?x.packs+'× ':''}${esc(x.pick.p.name)}${x.deal?' · <b style="color:var(--ok)">'+esc(x.deal.d)+'</b>':''}</span></span><span class="pr">${x.deal&&x.regular>x.total+0.005?`<s>${eur(x.regular)}</s><span class="now">${eur(x.total)}</span>`:eur(x.total)}</span></div>`}).join('')}
     const open=fopen===f.id,n=state.plan[f.id]||0;
     const meta=[`${f.items.length} producten`,f.kcal?`${f.kcal} kcal`:'',f.protein?`${f.protein} g eiwit p.p.`:'',miss?`${miss} niet gevonden`:''].filter(Boolean).join(' · ');
-    return `<div class="card rc"><div class="rh" data-fopen="${f.id}" style="display:flex;justify-content:space-between;gap:10px;align-items:baseline"><h2 style="margin:0">${esc(f.title)}</h2><b style="white-space:nowrap">${P?'± '+eur(sum):''}</b></div>
-      <div class="muted">${meta}</div>
+    return `<div class="card rc"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><div class="rh" data-fopen="${f.id}" style="min-width:0"><h2 style="margin:0">${esc(f.title)}</h2><div class="muted">${P?'± '+eur(sum)+' · ':''}${meta}</div></div>
+        <span class="step" title="Hoe vaak wil je dit maken?"><button data-pm="${f.id}" aria-label="Minder">−</button><b>${n}</b><button data-pp="${f.id}" aria-label="Meer">+</button></span></div>
       ${open?`<div style="margin-top:8px">${rows}</div>`:''}
-      <div class="btns" style="align-items:center"><button class="btn" data-fadd="${f.id}">Op lijst</button><button class="btn sec" data-fopen="${f.id}">${open?'Minder':'Bekijk'}</button><button class="btn sec" data-fedit="${f.id}">Bewerk</button>
-        <span class="step" title="Hoe vaak wil je dit maken?"><button data-pm="${f.id}" aria-label="Minder">−</button><b>${n}</b><button data-pp="${f.id}" aria-label="Meer">+</button></span></div></div>`}).join('');
+      <div class="btns tight"><button class="btn" data-fadd="${f.id}">Op lijst</button><button class="btn sec" data-fopen="${f.id}">${open?'Sluiten':'Producten'}</button><button class="btn sec" data-fedit="${f.id}">Bewerk</button></div></div>`}).join('');
   renderPlan()}
 function saveFav(id){const title=$('fTitle').value.trim()||'Mijn recept',items=favLines($('fItems').value);if(!items.length){$('fItems').focus();return}
   if(id&&id!=='new'){const f=state.favs.find(x=>x.id===id);if(f){f.title=title;f.items=items}}else state.favs.unshift({id:'f'+Date.now().toString(36),title,items});
   fedit=null;persist();renderRecipes()}
+// hoeveelheid één stap omhoog/omlaag: stuks ±1, gram/ml in logische stappen
+function stepQty(line,d){const it=Match.parseLine(line);if(!it)return line;
+  if(it.req){let q=it.req.q*1000,st=q<100?10:q<500?50:q<2000?100:250;q=Math.max(st,Math.round((q+d*st)/st)*st);return fmtQ(q/1000,it.req.d)+' '+it.label}
+  return Math.max(1,it.n+d)+' '+it.label}
+$('t-recipes').addEventListener('change',e=>{const q=e.target.closest('[data-qi]');if(!q)return;const[id,i]=q.dataset.qi.split('|'),f=state.favs.find(x=>x.id===id);if(!f)return;
+  const v=q.value.trim();if(v)f.items[+i]=v;else f.items.splice(+i,1);persist();renderRecipes()});
 function renderPantry(){$('pan').innerHTML=state.pantry.map(k=>`<button data-pdel="${esc(k)}" aria-label="${esc(k)} verwijderen">${esc(k)}</button>`).join('')}
 function addPantry(list){for(const l of list){const k=pkey(l);if(k&&!state.pantry.includes(k))state.pantry.push(k)}persist();renderPantry()}
 $('panAdd').addEventListener('click',()=>{const v=$('panIn').value.split(',').map(x=>x.trim()).filter(Boolean);if(!v.length)return;addPantry(v);$('panIn').value=''});
@@ -316,6 +334,7 @@ $('t-recipes').addEventListener('click',e=>{const t=e.target;
   if(t.id==='fSave'){saveFav(fedit);return}
   if(t.id==='planAdd'){const r=addLines(planLines());state.plan={};persist();renderRecipes();$('lstat').textContent='';tab('route');return}
   if(t.id==='planClear'){state.plan={};persist();renderRecipes();return}
+  const qb=t.closest('[data-q]');if(qb){const[id,i,d]=qb.dataset.q.split('|'),f=state.favs.find(x=>x.id===id);if(f){f.items[+i]=stepQty(f.items[+i],+d);persist();renderRecipes()}return}
   const pm=t.closest('[data-pm],[data-pp]');if(pm){const id=pm.dataset.pm||pm.dataset.pp;state.plan[id]=Math.max(0,Math.min(14,(state.plan[id]||0)+(pm.dataset.pp?1:-1)));if(!state.plan[id])delete state.plan[id];persist();renderRecipes();return}
   const a=t.closest('[data-fadd]');if(a){const f=state.favs.find(x=>x.id===a.dataset.fadd);if(f)a.textContent=addMsg(addLines(f.items));return}
   const o=t.closest('[data-fopen]');if(o){fopen=fopen===o.dataset.fopen?null:o.dataset.fopen;renderRecipes();return}
@@ -332,13 +351,31 @@ function renderOffers(){if(!O)return;const q=Match.norm($('q').value);
   if(otop)L=L.filter(o=>disc(o)>=0.2).sort((a,b)=>disc(b)-disc(a));
   $('offList').innerHTML=L.map(o=>`<div class="off">${dot(o.s)}<div>${esc(o.n)}${otop?`<span class="pct">−${Math.round(disc(o)*100)}%</span>`:''}<small>${S[o.s].label}${o.from>today?' · vanaf '+dnl(o.from):''}</small></div><span class="d">${o.was&&o.p!=null&&o.was>o.p?`<span class="pr"><s>${eur(o.was)}</s><span class="now">${eur(o.p)}</span></span><small style="font-weight:600">${esc(o.d)}</small>`:esc(o.d)}</span></div>`).join('')||'<div class="empty">Geen aanbiedingen gevonden.</div>'}
 
+/* ---------- product kiezen ---------- */
+let lastR=[],sheetCtx=null,shT=null;
+function openSheet(k,s){const r=lastR.find(x=>x.k===k);if(!r)return;sheetCtx={r,s};
+  $('shTitle').textContent=`${S[s].full}: ${r.line}`;$('shSub').textContent='Kies het product dat je wilt. De app onthoudt je keuze.';
+  $('shQ').value=r.it.label;$('sheet').hidden=false;renderSheet()}
+function closeSheet(){$('sheet').hidden=true;sheetCtx=null}
+function renderSheet(){if(!sheetCtx)return;const {r,s}=sheetCtx,q=$('shQ').value.trim();let it=r.it;
+  if(q){const p=Match.parseLine(q);if(p)it={...r.it,t:p.t,label:p.label}}
+  const cur=r.per[s]&&r.per[s].pick.p.name,seen=new Set(),rows=[];
+  for(const c of Match.candidates(it,IDX[s],20)){if(seen.has(c.p.name))continue;seen.add(c.p.name);
+    const cost=c.cost||Match.costOf(r.it,c.p,c.p.qty&&c.p.qty.d);
+    rows.push(`<button class="opt${c.p.name===cur?' cur':''}" data-choose="${esc(c.p.name)}"><span><b>${esc(c.p.name)}</b><small>${c.p.size?esc(c.p.size)+' · ':''}${eur(c.p.price)} per stuk${cost.packs>1?` · ${cost.packs}× nodig`:''}</small></span><span class="pr">${eur(cost.total)}</span></button>`)}
+  $('shList').innerHTML=rows.length?rows.join(''):'<p class="muted">Niets gevonden. Probeer een ander woord.</p>'}
+$('shQ').addEventListener('input',()=>{clearTimeout(shT);shT=setTimeout(renderSheet,180)});
+$('sheet').addEventListener('click',e=>{if(e.target.closest('[data-shclose]')){closeSheet();return}
+  const c=e.target.closest('[data-choose]');if(!c||!sheetCtx)return;const {r,s}=sheetCtx,pk='p:'+r.it.t.join(' ');
+  (state.picks[pk]=state.picks[pk]||{})[s]=c.dataset.choose;if(state.picks[r.k])delete state.picks[r.k][s];closeSheet();persist();render()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sheetCtx)closeSheet()});
 /* ---------- events ---------- */
 document.addEventListener('click',e=>{const t=e.target;
+  const po=t.closest('[data-pickopen]');if(po){const i=po.dataset.pickopen.lastIndexOf('|');openSheet(po.dataset.pickopen.slice(0,i),po.dataset.pickopen.slice(i+1));return}
   if(t.id==='shareBtn'&&lastShare){lastShare();return}
   const st=t.closest('[data-s]');if(st){const s=st.dataset.s,on=state.stores.includes(s);
     if(on&&state.stores.length===1)return;state.stores=on?state.stores.filter(x=>x!==s):[...state.stores,s].sort((a,b)=>Object.keys(S).indexOf(a)-Object.keys(S).indexOf(b));
-    if(!state.stores.includes(state.mode))state.mode='split';persist();render();return}
-  const md=t.closest('[data-mode]');if(md){state.mode=md.dataset.mode;persist();render();return}
+    persist();render();return}
   const go=t.closest('[data-go]');if(go){tab(go.dataset.go);return}
   if(t.closest('#otop')){otop=!otop;renderOffers();return}
   const of=t.closest('[data-ofil]');if(of){ofil=of.dataset.ofil;renderOffers();return}
@@ -351,7 +388,7 @@ document.addEventListener('change',e=>{const t=e.target;if(!t.matches('[data-pic
 $('save').addEventListener('click',()=>{state.text=$('txt').value;persist();$('lstat').textContent='Opgeslagen ✓';render();tab('route')});
 $('clear').addEventListener('click',e=>{const b=e.currentTarget;if(b.dataset.sure){state.text='';state.done={};$('txt').value='';persist();render();b.textContent='Lijst leegmaken';delete b.dataset.sure;$('lstat').textContent='Lijst leeggemaakt.'}else{b.dataset.sure=1;b.textContent='Zeker weten?';setTimeout(()=>{if(b.dataset.sure){delete b.dataset.sure;b.textContent='Lijst leegmaken'}},3000)}});
 $('q').addEventListener('input',renderOffers);
-function tab(t){if(t!=='recipes')$('planBar').hidden=true;$('stores').hidden=!(t==='route'||t==='offers');document.querySelectorAll('nav [data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
+function tab(t){if(t!=='recipes')$('planBar').hidden=true;document.querySelectorAll('nav [data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
   document.querySelectorAll('main>section').forEach(s=>s.hidden=s.id!=='t-'+t);if(t==='list')$('txt').value=state.text;if(t==='offers')renderOffers();if(t==='recipes')renderRecipes();window.scrollTo(0,0)}
 document.querySelector('nav').addEventListener('click',e=>{const t=e.target.closest('[data-tab]');if(t)tab(t.dataset.tab)});
 

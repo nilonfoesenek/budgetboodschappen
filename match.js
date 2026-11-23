@@ -56,6 +56,10 @@
     return t.length ? { label: s.trim(), t, n, req } : null;
   }
 
+  // bewerkte vormen: '500 g aardappels' ≠ aardappelkroketjes, 'tomaten' ≠ tomatensoep
+  const PROC = new Set(['kroketjes', 'kroketten', 'puree', 'friet', 'frites', 'patat', 'chips', 'rosti', 'wedges', 'partjes', 'schijfjes', 'soep', 'saus', 'salade', 'spread', 'smoothie', 'sap', 'reep', 'repen', 'koek', 'koekjes', 'taart', 'cake', 'muffin', 'pizza', 'mix', 'poeder', 'siroop', 'snack', 'snacks', 'crackers', 'gedroogde', 'ingelegd', 'ingelegde', 'tapenade', 'pesto', 'jam', 'compote', 'moes', 'reepjes', 'gesneden']);
+  const PROCEND = ['chips', 'soep', 'saus', 'salade', 'kroketjes', 'puree', 'taart', 'koek', 'koekjes', 'reep', 'snack', 'schotel', 'lasagne', 'pizza', 'spread', 'drank'];
+  ['lasagne', 'ovenschotel', 'maaltijd'].forEach(x => PROC.add(x));
   // samenstellingen die een ánder product zijn: chocobananen ≠ bananen, koffiemelk ≠ melk
   const BADPRE = ['choco', 'schuim', 'koffie', 'snoep', 'kauw', 'drink', 'zuig', 'spek', 'karne', 'kokos', 'soja', 'haver', 'amandel', 'rijst', 'snack', 'mini', 'gevulde', 'ijs', 'bak'];
   function tokScore(q, pt) {
@@ -79,7 +83,7 @@
       let sc = 0, used = 0, ok = true;
       for (const q of item.t) { const s = tokScore(q, p.t); if (s === Infinity) { ok = false; break; } sc += s; used++; }
       if (!ok) continue;
-      const extra = Math.max(0, p.t.length - used);
+      const extra = Math.max(0, p.t.length - used) + p.t.filter(x => !item.t.includes(x) && (PROC.has(x) || PROCEND.some(e => x.length > e.length + 2 && x.endsWith(e)))).length * 1.5;
       res.push({ p, m: sc, score: sc + extra });
     }
     if (!res.length) {
@@ -143,6 +147,7 @@
     return limit ? pool.slice(0, limit).concat(rest).slice(0, limit) : pool;
   }
   function mode(a) { const c = {}; let b = null; for (const x of a) if (x) { c[x] = (c[x] || 0) + 1; if (!b || c[x] > c[b]) b = x; } return b; }
+  const LOOSE = /(ui|uien|sjalot|paprika|appel|peer|peren|banaan|bananen|citroen|limoen|tomaat|tomaten|avocado|kiwi|sinaasappel|mandarijn|aardappel|wortel|courgette|aubergine|komkommer|knoflook|teen|tenen|champignon|nectarine|perzik|pruim)/i;
   function costOf(item, p, dim) {
     const q = p.qty;
     if (item.req && q && q.d === item.req.d && q.q > 0) {
@@ -153,7 +158,8 @@
     // Aantal stuks gevraagd ("2 uien"): één verpakking volstaat als die groot genoeg is.
     let packs = item.n;
     if (q && q.d === 'st' && q.q > 1) packs = Math.max(1, Math.ceil(item.n / q.q - 1e-9));
-    else if (q && q.d !== 'st') packs = 1;
+    // losse groente/fruit in een zak: '2 uien' = 1 zak. Verpakte producten: '2 rookworsten' = 2 stuks.
+    else if (q && q.d !== 'st' && LOOSE.test(item.label || '')) packs = 1;
     const total = packs * p.price;
     return { packs, total, rank: total + (unit != null ? unit / 1e4 : 0.01) };
   }
