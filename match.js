@@ -57,7 +57,7 @@
   }
 
   // samenstellingen die een ánder product zijn: chocobananen ≠ bananen, koffiemelk ≠ melk
-  const BADPRE = ['choco', 'schuim', 'koffie', 'snoep', 'kauw', 'drink', 'zuig', 'spek', 'karne', 'kokos', 'soja', 'haver', 'amandel', 'rijst', 'snack', 'mini', 'gevulde', 'ijs'];
+  const BADPRE = ['choco', 'schuim', 'koffie', 'snoep', 'kauw', 'drink', 'zuig', 'spek', 'karne', 'kokos', 'soja', 'haver', 'amandel', 'rijst', 'snack', 'mini', 'gevulde', 'ijs', 'bak'];
   function tokScore(q, pt) {
     const st = stem(q);
     let best = Infinity;
