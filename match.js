@@ -92,6 +92,7 @@
     const good = res.filter(r => r.m <= minM + 1);
     const min = Math.min(...good.map(r => r.score));
     let pool = good.filter(r => r.score <= min + 0.5);
+    if (minM >= 1.5) for (const r of pool) r.sub = true; // alleen een woord dat ermee begint (bananenchips bij 'bananen'): vervanger
     const dim = item.req ? item.req.d : mode(pool.map(r => r.p.qty && r.p.qty.d));
     for (const r of pool) r.cost = costOf(item, r.p, dim);
     pool.sort((a, b) => a.cost.rank - b.cost.rank || a.p.price - b.p.price);
