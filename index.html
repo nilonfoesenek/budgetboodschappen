@@ -53,6 +53,9 @@ section[hidden]{display:none}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
 .total{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
 .big{font-size:clamp(36px,10vw,48px);font-weight:800;line-height:1;white-space:nowrap}
+.subtag{display:inline-block;background:#fff2d6;color:#8a5a00;font-weight:700;font-size:11px;border-radius:5px;padding:0 5px;margin-right:2px}
+.subn{color:#8a5a00;font-weight:700;font-size:13px}
+@media(prefers-color-scheme:dark){.subn{color:#f0b44a}.subtag{background:#3a2c10;color:#f0c46a}}
 .save{display:inline-block;background:var(--okbg);color:var(--ok);font-weight:700;border-radius:8px;padding:4px 10px;font-size:14px;margin-top:8px}
 .bars{margin-top:14px;display:grid;gap:8px}
 .bar{display:grid;grid-template-columns:72px minmax(0,1fr) 74px;gap:8px;align-items:center;font-size:14px}
@@ -178,7 +181,7 @@ function computeLines(lines){const res=[];
       if(o){let op=cost.packs;const oq=Match.parseQty(o.n);if(it.req&&oq&&oq.d===it.req.d&&oq.q>0)op=Math.max(1,Math.ceil(it.req.q/oq.q-1e-9));
         if(o.p!=null&&o.p*op<total){deal=o;total=o.p*op;cost.packs=op}else if(o.pct&&!want){deal=o;total=total*(1-o.pct)}}
       const regular=deal&&deal.was&&deal.p!=null?deal.was*cost.packs:cost.total;
-      per[s]={pick,cands,total,regular,packs:cost.packs,deal}}
+      per[s]={pick,cands,total,regular,packs:cost.packs,deal,sub:!!pick.sub}}
     res.push({line,k,it,per})}
   return res}
 function addDays(d,n){const x=new Date(d+'T12:00');x.setDate(x.getDate()+n);return x.toISOString().slice(0,10)}
@@ -188,9 +191,9 @@ function render(){
   $('stores').innerHTML=Object.keys(S).map(s=>`<button class="st" aria-pressed="${state.stores.includes(s)}" data-s="${s}">${dot(s)}${S[s].noOffers?`<span>${S[s].full}<small>geen acties</small></span>`:S[s].full}</button>`).join('');
   const R=compute(),sel=state.stores;
   if(!R.length){$('sum').innerHTML=`<div class="empty">Je lijst is nog leeg.<br><button class="btn" style="margin-top:12px" data-go="list">Lijst maken</button></div>`;$('bons').innerHTML='';return}
-  const one={};for(const s of sel){one[s]={sum:0,miss:0};for(const r of R){if(r.per[s])one[s].sum+=r.per[s].total;else one[s].miss++}}
+  const one={};for(const s of sel){one[s]={sum:0,miss:0,sub:0};for(const r of R){if(r.per[s]){one[s].sum+=r.per[s].total;if(r.per[s].sub)one[s].sub++}else one[s].miss++}}
   const assign=r=>{if(state.mode!=='split'){return r.per[state.mode]?state.mode:null}
-    let b=null;for(const s of sel)if(r.per[s]&&(!b||r.per[s].total<r.per[b].total-1e-9))b=s;return b};
+    let b=null;const ex=sel.some(s=>r.per[s]&&!r.per[s].sub),ms=Math.min(...sel.map(s=>r.per[s]&&r.per[s].sub?r.per[s].pick.score:99));for(const s of sel){const y=r.per[s];if(y&&(ex?!y.sub:y.pick.score<=ms+0.1)&&(!b||y.total<r.per[b].total-1e-9))b=s}return b};
   const groups={},miss=[];let split=0;
   for(const r of R){const s=assign(r);if(!s){miss.push(r);continue}(groups[s]=groups[s]||[]).push(r);split+=r.per[s].total}
   const full=sel.filter(s=>one[s].miss===miss.length).sort((a,b)=>one[a].sum-one[b].sum);
@@ -199,8 +202,8 @@ function render(){
   const maxv=Math.max(...sel.map(s=>one[s].sum),1);
   $('sum').innerHTML=`<div class="total"><div><div class="muted">${state.mode==='split'?'Totaal, slim verdeeld':'Totaal bij '+S[state.mode].full}</div><div class="big">${eur(split)}</div>${saveTxt}</div>
     <div class="muted" style="text-align:right">${R.length} producten<br>${Object.keys(groups).length} ${Object.keys(groups).length===1?'winkel':'winkels'}</div></div>
-    <div class="bars">${sel.map(s=>`<div class="bar"><span>${dot(s)} ${S[s].label}</span><span class="tr"><i style="width:${one[s].sum/maxv*100}%;background:${S[s].c}"></i></span><span class="r">${eur(one[s].sum)}${one[s].miss?` <span class="miss">−${one[s].miss}</span>`:''}</span></div>`).join('')}</div>
-    <p class="muted" style="margin:8px 0 0">Balken: wat je hele lijst bij één winkel kost${sel.some(s=>one[s].miss)?' (−n = zoveel producten niet gevonden)':''}.</p>
+    <div class="bars">${sel.map(s=>`<div class="bar"><span>${dot(s)} ${S[s].label}</span><span class="tr"><i style="width:${one[s].sum/maxv*100}%;background:${S[s].c}"></i></span><span class="r">${eur(one[s].sum)}${one[s].sub?` <span class="subn">≈${one[s].sub}</span>`:''}${one[s].miss?` <span class="miss">−${one[s].miss}</span>`:''}</span></div>`).join('')}</div>
+    <p class="muted" style="margin:8px 0 0">Balken: wat je hele lijst bij één winkel kost${sel.some(s=>one[s].miss)?' (−n = zoveel producten niet gevonden)':''}${sel.some(s=>one[s].sub)?' ≈n = zoveel producten vervangen door iets wat erop lijkt.':''}</p>
     <div class="mode"><button class="chip${state.mode==='split'?' on':''}" data-mode="split">Goedkoopst verdeeld</button>${sel.map(s=>`<button class="chip${state.mode===s?' on':''}" data-mode="${s}">Alles bij ${S[s].label}</button>`).join('')}</div>`;
   const order=['aldi','lidl','dirk','plus','jumbo','ah'].filter(s=>groups[s]);
   $('bons').innerHTML=order.map(s=>{const g=groups[s],sub=g.reduce((a,r)=>a+r.per[s].total,0);
@@ -210,15 +213,15 @@ function render(){
 function item(r,s,sel){const x=r.per[s],done=!!state.done[r.k],isOpen=open===r.k;
   const p=x.pick.p,sz=p.size?` · ${esc(p.size)}`:'',pk=x.packs>1?`${x.packs}× `:'';
   return `<div class="it${done?' done':''}"><div class="row" data-open="${esc(r.k)}"><input type="checkbox" aria-label="${esc(r.line)} afvinken" data-done="${esc(r.k)}"${done?' checked':''}>
-  <div><div class="lbl">${esc(r.line)}</div><div class="pn">${pk}${esc(p.name)}${sz}</div>${x.deal?`<span class="tag">${esc(x.deal.d)}</span>`:''}</div>
+  <div><div class="lbl">${esc(r.line)}</div><div class="pn">${x.sub?'<span class="subtag">lijkt op</span> ':''}${pk}${esc(p.name)}${sz}</div>${x.deal?`<span class="tag">${esc(x.deal.d)}</span>`:''}</div>
   <div class="pr">${x.deal&&x.regular>x.total+0.005?`<s>${eur(x.regular)}</s><span class="now">${eur(x.total)}</span>`:eur(x.total)}</div></div>
   ${isOpen?`<div class="det">${sel.map(t=>{const y=r.per[t];if(!y)return `<div class="cmp"><span>${dot(t)}</span><span class="muted">${S[t].label}: niet gevonden</span><span></span></div>`;
-    return `<div class="cmp${t===s?' best':''}"><span>${dot(t)}</span><select aria-label="Product bij ${S[t].full}" data-pick="${esc(r.k)}|${t}">${y.cands.map(c=>`<option${c.p.name===y.pick.p.name?' selected':''}>${esc(c.p.name)}${c.p.size?' · '+esc(c.p.size):''} — ${eur(c.p.price)}</option>`).join('')}</select><span class="pr">${y.deal&&y.regular>y.total+0.005?`<s>${eur(y.regular)}</s><span class="now">${eur(y.total)}</span>`:eur(y.total)}</span></div>`}).join('')}
+    return `<div class="cmp${t===s?' best':''}"><span>${dot(t)}</span><select aria-label="Product bij ${S[t].full}" data-pick="${esc(r.k)}|${t}">${y.cands.map(c=>`<option${c.p.name===y.pick.p.name?' selected':''}>${esc(c.p.name)}${c.p.size?' · '+esc(c.p.size):''} — ${eur(c.p.price)}</option>`).join('')}</select><span class="pr">${y.sub?'<span class="subtag">≈</span> ':''}${y.deal&&y.regular>y.total+0.005?`<s>${eur(y.regular)}</s><span class="now">${eur(y.total)}</span>`:eur(y.total)}</span></div>`}).join('')}
     <div class="muted" style="margin-top:6px">Klopt het product niet? Kies hierboven een ander product per winkel.</div></div>`:''}</div>`}
 
 /* ---------- recepten ---------- */
 let RC=null,ropen=null;
-function bestOf(r){let b=null;for(const s of state.stores)if(r.per[s]&&(!b||r.per[s].total<r.per[b].total))b=s;return b}
+function bestOf(r){let b=null;const ex=state.stores.some(s=>r.per[s]&&!r.per[s].sub);for(const s of state.stores){const y=r.per[s];if(y&&(!ex||!y.sub)&&(!b||y.total<r.per[b].total))b=s}return b}
 function renderRecipes(){if(!RC||!P)return;$('rnote').textContent=`Week ${RC.week}. ${RC.note}`;
   $('recList').innerHTML=RC.recipes.map(rc=>{const R=computeLines(rc.ingredients);let sum=0,miss=0;const rows=R.map(r=>{const b=bestOf(r);if(!b){miss++;return `<div class="cmp"><span></span><span class="miss">${esc(r.line)}: niet gevonden</span><span></span></div>`}
       const x=r.per[b];sum+=x.total;return `<div class="cmp"><span>${dot(b)}</span><span>${esc(r.line)}<span class="pn" style="display:block">${x.packs>1?x.packs+'× ':''}${esc(x.pick.p.name)}${x.deal?' · <b style="color:var(--ok)">'+esc(x.deal.d)+'</b>':''}</span></span><span class="pr">${x.deal&&x.regular>x.total+0.005?`<s>${eur(x.regular)}</s><span class="now">${eur(x.total)}</span>`:eur(x.total)}</span></div>`}).join('');

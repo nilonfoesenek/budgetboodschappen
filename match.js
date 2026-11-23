@@ -2,7 +2,7 @@
 (function (root) {
   const STOP = new Set(['van', 'de', 'het', 'een', 'en', 'of', 'met', 'voor', 'in', 'op', 'vers', 'verse', 'gram', 'gr', 'g', 'kg', 'ml', 'cl', 'l', 'liter', 'stuk', 'stuks', 'st', 'ca', 'x', 'per', 'pak', 'zak', 'bak', 'pot', 'blik', 'fles']);
   const IGN = new Set(['ah', 'jumbo', 'jumbos', 'aldi', 'milsani', 'golden', 'seafood', 'excellent', 'basic', 'huismerk', 'plus', 'dirk', 'beste', 'lidl', 'zuivelmeester', 'neutraal', 'vleeschmeesters']);
-  const BAN = ['kattenvoer', 'hondenvoer', 'kattensnack', 'hondensnack', 'sheba', 'whiskas', 'felix', 'pedigree', 'kitekat', 'dreamies', 'olvarit', 'hipp', 'nutrilon', 'kat ', 'hond ', 'pets unlimited'];
+  const BAN = ['kattenvoer', 'hondenvoer', 'kattensnack', 'hondensnack', 'sheba', 'whiskas', 'felix', 'pedigree', 'kitekat', 'dreamies', 'olvarit', 'hipp', 'nutrilon', 'kat ', 'hond ', 'pets unlimited', 'katten', 'honden', 'max mila', 'reinigingsmelk', 'bodymilk', 'bodylotion', 'kattenbrok', 'hondenbrok'];
   const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/'s\b/g, 's').replace(/[^a-z0-9.,]+/g, ' ').trim();
   const toks = s => norm(s).split(' ').map(t => t.replace(/[.,]/g, '')).filter(t => t.length > 1 && !STOP.has(t) && !/^\d/.test(t));
   const stem = t => (t.length > 5 ? t.replace(/(en|s|e)$/, '') : t);
@@ -33,7 +33,7 @@
       const name = r[0], low = ' ' + norm(name) + ' ';
       if (BAN.some(b => low.includes(' ' + b))) continue;
       const t = toks(name).filter(x => !IGN.has(x));
-      out.push({ name, price: r[1], size: r[2] || '', t, qty: parseQty(r[2]) || parseQty(name) });
+      out.push({ name, price: r[1], size: r[2] || '', t, j: t.join(''), qty: parseQty(r[2]) || parseQty(name) });
     }
     return out;
   }
@@ -80,7 +80,11 @@
       const extra = Math.max(0, p.t.length - used);
       res.push({ p, m: sc, score: sc + extra });
     }
-    if (!res.length) return [];
+    if (!res.length) {
+      const alt = item.t.map(t => SYN[t] || t);
+      if (alt.some((t, i) => t !== item.t[i])) { const r2 = candidates({ ...item, t: alt }, idx, limit); if (r2.length) return r2; }
+      return similar(item, idx, limit);
+    }
     // Eerst de beste woord-match (eieren ≠ eierkoeken), daarna zo min mogelijk extra woorden.
     const minM = Math.min(...res.map(r => r.m));
     const good = res.filter(r => r.m <= minM + 1);
@@ -95,6 +99,45 @@
       return pool.slice(0, limit).concat(rest).slice(0, limit);
     }
     return pool;
+  }
+  // Geen exacte match: zoek het product dat er het meest op lijkt (gemarkeerd als vervanger).
+  const SYN = { havermelk: 'haverdrink', sojamelk: 'sojadrink', amandelmelk: 'amandeldrink', rijstmelk: 'rijstdrink', kokosdrink: 'kokosmelk', vegaburger: 'vegetarische', zoetaardappel: 'zoete', courgettes: 'courgette', aubergines: 'aubergine' };
+  const tri = w => { const o = []; for (let i = 0; i + 3 <= w.length; i++) o.push(w.slice(i, i + 3)); return o; };
+  function fuzzy(q, p) { const tg = tri(q); if (tg.length < 2) return 0; let h = 0; for (const g of tg) if (p.j.includes(g)) h++; return h / tg.length; }
+  function similar(item, idx, limit) {
+    const q = item.t, last = q.length - 1, res = [];
+    for (const p of idx) {
+      let sc = 0, miss = 0, headOk = false, used = 0;
+      for (let i = 0; i < q.length; i++) {
+        const w = q[i]; let s = tokScore(w, p.t), parts = 1;
+        if (s === Infinity && w.length >= 7) { // samengesteld woord: zuurdesem+brood, kokos+yoghurt
+          for (let k = 3; k <= w.length - 3 && s === Infinity; k++) {
+            const sb = tokScore(w.slice(k), p.t); if (sb > 0.3) continue;
+            const sa = tokScore(w.slice(0, k), p.t);
+            if (sa <= 1.5) { s = 1 + (sa + sb) / 2; parts = 2; }
+            else if (w.length - k >= 5) s = 2.6 - 1.5 * fuzzy(w, p); // alleen het kernwoord (…brood, …blokjes)
+          }
+        }
+        if (s === Infinity && w.length >= 6) { // tikfout of andere schrijfwijze, maar met hetzelfde kernwoord
+          const f = fuzzy(w, p), tail = w.slice(-4);
+          if (f >= 0.7 && p.t.some(t => t.endsWith(tail))) s = 1.5 + (1 - f) * 3;
+        }
+        if (s === Infinity) { miss++; continue; }
+        sc += s; used += parts; if (i === last) headOk = true;
+      }
+      if (!headOk || miss >= q.length) continue;
+      const extra = Math.max(0, p.t.length - used);
+      res.push({ p, score: sc + 1.2 * miss + 0.25 * extra, sub: true });
+    }
+    if (!res.length) return [];
+    res.sort((a, b) => a.score - b.score);
+    const min = res[0].score, pool = res.filter(r => r.score <= min + 0.25).slice(0, 40);
+    const dim = item.req ? item.req.d : mode(pool.map(r => r.p.qty && r.p.qty.d));
+    for (const r of pool) r.cost = costOf(item, r.p, dim);
+    pool.sort((a, b) => a.score - b.score || a.cost.rank - b.cost.rank);
+    const rest = res.filter(r => !pool.includes(r)).slice(0, limit || 6);
+    for (const r of rest) r.cost = costOf(item, r.p, dim);
+    return limit ? pool.slice(0, limit).concat(rest).slice(0, limit) : pool;
   }
   function mode(a) { const c = {}; let b = null; for (const x of a) if (x) { c[x] = (c[x] || 0) + 1; if (!b || c[x] > c[b]) b = x; } return b; }
   function costOf(item, p, dim) {
