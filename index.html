@@ -135,7 +135,7 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
       <div id="favForm"></div></div>
     <div id="favs"></div>
     <div class="card" id="imp" hidden><h2>Uit foto</h2>
-      <div class="btns"><select id="impPers" class="btn sec" aria-label="Aantal personen" style="padding:0 12px"><option value="0" selected>Personen zoals recept</option><option value="1">1 persoon</option><option value="2">2 personen</option><option value="3">3 personen</option><option value="4">4 personen</option><option value="6">6 personen</option></select></div>
+      <div class="btns"><select id="impPers" class="btn sec" aria-label="Aantal personen" style="padding:0 12px"><option value="0" selected>Personen: zoals recept</option><option value="1">1 persoon</option><option value="2">2 personen</option><option value="3">3 personen</option><option value="4">4 personen</option><option value="6">6 personen</option></select></div>
       <input type="file" id="impFile" accept="image/*" multiple hidden>
       <div id="impThumbs" class="thumbs"></div><div id="impOut"></div></div>
 
@@ -176,7 +176,7 @@ function computeLines(lines){const res=[];
   for(const line of lines){const it=Match.parseLine(line);if(!it)continue;const k=keyOf(line),per={};
     for(const s of state.stores){if(!IDX[s])continue;
       const cands=Match.candidates(it,IDX[s],6);let pick=cands[0];
-      const want=state.picks[k]?.[s];if(want){const f=cands.find(c=>c.p.name===want);if(f)pick=f}
+      const pk='p:'+it.t.join(' '),want=state.picks[pk]?.[s]||state.picks[k]?.[s];if(want){const f=cands.find(c=>c.p.name===want);if(f)pick=f}
       const o=Match.offerFor(it,O.offers.filter(o=>o.to>=today&&o.from<=addDays(today,6)),s);
       if(!pick&&o&&o.p!=null){const pq=Match.parseQty(o.n);const fake={name:o.n,price:o.p,size:'',qty:pq};pick={p:fake,cost:Match.costOf(it,fake,pq&&pq.d)};cands.unshift(pick)}
       if(!pick){per[s]=null;continue}
@@ -279,9 +279,9 @@ document.addEventListener('click',e=>{const t=e.target;
   const op=t.closest('[data-open]');if(op){open=open===op.dataset.open?null:op.dataset.open;render()}
 });
 document.addEventListener('change',e=>{const t=e.target;if(!t.matches('[data-pick]'))return;const[k,s]=t.dataset.pick.split('|');
-  const name=t.value.split(' · ')[0].split(' — ')[0];(state.picks[k]=state.picks[k]||{})[s]=name;persist();render()});
+  const name=t.value.split(' · ')[0].split(' — ')[0];const it=Match.parseLine(k)||{t:[]};const pk=it.t.length?'p:'+it.t.join(' '):k;(state.picks[pk]=state.picks[pk]||{})[s]=name;if(state.picks[k]&&k!==pk)delete state.picks[k][s];persist();render()});
 $('save').addEventListener('click',()=>{state.text=$('txt').value;persist();$('lstat').textContent='Opgeslagen ✓';render();tab('route')});
-$('clear').addEventListener('click',e=>{const b=e.currentTarget;if(b.dataset.sure){state.text='';state.done={};state.picks={};$('txt').value='';persist();render();b.textContent='Lijst leegmaken';delete b.dataset.sure;$('lstat').textContent='Lijst leeggemaakt.'}else{b.dataset.sure=1;b.textContent='Zeker weten?';setTimeout(()=>{if(b.dataset.sure){delete b.dataset.sure;b.textContent='Lijst leegmaken'}},3000)}});
+$('clear').addEventListener('click',e=>{const b=e.currentTarget;if(b.dataset.sure){state.text='';state.done={};$('txt').value='';persist();render();b.textContent='Lijst leegmaken';delete b.dataset.sure;$('lstat').textContent='Lijst leeggemaakt.'}else{b.dataset.sure=1;b.textContent='Zeker weten?';setTimeout(()=>{if(b.dataset.sure){delete b.dataset.sure;b.textContent='Lijst leegmaken'}},3000)}});
 $('q').addEventListener('input',renderOffers);
 function tab(t){$('stores').hidden=!(t==='route'||t==='offers');document.querySelectorAll('nav [data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
   document.querySelectorAll('main>section').forEach(s=>s.hidden=s.id!=='t-'+t);if(t==='list')$('txt').value=state.text;if(t==='offers')renderOffers();if(t==='recipes')renderRecipes();window.scrollTo(0,0)}
@@ -296,40 +296,37 @@ Promise.all([getJ('prices.json'),getJ('offers.json')]).then(([p,o])=>{
 render();
 
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
-/* ---------- recept uit foto (tekstherkenning op het toestel) ---------- */
-let ocrText='',ocrBase=0;
-function loadTess(){return window.Tesseract?Promise.resolve():new Promise((ok,no)=>{const sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';sc.onload=ok;sc.onerror=no;document.head.appendChild(sc)})}
-$('impFile').addEventListener('change',async e=>{const fs=[...e.target.files].slice(0,5);e.target.value='';if(!fs.length)return;$('imp').hidden=false;$('imp').scrollIntoView({behavior:'smooth',block:'start'});const out=$('impOut');
-  $('impThumbs').innerHTML='';for(const f of fs){const i=document.createElement('img');i.alt='';i.src=URL.createObjectURL(f);$('impThumbs').appendChild(i)}
-  out.innerHTML='<p class="muted" id="ocrSt">Tekstherkenning laden… (de eerste keer duurt dit even)</p>';
-  try{await loadTess();const w=await Tesseract.createWorker(['nld','eng'],1,{logger:m=>{const st=$('ocrSt');if(st&&m.status==='recognizing text')st.textContent=`Tekst lezen… ${Math.round(m.progress*100)}%`}});
-    let txt='';for(const f of fs){const r=await w.recognize(f);txt+=r.data.text+'\n'}await w.terminate();ocrText=txt;showOcr()}
-  catch(err){out.innerHTML='<p class="muted">Tekstherkenning is niet gelukt. Controleer je internet en probeer het opnieuw.</p>'}});
-$('impPers').addEventListener('change',()=>{if(ocrText)showOcr()});
-const PANTRY=/\b(zout|(?<!(rode|groene|spaanse|gele) )peper|olie|olijfolie|zonnebloemolie|boter|roomboter|margarine|suiker|bloem|water|azijn|bakpoeder|maizena|oregano|basilicum gedroogd|tijm|paprikapoeder|komijn|kerrie|kaneel|nootmuskaat|chilivlokken|bouillonblokje|bouillon|ketjap|sojasaus|mosterd|honing|vanille)\b/i;
-const UNIT=/^(\d+[,.]?\d*|½|¼|¾|\d+\/\d+)\s*(g|gr|gram|kg|kilo|ml|dl|cl|l|liter|el|eetlepels?|tl|theelepels?|stuks?|st|teen|tenen|teentjes?|blik|blikjes?|pak|pakjes?|bos|bosjes?|zakje|zakjes?|snufje|scheutje|plakjes?|takjes?|handvol|kopje|kopjes|cup|cups|tbsp|tsp)?\b/i;
-function parseRecipe(txt){let L=txt.split(/\n/).map(l=>l.replace(/^[^\p{L}\p{N}½¼¾]+/u,'').replace(/^\p{L}\s+(?=[\d½¼¾])/u,'').replace(/\s+/g,' ').trim()).filter(l=>l.length>1);
-  const m=txt.match(/(?:voor|recept voor)?\s*(\d{1,2})\s*(?:personen|pers\.?|porties|servings|people)/i);ocrBase=m?+m[1]:0;
-  const hi=L.findIndex(l=>/^(ingredi[eë]nten|benodigdheden|boodschappen(lijst)?|wat heb je nodig|ingredients)\b/i.test(l)),
-        he=L.findIndex((l,i)=>i>hi&&/^(bereiding(swijze)?|werkwijze|zo maak je( het)?|aan de slag|instructies|method|directions|stap 1)\b/i.test(l));
-  if(hi>=0)L=L.slice(hi+1,he>hi?he:undefined);
-  const looks=l=>UNIT.test(l)||PANTRY.test(l)||(hi>=0&&l.length<45&&!/[.!?]$/.test(l));
-  return L.filter(l=>looks(l)&&l.length<70&&!/^(stap|step)\s*\d/i.test(l)&&!/\b(minuten|min\.|oven|verwarm|snijd|bak|kook)\b/i.test(l))}
+/* ---------- recept uit foto (Claude via /api/scan) ---------- */
+let scan=null,scanBase=0;
+const devId=(()=>{try{let d=localStorage.getItem('bb-device');if(!d){d=Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('bb-device',d)}return d}catch(e){return 'x'}})();
+const UNIT=/^(\d+[,.]?\d*|½|¼|¾|\d+\/\d+)\s*(g|gr|gram|kg|kilo|ml|dl|cl|l|liter|el|tl|stuks?|st|teen|tenen|blik|blikjes?|pak|pakjes?|bos|bosjes?|zakje|zakjes?|bol|bollen|potje|potjes|krop|kroppen)?\b/i;
 function fracNum(t){if(t==='½')return .5;if(t==='¼')return .25;if(t==='¾')return .75;if(/\//.test(t)){const[a,b]=t.split('/');return +a/+b}return parseFloat(t.replace(',','.'))}
-function scaleLine(l,k){if(k===1)return l;const um=l.match(UNIT),count=!(um&&um[2]);return l.replace(/^(\d+[,.]?\d*|½|¼|¾|\d+\/\d+)/,t=>{let v=fracNum(t)*k;v=count?Math.max(1,Math.ceil(v-0.01)):v>=10?Math.round(v/5)*5||Math.round(v):Math.round(v*4)/4;return String(v).replace('.',',')})}
-function cleanLine(l){return l.replace(/\bgram\b|\bgr\.?(?=\s)/i,'g').replace(/\bliter\b/i,'l').replace(/\beetlepels?\b/i,'el').replace(/\btheelepels?\b/i,'tl').replace(/\s*\(.*?\)\s*/g,' ').replace(/[,;:]\s*$/,'').trim()}
-function showOcr(){const out=$('impOut'),lines=parseRecipe(ocrText).map(cleanLine).filter(Boolean),want=+$('impPers').value,k=want&&ocrBase?want/ocrBase:1;
-  if(!lines.length){out.innerHTML='<p class="muted">Geen ingrediëntenlijst gevonden. Maak een scherpe foto van alleen het stuk met de ingrediënten, recht van voren.</p>';return}
-  const row=l=>{const pan=PANTRY.test(l)&&!/\d{2,}\s*(g|ml)/.test(l);return `<label class="ing${pan?' pan':''}"><input type="checkbox" ${pan?'':'checked'}><input type="text" value="${esc(scaleLine(l,k))}" aria-label="Ingrediënt"></label>`};
-  out.innerHTML=`<p class="muted" style="margin:12px 0 6px">${ocrBase?`Recept voor ${ocrBase} personen${k!==1?`, omgerekend naar ${want}`:''}. `:want?'Aantal personen niet gevonden in het recept, hoeveelheden zijn niet omgerekend. ':''}Controleer de regels: tik erop om iets te verbeteren, vink uit wat je al hebt.</p>
-    ${lines.map(row).join('')}<div class="btns"><button class="btn" id="impAdd">Zet op mijn lijst</button><button class="btn sec" id="impFav">Bewaar als favoriet</button><button class="btn sec" id="impClear">Wissen</button></div>`}
+function scaleLine(l,k){if(k===1)return l;const um=l.match(UNIT),count=!(um&&um[2]&&/^(g|gr|gram|kg|kilo|ml|dl|cl|l|liter)$/i.test(um[2]));return l.replace(/^(\d+[,.]?\d*|½|¼|¾|\d+\/\d+)/,t=>{let v=fracNum(t)*k;v=count?Math.max(1,Math.ceil(v-0.01)):v>=10?Math.round(v/5)*5||Math.round(v):Math.round(v*4)/4;return String(v).replace('.',',')}).replace(/^(\d{4,})\s*(g|ml)\b/,(m,v,u)=>String(+v/1000).replace('.',',')+(u==='g'?' kg':' l'))}
+function shrink(file){return new Promise((ok,no)=>{const im=new Image(),u=URL.createObjectURL(file);im.onload=()=>{const m=1568,k=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement('canvas');
+  c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);ok(c.toDataURL('image/jpeg',0.82).split(',')[1])};im.onerror=()=>no(new Error('foto'));im.src=u})}
+$('impFile').addEventListener('change',async e=>{const fs=[...e.target.files].slice(0,4);e.target.value='';if(!fs.length)return;const out=$('impOut');
+  $('imp').hidden=false;$('imp').scrollIntoView({behavior:'smooth',block:'start'});
+  $('impThumbs').innerHTML='';for(const f of fs){const i=document.createElement('img');i.alt='';i.src=URL.createObjectURL(f);$('impThumbs').appendChild(i)}
+  out.innerHTML='<p class="muted">Claude leest je recept…</p>';
+  try{const images=[];for(const f of fs)images.push(await shrink(f));const persons=+$('impPers').value;
+    const r=await fetch('/api/scan',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({images,persons,device:devId})});
+    const d=await r.json().catch(()=>({error:'Lezen is niet gelukt.'}));
+    if(!r.ok||d.error){out.innerHTML=`<p class="muted">${esc(d.error||'Lezen is niet gelukt.')}</p>`;return}
+    scan=d;scanBase=persons||d.servings||0;showScan()}
+  catch(err){out.innerHTML='<p class="muted">Lezen is niet gelukt. Controleer je internet en probeer het opnieuw.</p>'}});
+$('impPers').addEventListener('change',()=>{if(scan)showScan()});
+function showScan(){const out=$('impOut'),want=+$('impPers').value,k=want&&scanBase?want/scanBase:1;
+  const row=(l,on,pan)=>`<label class="ing${pan?' pan':''}"><input type="checkbox" ${on?'checked':''}><input type="text" value="${esc(pan?l:scaleLine(l,k))}" aria-label="Ingrediënt"></label>`;
+  out.innerHTML=`<input id="impTitle" class="fin" value="${esc(scan.title)}" aria-label="Naam van het recept" style="margin-top:12px;font-weight:700">
+    <p class="muted" style="margin:8px 0 4px">${scan.guess?'Herkend van een foto van het gerecht, controleer de ingrediënten. ':''}${scanBase?`Voor ${want||scanBase} ${(want||scanBase)===1?'persoon':'personen'}.`:''}</p>
+    ${scan.items.map(l=>row(l,true,false)).join('')}${scan.pantry.length?`<p class="muted" style="margin:10px 0 0">Voorraadkast</p>${scan.pantry.map(l=>row(l,false,true)).join('')}`:''}
+    <div class="btns"><button class="btn" id="impAdd">Op lijst</button><button class="btn sec" id="impFav">Bewaar</button><button class="btn sec" id="impClear">Wissen</button></div>`}
+const impLines=()=>[...$('impOut').querySelectorAll('.ing')].filter(l=>l.querySelector('input[type=checkbox]').checked).map(l=>l.querySelector('input[type=text]').value.trim()).filter(Boolean);
 $('impOut').addEventListener('click',e=>{const t=e.target;
-  if(t.id==='impClear'){$('imp').hidden=true;ocrText='';$('impThumbs').innerHTML='';$('impOut').innerHTML='';return}
-  if(t.id==='impFav'){const items=[...$('impOut').querySelectorAll('.ing')].filter(l=>l.querySelector('input[type=checkbox]').checked).map(l=>l.querySelector('input[type=text]').value.trim()).filter(Boolean);if(!items.length)return;
-    const h=$('impOut').querySelector('h3');state.favs.unshift({id:'f'+Date.now().toString(36),title:h?h.textContent:'Recept uit foto',items});persist();if(!h){fedit=state.favs[0].id;renderRecipes();$('fTitle').select();$('fTitle').scrollIntoView({block:'center'})}else renderRecipes();t.textContent='Bewaard bij je favorieten ✓';return}
-  if(t.id==='impAdd'){const lines=[...$('impOut').querySelectorAll('.ing')].filter(l=>l.querySelector('input[type=checkbox]').checked).map(l=>l.querySelector('input[type=text]').value.trim()).filter(Boolean);
-    const have=new Set(state.text.split('\n').map(l=>Match.norm(l)));const add=lines.filter(l=>!have.has(Match.norm(l)));
-    state.text=(state.text.trim()?state.text.trim()+'\n':'')+add.join('\n');persist();render();t.textContent=add.length?`${add.length} producten toegevoegd ✓`:'Staat al op je lijst ✓'}});
+  if(t.id==='impClear'){scan=null;$('imp').hidden=true;$('impThumbs').innerHTML='';$('impOut').innerHTML='';return}
+  if(t.id==='impFav'){const items=impLines();if(!items.length)return;state.favs.unshift({id:'f'+Date.now().toString(36),title:($('impTitle').value.trim()||'Recept'),items});persist();renderRecipes();t.textContent='Bewaard ✓';return}
+  if(t.id==='impAdd'){const n=addLines(impLines());t.textContent=n?`${n} toegevoegd ✓`:'Staat al op je lijst ✓'}});
+
 /* ---------- pushmeldingen ---------- */
 const canPush='serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window;
 const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;

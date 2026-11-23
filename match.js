@@ -2,7 +2,7 @@
 (function (root) {
   const STOP = new Set(['van', 'de', 'het', 'een', 'en', 'of', 'met', 'voor', 'in', 'op', 'vers', 'verse', 'gram', 'gr', 'g', 'kg', 'ml', 'cl', 'l', 'liter', 'stuk', 'stuks', 'st', 'ca', 'x', 'per', 'pak', 'zak', 'bak', 'pot', 'blik', 'fles']);
   const IGN = new Set(['ah', 'jumbo', 'jumbos', 'aldi', 'milsani', 'golden', 'seafood', 'excellent', 'basic', 'huismerk', 'plus', 'dirk', 'beste', 'lidl', 'zuivelmeester', 'neutraal', 'vleeschmeesters']);
-  const BAN = ['kattenvoer', 'hondenvoer', 'kattensnack', 'hondensnack', 'sheba', 'whiskas', 'felix', 'pedigree', 'kitekat', 'dreamies', 'olvarit', 'hipp', 'nutrilon', 'kat ', 'hond ', 'pets unlimited', 'katten', 'honden', 'max mila', 'reinigingsmelk', 'bodymilk', 'bodylotion', 'kattenbrok', 'hondenbrok'];
+  const BAN = ['kattenvoer', 'hondenvoer', 'kattensnack', 'hondensnack', 'sheba', 'whiskas', 'felix', 'pedigree', 'kitekat', 'dreamies', 'olvarit', 'hipp', 'nutrilon', 'kat ', 'hond ', 'pets unlimited', 'mousse', 'creamer', 'katten', 'honden', 'max mila', 'reinigingsmelk', 'bodymilk', 'bodylotion', 'kattenbrok', 'hondenbrok'];
   const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/'s\b/g, 's').replace(/[^a-z0-9.,]+/g, ' ').trim();
   const toks = s => norm(s).split(' ').map(t => t.replace(/[.,]/g, '')).filter(t => t.length > 1 && !STOP.has(t) && !/^\d/.test(t));
   const stem = t => (t.length > 5 ? t.replace(/(en|s|e)$/, '') : t);
@@ -56,13 +56,15 @@
     return t.length ? { label: s.trim(), t, n, req } : null;
   }
 
+  // samenstellingen die een ánder product zijn: chocobananen ≠ bananen, koffiemelk ≠ melk
+  const BADPRE = ['choco', 'schuim', 'koffie', 'snoep', 'kauw', 'drink', 'zuig', 'spek', 'karne', 'kokos', 'soja', 'haver', 'amandel', 'rijst', 'snack', 'mini', 'gevulde', 'ijs'];
   function tokScore(q, pt) {
     const st = stem(q);
     let best = Infinity;
     for (const p of pt) {
       let sc;
       if (p === q || p === st || (p.startsWith(st) && /^(en|s|e|n|jes|tjes)$/.test(p.slice(st.length)))) sc = 0;
-      else if (p.endsWith(q) || (st.length > 3 && p.endsWith(st))) sc = 0.3;
+      else if (p.endsWith(q) || (st.length > 3 && p.endsWith(st))) { if (BADPRE.some(b => p.startsWith(b) && !q.startsWith(b))) continue; sc = 0.3; }
       else if (p.startsWith(st)) sc = 1.5;
       else if (st.length > 3 && p.includes(st)) sc = 2;
       else continue;
