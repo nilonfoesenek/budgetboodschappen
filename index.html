@@ -86,6 +86,9 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .btn{background:var(--ink);color:var(--bg);border:0;border-radius:12px;font:700 16px Figtree,sans-serif;min-height:48px;padding:0 18px;cursor:pointer}
 .btn.sec{background:var(--card);color:var(--ink);border:1px solid var(--line)}
 .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.thumbs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.thumbs img{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
+.ing{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}.ing input{width:20px;height:20px;flex:none}.ing input[type=text]{flex:1;width:auto;height:auto;font:500 15px Figtree,sans-serif;border:0;background:none;color:var(--ink);padding:2px 0}
+.ing.pan input[type=text]{color:var(--mute)}
 .muted{color:var(--mute);font-size:14px}
 .off{display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:10px 0;border-top:1px solid var(--line)}
 .off:first-child{border-top:0}.off .dot{width:10px;height:10px}.off small{display:block;color:var(--mute)}
@@ -131,6 +134,12 @@ nav button{font-size:14px}
     </div>
   </section>
   <section id="t-recipes" hidden>
+    <div class="card" id="imp"><h2>Recept uit foto</h2>
+      <p class="muted" style="margin:0">Maak een foto of screenshot van een recept met een ingrediëntenlijst. Je telefoon leest de tekst en zet de ingrediënten klaar voor je lijst. Een foto van alleen een gerecht werkt hier niet.</p>
+      <div class="btns"><label class="btn" for="impFile" style="display:inline-flex;align-items:center">📷 Importeer uit foto's</label>
+        <select id="impPers" class="btn sec" aria-label="Aantal personen" style="padding:0 12px"><option value="0" selected>Personen zoals recept</option><option value="1">1 persoon</option><option value="2">2 personen</option><option value="3">3 personen</option><option value="4">4 personen</option><option value="6">6 personen</option></select></div>
+      <input type="file" id="impFile" accept="image/*" multiple hidden>
+      <div id="impThumbs" class="thumbs"></div><div id="impOut"></div></div>
     <div class="card"><h2>Koken met de aanbiedingen</h2><p class="muted" style="margin:0" id="rnote"></p></div>
     <div id="recList"></div>
   </section>
@@ -277,6 +286,38 @@ $('where').textContent='Je lijst staat op dit apparaat.';
 render();
 
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+/* ---------- recept uit foto (tekstherkenning op het toestel) ---------- */
+let ocrText='',ocrBase=0;
+function loadTess(){return window.Tesseract?Promise.resolve():new Promise((ok,no)=>{const sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';sc.onload=ok;sc.onerror=no;document.head.appendChild(sc)})}
+$('impFile').addEventListener('change',async e=>{const fs=[...e.target.files].slice(0,5);e.target.value='';if(!fs.length)return;const out=$('impOut');
+  $('impThumbs').innerHTML='';for(const f of fs){const i=document.createElement('img');i.alt='';i.src=URL.createObjectURL(f);$('impThumbs').appendChild(i)}
+  out.innerHTML='<p class="muted" id="ocrSt">Tekstherkenning laden… (de eerste keer duurt dit even)</p>';
+  try{await loadTess();const w=await Tesseract.createWorker(['nld','eng'],1,{logger:m=>{const st=$('ocrSt');if(st&&m.status==='recognizing text')st.textContent=`Tekst lezen… ${Math.round(m.progress*100)}%`}});
+    let txt='';for(const f of fs){const r=await w.recognize(f);txt+=r.data.text+'\n'}await w.terminate();ocrText=txt;showOcr()}
+  catch(err){out.innerHTML='<p class="muted">Tekstherkenning is niet gelukt. Controleer je internet en probeer het opnieuw.</p>'}});
+$('impPers').addEventListener('change',()=>{if(ocrText)showOcr()});
+const PANTRY=/\b(zout|(?<!(rode|groene|spaanse|gele) )peper|olie|olijfolie|zonnebloemolie|boter|roomboter|margarine|suiker|bloem|water|azijn|bakpoeder|maizena|oregano|basilicum gedroogd|tijm|paprikapoeder|komijn|kerrie|kaneel|nootmuskaat|chilivlokken|bouillonblokje|bouillon|ketjap|sojasaus|mosterd|honing|vanille)\b/i;
+const UNIT=/^(\d+[,.]?\d*|½|¼|¾|\d+\/\d+)\s*(g|gr|gram|kg|kilo|ml|dl|cl|l|liter|el|eetlepels?|tl|theelepels?|stuks?|st|teen|tenen|teentjes?|blik|blikjes?|pak|pakjes?|bos|bosjes?|zakje|zakjes?|snufje|scheutje|plakjes?|takjes?|handvol|kopje|kopjes|cup|cups|tbsp|tsp)?\b/i;
+function parseRecipe(txt){let L=txt.split(/\n/).map(l=>l.replace(/^[^\p{L}\p{N}½¼¾]+/u,'').replace(/^\p{L}\s+(?=[\d½¼¾])/u,'').replace(/\s+/g,' ').trim()).filter(l=>l.length>1);
+  const m=txt.match(/(?:voor|recept voor)?\s*(\d{1,2})\s*(?:personen|pers\.?|porties|servings|people)/i);ocrBase=m?+m[1]:0;
+  const hi=L.findIndex(l=>/^(ingredi[eë]nten|benodigdheden|boodschappen(lijst)?|wat heb je nodig|ingredients)\b/i.test(l)),
+        he=L.findIndex((l,i)=>i>hi&&/^(bereiding(swijze)?|werkwijze|zo maak je( het)?|aan de slag|instructies|method|directions|stap 1)\b/i.test(l));
+  if(hi>=0)L=L.slice(hi+1,he>hi?he:undefined);
+  const looks=l=>UNIT.test(l)||PANTRY.test(l)||(hi>=0&&l.length<45&&!/[.!?]$/.test(l));
+  return L.filter(l=>looks(l)&&l.length<70&&!/^(stap|step)\s*\d/i.test(l)&&!/\b(minuten|min\.|oven|verwarm|snijd|bak|kook)\b/i.test(l))}
+function fracNum(t){if(t==='½')return .5;if(t==='¼')return .25;if(t==='¾')return .75;if(/\//.test(t)){const[a,b]=t.split('/');return +a/+b}return parseFloat(t.replace(',','.'))}
+function scaleLine(l,k){if(k===1)return l;const um=l.match(UNIT),count=!(um&&um[2]);return l.replace(/^(\d+[,.]?\d*|½|¼|¾|\d+\/\d+)/,t=>{let v=fracNum(t)*k;v=count?Math.max(1,Math.ceil(v-0.01)):v>=10?Math.round(v/5)*5||Math.round(v):Math.round(v*4)/4;return String(v).replace('.',',')})}
+function cleanLine(l){return l.replace(/\bgram\b|\bgr\.?(?=\s)/i,'g').replace(/\bliter\b/i,'l').replace(/\beetlepels?\b/i,'el').replace(/\btheelepels?\b/i,'tl').replace(/\s*\(.*?\)\s*/g,' ').replace(/[,;:]\s*$/,'').trim()}
+function showOcr(){const out=$('impOut'),lines=parseRecipe(ocrText).map(cleanLine).filter(Boolean),want=+$('impPers').value,k=want&&ocrBase?want/ocrBase:1;
+  if(!lines.length){out.innerHTML='<p class="muted">Geen ingrediëntenlijst gevonden. Maak een scherpe foto van alleen het stuk met de ingrediënten, recht van voren.</p>';return}
+  const row=l=>{const pan=PANTRY.test(l)&&!/\d{2,}\s*(g|ml)/.test(l);return `<label class="ing${pan?' pan':''}"><input type="checkbox" ${pan?'':'checked'}><input type="text" value="${esc(scaleLine(l,k))}" aria-label="Ingrediënt"></label>`};
+  out.innerHTML=`<p class="muted" style="margin:12px 0 6px">${ocrBase?`Recept voor ${ocrBase} personen${k!==1?`, omgerekend naar ${want}`:''}. `:want?'Aantal personen niet gevonden in het recept, hoeveelheden zijn niet omgerekend. ':''}Controleer de regels: tik erop om iets te verbeteren, vink uit wat je al hebt.</p>
+    ${lines.map(row).join('')}<div class="btns"><button class="btn" id="impAdd">Zet op mijn lijst</button><button class="btn sec" id="impClear">Wissen</button></div>`}
+$('impOut').addEventListener('click',e=>{const t=e.target;
+  if(t.id==='impClear'){ocrText='';$('impThumbs').innerHTML='';$('impOut').innerHTML='';return}
+  if(t.id==='impAdd'){const lines=[...$('impOut').querySelectorAll('.ing')].filter(l=>l.querySelector('input[type=checkbox]').checked).map(l=>l.querySelector('input[type=text]').value.trim()).filter(Boolean);
+    const have=new Set(state.text.split('\n').map(l=>Match.norm(l)));const add=lines.filter(l=>!have.has(Match.norm(l)));
+    state.text=(state.text.trim()?state.text.trim()+'\n':'')+add.join('\n');persist();render();t.textContent=add.length?`${add.length} producten toegevoegd ✓`:'Staat al op je lijst ✓'}});
 }
 </script>
 </body>
