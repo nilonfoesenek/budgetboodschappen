@@ -141,6 +141,11 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .buy .sb{flex:none}.buy .bt{min-width:0;overflow-wrap:anywhere}.buy small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);margin-bottom:1px}.buy .sz{color:var(--mute);white-space:nowrap}.buy .pk{color:var(--ok)}
 .it.done .buy{opacity:.5}
 .homes{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:6px}.home{display:inline-flex;align-items:center;gap:8px;background:var(--bg);border-radius:10px;padding:5px 6px 5px 10px;font-size:14px}.home button{border:1px solid var(--line);background:var(--card);border-radius:8px;font:600 12.5px Figtree,sans-serif;padding:4px 8px;cursor:pointer;color:var(--ink)}
+.donebar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:6px 0 14px}.hm{font-size:10.5px;font-weight:700;background:var(--okbg);color:var(--ok);border-radius:6px;padding:1px 5px;margin-left:2px;vertical-align:1px}
+.hsel{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:14px;color:var(--mute)}.hsel select{height:38px;border-radius:10px;border:1px solid var(--line);background:var(--card);font:600 14px Figtree,sans-serif;color:var(--ink);padding:0 8px}
+.shtop{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:12px 14px;margin:0 0 10px;font:700 15px Figtree,sans-serif;color:var(--ink);cursor:pointer;text-align:left}.shtop span{font-weight:600;font-size:13px;color:var(--mute);white-space:nowrap}.shtop.on{background:var(--okbg);border-color:var(--ok)}
+.nmf{display:block;font-size:13px;color:var(--mute);margin:8px 0 0}.nmf .fin{margin:4px 0 0}.join{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.code{font:800 34px/1.1 Figtree,sans-serif;letter-spacing:.12em;text-align:center;margin:6px 0 2px}
 .fin{width:100%;box-sizing:border-box;font:500 16px Figtree,sans-serif;background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:4px}
 .thumbs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.thumbs img{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
 .ing{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}.ing input{width:20px;height:20px;flex:none}.ing input[type=text]{flex:1;width:auto;height:auto;font:500 15px Figtree,sans-serif;border:0;background:none;color:var(--ink);padding:2px 0}
@@ -174,6 +179,7 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
     <div id="bons"></div>
   </section>
   <section id="t-list" hidden>
+    <div id="shTop"></div>
     <div class="card">
       <h2>Lijst</h2>
       <div class="srch"><input id="ps" class="fin" type="search" placeholder="Zoek een product, bijv. halfvolle melk" aria-label="Zoek een product" autocomplete="off" style="margin:0"><div id="psRes"></div></div>
@@ -235,7 +241,10 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 <div id="welcome" hidden><div class="sh-bg"></div><div class="sh" role="dialog" aria-modal="true" aria-labelledby="wTitle" style="max-height:92vh;overflow-y:auto">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><img src="icons/logo.svg" alt="" width="40" height="40" style="border-radius:10px"><h2 id="wTitle" style="margin:0">Welkom bij BudgetBoodschappen</h2></div>
   <p class="muted" style="margin:0 0 12px">Zet je boodschappen erin en zie bij welke supermarkt je het goedkoopst uit bent, met de aanbiedingen van deze week.</p>
-  <b>Bij welke supermarkten doe je boodschappen?</b>
+  <b>1. Wat is je vaste supermarkt?</b>
+  <div id="wHome" class="wst"></div>
+  <b>2. Welke andere supermarkten mag de app gebruiken om te besparen?</b>
+  <p class="muted" style="margin:2px 0 0;font-size:13.5px">Wat daar goedkoper is, zet de app daar. Dit kun je later bij Route altijd aanpassen.</p>
   <div id="wStores" class="wst"></div>
   <div class="wtip" id="wInstall"><b>Tip: zet de app op je beginscherm</b><br>iPhone: tik in Safari op <b>Deel</b> en dan <b>Zet op beginscherm</b>. Android: menu ⋮ en dan <b>App installeren</b>.</div>
   <button class="btn" id="wGo" style="width:100%;margin-top:14px">Aan de slag</button></div></div>
@@ -330,7 +339,7 @@ function render(){
   const R=compute(),sel=state.stores;lastR=R;
   if(!R.length){const ALL=Object.keys(S).filter(x=>IDX[x]);
     $('sum').innerHTML=`<div class="muted">Bij welke winkels doe je boodschappen?</div>
-    <div class="bars">${ALL.map(s=>{const on=sel.includes(s);return `<button class="bar${on?' on':''}" data-s="${s}" aria-pressed="${on}"><span class="ck" aria-hidden="true"></span><span class="nm">${dot(s)} ${S[s].label}</span><span class="tr" style="visibility:hidden"></span><span class="r"></span></button>`}).join('')}</div>`;
+    <div class="bars">${ALL.map(s=>{const on=sel.includes(s);return `<button class="bar${on?' on':''}" data-s="${s}" aria-pressed="${on}"><span class="ck" aria-hidden="true"></span><span class="nm">${dot(s)} ${S[s].label}${s===state.home?' <small class="hm">vast</small>':''}</span><span class="tr" style="visibility:hidden"></span><span class="r"></span></button>`}).join('')}</div>${homeSel()}`;
     $('bons').innerHTML=`<div class="card empty">Je lijst is nog leeg.<br><button class="btn" style="margin-top:12px" data-go="list">Lijst maken</button></div>`+savingsHtml();renderLV();return}
   const ALL=Object.keys(S).filter(x=>IDX[x]);state.mode='split';
   const one={};for(const s of ALL){one[s]={sum:0,miss:0,sub:0};for(const r of R){if(r.per[s]){one[s].sum+=r.per[s].total;if(r.per[s].sub)one[s].sub++}else one[s].miss++}}
@@ -340,16 +349,17 @@ function render(){
   for(const r of R){const s=assign(r);if(!s){miss.push(r);continue}(groups[s]=groups[s]||[]).push(r);split+=r.per[s].total}
   const full=sel.filter(s=>one[s].miss===miss.length).sort((a,b)=>one[a].sum-one[b].sum);
   const bestOne=full[0],nGroups=Object.keys(groups).length;
-  const saveTxt=sel.length>1&&bestOne&&one[bestOne].sum-split>0.005?`<div class="save">${eur(one[bestOne].sum-split)} goedkoper dan alles bij ${S[bestOne].label}</div>`:'';
+  const H=state.home,homeFull=H&&IDX[H]&&one[H].miss===miss.length;
+  const saveTxt=homeFull&&one[H].sum-split>0.005?`<div class="save">${eur(one[H].sum-split)} goedkoper dan alles bij ${S[H].label}</div>`:(!homeFull&&sel.length>1&&bestOne&&one[bestOne].sum-split>0.005?`<div class="save">${eur(one[bestOne].sum-split)} goedkoper dan alles bij ${S[bestOne].label}</div>`:'');
   const maxv=Math.max(...ALL.map(s=>one[s].sum),1);
   $('sum').innerHTML=`<div class="total"><div><div class="muted">${sel.length===1?'Alles bij '+S[sel[0]].full:`Totaal bij ${nGroups} ${nGroups===1?'winkel':'winkels'}`}</div><div class="big">${eur(split)}</div>${saveTxt}</div>
     <button class="chip" id="shareBtn" aria-label="Lijst delen">↗ Delen</button></div>
-    <div class="bars">${ALL.map(s=>{const on=sel.includes(s);return `<button class="bar${on?' on':''}" data-s="${s}" aria-pressed="${on}"><span class="ck" aria-hidden="true"></span><span class="nm">${dot(s)} ${S[s].label}</span><span class="tr"><i style="width:${one[s].sum/maxv*100}%;background:${S[s].c}"></i></span><span class="r">${eur(one[s].sum)}${one[s].sub?` <span class="subn">≈${one[s].sub}</span>`:''}${one[s].miss?` <span class="miss">−${one[s].miss}</span>`:''}</span></button>`}).join('')}</div>
-    <p class="muted" style="margin:10px 0 0;font-size:13px">Vink aan bij welke winkels je wilt halen. Eén winkel aan = alles daar.</p>`;
+    <div class="bars">${ALL.map(s=>{const on=sel.includes(s);return `<button class="bar${on?' on':''}" data-s="${s}" aria-pressed="${on}"><span class="ck" aria-hidden="true"></span><span class="nm">${dot(s)} ${S[s].label}${s===state.home?' <small class="hm">vast</small>':''}</span><span class="tr"><i style="width:${one[s].sum/maxv*100}%;background:${S[s].c}"></i></span><span class="r">${eur(one[s].sum)}${one[s].sub?` <span class="subn">≈${one[s].sub}</span>`:''}${one[s].miss?` <span class="miss">−${one[s].miss}</span>`:''}</span></button>`}).join('')}</div>
+    <p class="muted" style="margin:10px 0 0;font-size:13px">Vink aan bij welke winkels je wilt halen. Eén winkel aan = alles daar.</p>${homeSel()}`;
   const order=['aldi','lidl','dirk','plus','jumbo','ah'].filter(s=>groups[s]);lastShare=()=>shareList(groups,order,miss,split);
   $('bons').innerHTML=order.map(s=>{const g=groups[s],sub=g.reduce((a,r)=>a+r.per[s].total,0);
     return `<div class="bon"><div class="hd"><b>${dot(s)}${S[s].full}</b><span>${eur(sub)}</span></div>${itemsByCat(g,s,sel)}</div>`}).join('')
-   +(R.some(r=>state.done[r.k])?`<div style="text-align:center;margin:4px 0 14px"><button class="btn sec" id="clearDone">Afgevinkte producten weghalen (${R.filter(r=>state.done[r.k]).length})</button></div>`:'')
+   +`<div class="donebar"><button class="btn" id="allDone">✓ Boodschappen gedaan</button>${R.some(r=>state.done[r.k])?`<button class="btn sec" id="clearDone">Afgevinkte weghalen (${R.filter(r=>state.done[r.k]).length})</button>`:''}</div>`
    +savingsHtml()
    +(miss.length?`<div class="bon"><div class="hd"><b class="miss">Niet gevonden</b><span></span></div>${miss.map(r=>`<div class="it"><div class="row" style="cursor:default"><span></span><div><div class="lbl">${esc(r.line)}</div><div class="pn">Probeer een andere omschrijving in je lijst.</div></div><span></span></div></div>`).join('')}</div>`:'');
   renderLV();
@@ -358,15 +368,18 @@ function render(){
 /* ---------- bespaaroverzicht: telt mee bij afvinken ---------- */
 if(!state.spend||typeof state.spend!=='object')state.spend={};if(!state.booked||typeof state.booked!=='object')state.booked={};
 const monthKey=()=>new Date().toLocaleDateString('sv-SE').slice(0,7);
+function homeSel(){return `<label class="hsel">Je vaste winkel <select id="homeSel">${Object.keys(S).filter(s=>IDX[s]).map(s=>`<option value="${s}"${s===state.home?' selected':''}>${S[s].full}</option>`).join('')}</select></label>`}
+document.addEventListener('change',e=>{if(e.target.id==='homeSel'){state.home=e.target.value;persist();render()}});
+// bespaard = wat het bij je vaste winkel had gekost min wat je betaalt (zonder vaste winkel of niet te krijgen daar: de korting van de aanbieding)
 function book(k,s){const r=(lastR||[]).find(x=>x.k===k),x=r&&r.per[s];if(!x||state.booked[k])return;
-  const m=monthKey(),sv=x.deal?Math.max(0,x.regular-x.total):0,e=state.spend[m]=state.spend[m]||{sp:0,sv:0,n:0};
+  const hx=state.home&&r.per[state.home],m=monthKey(),sv=hx?hx.total-x.total:(x.deal?Math.max(0,x.regular-x.total):0),e=state.spend[m]=state.spend[m]||{sp:0,sv:0,n:0};
   e.sp+=x.total;e.sv+=sv;e.n++;state.booked[k]={m,sp:x.total,sv}}
 function unbook(k){const b=state.booked[k];if(!b)return;const e=state.spend[b.m];if(e){e.sp=Math.max(0,e.sp-b.sp);e.sv=Math.max(0,e.sv-b.sv);e.n=Math.max(0,e.n-1)}delete state.booked[k]}
 function savingsHtml(){const ms=Object.keys(state.spend).filter(m=>state.spend[m].n).sort().reverse();if(!ms.length)return '';
   const nm=m=>new Date(m+'-15').toLocaleDateString('nl-NL',{month:'long'}),cur=state.spend[ms[0]];
   const tot=ms.reduce((a,m)=>a+state.spend[m].sv,0);
-  return `<div class="card sav"><div class="muted" style="font-size:13px">Bespaard met aanbiedingen · ${nm(ms[0])}</div><div class="big" style="color:var(--ok)">${eur(cur.sv)}</div>
-    <div class="muted" style="font-size:13px">${cur.n} producten afgevinkt voor ${eur(cur.sp)}${ms.length>1?` · totaal bespaard ${eur(tot)}`:''}</div>
+  return `<div class="card sav"><div class="muted" style="font-size:13px">Bespaard ${state.home?'t.o.v. alles bij '+S[state.home].label:'met aanbiedingen'} · ${nm(ms[0])}</div><div class="big" style="color:${cur.sv>=0?'var(--ok)':'#b42318'}">${eur(cur.sv)}</div>
+    <div class="muted" style="font-size:13px">${cur.n} ${cur.n===1?'product':'producten'} gekocht voor ${eur(cur.sp)}${ms.length>1?` · totaal bespaard ${eur(tot)}`:''}</div>
     ${ms.length>1?`<div class="savm">${ms.slice(0,6).map(m=>`<span>${nm(m)}<b>${eur(state.spend[m].sv)}</b></span>`).join('')}</div>`:''}</div>`}
 function buyBox(s,x,noDot){const p=x.pick.p;return `<div class="buy">${noDot?'':dot(s)}<span class="bt">${x.sub?'<span class="subtag">lijkt op</span> ':''}${x.packs>1?`<b class="pk">${x.packs}×</b> `:''}${esc(p.name)}${p.size&&!(p.size.match(/[\d.,]+/)&&p.name.includes(p.size.match(/[\d.,]+/)[0]))?` <span class="sz">${esc(p.size)}</span>`:''}</span></div>`}
 function item(r,s,sel){const x=r.per[s],done=!!state.done[r.k],isOpen=false;
@@ -504,11 +517,14 @@ function renderOffers(){if(!O)return;const live=liveOffers(),sel=state.stores.fi
 
 /* ---------- welkom (eerste keer) ---------- */
 if(!state.onboarded&&(state.text||(state.favs&&state.favs.length)))state.onboarded=true;
-function renderWelcome(){$('wStores').innerHTML=Object.keys(S).map(s=>`<button data-ws="${s}" aria-pressed="${state.stores.includes(s)}">${dot(s)}<span>${S[s].full}${S[s].noOffers?'<small>geen acties</small>':''}</span></button>`).join('')}
-if(!state.onboarded){const sa=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;$('wInstall').hidden=sa;renderWelcome();$('welcome').hidden=false}
-$('welcome').addEventListener('click',e=>{const b=e.target.closest('[data-ws]');if(b){const s=b.dataset.ws,on=state.stores.includes(s);
+function renderWelcome(){$('wHome').innerHTML=Object.keys(S).map(s=>`<button data-wh="${s}" aria-pressed="${state.home===s}">${dot(s)}<span>${S[s].full}</span></button>`).join('');
+  $('wStores').innerHTML=Object.keys(S).filter(s=>s!==state.home).map(s=>`<button data-ws="${s}" aria-pressed="${state.stores.includes(s)}">${dot(s)}<span>${S[s].full}${S[s].noOffers?'<small>geen acties</small>':''}</span></button>`).join('')}
+if(state.onboarded&&!state.home)state.home=(state.stores&&state.stores[0])||'ah';
+if(!state.onboarded){state.stores=[];const sa=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;$('wInstall').hidden=sa;renderWelcome();$('welcome').hidden=false}
+$('welcome').addEventListener('click',e=>{const h=e.target.closest('[data-wh]');if(h){state.home=h.dataset.wh;if(!state.stores.includes(state.home))state.stores=[...state.stores,state.home].sort((a,c)=>Object.keys(S).indexOf(a)-Object.keys(S).indexOf(c));renderWelcome();return}
+  const b=e.target.closest('[data-ws]');if(b){const s=b.dataset.ws,on=state.stores.includes(s);
     state.stores=on?state.stores.filter(x=>x!==s):[...state.stores,s].sort((a,c)=>Object.keys(S).indexOf(a)-Object.keys(S).indexOf(c));renderWelcome();return}
-  if(e.target.id==='wGo'){if(!state.stores.length){$('wGo').textContent='Kies minstens één winkel';return}state.onboarded=true;persist();$('welcome').hidden=true;render()}});
+  if(e.target.id==='wGo'){if(!state.home){$('wGo').textContent='Kies eerst je vaste supermarkt';return}state.onboarded=true;persist();$('welcome').hidden=true;render()}});
 /* ---------- product zoeken in Lijst ---------- */
 let psT=null;
 const brandless=n=>n.replace(/^(AH Excellent|AH Biologisch|AH Terra|AH|Jumbo's|Jumbo|PLUS|1 de Beste|Biologisch PLUS|g'woon|Vleeschmeesters)\s+/i,'').trim();
@@ -612,6 +628,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sheetCtx)closeSheet
 document.addEventListener('click',e=>{const t=e.target;
   const po=t.closest('[data-pickopen]');if(po){const i=po.dataset.pickopen.lastIndexOf('|');openSheet(po.dataset.pickopen.slice(0,i),po.dataset.pickopen.slice(i+1));return}
   if(t.id==='shareBtn'&&lastShare){lastShare();return}
+  if(t.id==='allDone'){if(!t.dataset.sure){t.dataset.sure=1;t.textContent='Zeker? Lijst wordt leeg';setTimeout(()=>{if(t.isConnected){delete t.dataset.sure;t.textContent='✓ Boodschappen gedaan'}},4000);return}allDone();return}
   if(t.id==='clearDone'){state.text=favLines(state.text).filter(l=>!state.done[keyOf(l)]).join('\n');state.done={};state.booked={};persist();render();return}
   const st=t.closest('[data-s]');if(st){const s=st.dataset.s,on=state.stores.includes(s);
     if(on&&state.stores.length===1)return;state.stores=on?state.stores.filter(x=>x!==s):[...state.stores,s].sort((a,b)=>Object.keys(S).indexOf(a)-Object.keys(S).indexOf(b));
@@ -713,7 +730,7 @@ const SITE='https://budgetboodschappen.netlify.app/';
 const listLines=()=>favLines(state.text);
 const sameDone=(a,b)=>{const x=Object.keys(a).sort().join('\n'),y=Object.keys(b).sort().join('\n');return x===y};
 const dirty=()=>state.share&&(state.text.trim()!==state.share.bt.trim()||!sameDone(state.done,state.share.bd));
-function adopt(l){adopting=true;state.text=l.text.join('\n');state.done={...l.done};state.share={...state.share,v:l.v,bt:state.text,bd:{...l.done},at:l.updated};
+function adopt(l){adopting=true;state.text=l.text.join('\n');state.done={...l.done};state.share={...state.share,v:l.v,bt:state.text,bd:{...l.done},at:l.updated,code:l.code||state.share.code,members:l.members||state.share.members};
   persist();adopting=false;render();const ta=$('txt');if(ta&&document.activeElement!==ta)ta.value=state.text;renderShare()}
 let listBusy=false,listT=null;
 function listSyncSoon(){clearTimeout(listT);listT=setTimeout(listSync,1000)}
@@ -727,27 +744,50 @@ async function listSync(){if(!state.share||listBusy)return;listBusy=true;const s
 setInterval(()=>{if(state.share&&document.visibilityState==='visible')listSync()},15000);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')listSync()});
 const shareLink=()=>SITE+'?lijst='+state.share.id;
-function sendLink(){const text='Doe mee met onze boodschappenlijst in BudgetBoodschappen: '+shareLink();
+const fmtCode=c=>c?c.slice(0,3)+'-'+c.slice(3):'';
+function sendLink(){const c=state.share.code,text=`Doe mee met onze boodschappenlijst in BudgetBoodschappen 🛒\n\n1. Open: ${shareLink()}\n2. iPhone: tik op Deel → Zet op beginscherm. Android: menu ⋮ → App installeren.\n3. Open de app vanaf je beginscherm, tik bij Lijst op "Meedoen" en vul de code in: ${fmtCode(c)}\n\nZet daarna 🔔 aan, dan krijg je een seintje als de boodschappen gedaan zijn.`;
   if(navigator.share)navigator.share({text}).catch(()=>{});else window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank')}
-function renderShare(){const b=$('shareBox');if(!b)return;
-  if(!state.share){b.innerHTML=`<h2>Samen boodschappen doen</h2><p class="muted" style="margin:0 0 4px;font-size:13.5px">Deel je lijst met huisgenoten. Iedereen met de link ziet dezelfde lijst en kan toevoegen en afvinken. Geen account nodig.</p><div class="btns tight"><button class="btn" id="shStart">👥 Samen delen</button></div>`;return}
+const nameField=()=>`<label class="nmf">Je naam <input id="shName" class="fin" maxlength="30" placeholder="Bijv. Mama" value="${esc(state.name||'')}"></label>`;
+function renderShare(){const b=$('shareBox'),top=$('shTop');if(!b)return;
+  if(top)top.innerHTML=state.share?`<button class="shtop on" data-shgo>👥 Gedeelde lijst${state.share.members&&state.share.members.length?' · '+esc(state.share.members.join(', ')):''}<span>Code ${fmtCode(state.share.code)} ›</span></button>`:`<button class="shtop" data-shgo>👥 Samen boodschappen doen?<span>Delen of meedoen ›</span></button>`;
+  if(!state.share){b.innerHTML=`<h2>Samen boodschappen doen</h2><p class="muted" style="margin:0 0 6px;font-size:13.5px">Deel je lijst met huisgenoten of familie. Iedereen ziet dezelfde lijst en kan toevoegen en afvinken. Geen account nodig.</p>${nameField()}
+    <div class="btns tight"><button class="btn" id="shStart">👥 Lijst delen</button></div>
+    <div class="join"><b>Heb je een code gekregen?</b><div class="btns tight" style="margin-top:6px"><input id="shCode" class="fin" maxlength="60" placeholder="Code of link, bijv. K7M-4PQ" autocapitalize="characters" style="margin:0"><button class="btn sec" id="shJoin" style="flex:0 0 auto">Meedoen</button></div></div>`;return}
   const t=state.share.at?new Date(state.share.at).toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'}):'';
-  b.innerHTML=`<h2>👥 Gedeelde lijst</h2><p class="muted" style="margin:0 0 4px;font-size:13.5px">Wijzigingen komen vanzelf bij iedereen binnen.${t?' Laatst bijgewerkt '+t+'.':''} Iedereen met de link kan de lijst zien en aanpassen.</p>
-    <div class="btns tight"><button class="btn" id="shSend">Link sturen</button><button class="btn sec" id="shStop">Stoppen</button></div>`}
+  b.innerHTML=`<h2>👥 Gedeelde lijst</h2>${state.share.code?`<div class="code">${fmtCode(state.share.code)}</div><p class="muted" style="margin:0 0 6px;font-size:13px;text-align:center">Laat anderen deze code invullen bij Lijst → Meedoen.</p>`:''}
+    <p class="muted" style="margin:0 0 6px;font-size:13.5px">Wijzigingen komen vanzelf bij iedereen binnen.${t?' Laatst bijgewerkt '+t+'.':''}${state.share.members&&state.share.members.length?' Meldingen gaan naar: '+esc(state.share.members.join(', '))+'.':''}</p>${nameField()}
+    ${state.push?'':'<p class="muted" style="margin:4px 0;font-size:13px">Zet 🔕 bovenin bij Route aan om een seintje te krijgen als de boodschappen gedaan zijn.</p>'}
+    <div class="btns tight"><button class="btn" id="shSend">Uitnodiging sturen</button><button class="btn sec" id="shStop">Stoppen</button></div>`}
+function joinWith(l,id){const mine=listLines().filter(x=>!l.text.some(y=>Match.norm(y)===Match.norm(x)));
+  state.share={id,v:l.v,bt:l.text.join('\n'),bd:{...l.done},at:l.updated,code:l.code,members:l.members||[]};adopting=true;state.text=[...l.text,...mine].join('\n');state.done={...l.done};persist();adopting=false;
+  render();renderShare();if(dirty())listSync();if(state.push)pushSyncSoon();toast(mine.length?`Je doet mee met de gedeelde lijst. ${mine.length===1?'1 product van jou is':mine.length+' producten van jou zijn'} toegevoegd.`:'Je doet nu mee met de gedeelde lijst.')}
+async function joinCode(v){v=String(v||'').trim();const m=v.match(/lijst=([A-Za-z0-9]{16,32})/);const q=m?'id='+m[1]:'code='+encodeURIComponent(v.toUpperCase().replace(/[^A-Z0-9]/g,''));
+  try{const r=await fetch('/api/list?'+q,{cache:'no-store'});const l=await r.json();if(!r.ok){toast(l.error||'Deze code werkt niet.');return}joinWith(l,l.id||(m&&m[1]))}
+  catch(e){toast('De gedeelde lijst kon niet geladen worden.')}}
+document.addEventListener('click',e=>{if(e.target.closest('[data-shgo]'))$('shareBox').scrollIntoView({behavior:'smooth',block:'center'})});
+document.addEventListener('change',e=>{if(e.target.id==='shName'){state.name=e.target.value.trim().slice(0,30);persist();if(state.push)pushSyncSoon()}});
 $('shareBox').addEventListener('click',async e=>{const t=e.target;
-  if(t.id==='shStart'){t.disabled=true;try{const r=await fetch('/api/list',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({text:state.text,done:state.done})});const l=await r.json();if(!r.ok)throw 0;
-      state.share={id:l.id,v:l.v,bt:l.text.join('\n'),bd:{...l.done},at:l.updated};persist();renderShare();sendLink()}
+  if(t.id==='shStart'){if(!state.name){toast('Vul eerst je naam in, die zien de anderen in de melding.');$('shName').focus();return}
+    t.disabled=true;try{const r=await fetch('/api/list',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({text:state.text,done:state.done})});const l=await r.json();if(!r.ok)throw 0;
+      state.share={id:l.id,v:l.v,bt:l.text.join('\n'),bd:{...l.done},at:l.updated,code:l.code,members:[]};persist();renderShare();if(state.push)pushSyncSoon();sendLink()}
     catch(err){t.disabled=false;toast('Delen lukte niet. Controleer je internet.')}return}
+  if(t.id==='shJoin'){if(!state.name){toast('Vul eerst je naam in, die zien de anderen in de melding.');$('shName').focus();return}joinCode($('shCode').value);return}
   if(t.id==='shSend'){sendLink();return}
-  if(t.id==='shStop'){if(!t.dataset.sure){t.dataset.sure=1;t.textContent='Zeker?';return}state.share=null;persist();renderShare();toast('Je lijst wordt niet meer gedeeld. Je houdt je eigen kopie.')}});
+  if(t.id==='shStop'){if(!t.dataset.sure){t.dataset.sure=1;t.textContent='Zeker?';return}state.share=null;persist();renderShare();if(state.push)pushSyncSoon();toast('Je lijst wordt niet meer gedeeld. Je houdt je eigen kopie.')}});
 (async()=>{const id=new URLSearchParams(location.search).get('lijst');if(!id)return;history.replaceState(null,'',location.pathname);
   if(state.share&&state.share.id===id){listSync();return}
-  try{const r=await fetch('/api/list?id='+encodeURIComponent(id),{cache:'no-store'});const l=await r.json();if(!r.ok){toast(l.error||'Deze link werkt niet.');return}
-    const mine=listLines().filter(x=>!l.text.some(y=>Match.norm(y)===Match.norm(x)));
-    state.share={id,v:l.v,bt:l.text.join('\n'),bd:{...l.done},at:l.updated};adopting=true;state.text=[...l.text,...mine].join('\n');state.done={...l.done};persist();adopting=false;
-    render();renderShare();if(dirty())listSync();toast(mine.length?`Je doet mee met de gedeelde lijst. ${mine.length} van jouw producten zijn toegevoegd.`:'Je doet nu mee met de gedeelde lijst.')}
+  try{const r=await fetch('/api/list?id='+encodeURIComponent(id),{cache:'no-store'});const l=await r.json();if(!r.ok){toast(l.error||'Deze link werkt niet.');return}joinWith(l,id)}
   catch(e){toast('De gedeelde lijst kon niet geladen worden.')}})();
 renderShare();if(state.share)listSync();
+/* ---------- boodschappen gedaan ---------- */
+async function allDone(){const R=lastR||[];let sv=0,sent=0;
+  for(const r of R){const s=lastAssign?lastAssign(r):bestOf(r);if(s&&!state.booked[r.k])book(r.k,s);if(state.booked[r.k])sv+=state.booked[r.k].sv}
+  const n=R.length;state.text='';state.done={};state.booked={};lvOpen=null;
+  if(state.share){adopting=true;persist();adopting=false;try{const sub=state.push?await pushSub():null;
+      const r=await fetch('/api/list',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'done',id:state.share.id,name:state.name||'',endpoint:sub?sub.endpoint:''})});
+      const l=await r.json();if(r.ok){adopt(l);sent=l.sent||0}}catch(e){}}
+  else persist();
+  $('txt').value='';render();toast(`Lekker gedaan! ${n} ${n===1?'product':'producten'} afgerond${sv>0.005?`, ${eur(sv)} bespaard`:''}.${sent?` ${sent===1?'De ander krijgt':'De anderen krijgen'} een seintje.`:''}`)}
 /* ---------- pushmeldingen ---------- */
 const canPush='serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window;
 const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
@@ -756,7 +796,7 @@ function pushUI(){const b=$('pushBtn');b.hidden=false;b.classList.toggle('on',!!
 const b64u=s=>{const p='='.repeat((4-s.length%4)%4),r=atob((s+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(r,c=>c.charCodeAt(0))};
 async function pushSub(){const reg=await navigator.serviceWorker.ready;return reg.pushManager.getSubscription()}
 async function pushSync(){const sub=await pushSub();if(!sub)return;
-  await fetch('/api/push',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({subscription:sub.toJSON(),favs:state.favs,follow:state.follow,stores:state.stores})})}
+  await fetch('/api/push',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({subscription:sub.toJSON(),favs:state.favs,follow:state.follow,stores:state.stores,lists:state.share?[state.share.id]:[],name:state.name||''})})}
 var pushT=null;function pushSyncSoon(){clearTimeout(pushT);pushT=setTimeout(()=>pushSync().catch(()=>{}),1500)}
 $('pushBtn').addEventListener('click',async()=>{const st={set textContent(v){if(v)toast(v)}};
   if(state.push){try{const sub=await pushSub();if(sub){await fetch('/api/push',{method:'DELETE',headers:{'content-type':'application/json'},body:JSON.stringify({subscription:sub.toJSON()})});await sub.unsubscribe()}}catch(e){}
