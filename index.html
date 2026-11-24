@@ -31,7 +31,7 @@
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 Figtree,system-ui,sans-serif;overflow-x:clip}
 .wrap{max-width:680px;margin:0 auto;padding:0 16px}
 header{position:sticky;top:0;z-index:40;background:var(--bg);box-shadow:0 0 0 100vmax var(--bg);clip-path:inset(0 -100vmax);padding:calc(12px + env(safe-area-inset-top)) 16px 8px}
-header.sc{border-bottom:1px solid var(--line)}
+header.sc{border-bottom:1px solid var(--line)}header.slim .brand{display:none}header.slim{padding-bottom:4px}header.slim.sc{border-bottom:0}
 header .stores{margin-top:12px}
 h1{font-size:clamp(23px,6.6vw,30px);letter-spacing:-.5px;line-height:1.05;margin:0;font-weight:800}
 h2{font-size:20px;margin:0 0 8px;font-weight:700}
@@ -584,7 +584,7 @@ document.addEventListener('change',e=>{const t=e.target;if(!t.matches('[data-pic
 $('save').addEventListener('click',()=>{state.text=$('txt').value;persist();$('lstat').textContent='Opgeslagen ✓';render();tab('route')});
 $('clear').addEventListener('click',e=>{const b=e.currentTarget;if(b.dataset.sure){state.text='';state.done={};state.booked={};$('txt').value='';persist();render();b.textContent='Lijst leegmaken';delete b.dataset.sure;$('lstat').textContent='Lijst leeggemaakt.'}else{b.dataset.sure=1;b.textContent='Zeker weten?';setTimeout(()=>{if(b.dataset.sure){delete b.dataset.sure;b.textContent='Lijst leegmaken'}},3000)}});
 $('q').addEventListener('input',renderOffers);
-function tab(t){if(t!=='recipes')$('planBar').hidden=true;document.querySelectorAll('nav [data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
+function tab(t){document.querySelector('header').classList.toggle('slim',t!=='route');if(t!=='recipes')$('planBar').hidden=true;document.querySelectorAll('nav [data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
   document.querySelectorAll('main>section').forEach(s=>s.hidden=s.id!=='t-'+t);if(t==='list')$('txt').value=state.text;if(t==='offers')renderOffers();if(t==='recipes')renderRecipes();if(t==='weekly')renderWeekly();window.scrollTo(0,0)}
 document.querySelector('nav').addEventListener('click',e=>{const t=e.target.closest('[data-tab]');if(t)tab(t.dataset.tab)});
 
