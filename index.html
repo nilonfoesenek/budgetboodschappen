@@ -162,17 +162,21 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .ing{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}.ing input{width:20px;height:20px;flex:none}.ing input[type=text]{flex:1;width:auto;height:auto;font:500 15px Figtree,sans-serif;border:0;background:none;color:var(--ink);padding:2px 0}
 .ing.pan input[type=text]{color:var(--mute)}
 .muted{color:var(--mute);font-size:14px}
-.off{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:10px 0;border-top:1px solid var(--line)}
-.off:first-child{border-top:0}.off .sb{width:20px;height:20px;font-size:10px}.off small{display:block;color:var(--mute)}
+.off{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:10px 0;border-top:1px solid var(--line)}
+.off:first-child{border-top:0}.off .sb{width:22px;height:22px;font-size:10px}.off .th{position:relative;width:44px;height:44px;display:grid;place-items:center;align-self:center}.off .th .pi{max-width:44px;max-height:44px;object-fit:contain;border-radius:6px}.off .th .pi~.sb{position:absolute;right:-4px;bottom:-4px;width:18px;height:18px;font-size:8px}.off small{display:block;color:var(--mute)}
 .off .d{color:var(--ok);font-weight:700;text-align:right;white-space:nowrap;font-size:14px}
 .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:12px}
 .facts div{background:var(--field);border-radius:10px;padding:8px}.facts b{display:block;font-size:18px;white-space:nowrap}.facts small{color:var(--mute);font-size:12px}
 .rh{cursor:pointer}h3{font-size:16px;margin:12px 0 4px}.steps{margin:0;padding-left:20px}.steps li{margin-bottom:6px}
+.sb.lg{background:#fff;box-shadow:inset 0 0 0 1px var(--line);padding:2px;overflow:hidden}.sb.lg.full{padding:0;box-shadow:none;background:none}.sb.lg img{width:100%;height:100%;object-fit:contain;display:block}
 .shelf{margin:0 0 16px}.shelf h2{display:flex;align-items:baseline;gap:8px;margin:0 2px 2px;font-size:18px}.shelf h2 small{font:500 13px Figtree,sans-serif;color:var(--mute)}.shelf p{margin:0 2px 8px;font-size:13px;color:var(--mute)}
 .row{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:2px 16px 4px;scroll-snap-type:x proximity}.row::-webkit-scrollbar{display:none}
 .dc{flex:none;width:150px;scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px;display:flex;flex-direction:column;gap:6px}
-.dc .top{display:flex;align-items:center;justify-content:space-between}.dc .pc{background:var(--okbg);color:var(--ok);font:800 12px Figtree,sans-serif;border-radius:6px;padding:2px 6px}
-.dc .nm{font-size:14px;font-weight:600;line-height:1.25;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:52px}
+.dc .ib{position:relative;height:116px;border-radius:12px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;overflow:hidden}.dc .ib .pi{max-width:86%;max-height:100px;object-fit:contain}
+.dc .ib .ph{width:44px;height:44px;opacity:.18}.dc .ib .ph .sb{width:44px;height:44px;border-radius:10px;font-size:16px}
+.dc .ib>.sb{position:absolute;left:6px;bottom:6px;width:24px;height:24px;border-radius:7px}
+.dc .pc{position:absolute;left:6px;top:6px;background:var(--ok);color:#fff;font:800 12px Figtree,sans-serif;border-radius:7px;padding:3px 7px;max-width:calc(100% - 12px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dc .nm{font-size:14px;font-weight:600;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:35px}
 .dc .dd{font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dc .hs{font-size:11.5px;color:#8a5a00;font-weight:600}
 .dc .bot{display:flex;align-items:center;justify-content:space-between;margin-top:auto}.dc .pr s{display:block;font-size:12px;color:var(--mute)}.dc .now{font-weight:800;font-size:16px}
 .empty{text-align:center;padding:28px 10px;color:var(--mute)}
@@ -309,7 +313,10 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const eur=n=>'€'+n.toFixed(2).replace('.',',');
 const S={ah:{label:'AH',full:'AH',c:'var(--ah)'},jumbo:{label:'Jumbo',full:'Jumbo',c:'var(--jumbo)'},aldi:{label:'Aldi',full:'Aldi',c:'var(--aldi)'},dirk:{label:'Dirk',full:'Dirk',c:'var(--dirk)'},plus:{label:'Plus',full:'Plus',c:'var(--plus)'},lidl:{label:'Lidl',full:'Lidl',c:'var(--lidl)',noOffers:true},dekamarkt:{label:'Deka',full:'DekaMarkt',c:'var(--deka)'},hoogvliet:{label:'Hoogvliet',full:'Hoogvliet',c:'var(--hoog)'},spar:{label:'SPAR',full:'SPAR',c:'var(--spar)'},vomar:{label:'Vomar',full:'Vomar',c:'var(--vomar)',noOffers:true},poiesz:{label:'Poiesz',full:'Poiesz',c:'var(--poiesz)',noOffers:true}};
 const AB={ah:['AH','#fff'],jumbo:['J','#111'],aldi:['A','#fff'],dirk:['D','#fff'],plus:['P','#fff'],lidl:['L','#fff'],dekamarkt:['DM','#fff'],hoogvliet:['HV','#fff'],spar:['S','#fff'],vomar:['V','#fff'],poiesz:['Po','#fff']};
-const dot=s=>`<span class="sb" style="background:${S[s].c};color:${AB[s][1]}" aria-hidden="true">${AB[s][0]}</span>`;
+// echte logo's waar we ze hebben (icons/stores), anders de letters
+const LOGO={ah:'full',aldi:'full',lidl:'full',jumbo:'',spar:''};
+const dot=s=>s in LOGO?`<span class="sb lg ${LOGO[s]}" aria-hidden="true"><img src="icons/stores/${s}.svg" alt=""></span>`:`<span class="sb" style="background:${S[s].c};color:${AB[s][1]}" aria-hidden="true">${AB[s][0]}</span>`;
+const pimg=o=>o.img?`<img class="pi" src="${esc(o.img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`:'';
 const dnl=d=>new Date(d+'T12:00').toLocaleDateString('nl-NL',{day:'numeric',month:'short'});
 const today=new Date().toISOString().slice(0,10);
 let P=null,O=null,IDX={},state={text:'',done:{},picks:{},stores:['ah','jumbo','aldi'],mode:'split'},open=null,ofil='all',otop=false;
@@ -561,7 +568,7 @@ function histTag(o){const rows=H[hkey(o)];if(!rows)return '';const all=Object.va
   if(o.p!=null&&ps.length&&o.p>Math.min(...ps)+0.005)return `Eerder in actie voor ${eur(Math.min(...ps))}`;
   if(recent.length>=4)return 'Vaak in actie, geen haast';
   return ''}
-function offRow(o,why){const ht=histTag(o);const d=disc(o),hasP=o.was&&o.p!=null&&o.was>o.p;const meta=[hasP?'':o.d,d>=0.1?`−${Math.round(d*100)}%`:'',o.from>today?'vanaf '+dnl(o.from):''].filter(Boolean).join(' · ');return `<div class="off">${dot(o.s)}<div>${esc(o.n)}${why?`<span class="why">${esc(why)}</span>`:''}${ht?`<span class="hist">${esc(ht)}</span>`:''}${meta?`<small>${esc(meta)}</small>`:''}</div><span class="end">${priceHtml(o)}${addBtn(o)}</span></div>`}
+function offRow(o,why){const ht=histTag(o);const d=disc(o),hasP=o.was&&o.p!=null&&o.was>o.p;const meta=[hasP?'':o.d,d>=0.1?`−${Math.round(d*100)}%`:'',o.from>today?'vanaf '+dnl(o.from):''].filter(Boolean).join(' · ');return `<div class="off"><span class="th">${pimg(o)}${dot(o.s)}</span><div>${esc(o.n)}${why?`<span class="why">${esc(why)}</span>`:''}${ht?`<span class="hist">${esc(ht)}</span>`:''}${meta?`<small>${esc(meta)}</small>`:''}</div><span class="end">${priceHtml(o)}${addBtn(o)}</span></div>`}
 function renderOffers(){if(!O)return;const live=liveOffers(),sel=state.stores.filter(s=>!S[s].noOffers);
   $('offStores').innerHTML=`Aanbiedingen van ${sel.map(s=>S[s].label).join(', ')||'geen winkels'}${state.stores.some(x=>S[x]&&S[x].noOffers)?` (${state.stores.filter(x=>S[x]&&S[x].noOffers).map(x=>S[x].label).join(', ')} zonder acties)`:''} · <a href="#" data-go="route">winkels wijzigen</a>`;
   // voor jou: wat op je lijst of in je favorieten staat
@@ -602,7 +609,8 @@ function shelfDefs(){const sn=SEASON();return [
   ['home','🧴 Huishouden & verzorging','Wasmiddel, wc-papier en zo: altijd nodig, nooit bederf',o=>NONFOOD.test(o.n)&&disc(o)>=0.2],
   ['treat','🍫 Lekker voor het weekend','Snacks, snoep en drinken',o=>[6,7].includes(catOfText(o.n))&&!NONFOOD.test(o.n)&&disc(o)>=0.3]]}
 function dealCard(o){const d=disc(o),ht=histTag(o),hasP=o.was&&o.p!=null&&o.was>o.p;
-  return `<div class="dc"><div class="top">${dot(o.s)}${d>=0.1?`<span class="pc">−${Math.round(d*100)}%</span>`:''}</div><div class="nm">${esc(o.n)}</div>${o.d&&!hasP?`<div class="dd">${esc(o.d)}</div>`:''}${ht?`<div class="hs">${esc(ht)}</div>`:''}<div class="bot"><span class="pr">${hasP?`<s>${eur(o.was)}</s>`:''}<span class="now">${o.p!=null?eur(o.p):''}</span></span>${addBtn(o)}</div></div>`}
+  const pill=MULTI.test(o.d||'')?o.d.replace(/^(\d\+\d) gratis.*/i,'$1 gratis'):d>=0.1?`−${Math.round(d*100)}%`:'';
+  return `<div class="dc"><div class="ib">${o.img?pimg(o)+dot(o.s):`<span class="ph">${dot(o.s)}</span>`}${pill?`<span class="pc">${esc(pill)}</span>`:''}</div><div class="nm">${esc(o.n)}</div>${ht?`<div class="hs">${esc(ht)}</div>`:''}<div class="bot"><span class="pr">${hasP?`<s>${eur(o.was)}</s>`:''}<span class="now">${o.p!=null?eur(o.p):''}</span></span>${addBtn(o)}</div></div>`}
 function renderShelves(live){const out=[],topSeen=new Set();
   for(const [id,title,sub,f] of shelfDefs()){let L=live.filter(f);
     if(id!=='top')L=L.filter(o=>!topSeen.has(o.s+o.n)||L.length<6);// topkortingen niet overal herhalen
