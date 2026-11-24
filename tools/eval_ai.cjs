@@ -11,7 +11,7 @@ const lines = fs.readFileSync(path.join(__dirname, '../tests/ingredients.txt'), 
     require('../match.js'); const M = globalThis.Match;
     todo = todo.filter(l => { const it = M.parseLine(l); return it && !all[it.t.join(' ')]; });
     console.error(`nog ${todo.length}`);
-    if (d.limited) break;
+    if (!Object.keys(d.results || {}).length) break;
   }
   process.stdout.write(JSON.stringify(all));
 })();

@@ -1,10 +1,10 @@
 # Toets voor de productkeuze. Per regel: boodschappenregel | moet passen (regex) | mag niet passen (regex, optioneel)
 # Regex wordt getest op de productnaam in kleine letters zonder accenten.
 # --- groente
-600 g kruimige aardappelen | aardappel | kroket|puree|friet|partjes|rosti|schijfjes|chips|salade
+600 g kruimige aardappelen | aardappel|aard\. | kroket|puree|friet|partjes|rosti|schijfjes|chips|salade
 1 kg vastkokende aardappelen | aardappel | kroket|puree|friet|partjes|rosti|chips|salade
 750 g krieltjes | kriel | 
-1 kg zoete aardappel | zoete aardappel | friet|chips|partjes
+1 kg zoete aardappel | zoete aardappel|aardappelen zoet | friet|chips|partjes
 1 ui | \bui\b|uien | ring|soep|chips|gebakken|saus|jus|poeder|cracker
 2 uien | \bui(en)?\b|uien | ring|soep|chips|gebakken|saus
 1 rode ui | rode ui | ring|chips|gebakken|saus
@@ -50,7 +50,7 @@
 # --- fruit
 1 kg appels | appel | sap|moes|compote|taart|flap|chips|stroop|azijn|repen|biscuit|koek|drink|thee|kaneel|smaak|knijp
 6 bananen | banaan|bananen | chips|brood|smoothie|drink|yoghurt|choco|ijs|cake|snoep
-1 kg sinaasappels | sinaasappel | sap|marmelade|drink|limonade|chocolade|smaak
+1 kg sinaasappel | sinaasappel | sinaasappelsap|\bsap\b|nectar|\d+ ?l\b|\d+ ?cl\b|\d+ ?ml\b|marmelade|drink|limonade|chocolade|smaak
 2 citroenen | citroen | sap|thee|limonade|afwas|reinig|taart|cake|ijs|siroop|smaak|zeep|kip|peper|drink
 1 limoen | limoen | sap|limonade|cranberry|smaak|drink|siroop
 500 g aardbeien | aardbei | jam|yoghurt|drink|smaak|ijs|taart|limonade|siroop|snoep|vla|kwark
@@ -84,7 +84,7 @@
 200 g gerookte zalm | gerookte.*zalm|zalm.*gerookt | kauw|kat|hond|pate|salade|spread|smeer
 2 zalmfilets | zalm | gerookt|pate|salade|spread|kauw|kat|hond|smeer
 400 g kabeljauw | kabeljauw | kat|hond|kibbeling|lekkerbek|soep
-300 g garnalen | garnaal|garnalen | chips|kroepoek|salade|soep|cocktail|saus|kroket
+300 g garnalen | garnaal|garnalen | chips|kroepoek|salade|soep|saus|kroket
 2 blikjes tonijn | tonijn | salade|spread|pate|kat|hond|pizza|olijf|kroket
 200 g kibbeling | kibbeling | saus
 4 visstick | vissticks?|fish ?stick | 
@@ -126,7 +126,7 @@
 10 eieren | eieren|ei\b | paas|choco|kinder|noedel|salade|chocolade|spread|koek|pasta|biscuit
 400 g jong belegen kaas | jong ?beleg | blokjes|snack|smeer|crackers|chips|tosti|croissant|salami|worst
 150 g geraspte kaas | geraspt|raspkaas|gratin|pizza ?kaas|pasta ?kaas|strooikaas | salami|worst|chips|pizza (salami|tonijn|margh)|ovenschotel
-100 g Parmezaanse kaas | parmezaan|parmigiano|grana padano|parmesan | salami|worst|chips|crackers|kruiden|truffel|pasta|saus|pesto|dressing
+100 g Parmezaanse kaas | parmezaan|parmigiano|pamigiano|grana padano|parmesan | salami|worst|chips|crackers|kruiden|truffel|pasta|saus|pesto|dressing
 200 g feta | feta | dip|olijf|salade|spinazie|pasta|kip|wrap|pizza|smeer
 125 g mozzarella | mozzarella | pizza|sticks|tomaat|salade|stick
 200 g geitenkaas | geit | koek|crackers|salade|pizza|quiche
@@ -159,7 +159,7 @@
 500 g fusilli | fusilli | saus|maaltijd|salade
 250 g tagliatelle | tagliatelle | saus|maaltijd
 500 g pasta | penne|fusilli|macaroni|spaghetti|farfalle|tagliatelle|linguine|rigatoni|orzo|pasta | saus|pesto|speculoos|hazelnoot|pinda|miso|tomaten ?pasta|maaltijd|salade|kip|kaas|pizza|cookie|koek|amandel|sesam|curry|tandpasta|kruiden
-250 g lasagnebladen | lasagne ?blad|lasagnevellen|lasagne vellen|lasagnebladen | maaltijd|saus|kant
+250 g lasagnebladen | lasagne | maaltijd|saus|kant|bolognese|groente|spinazie|zalm|kip|vega|ovenschotel
 1 zak verse tortellini | tortellini | 
 400 g basmatirijst | basmati | 
 1 kg zilvervliesrijst | zilvervlies | wafel|koek|cracker
@@ -176,7 +176,7 @@
 150 ml sojasaus | soja ?saus|ketjap | bonen|melk|drink|yoghurt|scheuten|olie
 1 fles ketjap manis | ketjap | 
 1 blik kokosmelk | kokosmelk|coconut milk|kokos ?room | drink|yoghurt|water|zeep|shampoo|ijs|chips
-1 pot rode currypasta | currypasta|curry ?pasta|curry paste|rode curry | saus|ketchup|kruiden|poeder|soep
+1 pot rode currypasta | currypasta|curry ?pasta|curry paste|rode curry | saus|ketchup|poeder|soep
 1 pot pesto | pesto | chips|pasta (?!.*pesto)|saus
 1 pot sambal | sambal | chips|pinda|katjang|nootjes|kip
 1 fles sweet chilisaus | sweet chili | chips|kip|nootjes
@@ -205,14 +205,14 @@
 1 l frituurolie | frituur|frituurvet|olie | 
 1 kg bloem | bloem|tarwe ?bloem|patent | bloemkool|bloemen|kerstster|tas|honing|wijntas|fles
 1 kg suiker | kristalsuiker|suiker | vanille|riet|poeder|gelei|basterd|kandij|parel|klontjes|vrij|koek|wafel|smaak
-1 pak poedersuiker | poedersuiker|poeder suiker | 
+1 pak poedersuiker | poedersuik|poeder suiker | 
 1 zakje bakpoeder | bakpoeder | 
 1 zakje gist | gist | 
 1 pak paneermeel | paneermeel|panko|broodkruim | 
 1 zak panko | panko | 
 1 pak maizena | maizena|maiszetmeel|bindmiddel | 
 1 pakje bouillonblokjes | bouillon | soep|tomaten|ballen
-1 pak kippenbouillon | kippenbouillon|bouillon kip|kip bouillon | ballen
+1 pak kippenbouillon | kippenbouillon|bouillon ?(blokjes )?kip|kip ?bouillon|kippen ?bouillon | ballen
 1 blok pure chocolade | chocolade|chocola | melk|drink|hagel|koek|kruidnoot|pinda|rozijn|munten|letter|pasta|ijs|cake|mousse|vla|crispies|nootjes|repen|reep melk|wit
 200 g walnoten | walnoot|walnoten | brood|cake|olie
 200 g cashewnoten | cashew | drink|pasta|boter|reep|mix
@@ -246,7 +246,7 @@ peper | zwarte peper|peper zwart|peper gemalen|peper grof|peper molen|peper wit|
 1 pak koffie | koffie | melk|creamer|muesli|koek|smaak|cake|ijs|siroop|likeur|chocolade|room|becel|beker|filter(zakjes|papier)|koffiefilter|machine|cappuccino|latte
 500 g koffiebonen | bonen|koffiebonen|espresso | 
 1 pak thee | thee | koek|ijs|kop|pot|glas|lepel
-1 pak koffiemelk | koffiemelk|koffie ?creamer|creamer | 
+1 pak koffiemelk | koffiemelk|koffie ?creamer|creamer|koffiecups|koffie ?cups | 
 # --- huishouden (de app moet ook non-food goed doen)
 1 pak toiletpapier | toiletpapier|wc-?papier | vochtig
 1 rol keukenpapier | keukenpapier|keukenrol | 
@@ -256,4 +256,4 @@ peper | zwarte peper|peper zwart|peper gemalen|peper grof|peper molen|peper wit|
 1 pak vuilniszakken | vuilniszak|vuilzak|afvalzak|pedaalemmerzak | 
 1 tube tandpasta | tandpasta | 
 1 stuk zeep | zeep|handzeep|douche | 
-1 rol aluminiumfolie | aluminiumfolie|alufolie|aluminium folie | 
+1 rol aluminiumfolie | aluminiumfolie|alufolie|aluminium | 

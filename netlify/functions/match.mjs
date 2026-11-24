@@ -9,7 +9,7 @@ const Match = globalThis.Match;
 const json = (b, status = 200) => new Response(JSON.stringify(b), { status, headers: { 'content-type': 'application/json' } });
 const MODELS = { haiku: 'claude-haiku-5-5', sonnet: 'claude-sonnet-5-5' };
 const DEFAULT = process.env.CLAUDE_MATCH_MODEL || 'haiku';
-const V = 1; // verhoog bij een nieuwe prompt: oude antwoorden worden dan opnieuw gevraagd
+const V = 2; // verhoog bij een nieuwe prompt: oude antwoorden worden dan opnieuw gevraagd
 const STORES = ['ah', 'jumbo', 'aldi', 'dirk', 'plus', 'lidl'];
 const NAMES = { ah: 'Albert Heijn', jumbo: 'Jumbo', aldi: 'Aldi', dirk: 'Dirk', plus: 'Plus', lidl: 'Lidl' };
 const N = 16, PER_DEVICE = 300, PER_DAY = 5000, MAX_LINES = 30, PARALLEL = 8, NEW_PER_CALL = 8;
@@ -34,6 +34,10 @@ Hieronder staan per supermarkt genummerde producten uit het assortiment.
 Geef per supermarkt de nummers van ALLE producten die je kunt kopen als dit ingrediënt, zoals een thuiskok het bedoelt.
 - Goed: hetzelfde soort product. Merk, biologisch, verpakkingsgrootte, vetpercentage, kleur of smaakvariant maken niet uit (tenzij de regel er iets over zegt, zoals "halfvolle", "rode", "gerookte", "pure").
 - Niet goed: producten waarin het ingrediënt maar een smaak, vulling, onderdeel of saus is (salami met parmezaan, chips paprika, bonen in teriyakisaus, tonijnsalade, kruidenboter); kant-en-klare maaltijden; snacks en snoep; drank of sap bij vers fruit of groente; diervoeding; non-food bij eten (en andersom); vegetarische vervangers bij vlees (en andersom, tenzij de regel om vega vraagt).
+- Groente, fruit, vlees en vis zonder verdere aanduiding betekent VERS: niet uit blik of pot, niet op sap, niet gedroogd, niet als poeder, niet diepvries en geen kant-en-klare mix (tomaten ≠ tomatenblokjes, ananas ≠ ananas op sap, teentjes knoflook ≠ knoflookpoeder, ui ≠ zilveruitjes of gebakken uitjes, rode peper = verse chilipeper ≠ paprika). Alleen als de regel zelf "blik", "pot", "diepvries", "gedroogd" of "poeder" zegt, is dat goed.
+- Let op de diersoort en het stuk vlees: runderlappen zijn van het rund (geen hamlappen of varkenslappen), kipfilet is geen kipdij, gehakt zonder soort mag rund, half-om-half of varken.
+- Een product in blokjes, plakken, geraspt of als snack is alleen goed als de regel dat vraagt (jong belegen kaas ≠ kaasblokjes; plakken kaas = kaas in plakken).
+- Geen light-, zero- of suikervrije variant tenzij de regel dat zegt.
 - Bij een algemene term (kaas, pasta, rijst, brood, olie, suiker) zijn de gewone basisvarianten goed die je voor koken of op brood gebruikt, geen bijzondere specialiteiten.
 - Bij kruiden: "tacokruiden" is een taco-kruidenmix; "1 tl komijn" is gemalen komijn; verse kruiden alleen als de regel "vers", "bosje" of "bakje" zegt, anders zijn gedroogde ook goed.
 - Twijfel je, laat het weg. Is er geen goed product, geef een lege lijst.
@@ -71,8 +75,8 @@ export async function matchLines(lines, { key, device = 'onbekend', budget = Inf
   if (todo.length) {
     const kDev = `rl/${day}/${device}`, kAll = `rl/${day}/all`;
     const [cDev, cAll] = await Promise.all([kDev, kAll].map(k => s.get(k, { type: 'json' }).then(v => v || 0)));
-    const room = Math.max(0, Math.min(PER_DEVICE - cDev, PER_DAY - cAll, budget, NEW_PER_CALL));
-    const now = todo.slice(0, room); limited = now.length < todo.length;
+    const room = Math.max(0, Math.min(PER_DEVICE - cDev, PER_DAY - cAll, budget));
+    const now = todo.slice(0, Math.min(room, NEW_PER_CALL)); limited = room < todo.length && room < NEW_PER_CALL;
     if (now.length) await Promise.all([s.setJSON(kDev, cDev + now.length), s.setJSON(kAll, cAll + now.length)]);
     for (let i = 0; i < now.length; i += PARALLEL) {
       await Promise.all(now.slice(i, i + PARALLEL).map(async x => {
