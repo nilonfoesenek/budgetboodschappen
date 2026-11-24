@@ -213,7 +213,7 @@ input[type=search]:focus,.fin:focus,textarea:focus{outline:0;border-color:var(--
 .save{background:var(--okbg);color:var(--ok);border-radius:10px}
 /* kop en tabbalk */
 header{padding-top:calc(14px + env(safe-area-inset-top))}header.sc{border-bottom:0;box-shadow:0 1px 0 var(--line)}
-.bell{border:0;background:var(--field)}
+.hbtns{margin-left:auto;display:flex;gap:2px}.hb{width:42px;height:42px;border:0;background:none;border-radius:50%;display:grid;place-items:center;color:var(--ink);cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent;transition:background .15s}.hb:active{background:var(--field)}.hb svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.bell,.bell.on{margin-left:0;border:0!important;background:none!important}
 nav{background:var(--navbg);border:1px solid var(--line);box-shadow:var(--sh2)}
 nav button{position:relative;transition:color .2s}
 nav button::after{content:'';position:absolute;bottom:6px;left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--ok);transform:scale(0);transition:transform .25s var(--ease)}
@@ -309,7 +309,7 @@ img.pi{animation:fadein .35s ease}
 </head>
 <body>
 <header class="wrap">
-  <div class="brand"><a class="logo" href="./" aria-label="Boodje"><img src="icons/logo.svg" alt="" width="32" height="32"><h1>Boodje</h1></a><button class="bell" id="pushBtn" aria-pressed="false" aria-label="Meldingen" hidden>🔕</button></div>
+  <div class="brand"><a class="logo" href="./" aria-label="Boodje"><img src="icons/logo.svg" alt="" width="32" height="32"><h1>Boodje</h1></a><span class="hbtns"><button class="hb" data-stores aria-label="Supermarkten wijzigen" title="Supermarkten wijzigen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5 5.6 4.8A1.2 1.2 0 0 1 6.7 4h10.6a1.2 1.2 0 0 1 1.1.8L20 9.5"/><path d="M4 9.5h16v.6a2.65 2.65 0 0 1-5.3 0 2.65 2.65 0 0 1-5.4 0 2.65 2.65 0 0 1-5.3 0z"/><path d="M5.5 12.6V19a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-6.4"/><path d="M10 20v-4.2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1V20"/></svg></button><button class="hb bell" id="pushBtn" aria-pressed="false" aria-label="Meldingen" hidden></button></span></div>
 </header>
 <nav><div class="seg" role="tablist">
   <button role="tab" data-tab="offers" aria-selected="true" aria-label="Home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 9.5V20h5v-6h4v6h5V9.5"/></svg></button>
@@ -381,7 +381,7 @@ img.pi{animation:fadein .35s ease}
 
   </section>
   <section id="t-offers">
-    <div class="hello"><h2 id="hiTxt">Hoi 👋</h2><p class="muted" id="offStores"></p></div>
+    <div class="hello"><h2 id="hiTxt">Hoi 👋</h2><p class="muted" id="offStores" hidden></p></div>
     <div id="hero"></div>
     <div class="hsrch"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" id="q" placeholder="Zoek een product of aanbieding" aria-label="Zoek in aanbiedingen" autocomplete="off"></div>
     <div class="card" id="offMineCard" hidden><h2>Voor jou</h2><div id="offMine"></div></div>
@@ -827,6 +827,7 @@ async function shareSaved(){const ms=monthSaved();if(!ms)return;const mn=new Dat
   try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],text:`In ${mn} bespaarde ik ${eur(ms.sv)} met Boodje!`});return}}catch(e){return}
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=f.name;a.click()}
 document.addEventListener('click',e=>{if(e.target.closest('[data-sharesave]'))shareSaved()});
+document.addEventListener('click',e=>{if(e.target.closest('[data-pushon]'))$('pushBtn').click()});
 
 /* Lijst: vaste balk met totaal, boven de tabbalk */
 function renderLbar(){const b=$('lbar'),t=lastTot,show=t&&t.n&&!$('t-list').hidden;b.hidden=!show;if(!show)return;
@@ -1083,7 +1084,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-fol]');if(
   toggleFav(l)},true);
 function toggleFav(l){
   if(isFollowed(l)){state.follow=state.follow.filter(x=>pkey(x)!==pkey(l));toast('Uit je favoriete producten gehaald.')}
-  else{state.follow.push(l.replace(/^[\d.,]+\s*(g|kg|ml|l|cl|stuks?|st)?\s+/i,''));toast(state.push?'Favoriet: je krijgt een melding als dit in de aanbieding is.':'Favoriet. Zet meldingen aan met 🔕 bovenin om een seintje te krijgen.')}
+  else{state.follow.push(l.replace(/^[\d.,]+\s*(g|kg|ml|l|cl|stuks?|st)?\s+/i,''));toast(state.push?'Favoriet: je krijgt een melding als dit in de aanbieding is.':'Favoriet. Zet meldingen aan met het belletje op Home om een seintje te krijgen.')}
   persist();document.querySelectorAll(`[data-fol="${CSS.escape(l)}"]`).forEach(x=>{const on=isFollowed(l);x.classList.toggle('on',on);x.innerHTML=HEART(on)});if(!$('t-offers').hidden)renderOffers();if(!$('t-recipes').hidden)renderFavProds()}
 
 /* ---------- favoriete producten (tabblad Favorieten) ---------- */
@@ -1094,7 +1095,7 @@ function favProdInfo(l){const it=Match.parseLine(l);if(!it||!P)return null;
     if(!IDX[s])continue;const c=Match.candidates(it,IDX[s],6)[0];if(!c)continue;const cost=c.cost||Match.costOf(it,c.p,c.p.qty&&c.p.qty.d);if(!low||cost.total<low.t)low={s,t:cost.total,n:c.p.name}}
   return{deal,low}}
 function renderFavProds(){const L=state.follow||[];
-  $('fpNote').innerHTML=L.length?(state.push?'Je krijgt één melding zodra er favorieten in de aanbieding zijn.':'Zet meldingen aan met 🔕 bovenin, dan krijg je één seintje als er favorieten in de aanbieding zijn.'):'Zet hier producten die je vaak koopt. Je krijgt één melding als er een paar in de aanbieding zijn.';
+  $('fpNote').innerHTML=L.length?(state.push?'Je krijgt één melding zodra er favorieten in de aanbieding zijn.':'Je krijgt één seintje als er favorieten in de aanbieding zijn. <button class="lnk" data-pushon>Meldingen aanzetten ›</button>'):'Zet hier producten die je vaak koopt. Je krijgt één melding als er een paar in de aanbieding zijn.';
   const cards=L.map(l=>{const x=favProdInfo(l);const o=x&&x.deal,lw=x&&x.low,s=o?o.s:lw?lw.s:null,nm=o?o.n:lw?lw.n:l;
     const img=o&&o.img?pimg(o):lw?thumb(lw.s,lw.n):'';
     const pill=o?(disc(o)>=0.05?'−'+Math.round(disc(o)*100)+'%':o.d):'';
@@ -1282,7 +1283,7 @@ function renderShare(){const b=$('shareBox'),top=$('shTop');if(!b)return;
   const t=state.share.at?new Date(state.share.at).toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'}):'';
   b.innerHTML=`<h2>👥 Gedeelde lijst</h2>${state.share.code?`<div class="code">${fmtCode(state.share.code)}</div><p class="muted" style="margin:0 0 6px;font-size:13px;text-align:center">Laat anderen deze code invullen bij Lijst → Meedoen.</p>`:''}
     <p class="muted" style="margin:0 0 6px;font-size:13.5px">Wijzigingen komen vanzelf bij iedereen binnen.${t?' Laatst bijgewerkt '+t+'.':''}${state.share.members&&state.share.members.length?' Meldingen gaan naar: '+esc(state.share.members.join(', '))+'.':''}</p>${nameField()}
-    ${state.push?'':'<p class="muted" style="margin:4px 0;font-size:13px">Zet 🔕 bovenin bij Route aan om een seintje te krijgen als de boodschappen gedaan zijn.</p>'}
+    ${state.push?'':'<p class="muted" style="margin:4px 0;font-size:13px"><button class="lnk" data-pushon>Zet meldingen aan</button> om een seintje te krijgen als de boodschappen gedaan zijn.</p>'}
     <div class="btns tight"><button class="btn" id="shSend">Uitnodiging sturen</button><button class="btn sec" id="shStop">Stoppen</button></div>`}
 function joinWith(l,id){const mine=listLines().filter(x=>!l.text.some(y=>Match.norm(y)===Match.norm(x)));
   state.share={id,v:l.v,bt:l.text.join('\n'),bd:{...l.done},at:l.updated,code:l.code,members:l.members||[]};adopting=true;state.text=[...l.text,...mine].join('\n');state.done={...l.done};persist();adopting=false;
@@ -1360,7 +1361,7 @@ async function allDone(){const R=lastR||[];let sv=0,sent=0;allDoneBusy=true;
 const canPush='serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window;
 const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
 const isIOS=/iPhone|iPad|iPod/.test(navigator.userAgent);
-function pushUI(){const b=$('pushBtn');b.hidden=false;b.classList.toggle('on',!!state.push);b.setAttribute('aria-pressed',!!state.push);b.textContent=state.push?'🔔':'🔕';b.setAttribute('aria-label',state.push?'Meldingen staan aan':'Meldingen aanzetten')}
+function pushUI(){const b=$('pushBtn');b.hidden=false;b.classList.toggle('on',!!state.push);b.setAttribute('aria-pressed',!!state.push);b.innerHTML=state.push?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 10a6 6 0 0 1 12 0c0 4.2 1.6 6 2.3 6.7.3.3.1.8-.3.8H4c-.4 0-.6-.5-.3-.8C4.4 16 6 14.2 6 10z" fill="currentColor"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/><circle cx="18.5" cy="5.5" r="3" fill="var(--ok)" stroke="var(--bg)" stroke-width="1.6"/></svg>':'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 10a6 6 0 0 1 12 0c0 4.2 1.6 6 2.3 6.7.3.3.1.8-.3.8H4c-.4 0-.6-.5-.3-.8C4.4 16 6 14.2 6 10z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/><path d="M3.5 3.5l17 17"/></svg>';b.setAttribute('aria-label',state.push?'Meldingen staan aan':'Meldingen aanzetten')}
 const b64u=s=>{const p='='.repeat((4-s.length%4)%4),r=atob((s+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(r,c=>c.charCodeAt(0))};
 async function pushSub(){const reg=await navigator.serviceWorker.ready;return reg.pushManager.getSubscription()}
 async function pushSync(){const sub=await pushSub();if(!sub)return;
