@@ -12,7 +12,7 @@ const DEFAULT = process.env.CLAUDE_MATCH_MODEL || 'haiku';
 const V = 3; // verhoog bij een nieuwe prompt: oude antwoorden worden dan opnieuw gevraagd
 const STORES = ['ah', 'jumbo', 'aldi', 'dirk', 'plus', 'lidl', 'dekamarkt', 'hoogvliet', 'spar', 'vomar', 'poiesz'];
 const NAMES = { ah: 'Albert Heijn', jumbo: 'Jumbo', aldi: 'Aldi', dirk: 'Dirk', plus: 'Plus', lidl: 'Lidl', dekamarkt: 'DekaMarkt', hoogvliet: 'Hoogvliet', spar: 'SPAR', vomar: 'Vomar', poiesz: 'Poiesz' };
-const N = 16, PER_DEVICE = 300, PER_DAY = 5000, MAX_LINES = 30, PARALLEL = 8, NEW_PER_CALL = 8;
+const N = 16, PER_DEVICE = 300, PER_DAY = 5000, MAX_LINES = 30, PARALLEL = 5, NEW_PER_CALL = 5;
 const db = () => globalThis.__testMatch || getStore({ name: 'match', consistency: 'strong' });
 
 let cache = null;
@@ -47,6 +47,14 @@ ${lists}
 Antwoord ALLEEN met JSON, zoals {"ah":[1,4],"jumbo":[],"aldi":[2]} met een sleutel voor elke supermarkt hierboven.`;
 
 async function ask(key, label, cands, model) {
+  let last;
+  for (let i = 0; i < 3; i++) {
+    try { return await ask1(key, label, cands, model); }
+    catch (e) { if (e.status === 401 || e.status === 403) throw e; last = e; await new Promise(r => setTimeout(r, 400 * (i + 1))); }
+  }
+  throw last;
+}
+async function ask1(key, label, cands, model) {
   const lists = Object.entries(cands).map(([s, ps]) => `${NAMES[s]} (${s}):\n` + (ps.length ? ps.map((p, i) => `${i + 1}. ${p.name}${p.size ? ' (' + p.size + ')' : ''}`).join('\n') : '(geen kandidaten)')).join('\n\n');
   const call = (extra) => fetch('https://api.anthropic.com/v1/messages', { method: 'POST',
     headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' },
@@ -55,7 +63,8 @@ async function ask(key, label, cands, model) {
   let r = await call({ thinking: { type: 'disabled' } });
   if (r.status === 400) r = await call({ output_config: { effort: 'low' } });
   if (!r.ok) { const t = await r.text().catch(() => ''); console.log('anthropic', r.status, t.slice(0, 200)); const e = new Error('ai'); e.status = r.status; e.body = t; throw e; }
-  const d = await r.json(), text = (d.content || []).filter(c => c.type === 'text').map(c => c.text).join('');
+  const raw = await r.text(); let d; try { d = JSON.parse(raw); } catch { const e = new Error('onvolledig antwoord (' + raw.length + ' tekens)'); throw e; }
+  const text = (d.content || []).filter(c => c.type === 'text').map(c => c.text).join('');
   const m = text.match(/\{[\s\S]*\}/); if (!m) { const e = new Error('geen antwoord (' + d.stop_reason + ')'); throw e; }
   const o = JSON.parse(m[0]);
   const out = {};
