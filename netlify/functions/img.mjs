@@ -30,17 +30,20 @@ function ogImage(html, base) {
   return u;
 }
 
-const go = (url, s) => new Response(null, { status: 302, headers: {
-  location: url, 'cache-control': `public, max-age=${7 * DAY}`, 'netlify-cdn-cache-control': `public, durable, max-age=${30 * DAY}`, 'x-img-store': s } });
-const none = () => new Response('geen foto', { status: 404, headers: {
+// JSON ({u}) i.p.v. een doorverwijzing: Netlify plakt de eigen ?s=&n= achter een doorverwijzing, en SPAR weigert dan de foto.
+let J = false;
+const go = (url) => J ? new Response(JSON.stringify({ u: url }), { headers: { 'content-type': 'application/json',
+  'cache-control': `public, max-age=${7 * DAY}`, 'netlify-cdn-cache-control': `public, durable, max-age=${30 * DAY}` } })
+  : new Response(null, { status: 302, headers: { location: url, 'cache-control': `public, max-age=${7 * DAY}`, 'netlify-cdn-cache-control': `public, durable, max-age=${30 * DAY}` } });
+const none = () => new Response(J ? '{"u":null}' : 'geen foto', { status: J ? 200 : 404, headers: { 'content-type': J ? 'application/json' : 'text/plain',
   'cache-control': `public, max-age=${DAY}`, 'netlify-cdn-cache-control': `public, durable, max-age=${3 * DAY}` } });
 
 export default async (req) => {
-  const q = new URL(req.url).searchParams, s = q.get('s'), n = (q.get('n') || '').trim().toLowerCase().slice(0, 200);
+  const q = new URL(req.url).searchParams; J = q.get('j') === '1'; const s = q.get('s'), n = (q.get('n') || '').trim().toLowerCase().slice(0, 200);
   if (!STORES.includes(s) || !n) return none();
   const db = globalThis.__testImgStore || getStore({ name: 'img' }), key = s + '/' + await hash(n);
   const hit = await db.get(key, { type: 'json' }).catch(() => null);
-  if (hit && hit.u) return go(hit.u, s);
+  if (hit && hit.u) return go(hit.u);
   if (hit && Date.now() - hit.t < 7 * DAY * 1000) return none(); // onlangs niets gevonden: een week niet opnieuw proberen
   let u = null;
   try {
@@ -62,6 +65,6 @@ export default async (req) => {
   } catch (e) { /* netwerkfout: niets bewaren, volgende keer opnieuw */ return none(); }
   if (u) try { u = new URL(u).href; } catch (e) { u = null; }
   await db.setJSON(key, u ? { u, t: Date.now() } : { t: Date.now() }).catch(() => {});
-  return u ? go(u, s) : none();
+  return u ? go(u) : none();
 };
 export const config = { path: '/api/img' };

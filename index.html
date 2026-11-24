@@ -321,7 +321,19 @@ const AB={ah:['AH','#fff'],jumbo:['J','#111'],aldi:['A','#fff'],dirk:['D','#fff'
 // echte logo's waar we ze hebben (icons/stores), anders de letters
 const dot=s=>S[s]?`<span class="sb lg" aria-hidden="true"><img src="icons/stores/${s}.png" alt=""></span>`:`<span class="sb" style="background:${S[s].c};color:${AB[s][1]}" aria-hidden="true">${AB[s][0]}</span>`;
 const IMGS=new Set(['ah','jumbo','dirk','hoogvliet','spar','vomar']);// winkels waarvan we productfoto's kunnen opzoeken
-const thumb=(s,n)=>!IMGS.has(s)||!n?'':`<img class="pi" src="/api/img?s=${s}&n=${encodeURIComponent(n.toLowerCase())}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`;
+// foto-adres per product: eerst uit het geheugen van dit toestel, anders via /api/img (JSON)
+let IMC={};try{IMC=JSON.parse(localStorage.getItem('bb-img')||'{}')}catch(e){}
+const imgKey=(s,n)=>s+'|'+n.toLowerCase();
+const thumb=(s,n)=>{if(!IMGS.has(s)||!n)return '';const k=imgKey(s,n),u=IMC[k];if(u==='')return '';
+  return u?`<img class="pi" src="${esc(u)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`:`<img class="pi" data-img="${esc(k)}" alt="" referrerpolicy="no-referrer" onerror="this.remove()" hidden>`};
+let imgSaveT=null;const imgQ=new Map();let imgBusy=0;
+function imgPump(){while(imgBusy<6&&imgQ.size){const [k,els]=imgQ.entries().next().value;imgQ.delete(k);imgFly.add(k);imgBusy++;const [s,...r]=k.split('|');
+  fetch(`/api/img?j=1&s=${s}&n=${encodeURIComponent(r.join('|'))}`).then(x=>x.ok?x.json():{u:null}).catch(()=>({u:undefined})).then(d=>{
+    if(d.u!==undefined){IMC[k]=d.u||'';clearTimeout(imgSaveT);imgSaveT=setTimeout(()=>{try{const ks=Object.keys(IMC);if(ks.length>3000)ks.slice(0,ks.length-3000).forEach(x=>delete IMC[x]);localStorage.setItem('bb-img',JSON.stringify(IMC))}catch(e){}},800)}
+    document.querySelectorAll(`img[data-img="${CSS.escape(k)}"]`).forEach(im=>{if(d.u){im.src=d.u;im.hidden=false;im.removeAttribute('data-img')}else im.remove()})}).finally(()=>{imgBusy--;imgFly.delete(k);imgPump()})}}
+const imgFly=new Set();
+function imgScan(){document.querySelectorAll('img[data-img]').forEach(im=>{const k=im.dataset.img;if(!imgQ.has(k)&&!imgFly.has(k))imgQ.set(k,1)});imgPump()}
+new MutationObserver(()=>{clearTimeout(imgScan.t);imgScan.t=setTimeout(imgScan,60)}).observe(document.body,{childList:true,subtree:true});
 const th=(s,n)=>`<span class="th">${thumb(s,n)}${dot(s)}</span>`;
 const pimg=o=>o.img?`<img class="pi" src="${esc(o.img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`:'';
 const dnl=d=>new Date(d+'T12:00').toLocaleDateString('nl-NL',{day:'numeric',month:'short'});
