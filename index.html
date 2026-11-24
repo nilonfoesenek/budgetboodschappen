@@ -230,7 +230,7 @@ h1{letter-spacing:-.6px}h2{font-size:21px;letter-spacing:-.3px;font-weight:800}
 .dc .ib{border:0;background:#fff}
 .btn{color:var(--card);border-radius:14px;min-height:46px;transition:transform .12s var(--ease),opacity .12s}.btn:active{transform:scale(.97)}
 .btn.sec{background:var(--field);border:0}
-.chip{border:0;background:var(--field)}.chip.on{background:var(--ink);color:var(--card)}
+.chip{border:0;background:var(--field)}.chip.on{background:var(--ink);color:var(--card)}.chip small{opacity:.6;font-weight:600;margin-left:3px}
 input[type=search],.fin,textarea{border:1.5px solid transparent;background:var(--field);border-radius:14px;transition:border-color .15s,background .15s}
 input[type=search]:focus,.fin:focus,textarea:focus{outline:0;border-color:var(--ok);background:var(--card)}
 .add{border:0;background:var(--field);transition:transform .2s var(--ease),background .2s}.add:active{transform:scale(.88)}.add.ok{animation:pop .35s var(--ease)}
@@ -422,6 +422,7 @@ img.pi{animation:fadein .35s ease}
     <div id="shelves"></div>
     <div class="card" id="allOff"><h2 id="allOffH">Alle aanbiedingen</h2>
       <div class="mode hscroll"><span id="ofil" style="display:contents"></span></div>
+      <div class="mode hscroll" id="ocat" style="margin-top:6px"></div>
       <div id="offList" style="margin-top:8px"></div>
     </div>
   </section>
@@ -776,8 +777,18 @@ function renderOffers(){renderHero();renderRcCard();if(!O)return;const live=live
   $('offMineCard').hidden=!mine.length;$('offMine').innerHTML=mine.slice(0,6).map(([o,w])=>offRow(o,w)).join('');
   if(ofil!=='all'&&!sel.includes(ofil))ofil='all';
   $('ofil').innerHTML=`<button class="chip${otop?' on':''}" data-otop>🔥 Hoogste korting</button>`+(sel.length>1?['all',...sel]:[]).map(s=>`<button class="chip${ofil===s?' on':''}" data-ofil="${s}">${s==='all'?'Alle':S[s].label}</button>`).join('');
-  const q=Match.norm($('q').value),L=live.filter(o=>(ofil==='all'||o.s===ofil)&&(!q||Match.norm(o.n).includes(q)));if(otop)L.sort((a,b)=>disc(b)-disc(a));
-  $('offList').innerHTML=L.map(o=>offRow(o)).join('')||'<div class="empty">Geen aanbiedingen gevonden.</div>';homeSearching()}
+  renderOffList();homeSearching()}
+/* Alle aanbiedingen: per categorie en winkel, steeds 30 tegelijk (duizenden rijen tegelijk maakt de app traag) */
+let ocat='all',olim=30;
+const OCATS=[...CATS.map((c,i)=>[String(i),c[0]]),['h','Huishouden & verzorging'],[String(CATS.length),'Overig']];
+const offCat=o=>o._cat!==undefined?o._cat:(o._cat=NONFOOD.test(o.n)?'h':String(catOfText(otype(o))));
+function renderOffList(){if(!O)return;const live=liveOffers(),q=Match.norm($('q').value);
+  const base=live.filter(o=>(ofil==='all'||o.s===ofil)&&(!q||Match.norm(o.n).includes(q)));
+  const cnt={};for(const o of base){const c=offCat(o);cnt[c]=(cnt[c]||0)+1}
+  if(ocat!=='all'&&!cnt[ocat])ocat='all';
+  $('ocat').innerHTML=`<button class="chip${ocat==='all'?' on':''}" data-ocat="all">Alles <small>${base.length}</small></button>`+OCATS.filter(([k])=>cnt[k]).map(([k,n])=>`<button class="chip${ocat===k?' on':''}" data-ocat="${k}">${n} <small>${cnt[k]}</small></button>`).join('');
+  const L=base.filter(o=>ocat==='all'||offCat(o)===ocat);if(otop)L.sort((a,b)=>disc(b)-disc(a));
+  $('offList').innerHTML=(L.slice(0,olim).map(o=>offRow(o)).join('')||'<div class="empty">Geen aanbiedingen gevonden.</div>')+(L.length>olim?`<button class="btn sec" data-omore style="width:100%;margin-top:10px">Meer tonen (nog ${L.length-olim})</button>`:'')}
 
 
 /* ---------- home: aanbiedingen per categorie ---------- */
@@ -1336,8 +1347,10 @@ document.addEventListener('click',e=>{const t=e.target;
     persist();render();ev('winkels',{});return}
   const go=t.closest('[data-go]');if(go){e.preventDefault();tab(go.dataset.go);return}
   const oa=t.closest('[data-oadd]');if(oa){if(!oa.classList.contains('ok'))addLines([oa.dataset.oadd]);document.querySelectorAll(`[data-oadd="${CSS.escape(oa.dataset.oadd)}"]`).forEach(b=>{b.textContent='✓';b.classList.add('ok')});return}
-  const of=t.closest('[data-ofil]');if(of){ofil=of.dataset.ofil;renderOffers();return}
-  if(t.closest('[data-otop]')){otop=!otop;renderOffers();return}
+  const of=t.closest('[data-ofil]');if(of){ofil=of.dataset.ofil;olim=30;renderOffList();return}
+  const oc=t.closest('[data-ocat]');if(oc){ocat=oc.dataset.ocat;olim=30;renderOffList();return}
+  if(t.closest('[data-omore]')){olim+=30;renderOffList();return}
+  if(t.closest('[data-otop]')){otop=!otop;olim=30;renderOffers();return}
   if(t.matches('[data-done]')){const k=t.dataset.done;if(t.checked){state.done[k]=true;book(k,t.dataset.st)}else{delete state.done[k];unbook(k)}persist();render();return}
   if(t.closest('select'))return;
   const tg=t.closest('[data-tog]');if(tg&&!t.matches('input')){const cb=tg.querySelector('input[type=checkbox]');if(cb)cb.click();return}
@@ -1352,7 +1365,7 @@ $('txtDone').addEventListener('click',()=>{clearTimeout(txtT);txtSave();$('txtBo
 // Enter in het invoerveld: zet wat je typte op de lijst
 $('ps').addEventListener('keydown',e=>{if(e.key!=='Enter')return;e.preventDefault();const v=$('ps').value.trim();if(!v)return;const r=addLines([v]);$('ps').value='';$('psRes').innerHTML='';$('txt').value=state.text;toast(r.n?`${v} staat op je lijst.`:r.skip?`${v} heb je altijd in huis.`:`${v} stond er al op.`)});
 $('clear').addEventListener('click',e=>{const b=e.currentTarget;if(b.dataset.sure){state.text='';state.done={};state.booked={};$('txt').value='';persist();render();b.textContent='Lijst leegmaken';delete b.dataset.sure;$('lstat').textContent='Lijst leeggemaakt.'}else{b.dataset.sure=1;b.textContent='Zeker weten?';setTimeout(()=>{if(b.dataset.sure){delete b.dataset.sure;b.textContent='Lijst leegmaken'}},3000)}});
-$('q').addEventListener('input',renderOffers);
+$('q').addEventListener('input',()=>{olim=30;renderOffList()});
 function tab(t){if(t==='weekly')t='list';document.querySelector('header').classList.toggle('slim',t!=='offers');if(t!=='recipes')$('planBar').hidden=true;document.querySelectorAll('nav [data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
   document.querySelectorAll('main>section').forEach(s=>s.hidden=s.id!=='t-'+t);if(t==='list'){$('txt').value=state.text;renderWeekly()}if(t==='offers')renderOffers();if(t==='recipes')renderRecipes();window.scrollTo(0,0);const sec=$('t-'+t);sec.classList.remove('enter');void sec.offsetWidth;sec.classList.add('enter')}
 document.querySelector('nav').addEventListener('click',e=>{const t=e.target.closest('[data-tab]');if(t)tab(t.dataset.tab)});
@@ -1363,7 +1376,10 @@ const getJ=f=>fetch(GH+f,{cache:'no-cache'}).then(r=>{if(!r.ok)throw 0;return r.
 const splashT0=performance.now();function hideSplash(){const el=$('splash');if(!el||el.classList.contains('out'))return;setTimeout(()=>{el.classList.add('out');setTimeout(()=>el.remove(),400)},Math.max(0,900-(performance.now()-splashT0)))}
 setTimeout(hideSplash,5000);
 Promise.all([getJ('prices.json'),getJ('offers.json')]).then(([p,o])=>{
-  P=p;O=o;for(const x of O.offers)if(x.img&&x.img.startsWith('fz:'))x.img='https://img.offers-cdn.net/assets/uploads/offers/nl/'+x.img.slice(3);for(const s in P.stores)IDX[s]=Match.indexStore(P.stores[s]);Match.setHeads(Object.values(IDX));
+  P=p;O=o;for(const x of O.offers)if(x.img&&x.img.startsWith('fz:'))x.img='https://img.offers-cdn.net/assets/uploads/offers/nl/'+x.img.slice(3);
+  // eerst de winkels die je gebruikt (snel beginnen), de rest daarna op de achtergrond
+  const first=[...new Set([...state.stores,state.home].filter(s=>s&&P.stores[s]))];for(const s of first)IDX[s]=Match.indexStore(P.stores[s]);Match.setHeads(Object.values(IDX));
+  const rest=Object.keys(P.stores).filter(s=>!IDX[s]);(function next(){const s=rest.shift();if(!s){Match.setHeads(Object.values(IDX));render();return}IDX[s]=Match.indexStore(P.stores[s]);setTimeout(next,30)})();
   autoWeekly();render();if(!$('t-recipes').hidden)renderRecipes();if(!$('t-list').hidden)renderWeekly();if(!$('t-offers').hidden)renderOffers();hideSplash()}).catch(()=>{hideSplash();$('sum').innerHTML='<p class="muted">Prijzen konden niet geladen worden. Probeer het later opnieuw.</p>'});
 getJ('config.json').then(c=>{CFG=Object.assign({ai:false},c);render()}).catch(()=>{});
 getJ('history.json').then(h=>{H=h.items||{};if(!$('t-offers').hidden)renderOffers()}).catch(()=>{});
