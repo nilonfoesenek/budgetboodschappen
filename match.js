@@ -211,12 +211,19 @@
     return { packs, total, rank: total + (unit != null ? unit / 1e4 : 0.01) };
   }
 
+  // drogisterij en huishouden: alleen als de regel daar zelf om vraagt (geen handzeep 'melk & amandel' bij 'melk')
+  const NFO = /(palmolive|dove|nivea|sanex|rexona|axe|andrelon|elvive|garnier|l.?or[eé]al|head\s*&\s*shoulders|pantene|schwarzkopf|syoss|gliss|labello|colgate|prodent|zendium|oral-?b|sensodyne|vanish|ariel|persil|omo|robijn|lenor|dreft|ajax|dettol|finish|witte reus|pampers|always|libresse|kleenex|page|edet|etos|zwitsal|neutral|biodermal|kneipp|treets|radox|fa\b|zeep|shampoo|conditioner|douche|deo|deodorant|tandpasta|wasmiddel|wasverzachter|afwas|vaatwas|reiniger|toiletpapier|keukenpapier|luier|bodylotion|crème|creme|lotion|scheer|haar|nagel|make-?up|parfum|geurkaars|luchtverfrisser)/i;
   function offerFor(item, offers, store) {
-    let best = null;
+    let best = null, bx = 1e9;
+    const nfOk = NFO.test(item.label || item.t.join(' '));
     for (const o of offers) {
       if (o.s !== store) continue;
       const ot = o._t || (o._t = toks(o.n).filter(x => !IGN.has(x)));
-      if (item.t.every(q => tokScore(q, ot) < 1)) { if (!best || (o.p || 99) < (best.p || 99)) best = o; }
+      if (!item.t.every(q => tokScore(q, ot) < 1)) continue;
+      if (!nfOk && (o._nf ?? (o._nf = NFO.test(o.n)))) continue;
+      // zo min mogelijk extra woorden (het meest 'pure' product), daarna de goedkoopste
+      const x = ot.length - item.t.length;
+      if (x < bx || (x === bx && (o.p || 99) < (best.p || 99))) { best = o; bx = x; }
     }
     return best;
   }

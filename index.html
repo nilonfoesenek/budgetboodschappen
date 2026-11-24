@@ -443,7 +443,7 @@ img.pi{animation:fadein .35s ease}
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const eur=n=>'€'+n.toFixed(2).replace('.',',');
-const S={ah:{label:'AH',full:'AH',c:'var(--ah)'},jumbo:{label:'Jumbo',full:'Jumbo',c:'var(--jumbo)'},aldi:{label:'Aldi',full:'Aldi',c:'var(--aldi)'},dirk:{label:'Dirk',full:'Dirk',c:'var(--dirk)'},plus:{label:'Plus',full:'Plus',c:'var(--plus)'},lidl:{label:'Lidl',full:'Lidl',c:'var(--lidl)',noOffers:true},dekamarkt:{label:'Deka',full:'DekaMarkt',c:'var(--deka)'},hoogvliet:{label:'Hoogvliet',full:'Hoogvliet',c:'var(--hoog)'},spar:{label:'SPAR',full:'SPAR',c:'var(--spar)'},vomar:{label:'Vomar',full:'Vomar',c:'var(--vomar)',noOffers:true},poiesz:{label:'Poiesz',full:'Poiesz',c:'var(--poiesz)',noOffers:true}};
+const S={ah:{label:'AH',full:'AH',c:'var(--ah)'},jumbo:{label:'Jumbo',full:'Jumbo',c:'var(--jumbo)'},aldi:{label:'Aldi',full:'Aldi',c:'var(--aldi)'},dirk:{label:'Dirk',full:'Dirk',c:'var(--dirk)'},plus:{label:'Plus',full:'Plus',c:'var(--plus)'},lidl:{label:'Lidl',full:'Lidl',c:'var(--lidl)'},dekamarkt:{label:'Deka',full:'DekaMarkt',c:'var(--deka)'},hoogvliet:{label:'Hoogvliet',full:'Hoogvliet',c:'var(--hoog)'},spar:{label:'SPAR',full:'SPAR',c:'var(--spar)'},vomar:{label:'Vomar',full:'Vomar',c:'var(--vomar)'},poiesz:{label:'Poiesz',full:'Poiesz',c:'var(--poiesz)'}};
 const AB={ah:['AH','#fff'],jumbo:['J','#111'],aldi:['A','#fff'],dirk:['D','#fff'],plus:['P','#fff'],lidl:['L','#fff'],dekamarkt:['DM','#fff'],hoogvliet:['HV','#fff'],spar:['S','#fff'],vomar:['V','#fff'],poiesz:['Po','#fff']};
 // echte logo's waar we ze hebben (icons/stores), anders de letters
 const dot=s=>S[s]?`<span class="sb lg" aria-hidden="true"><img src="icons/stores/${s}.png" alt=""></span>`:`<span class="sb" style="background:${S[s].c};color:${AB[s][1]}" aria-hidden="true">${AB[s][0]}</span>`;
@@ -509,7 +509,7 @@ function computeLines(lines){const res=[];
         else if(!al.length)cands=[]}
       if(!cands)cands=Match.candidates(it,IDX[s],6);let pick=cands[0];
       const pk='p:'+it.t.join(' '),want=state.picks[pk]?.[s]||state.picks[k]?.[s];if(want){let f=cands.find(c=>c.p.name===want);if(!f){const p=IDX[s].find(x=>x.name===want);if(p){f={p,cost:Match.costOf(it,p,p.qty&&p.qty.d)};cands.unshift(f)}}if(f)pick=f}
-      const o=Match.offerFor(it,O.offers.filter(o=>o.to>=today&&o.from<=addDays(today,6)),s);
+      const o=Match.offerFor(it,liveAll(),s);
       if(!pick&&o&&o.p!=null){const pq=Match.parseQty(o.n);const fake={name:o.n,price:o.p,size:'',qty:pq};pick={p:fake,cost:Match.costOf(it,fake,pq&&pq.d)};cands.unshift(pick)}
       if(!pick){per[s]=null;continue}
       const cost=pick.cost||Match.costOf(it,pick.p,pick.p.qty&&pick.p.qty.d);
@@ -708,7 +708,8 @@ renderPantry();
 
 /* ---------- aanbiedingen ---------- */
 function disc(o){if(o.pct)return o.pct;if(o.was&&o.p!=null&&o.was>o.p)return 1-o.p/o.was;return 0}
-const liveOffers=()=>O.offers.filter(o=>o.to>=today&&o.from<=addDays(today,6)&&state.stores.includes(o.s));
+let liveAllC=null,liveAllO=null;const liveAll=()=>{if(liveAllO!==O){liveAllO=O;const t6=addDays(today,6);liveAllC=O.offers.filter(o=>o.to>=today&&o.from<=t6)}return liveAllC};
+const liveOffers=()=>liveAll().filter(o=>state.stores.includes(o.s));
 const offLine=o=>{let n=o.n.split(/,| of /)[0].replace(/^(AH|Jumbo|PLUS|Plus|Aldi|Dirk|1 de Beste|Biologisch PLUS|Bio\+|Vleeschmeesters|Alle)\s+/i,'').trim();return n.charAt(0).toLowerCase()+n.slice(1)};
 const priceHtml=o=>o.was&&o.p!=null&&o.was>o.p?`<span class="pr"><s>${eur(o.was)}</s><span class="now">${eur(o.p)}</span></span>`:o.p!=null?`<span class="pr"><span class="now">${eur(o.p)}</span></span>`:'';
 const onList=l=>{const k=pkey(l);return favLines(state.text).some(x=>pkey(x)===k)};
@@ -716,8 +717,9 @@ const addBtn=o=>{const l=offLine(o),on=onList(l);return `<button class="add${on?
 /* prijsgeschiedenis: tags bij aanbiedingen */
 var H={};
 const hkey=o=>o.s+'|'+o.n.toLowerCase().replace(/\s+/g,' ').trim();
-function histTag(o){const rows=H[hkey(o)];if(!rows)return '';const all=Object.values(H).flat();if(!all.length)return '';
-  const first=all.reduce((a,r)=>r[0]<a?r[0]:a,'9'),wk=(()=>{const d=new Date(o.from+'T12:00');d.setDate(d.getDate()-((d.getDay()+6)%7));return d.toLocaleDateString('sv-SE')})();
+let hFirst=null,hFor=null;
+function histTag(o){const rows=H[hkey(o)];if(!rows)return '';if(hFor!==H){hFor=H;hFirst='9';for(const k in H)for(const r of H[k])if(r[0]<hFirst)hFirst=r[0]}if(hFirst==='9')return '';
+  const first=hFirst,wk=(()=>{const d=new Date(o.from+'T12:00');d.setDate(d.getDate()-((d.getDay()+6)%7));return d.toLocaleDateString('sv-SE')})();
   const span=Math.round((new Date(wk)-new Date(first))/6048e5);if(span<3)return '';
   const prev=rows.filter(r=>r[0]<wk),recent=prev.filter(r=>(new Date(wk)-new Date(r[0]))/6048e5<=8);
   const ps=prev.map(r=>r[1]).filter(x=>x!=null);
@@ -1116,7 +1118,7 @@ function toggleFav(l){
 function favProdInfo(l){const it=Match.parseLine(l);if(!it||!P)return null;
   const stores=it.store&&state.stores.concat(it.store).includes(it.store)?[it.store]:state.stores;
   let deal=null,low=null;
-  for(const s of stores){const o=O&&Match.offerFor(it,O.offers.filter(x=>x.to>=today&&x.from<=addDays(today,6)),s);if(o&&(!deal||disc(o)>disc(deal)))deal=o;
+  for(const s of stores){const o=O&&Match.offerFor(it,liveAll(),s);if(o&&(!deal||disc(o)>disc(deal)))deal=o;
     if(!IDX[s])continue;const c=Match.candidates(it,IDX[s],6)[0];if(!c)continue;const cost=c.cost||Match.costOf(it,c.p,c.p.qty&&c.p.qty.d);if(!low||cost.total<low.t)low={s,t:cost.total,n:c.p.name}}
   return{deal,low}}
 function renderFavProds(){const L=state.follow||[];
@@ -1204,7 +1206,7 @@ document.querySelector('nav').addEventListener('click',e=>{const t=e.target.clos
 const GH='https://raw.githubusercontent.com/nilonfoesenek/budgetboodschappen/main/data/';
 const getJ=f=>fetch(GH+f,{cache:'no-cache'}).then(r=>{if(!r.ok)throw 0;return r.json()}).catch(()=>fetch('data/'+f).then(r=>r.json()));
 Promise.all([getJ('prices.json'),getJ('offers.json')]).then(([p,o])=>{
-  P=p;O=o;for(const s in P.stores)IDX[s]=Match.indexStore(P.stores[s]);
+  P=p;O=o;for(const x of O.offers)if(x.img&&x.img.startsWith('fz:'))x.img='https://img.offers-cdn.net/assets/uploads/offers/nl/'+x.img.slice(3);for(const s in P.stores)IDX[s]=Match.indexStore(P.stores[s]);
   autoWeekly();render();if(!$('t-recipes').hidden)renderRecipes();if(!$('t-list').hidden)renderWeekly();if(!$('t-offers').hidden)renderOffers()}).catch(()=>{$('sum').innerHTML='<p class="muted">Prijzen konden niet geladen worden. Probeer het later opnieuw.</p>'});
 getJ('config.json').then(c=>{CFG=Object.assign({ai:false},c);render()}).catch(()=>{});
 getJ('history.json').then(h=>{H=h.items||{};if(!$('t-offers').hidden)renderOffers()}).catch(()=>{});
