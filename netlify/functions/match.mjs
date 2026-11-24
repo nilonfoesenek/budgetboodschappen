@@ -48,12 +48,16 @@ Antwoord ALLEEN met JSON, zoals {"ah":[1,4],"jumbo":[],"aldi":[2]} met een sleut
 
 async function ask(key, label, cands, model) {
   const lists = Object.entries(cands).map(([s, ps]) => `${NAMES[s]} (${s}):\n` + (ps.length ? ps.map((p, i) => `${i + 1}. ${p.name}${p.size ? ' (' + p.size + ')' : ''}`).join('\n') : '(geen kandidaten)')).join('\n\n');
-  const r = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST',
+  const call = (extra) => fetch('https://api.anthropic.com/v1/messages', { method: 'POST',
     headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' },
-    body: JSON.stringify({ model: MODELS[model] || model, max_tokens: 2000, output_config: { effort: 'low' }, messages: [{ role: 'user', content: PROMPT(label, lists) }] }) });
+    body: JSON.stringify({ model: MODELS[model] || model, max_tokens: 4000, ...extra, messages: [{ role: 'user', content: PROMPT(label, lists) }] }) });
+  // eerst zonder denkstappen (snel en goedkoop); weigert het model dat, dan met lage inspanning
+  let r = await call({ thinking: { type: 'disabled' } });
+  if (r.status === 400) r = await call({ output_config: { effort: 'low' } });
   if (!r.ok) { const t = await r.text().catch(() => ''); console.log('anthropic', r.status, t.slice(0, 200)); const e = new Error('ai'); e.status = r.status; e.body = t; throw e; }
   const d = await r.json(), text = (d.content || []).filter(c => c.type === 'text').map(c => c.text).join('');
-  const m = text.match(/\{[\s\S]*\}/); const o = JSON.parse(m ? m[0] : text);
+  const m = text.match(/\{[\s\S]*\}/); if (!m) { const e = new Error('geen antwoord (' + d.stop_reason + ')'); throw e; }
+  const o = JSON.parse(m[0]);
   const out = {};
   for (const s in cands) out[s] = [...new Set((Array.isArray(o[s]) ? o[s] : []).map(n => cands[s][(+n) - 1]).filter(Boolean).map(p => p.name))];
   return out;
