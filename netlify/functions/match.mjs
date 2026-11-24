@@ -12,7 +12,7 @@ const DEFAULT = process.env.CLAUDE_MATCH_MODEL || 'haiku';
 const V = 3; // verhoog bij een nieuwe prompt: oude antwoorden worden dan opnieuw gevraagd
 const STORES = ['ah', 'jumbo', 'aldi', 'dirk', 'plus', 'lidl', 'dekamarkt', 'hoogvliet', 'spar', 'vomar', 'poiesz'];
 const NAMES = { ah: 'Albert Heijn', jumbo: 'Jumbo', aldi: 'Aldi', dirk: 'Dirk', plus: 'Plus', lidl: 'Lidl', dekamarkt: 'DekaMarkt', hoogvliet: 'Hoogvliet', spar: 'SPAR', vomar: 'Vomar', poiesz: 'Poiesz' };
-const N = 16, PER_DEVICE = 300, PER_DAY = 5000, MAX_LINES = 30, PARALLEL = 5, NEW_PER_CALL = 5;
+const N = 16, PER_DEVICE = 300, PER_DAY = 5000, MAX_LINES = 30, PARALLEL = 4, NEW_PER_CALL = 4;
 const db = () => globalThis.__testMatch || getStore({ name: 'match', consistency: 'strong' });
 
 let cache = null;
@@ -47,8 +47,13 @@ ${lists}
 Antwoord ALLEEN met JSON, zoals {"ah":[1,4],"jumbo":[],"aldi":[2]} met een sleutel voor elke supermarkt hierboven.`;
 
 async function ask(key, label, cands, model) {
+  const ks = Object.keys(cands), half = Math.ceil(ks.length / 2), parts = [ks.slice(0, half), ks.slice(half)].filter(x => x.length);
+  const res = await Promise.all(parts.map(p => askRetry(key, label, Object.fromEntries(p.map(k => [k, cands[k]])), model)));
+  return Object.assign({}, ...res);
+}
+async function askRetry(key, label, cands, model) {
   let last;
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 2; i++) {
     try { return await ask1(key, label, cands, model); }
     catch (e) { if (e.status === 401 || e.status === 403) throw e; last = e; await new Promise(r => setTimeout(r, 400 * (i + 1))); }
   }
@@ -58,7 +63,8 @@ async function ask1(key, label, cands, model) {
   const lists = Object.entries(cands).map(([s, ps]) => `${NAMES[s]} (${s}):\n` + (ps.length ? ps.map((p, i) => `${i + 1}. ${p.name}${p.size ? ' (' + p.size + ')' : ''}`).join('\n') : '(geen kandidaten)')).join('\n\n');
   const call = (extra) => fetch('https://api.anthropic.com/v1/messages', { method: 'POST',
     headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' },
-    body: JSON.stringify({ model: MODELS[model] || model, max_tokens: 4000, ...extra, messages: [{ role: 'user', content: PROMPT(label, lists) }] }) });
+    signal: AbortSignal.timeout(7000),
+    body: JSON.stringify({ model: MODELS[model] || model, max_tokens: 1500, ...extra, messages: [{ role: 'user', content: PROMPT(label, lists) }] }) });
   // eerst zonder denkstappen (snel en goedkoop); weigert het model dat, dan met lage inspanning
   let r = await call({ thinking: { type: 'disabled' } });
   if (r.status === 400) r = await call({ output_config: { effort: 'low' } });
@@ -92,7 +98,8 @@ export async function matchLines(lines, { key, device = 'onbekend', budget = Inf
     const room = Math.max(0, Math.min(PER_DEVICE - cDev, PER_DAY - cAll, budget));
     const now = todo.slice(0, Math.min(room, NEW_PER_CALL)); limited = room < todo.length && room < NEW_PER_CALL;
     if (now.length) await Promise.all([s.setJSON(kDev, cDev + now.length), s.setJSON(kAll, cAll + now.length)]);
-    for (let i = 0; i < now.length; i += PARALLEL) {
+    const t0 = Date.now();
+    for (let i = 0; i < now.length && Date.now() - t0 < 4000; i += PARALLEL) {
       await Promise.all(now.slice(i, i + PARALLEL).map(async x => {
         const cands = {}; for (const st of STORES) if (IDX[st]) cands[st] = Match.recall(x.it, IDX[st], N);
         try {
