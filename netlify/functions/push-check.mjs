@@ -23,21 +23,30 @@ export async function run({ dry = false } = {}) {
     const fh = followHits(rec.follow || [], offers, rec.stores, today).filter(x => rec.sent['f:' + x.line] !== x.key);
     if (!hits.length && !fh.length) continue;
     hits.sort((a, b) => b.c.saving - a.c.saving);
+    fh.sort((a, b) => (b.pct || 0) - (a.pct || 0));
+    // altijd precies één melding, ook als er meerdere favorieten in de aanbieding zijn
+    const names = xs => xs.length <= 1 ? xs.join('') : xs.slice(0, -1).join(', ') + ' en ' + xs[xs.length - 1];
+    const prodTxt = fh.length > 3 ? names(fh.slice(0, 3).map(y => y.label)) + ` en nog ${fh.length - 3}` : names(fh.map(y => y.label));
     let title, body;
-    if (hits.length) {
+    if (hits.length && fh.length) {
+      title = 'Je favorieten zijn deze week in de aanbieding';
+      body = hits.slice(0, 2).map(x => `${x.f.title} −${Math.round(x.c.saving * 100)}%`).join(' · ') + ` · ${prodTxt}`;
+    } else if (hits.length) {
       const h = hits[0], pct = Math.round(h.c.saving * 100);
-      title = hits.length === 1 ? `${h.f.title}: ${pct}% goedkoper` : `${hits.length} favorieten in de aanbieding`;
+      title = hits.length === 1 ? `${h.f.title}: ${pct}% goedkoper` : `${hits.length} favoriete gerechten in de aanbieding`;
       body = hits.length === 1 ? `Deze week ${eur(h.c.deal)} i.p.v. ${eur(h.c.regular)}.` : hits.slice(0, 3).map(x => `${x.f.title} −${Math.round(x.c.saving * 100)}%`).join(' · ');
-      if (fh.length) body += ` · En ${fh.length} gevolgd${fh.length === 1 ? ' product' : 'e producten'} in de aanbieding.`;
-    } else {
+    } else if (fh.length === 1) {
       const x = fh[0];
-      title = fh.length === 1 ? `${x.label} in de aanbieding` : `${fh.length} gevolgde producten in de aanbieding`;
-      body = fh.slice(0, 3).map(y => `${y.label}: ${y.deal} bij ${y.storeName}`).join(' · ');
+      title = `${x.label} is in de aanbieding`;
+      body = `${x.deal.charAt(0).toUpperCase() + x.deal.slice(1)} bij ${x.storeName}.`;
+    } else {
+      title = `${fh.length} van je favoriete producten zijn deze week in de aanbieding!`;
+      body = prodTxt + '.';
     }
     log.push({ title, body });
     if (dry) continue;
     try {
-      await webpush.sendNotification(rec.subscription, JSON.stringify({ title, body, url: hits.length ? '/?tab=recipes' : '/?tab=offers' }), { TTL: 60 * 60 * 24 });
+      await webpush.sendNotification(rec.subscription, JSON.stringify({ title, body, url: '/?tab=recipes' }), { TTL: 60 * 60 * 24 });
       for (const x of hits) rec.sent[x.f.id] = x.key;
       for (const x of fh) rec.sent['f:' + x.line] = x.key;
       await s.setJSON(b.key, rec); sent++;
