@@ -354,7 +354,7 @@ function savingsHtml(){const ms=Object.keys(state.spend).filter(m=>state.spend[m
   return `<div class="card sav"><div class="muted" style="font-size:13px">Bespaard met aanbiedingen · ${nm(ms[0])}</div><div class="big" style="color:var(--ok)">${eur(cur.sv)}</div>
     <div class="muted" style="font-size:13px">${cur.n} producten afgevinkt voor ${eur(cur.sp)}${ms.length>1?` · totaal bespaard ${eur(tot)}`:''}</div>
     ${ms.length>1?`<div class="savm">${ms.slice(0,6).map(m=>`<span>${nm(m)}<b>${eur(state.spend[m].sv)}</b></span>`).join('')}</div>`:''}</div>`}
-function buyBox(s,x,noDot){const p=x.pick.p;return `<div class="buy">${noDot?'':dot(s)}<span class="bt">${x.sub?'<span class="subtag">lijkt op</span> ':''}${x.packs>1?`<b class="pk">${x.packs}×</b> `:''}${esc(p.name)}${x.deal?` <span class="dl">${esc(x.deal.d)}</span>`:''}${p.size&&!(p.size.match(/[\d.,]+/)&&p.name.includes(p.size.match(/[\d.,]+/)[0]))?` <span class="sz">${esc(p.size)}</span>`:''}</span></div>`}
+function buyBox(s,x,noDot){const p=x.pick.p;return `<div class="buy">${noDot?'':dot(s)}<span class="bt">${x.sub?'<span class="subtag">lijkt op</span> ':''}${x.packs>1?`<b class="pk">${x.packs}×</b> `:''}${esc(p.name)}${p.size&&!(p.size.match(/[\d.,]+/)&&p.name.includes(p.size.match(/[\d.,]+/)[0]))?` <span class="sz">${esc(p.size)}</span>`:''}</span></div>`}
 function item(r,s,sel){const x=r.per[s],done=!!state.done[r.k],isOpen=false;
   const p=x.pick.p,sz=p.size?` · ${esc(p.size)}`:'',pk=x.packs>1?`${x.packs}× `:'';
   return `<div class="it${done?' done':''}"><div class="row" data-tog="${esc(r.k)}"><input type="checkbox" aria-label="${esc(r.line)} afvinken" data-done="${esc(r.k)}" data-st="${s}"${done?' checked':''}>${catIcon(catOf(r))}
