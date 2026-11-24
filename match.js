@@ -228,7 +228,7 @@
     for (const p of idx) {
       let hit = 0, sc = 0; const per = [];
       for (let wi = 0; wi < q.length; wi++) { const w = q[wi];
-        let s = tokScore(w, p.t);
+        let s = tokScore(w, p.t); if (s === 1.5) s = 0.6; // maiskorrels bij 'mais'
         if (s === Infinity && FQ[wi].some(f => f.length >= 4 && p.j.includes(f))) s = 0.4;
         if (s === Infinity && w.length >= 6 && (p.j.includes(stem(w)) || p.j.includes(w))) s = 0.5;
         if (s === Infinity && w.length >= 7) { for (let i = 3; i <= w.length - 3; i++) { const a = w.slice(0, i), b = w.slice(i); if (p.t.some(x => x.startsWith(stem(a))) && p.t.some(x => x.startsWith(stem(b).slice(0, 4)))) { s = 0.8; break; } } }
