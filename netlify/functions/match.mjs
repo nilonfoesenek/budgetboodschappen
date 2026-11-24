@@ -7,7 +7,8 @@ import '../../match.js';
 const Match = globalThis.Match;
 
 const json = (b, status = 200) => new Response(JSON.stringify(b), { status, headers: { 'content-type': 'application/json' } });
-const MODEL = process.env.CLAUDE_MATCH_MODEL || process.env.CLAUDE_MODEL || 'claude-sonnet-5-5';
+const MODELS = { haiku: 'claude-haiku-5-5', sonnet: 'claude-sonnet-5-5' };
+const DEFAULT = process.env.CLAUDE_MATCH_MODEL || 'haiku';
 const V = 1; // verhoog bij een nieuwe prompt: oude antwoorden worden dan opnieuw gevraagd
 const STORES = ['ah', 'jumbo', 'aldi', 'dirk', 'plus', 'lidl'];
 const NAMES = { ah: 'Albert Heijn', jumbo: 'Jumbo', aldi: 'Aldi', dirk: 'Dirk', plus: 'Plus', lidl: 'Lidl' };
@@ -41,11 +42,11 @@ ${lists}
 
 Antwoord ALLEEN met JSON, zoals {"ah":[1,4],"jumbo":[],"aldi":[2]} met een sleutel voor elke supermarkt hierboven.`;
 
-async function ask(key, label, cands) {
+async function ask(key, label, cands, model) {
   const lists = Object.entries(cands).map(([s, ps]) => `${NAMES[s]} (${s}):\n` + (ps.length ? ps.map((p, i) => `${i + 1}. ${p.name}${p.size ? ' (' + p.size + ')' : ''}`).join('\n') : '(geen kandidaten)')).join('\n\n');
   const r = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST',
     headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' },
-    body: JSON.stringify({ model: MODEL, max_tokens: 400, temperature: 0, messages: [{ role: 'user', content: PROMPT(label, lists) }] }) });
+    body: JSON.stringify({ model: MODELS[model] || model, max_tokens: 400, temperature: 0, messages: [{ role: 'user', content: PROMPT(label, lists) }] }) });
   if (!r.ok) { const t = await r.text().catch(() => ''); console.log('anthropic', r.status, t.slice(0, 200)); const e = new Error('ai'); e.status = r.status; e.body = t; throw e; }
   const d = await r.json(), text = (d.content || []).filter(c => c.type === 'text').map(c => c.text).join('');
   const m = text.match(/\{[\s\S]*\}/); const o = JSON.parse(m ? m[0] : text);
@@ -54,13 +55,13 @@ async function ask(key, label, cands) {
   return out;
 }
 
-export async function matchLines(lines, { key, device = 'onbekend', budget = Infinity } = {}) {
+export async function matchLines(lines, { key, device = 'onbekend', budget = Infinity, model = DEFAULT } = {}) {
   const { IDX, NAMESET } = await index(), s = db(), day = new Date().toISOString().slice(0, 10);
   const items = [], seen = new Set();
   for (const line of lines) { const it = Match.parseLine(line); if (!it) continue; const k = it.t.join(' '); if (seen.has(k)) continue; seen.add(k); items.push({ it, k }); }
   const results = {}, todo = [];
   await Promise.all(items.map(async x => {
-    x.h = 'm/' + await hash(V + '|' + x.k);
+    x.h = 'm/' + await hash(V + '|' + model + '|' + x.k);
     const c = await s.get(x.h, { type: 'json' });
     // nog geldig als elk eerder gekozen product nog in het assortiment staat (of er toen al niets was)
     if (c && STORES.every(st => !c.stores[st] || !c.stores[st].length || c.stores[st].some(n => NAMESET[st] && NAMESET[st].has(n)))) results[x.k] = c.stores;
@@ -77,7 +78,7 @@ export async function matchLines(lines, { key, device = 'onbekend', budget = Inf
       await Promise.all(now.slice(i, i + PARALLEL).map(async x => {
         const cands = {}; for (const st of STORES) if (IDX[st]) cands[st] = Match.recall(x.it, IDX[st], N);
         try {
-          const stores = await ask(key, x.it.label, cands);
+          const stores = await ask(key, x.it.label, cands, model);
           await s.setJSON(x.h, { v: V, key: x.k, at: new Date().toISOString(), stores });
           results[x.k] = stores; left--;
         } catch (e) { err = e; }
@@ -96,7 +97,8 @@ export default async (req) => {
   const lines = (Array.isArray(b.lines) ? b.lines : []).slice(0, MAX_LINES).map(x => String(x).slice(0, 120)).filter(Boolean);
   if (!lines.length) return json({ results: {} });
   const device = String(b.device || '').replace(/[^a-z0-9]/gi, '').slice(0, 40) || 'onbekend';
-  try { return json(await matchLines(lines, { key, device })); }
+  const model = MODELS[b.model] ? b.model : DEFAULT;
+  try { return json(await matchLines(lines, { key, device, model })); }
   catch (e) { console.log('match', e.message); return json({ error: 'server' }, 500); }
 };
 export const config = { path: '/api/match' };
