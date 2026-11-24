@@ -102,7 +102,7 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 #planBar[hidden]{display:none}#t-recipes{padding-bottom:72px}#planBar .pt{flex:1;font-weight:700;line-height:1.2}#planBar small{display:block;font-weight:500;opacity:.75}#planBar .btn{background:#fff;color:var(--ink)}#planBar .x{background:none;border:0;color:#fff;opacity:.7;font-size:20px;padding:0 6px;cursor:pointer}
 .cath{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);padding:10px 16px 2px}
 .pickb{width:100%;background:none;border:0;font:inherit;color:inherit;text-align:left;cursor:pointer;padding-left:0;padding-right:0}.pnm{min-width:0;font-weight:600;font-size:14px}.pnm small{display:block;color:var(--mute);font-weight:600;font-size:12px}
-#sheet{position:fixed;inset:0;z-index:50}#sheet[hidden]{display:none}.sh-bg{position:absolute;inset:0;background:rgba(10,12,10,.35)}
+#scan,#shareSheet{position:fixed;inset:0;z-index:50}#scan[hidden],#shareSheet[hidden]{display:none}.sh-bg{position:absolute;inset:0;background:rgba(10,12,10,.35)}
 .sh{position:absolute;left:0;right:0;bottom:0;max-width:600px;margin:0 auto;background:var(--card);border-radius:20px 20px 0 0;padding:14px 16px calc(16px + env(safe-area-inset-bottom));max-height:82vh;display:flex;flex-direction:column;box-shadow:0 -8px 30px rgba(0,0,0,.15)}
 .sh-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}.sh-hd .x{background:var(--field);border:0;border-radius:50%;width:36px;height:36px;font-size:20px;cursor:pointer;color:var(--ink)}
 #shList{overflow-y:auto;-webkit-overflow-scrolling:touch}.opt{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;background:none;border:0;border-top:1px solid var(--line);padding:11px 2px;font:inherit;color:inherit;text-align:left;cursor:pointer}
@@ -118,7 +118,7 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .srch{margin-bottom:12px}#psRes:not(:empty){margin-top:6px;border:1px solid var(--line);border-radius:14px;padding:2px 10px}
 .pres{display:grid;grid-template-columns:34px minmax(0,1fr) auto 36px;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}.pres:first-child{border-top:0}.pres b{font-weight:600;font-size:14.5px;line-height:1.25}.pres small{display:flex;align-items:center;gap:6px;color:var(--mute);font-size:12.5px;margin-top:2px}.pres .pr{font-weight:800;white-space:nowrap}
 .ci{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:19px;background:var(--field);flex:none}
-.wk{display:grid;grid-template-columns:26px minmax(0,1fr);gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}.wk:first-child{border-top:0}.wk input[type=checkbox]{width:22px;height:22px;accent-color:var(--ok)}.wk.wkoff .wkm{opacity:.45}.wkm{min-width:0}.wkm .qin{width:100%;box-sizing:border-box;padding:2px 4px;margin-left:-4px}.wkb{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:2px}.wkb .pr{display:flex;align-items:center;gap:6px}.wk .pr{font-weight:700;white-space:nowrap;font-size:14px}
+.wk{display:grid;grid-template-columns:26px minmax(0,1fr);gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}.wk:first-child{border-top:0}.wk input[type=checkbox]{width:22px;height:22px;accent-color:var(--ok)}.wk.wkoff .wkm{opacity:.45}.wkm{min-width:0}.wkm .qin{width:100%;box-sizing:border-box;padding:2px 4px;margin-left:-4px}.wkb{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:2px}.wkb .pr{display:flex;align-items:center;flex-wrap:wrap;gap:2px 6px;min-width:0;flex:1}.wkb .qrow{flex:none}.wk .pr{font-weight:700;white-space:nowrap;font-size:14px}
 .qb.del{color:var(--mute);font-size:18px}.tog{display:flex;gap:10px;align-items:center;margin-top:14px;font-weight:600;font-size:15px}.tog input{width:22px;height:22px;accent-color:var(--ok)}
 .bell{margin-left:auto;width:36px;height:36px;font-size:16px!important;border-radius:50%;border:1px solid var(--line);background:var(--card);font-size:19px;cursor:pointer;flex:none}.bell.on{background:var(--okbg);border-color:var(--ok)}
 #toast{position:fixed;left:16px;right:16px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:70;max-width:520px;margin:0 auto;background:var(--ink);color:#fff;border-radius:14px;padding:12px 14px;font-weight:600;font-size:14.5px;line-height:1.35;opacity:0;transform:translateY(10px);transition:.2s;pointer-events:none}#toast.show{opacity:1;transform:none}
@@ -141,7 +141,7 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .buy .sb{flex:none}.buy .bt{min-width:0;overflow-wrap:anywhere}.buy small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);margin-bottom:1px}.buy .sz{color:var(--mute);white-space:nowrap}.buy .pk{color:var(--ok)}
 .it.done .buy{opacity:.5}
 .homes{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:6px}.home{display:inline-flex;align-items:center;gap:8px;background:var(--bg);border-radius:10px;padding:5px 6px 5px 10px;font-size:14px}.home button{border:1px solid var(--line);background:var(--card);border-radius:8px;font:600 12.5px Figtree,sans-serif;padding:4px 8px;cursor:pointer;color:var(--ink)}
-.donebar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:6px 0 14px}.hm{font-size:10.5px;font-weight:700;background:var(--okbg);color:var(--ok);border-radius:6px;padding:1px 5px;margin-left:2px;vertical-align:1px}
+.donebar{display:flex;flex-direction:column;align-items:center;gap:6px;margin:6px 0 14px}.hm{font-size:10.5px;font-weight:700;background:var(--okbg);color:var(--ok);border-radius:6px;padding:1px 5px;margin-left:2px;vertical-align:1px}
 .hsel{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:14px;color:var(--mute)}.hsel select{height:38px;border-radius:10px;border:1px solid var(--line);background:var(--card);font:600 14px Figtree,sans-serif;color:var(--ink);padding:0 8px}
 .shtop{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:12px 14px;margin:0 0 10px;font:700 15px Figtree,sans-serif;color:var(--ink);cursor:pointer;text-align:left}.shtop span{font-weight:600;font-size:13px;color:var(--mute);white-space:nowrap}.shtop.on{background:var(--okbg);border-color:var(--ok)}
 .nmf{display:block;font-size:13px;color:var(--mute);margin:8px 0 0}.nmf .fin{margin:4px 0 0}.join{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
@@ -149,7 +149,10 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .srow{display:flex;gap:8px}.scanb{flex:none;width:48px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-size:24px;cursor:pointer;color:var(--ink)}
 #scan .sh{max-height:92vh;overflow-y:auto}#scCam{position:relative;border-radius:14px;overflow:hidden;background:#000;aspect-ratio:4/3;margin:6px 0 10px}#scCam video{width:100%;height:100%;object-fit:cover;display:block}.scline{position:absolute;left:12%;right:12%;top:50%;height:2px;background:#ff3b30;box-shadow:0 0 8px #ff3b30}
 .scr{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;border:0;border-top:1px solid var(--line);background:none;padding:11px 2px;text-align:left;font:inherit;color:var(--ink);cursor:pointer}.scr small{display:block;color:var(--mute);font-size:12.5px}.scr .pr{font-weight:800}.scr.best .pr{color:var(--ok)}
-.wkpick{cursor:pointer}.wkw{display:block;font-weight:500;font-size:12px;color:var(--mute);max-width:52vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wkpick{cursor:pointer}.wkw{flex-basis:100%;text-align:left;font-weight:500;font-size:12px;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.morebtn{display:block;width:100%;margin-top:8px;border:0;background:none;color:var(--mute);font:600 14px Figtree,sans-serif;text-align:left;padding:6px 2px;cursor:pointer}
+.lhd{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}.lhd .lnk{margin-left:auto}.lnk{border:0;background:none;color:var(--ok);font:700 14px Figtree,sans-serif;cursor:pointer;padding:4px 0}
+.home span small{display:block;font-size:11.5px;color:var(--mute)}.home{flex-wrap:wrap}
 .fin{width:100%;box-sizing:border-box;font:500 16px Figtree,sans-serif;background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:4px}
 .thumbs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.thumbs img{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
 .ing{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}.ing input{width:20px;height:20px;flex:none}.ing input[type=text]{flex:1;width:auto;height:auto;font:500 15px Figtree,sans-serif;border:0;background:none;color:var(--ink);padding:2px 0}
@@ -185,17 +188,22 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
   <section id="t-list" hidden>
     <div id="shTop"></div>
     <div class="card">
-      <h2>Lijst</h2>
-      <div class="srch"><div class="srow"><input id="ps" class="fin" type="search" placeholder="Zoek een product, bijv. halfvolle melk" aria-label="Zoek een product" autocomplete="off" style="margin:0"><button class="scanb" id="scanOpen" aria-label="Streepjescode scannen">▥</button></div><div id="psRes"></div></div>
-      <textarea id="txt" placeholder="500 g kipfilet&#10;1 l halfvolle melk&#10;spaghetti 500 g&#10;2 rode paprika&#10;gele uien"></textarea>
-      <div class="btns"><button class="btn" id="save">Opslaan en vergelijken</button><button class="btn sec" id="clear">Lijst leegmaken</button></div>
+      <div class="lhd"><h2 style="margin:0">Lijst</h2><span class="muted" id="lvN" style="font-size:13px"></span><button class="lnk" id="txtToggle">✎ Als tekst</button></div>
+      <div class="srch"><div class="srow"><input id="ps" class="fin" type="search" enterkeyhint="done" placeholder="Voeg toe of zoek, bijv. 2 rode paprika" aria-label="Product toevoegen of zoeken" autocomplete="off" style="margin:0"><button class="scanb" id="scanOpen" aria-label="Streepjescode scannen">▥</button></div><div id="psRes"></div></div>
+      <div id="txtBox" hidden>
+        <p class="muted" style="margin:0 0 6px;font-size:13px">Eén product per regel. Handig om een lijst uit WhatsApp te plakken. Wijzigingen worden vanzelf bewaard.</p>
+        <textarea id="txt" placeholder="500 g kipfilet&#10;1 l halfvolle melk&#10;spaghetti 500 g&#10;2 rode paprika&#10;gele uien"></textarea>
+        <div class="btns"><button class="btn" id="txtDone">Klaar</button><button class="btn sec" id="clear">Lijst leegmaken</button></div>
+      </div>
       <div class="status" id="lstat"></div>
+      <div id="lvCard" hidden><p class="muted" style="margin:4px 0 2px;font-size:12.5px">Tik op een product voor andere winkels en producten.</p><div id="lv"></div></div>
+      <p class="muted" id="lvEmpty" style="margin:10px 0 0;font-size:14px">Je lijst is nog leeg. Typ hierboven een product en druk op Enter, of scan een streepjescode.</p>
     </div>
-    <div class="card" id="lvCard" hidden><div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><h2 style="margin:0">Je boodschappen</h2><span class="muted" id="lvN" style="font-size:13px"></span></div>
-      <p class="muted" style="margin:2px 0 6px;font-size:13px">Tik op een product om te zien wat elke winkel heeft en een ander product te kiezen.</p><div id="lv"></div></div>
-    <div class="card" id="shareBox"></div>
-    <div class="card"><h2>Altijd in huis</h2>
-      <div id="pan" class="pan"></div>
+    <div class="card" id="homeCard"><h2>In huis</h2>
+      <p class="muted" style="margin:0 0 8px;font-size:13px">Wat de app overslaat: tellen niet mee in de prijs en staan niet bij Route.</p>
+      <div id="homeAuto"></div>
+      <b style="font-size:14px">Altijd in huis</b>
+      <div id="pan" class="pan" style="margin-top:6px"></div>
       <div class="btns tight"><input id="panIn" class="fin" placeholder="Bijv. olijfolie, rijst, zout" aria-label="Product dat je altijd in huis hebt" style="margin:0"><button class="btn sec" id="panAdd" style="flex:0 0 auto">Toevoegen</button></div>
     </div>
   </section>
@@ -234,7 +242,6 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
   <section id="t-offers" hidden>
     <p class="muted" id="offStores" style="margin:0 2px 10px;font-size:13px"></p>
     <div class="card" id="offMineCard" hidden><h2>Voor jou</h2><div id="offMine"></div></div>
-    <div class="card" id="offTopCard" hidden><h2>Grootste kortingen</h2><div id="offTop" class="hrow"></div></div>
     <div class="card"><h2>Alle aanbiedingen</h2>
       <input type="search" id="q" placeholder="Zoek in aanbiedingen" aria-label="Zoek in aanbiedingen">
       <div class="mode hscroll"><span id="ofil" style="display:contents"></span></div>
@@ -257,10 +264,13 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
   <div id="scCam"><video id="scVideo" playsinline muted></video><div class="scline"></div></div>
   <div class="btns tight" id="scManual"><input id="scCode" class="fin" inputmode="numeric" placeholder="Of typ de cijfers onder de streepjes" style="margin:0"><button class="btn sec" id="scGo" style="flex:0 0 auto">Zoeken</button></div>
   <div id="scRes"></div></div></div>
+<div id="shareSheet" hidden><div class="sh-bg" data-shclose2></div><div class="sh" role="dialog" aria-modal="true" style="max-height:92vh;overflow-y:auto">
+  <div class="sh-hd"><div><b>Delen</b></div><button class="x" data-shclose2 aria-label="Sluiten">×</button></div>
+  <div id="shareBox"></div>
+  <div class="join"><b>Liever alleen een bericht?</b><p class="muted" style="margin:2px 0 6px;font-size:13px">Stuur je lijst als tekst via WhatsApp, met de winkels erbij. Dit wordt niet bijgehouden.</p><button class="btn sec" id="shMsg">✉︎ Als bericht sturen</button></div>
+</div></div>
 <div id="toast" role="status" aria-live="polite"></div>
-<div id="sheet" hidden><div class="sh-bg" data-shclose></div><div class="sh" role="dialog" aria-modal="true" aria-labelledby="shTitle">
-  <div class="sh-hd"><div><b id="shTitle"></b><div class="muted" id="shSub" style="font-size:13px"></div></div><button class="x" data-shclose aria-label="Sluiten">×</button></div>
-  <input id="shQ" class="fin" type="search" placeholder="Zoek een ander product" aria-label="Zoek product" style="margin:0 0 6px"><div id="shList"></div></div></div>
+</div>
 <script src="match.js"></script>
 <script>
 {
@@ -290,7 +300,9 @@ const keyOf=l=>Match.norm(l);
 /* ---------- berekening ---------- */
 /* kleine hoeveelheden en basics: waarschijnlijk in huis, tellen niet mee tenzij je ze toch koopt */
 const HOME_RE=/^\s*([\d.,\/½¼¾]+\s*)?(tl|el|theelepels?|eetlepels?|snufje|snuf|scheutje|mespunt|takjes?|blaadjes?|beetje)\b|naar smaak|^\s*(peper|zout|zwarte peper|peper uit de molen|olie om (in )?te bakken|bakolie|boter om (in )?te bakken|water|ijsblokjes|kraanwater)\s*$/i;
-const isHome=l=>HOME_RE.test(l)&&!(state.buy&&state.buy[keyOf(l)]);
+// waarom een regel wordt overgeslagen: 'klein' (1 tl, peper) of 'altijd' (Altijd in huis); null = gewoon kopen
+const skipWhy=l=>(state.buy&&state.buy[keyOf(l)])?null:HOME_RE.test(l)?'klein':(state.pantry&&inPantry(l))?'altijd':null;
+const isHome=l=>!!skipWhy(l);
 function splitLines(ls){const out=[];for(const l of ls){const m=l.match(/^\s*(peper|zout)\s*(en|&|\+|,)\s*(peper|zout)\s*$/i);if(m){out.push(m[1].toLowerCase(),m[3].toLowerCase())}else out.push(l)}return out}
 let lastHome=[];
 function compute(){const ls=favLines(state.text);lastHome=ls.filter(isHome);return computeLines(ls.filter(l=>!isHome(l)))}
@@ -348,7 +360,7 @@ function render(){
   const R=compute(),sel=state.stores;lastR=R;
   if(!R.length){const ALL=Object.keys(S).filter(x=>IDX[x]);
     $('sum').innerHTML=`<div class="muted">Bij welke winkels doe je boodschappen?</div>
-    <div class="bars">${ALL.map(s=>{const on=sel.includes(s);return `<button class="bar${on?' on':''}" data-s="${s}" aria-pressed="${on}"><span class="ck" aria-hidden="true"></span><span class="nm">${dot(s)} ${S[s].label}${s===state.home?' <small class="hm">vast</small>':''}</span><span class="tr" style="visibility:hidden"></span><span class="r"></span></button>`}).join('')}</div>${homeSel()}`;
+    <div class="bars">${barOrder(ALL,sel).map(s=>{const on=sel.includes(s);return `<button class="bar${on?' on':''}" data-s="${s}" aria-pressed="${on}"><span class="ck" aria-hidden="true"></span><span class="nm">${dot(s)} ${S[s].label}${s===state.home?' <small class="hm">vast</small>':''}</span><span class="tr" style="visibility:hidden"></span><span class="r"></span></button>`}).join('')}</div>${moreBtn(ALL,sel)}${homeSel()}`;
     $('bons').innerHTML=`<div class="card empty">Je lijst is nog leeg.<br><button class="btn" style="margin-top:12px" data-go="list">Lijst maken</button></div>`+savingsHtml();renderLV();return}
   const ALL=Object.keys(S).filter(x=>IDX[x]);state.mode='split';
   const one={};for(const s of ALL){one[s]={sum:0,miss:0,sub:0};for(const r of R){if(r.per[s]){one[s].sum+=r.per[s].total;if(r.per[s].sub)one[s].sub++}else one[s].miss++}}
@@ -363,12 +375,12 @@ function render(){
   const maxv=Math.max(...ALL.map(s=>one[s].sum),1);
   $('sum').innerHTML=`<div class="total"><div><div class="muted">${sel.length===1?'Alles bij '+S[sel[0]].full:`Totaal bij ${nGroups} ${nGroups===1?'winkel':'winkels'}`}</div><div class="big">${eur(split)}</div>${saveTxt}</div>
     <button class="chip" id="shareBtn" aria-label="Lijst delen">↗ Delen</button></div>
-    <div class="bars">${ALL.map(s=>{const on=sel.includes(s);return `<button class="bar${on?' on':''}" data-s="${s}" aria-pressed="${on}"><span class="ck" aria-hidden="true"></span><span class="nm">${dot(s)} ${S[s].label}${s===state.home?' <small class="hm">vast</small>':''}</span><span class="tr"><i style="width:${one[s].sum/maxv*100}%;background:${S[s].c}"></i></span><span class="r">${eur(one[s].sum)}${one[s].sub?` <span class="subn">≈${one[s].sub}</span>`:''}${one[s].miss?` <span class="miss">−${one[s].miss}</span>`:''}</span></button>`}).join('')}</div>
+    <div class="bars">${barOrder(ALL,sel).map(s=>{const on=sel.includes(s);return `<button class="bar${on?' on':''}" data-s="${s}" aria-pressed="${on}"><span class="ck" aria-hidden="true"></span><span class="nm">${dot(s)} ${S[s].label}${s===state.home?' <small class="hm">vast</small>':''}</span><span class="tr"><i style="width:${one[s].sum/maxv*100}%;background:${S[s].c}"></i></span><span class="r">${eur(one[s].sum)}${one[s].sub?` <span class="subn">≈${one[s].sub}</span>`:''}${one[s].miss?` <span class="miss">−${one[s].miss}</span>`:''}</span></button>`}).join('')}</div>${moreBtn(ALL,sel,one)}
     <p class="muted" style="margin:10px 0 0;font-size:13px">Vink aan bij welke winkels je wilt halen. Eén winkel aan = alles daar.</p>${homeSel()}`;
   const order=['aldi','lidl','vomar','dirk','dekamarkt','hoogvliet','poiesz','plus','spar','jumbo','ah'].filter(s=>groups[s]);lastShare=()=>shareList(groups,order,miss,split);
   $('bons').innerHTML=order.map(s=>{const g=groups[s],sub=g.reduce((a,r)=>a+r.per[s].total,0);
     return `<div class="bon"><div class="hd"><b>${dot(s)}${S[s].full}</b><span>${eur(sub)}</span></div>${itemsByCat(g,s,sel)}</div>`}).join('')
-   +`<div class="donebar"><button class="btn" id="allDone">✓ Boodschappen gedaan</button>${R.some(r=>state.done[r.k])?`<button class="btn sec" id="clearDone">Afgevinkte weghalen (${R.filter(r=>state.done[r.k]).length})</button>`:''}</div>`
+   +`<div class="donebar"><button class="btn" id="allDone">✓ Boodschappen gedaan</button>${R.some(r=>state.done[r.k])?`<button class="lnk" id="clearDone" style="color:var(--mute)">Alleen afgevinkte weghalen (${R.filter(r=>state.done[r.k]).length})</button>`:''}</div>`
    +savingsHtml()
    +(miss.length?`<div class="bon"><div class="hd"><b class="miss">Niet gevonden</b><span></span></div>${miss.map(r=>`<div class="it"><div class="row" style="cursor:default"><span></span><div><div class="lbl">${esc(r.line)}</div><div class="pn">Probeer een andere omschrijving in je lijst.</div></div><span></span></div></div>`).join('')}</div>`:'');
   renderLV();
@@ -377,6 +389,12 @@ function render(){
 /* ---------- bespaaroverzicht: telt mee bij afvinken ---------- */
 if(!state.spend||typeof state.spend!=='object')state.spend={};if(!state.booked||typeof state.booked!=='object')state.booked={};
 const monthKey=()=>new Date().toLocaleDateString('sv-SE').slice(0,7);
+let moreOpen=false;
+const barOrder=(ALL,sel)=>{const mine=ALL.filter(s=>sel.includes(s)||s===state.home);return moreOpen?[...mine,...ALL.filter(s=>!mine.includes(s))]:mine};
+function moreBtn(ALL,sel,one){const rest=ALL.filter(s=>!sel.includes(s)&&s!==state.home);if(!rest.length)return '';
+  let hint='';if(one&&!moreOpen){const mine=Math.min(...sel.filter(s=>one[s]&&!one[s].miss).map(s=>one[s].sum)),b=rest.filter(s=>!one[s].miss).sort((a,c)=>one[a].sum-one[c].sum)[0];if(b&&one[b].sum<mine-0.005)hint=` · ${S[b].label} is ${eur(mine-one[b].sum)} goedkoper`}
+  return `<button class="morebtn" data-more>${moreOpen?'Minder winkels ‹':`Meer winkels (${rest.length})${hint} ›`}</button>`}
+document.addEventListener('click',e=>{if(e.target.closest('[data-more]')){moreOpen=!moreOpen;render()}});
 function homeSel(){return `<label class="hsel">Je vaste winkel <select id="homeSel">${Object.keys(S).filter(s=>IDX[s]).map(s=>`<option value="${s}"${s===state.home?' selected':''}>${S[s].full}</option>`).join('')}</select></label>`}
 document.addEventListener('change',e=>{if(e.target.id==='homeSel'){state.home=e.target.value;persist();render()}});
 // bespaard = wat het bij je vaste winkel had gekost min wat je betaalt (zonder vaste winkel of niet te krijgen daar: de korting van de aanbieding)
@@ -471,10 +489,13 @@ function stepQty(line,d){const it=Match.parseLine(line);if(!it)return line;
 $('t-recipes').addEventListener('change',e=>{const q=e.target.closest('[data-qi]');if(!q)return;const[id,i]=q.dataset.qi.split('|'),f=state.favs.find(x=>x.id===id);if(!f)return;
   const v=q.value.trim();if(v)f.items[+i]=v;else f.items.splice(+i,1);persist();renderRecipes()});
 function renderPantry(){$('pan').innerHTML=state.pantry.map(k=>`<button data-pdel="${esc(k)}" aria-label="${esc(k)} verwijderen">${esc(k)}</button>`).join('')}
-function addPantry(list){for(const l of list){const k=pkey(l);if(k&&!state.pantry.includes(k))state.pantry.push(k)}persist();renderPantry()}
+function addPantry(list){for(const l of list){const k=pkey(l);if(k&&!state.pantry.includes(k))state.pantry.push(k)}persist();renderPantry();if(P)render()}
 $('panAdd').addEventListener('click',()=>{const v=$('panIn').value.split(',').map(x=>x.trim()).filter(Boolean);if(!v.length)return;addPantry(v);$('panIn').value=''});
 $('panIn').addEventListener('keydown',e=>{if(e.key==='Enter')$('panAdd').click()});
-$('pan').addEventListener('click',e=>{const b=e.target.closest('[data-pdel]');if(!b)return;state.pantry=state.pantry.filter(k=>k!==b.dataset.pdel);persist();renderPantry()});
+$('homeAuto').addEventListener('click',e=>{const t=e.target;
+  const hb=t.closest('[data-hbuy]');if(hb){(state.buy=state.buy||{})[hb.dataset.hbuy]=true;persist();render();toast('Staat nu gewoon op je lijst.');return}
+  const hp=t.closest('[data-hpan]');if(hp){addPantry([hp.dataset.hpan]);render();toast('Wordt voortaan altijd overgeslagen.')}});
+$('pan').addEventListener('click',e=>{const b=e.target.closest('[data-pdel]');if(!b)return;state.pantry=state.pantry.filter(k=>k!==b.dataset.pdel);persist();renderPantry();if(P)render()});
 $('t-recipes').addEventListener('click',e=>{const t=e.target;
   if(t.id==='favNew'){fedit='new';renderRecipes();$('fTitle').focus();return}
   if(t.id==='fFromList'){const items=favLines(state.text);if(!items.length){t.textContent='Je lijst is nog leeg';return}$('fItems').value=items.join('\n');return}
@@ -518,12 +539,9 @@ function renderOffers(){if(!O)return;const live=liveOffers(),sel=state.stores.fi
   for(const [l,why] of src){const it=Match.parseLine(l);if(!it)continue;for(const st of sel){const o=Match.offerFor(it,live,st);if(!o)continue;const k=o.s+o.n;if(seen.has(k))continue;seen.add(k);mine.push([o,why])}}
   mine.sort((a,b)=>disc(b[0])-disc(a[0]));
   $('offMineCard').hidden=!mine.length;$('offMine').innerHTML=mine.slice(0,6).map(([o,w])=>offRow(o,w)).join('');
-  const top=live.filter(o=>disc(o)>=0.2).sort((a,b)=>disc(b)-disc(a)).slice(0,12);
-  $('offTopCard').hidden=!top.length;
-  $('offTop').innerHTML=top.map(o=>`<div class="tile"><div style="display:flex;justify-content:space-between;align-items:center">${dot(o.s)}<span class="pc">−${Math.round(disc(o)*100)}%</span></div><div class="tn">${esc(o.n)}</div><div class="tf">${o.p!=null?`<span class="now" style="color:var(--ok)">${eur(o.p)}</span>`:`<b style="color:var(--ok);font-size:13px">${esc(o.d)}</b>`}${addBtn(o)}</div></div>`).join('');
   if(ofil!=='all'&&!sel.includes(ofil))ofil='all';
-  $('ofil').innerHTML=(sel.length>1?['all',...sel]:[]).map(s=>`<button class="chip${ofil===s?' on':''}" data-ofil="${s}">${s==='all'?'Alle':S[s].label}</button>`).join('');
-  const q=Match.norm($('q').value),L=live.filter(o=>(ofil==='all'||o.s===ofil)&&(!q||Match.norm(o.n).includes(q)));
+  $('ofil').innerHTML=`<button class="chip${otop?' on':''}" data-otop>🔥 Hoogste korting</button>`+(sel.length>1?['all',...sel]:[]).map(s=>`<button class="chip${ofil===s?' on':''}" data-ofil="${s}">${s==='all'?'Alle':S[s].label}</button>`).join('');
+  const q=Match.norm($('q').value),L=live.filter(o=>(ofil==='all'||o.s===ofil)&&(!q||Match.norm(o.n).includes(q)));if(otop)L.sort((a,b)=>disc(b)-disc(a));
   $('offList').innerHTML=L.map(o=>offRow(o)).join('')||'<div class="empty">Geen aanbiedingen gevonden.</div>'}
 
 /* ---------- welkom (eerste keer) ---------- */
@@ -555,9 +573,9 @@ $('psRes').addEventListener('click',e=>{const b=e.target.closest('[data-padd]');
 /* ---------- streepjescode scannen ---------- */
 let scStream=null,scTimer=null,scReader=null,scBusy=false,scLine='';
 function scStop(){clearInterval(scTimer);scTimer=null;scReader=null;if(scStream){scStream.getTracks().forEach(t=>t.stop());scStream=null}}
-function scClose(){scStop();$('scan').hidden=true}
+function scClose(){scStop();$('scan').hidden=true;$('scTitle').dataset.s='';chooseLine=null;chAdd=false}
 const loadZXing=()=>window.ZXing?Promise.resolve():new Promise((ok,no)=>{const sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js';sc.onload=ok;sc.onerror=no;document.head.appendChild(sc)});
-async function scOpen(){$('scTitle').textContent='Streepjescode scannen';$('scManual').style.display='';$('scan').hidden=false;$('scRes').innerHTML='';$('scCode').value='';$('scCam').hidden=false;$('scSub').textContent='Richt de camera op de streepjescode van de verpakking.';scBusy=false;
+async function scOpen(){chooseLine=null;$('scTitle').dataset.s='';$('scTitle').textContent='Streepjescode scannen';$('scManual').style.display='';$('scan').hidden=false;$('scRes').innerHTML='';$('scCode').value='';$('scCam').hidden=false;$('scSub').textContent='Richt de camera op de streepjescode van de verpakking.';scBusy=false;
   const v=$('scVideo');
   try{scStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false});v.srcObject=scStream;await v.play()}
   catch(e){$('scCam').hidden=true;$('scSub').textContent='De camera kon niet openen. Typ de cijfers onder de streepjescode.';return}
@@ -576,44 +594,47 @@ async function scFound(code){code=String(code||'').replace(/\D/g,'');if(code.len
       if(n)name=(b&&!n.toLowerCase().includes(b.toLowerCase())?b+' ':'')+n;qty=(p.quantity||'').replace(/\s+/g,' ').trim()}}catch(e){}
   if(!name){$('scSub').textContent='Dit product kennen we niet (code '+code+').';$('scRes').innerHTML=`<p class="muted" style="font-size:14px">Typ hieronder wat het is, dan zoekt de app het bij jouw winkels.</p><div class="btns tight"><input id="scName" class="fin" placeholder="Bijv. Calvé pindakaas" style="margin:0"><button class="btn" id="scNameGo" style="flex:0 0 auto">Zoeken</button></div>`;scBusy=false;return}
   scShow(name,qty)}
-function scShow(name,qty){const q=Match.parseQty(qty),line=name+(q&&!/\d/.test(name)?' '+qty:''),it=Match.parseLine(line)||Match.parseLine(name);scLine=line;
-  $('scSub').textContent='Gescand: '+name+(qty&&!/\d/.test(name)?' · '+qty:'');if(!it){$('scRes').innerHTML='<p class="muted">Niet gevonden bij je winkels.</p>';return}
-  const rows=[];for(const s of state.stores){if(!IDX[s])continue;const c=Match.candidates(it,IDX[s],3)[0];if(!c)continue;
-    const cost=c.cost||Match.costOf(it,c.p,c.p.qty&&c.p.qty.d);rows.push({s,c,cost})}
-  rows.sort((a,b)=>(a.c.sub?1:0)-(b.c.sub?1:0)||a.cost.total-b.cost.total);
-  if(!rows.length){$('scRes').innerHTML=`<p class="muted" style="font-size:14px">Geen van je winkels heeft dit product. Je kunt het wel gewoon op je lijst zetten.</p><button class="btn" data-scplain="${esc(line)}">Op mijn lijst</button>`;return}
-  const n=rows.filter(r=>!r.c.sub).length;
-  $('scRes').innerHTML=`<p style="margin:2px 0 4px;font-weight:700">${n>1?`Bij ${n} van je winkels, goedkoopste bovenaan:`:n===1?'Hier te koop:':'Niet precies gevonden, wel iets wat erop lijkt:'}</p>`+
-    rows.map((r,i)=>`<button class="scr${i===0&&!r.c.sub?' best':''}" data-scpick="${r.s}|${esc(r.c.p.name)}">${dot(r.s)}<span>${r.c.sub?'<span class="subtag">lijkt op</span> ':''}${r.cost.packs>1?r.cost.packs+'× ':''}${esc(r.c.p.name)}<small>${S[r.s].full}${r.c.p.size?' · '+esc(r.c.p.size):''}</small></span><span class="pr">${eur(r.cost.total)}</span></button>`).join('')+
-    `<p class="muted" style="font-size:12.5px;margin:8px 0 0">Tik op de winkel waar je hem wilt halen. Het product komt dan bij die winkel op je lijst.</p>`}
+function scShow(name,qty){const q=Match.parseQty(qty),line=(name+(q&&!/\d/.test(name)?' '+qty:'')).toLowerCase();scLine=line;
+  const R=Match.parseLine(line)&&computeLines([line])[0];
+  if(!R||!Object.keys(R.per).some(s=>R.per[s])){$('scSub').textContent='Gescand: '+name;$('scRes').innerHTML=`<p class="muted" style="font-size:14px">Geen van de winkels heeft dit product. Je kunt het wel gewoon op je lijst zetten.</p><button class="btn" data-scplain="${esc(line)}">Op mijn lijst</button>`;return}
+  chAdd=true;chooseStore(line);$('scTitle').textContent='Gescand: '+name;$('scSub').textContent='Kies waar je hem wilt halen, goedkoopste bovenaan.'}
 $('scanOpen').addEventListener('click',scOpen);
-// winkel en product kiezen voor een regel (Vast): alle winkels, goedkoopste bovenaan
-let chooseLine=null;
-function chooseStore(line){const it=Match.parseLine(line);if(!it||!P)return;chooseLine=line;
-  $('scan').hidden=false;$('scCam').hidden=true;$('scManual').style.display='none';$('scTitle').textContent='Waar wil je dit halen?';$('scSub').textContent=line;
+// één kiezer voor de hele app: eerst de winkel (goedkoopste bovenaan), dan het product (met zoeken)
+let chooseLine=null,chStore=null,chT=null,chAdd=false;
+function chOpen(title,sub){$('scan').hidden=false;$('scCam').hidden=true;$('scManual').style.display='none';$('scTitle').textContent=title;$('scSub').textContent=sub}
+function chooseStore(line,store){const it=Match.parseLine(line);if(!it||!P)return;if(chooseLine!==line&&!chAdd)chAdd=false;chooseLine=line;
+  if(store)return chooseProduct(store,'');
+  chStore=null;chOpen('Waar wil je dit halen?',line);
   const R=computeLines([line])[0],stores=Object.keys(S).filter(s=>IDX[s]&&R&&R.per[s]);
   const rows=stores.map(s=>({s,x:R.per[s]})).sort((a,b)=>(a.x.sub?1:0)-(b.x.sub?1:0)||a.x.total-b.x.total),cur=bestOf(R);
   $('scRes').innerHTML=rows.map(({s,x})=>`<button class="scr${s===cur?' best':''}" data-chs="${s}">${dot(s)}<span>${x.sub?'<span class="subtag">lijkt op</span> ':''}${x.packs>1?x.packs+'× ':''}${esc(x.pick.p.name)}<small>${S[s].full}${s===cur?' · nu gekozen':''}${state.stores.includes(s)?'':' · niet in je winkels'}</small></span><span class="pr">${eur(x.total)}</span></button>`).join('')+
-    `<p class="muted" style="font-size:12.5px;margin:8px 0 0">De app onthoudt je keuze. Tip: zet de winkel in de regel, bijv. "magere kwark jumbo".</p>`}
-$('scRes').addEventListener('click',e=>{const b=e.target.closest('[data-chs]'),pp=e.target.closest('[data-chp]');if((!b&&!pp)||!chooseLine)return;
-  if(b){const s=b.dataset.chs,R=computeLines([chooseLine])[0];if(!R)return;const it=R.it,seen=new Set(),rows=[];
-    for(const c of [R.per[s]?R.per[s].pick:null,...Match.candidates(it,IDX[s],8)].filter(Boolean)){if(seen.has(c.p.name))continue;seen.add(c.p.name);rows.push({p:c.p,cost:c.cost||Match.costOf(it,c.p,c.p.qty&&c.p.qty.d)})}
-    rows.sort((a,c)=>a.cost.total-c.cost.total);$('scTitle').textContent='Welk product bij '+S[s].full+'?';
-    $('scRes').innerHTML=rows.map(r=>`<button class="scr" data-chp="${s}|${esc(r.p.name)}">${dot(s)}<span>${r.cost.packs>1?r.cost.packs+'× ':''}${esc(r.p.name)}<small>${r.p.size?esc(r.p.size):''}</small></span><span class="pr">${eur(r.cost.total)}</span></button>`).join('')+`<button class="btn sec" data-chback style="margin-top:10px">‹ Andere winkel</button>`;return}
-  const i0=pp.dataset.chp.indexOf('|'),s=pp.dataset.chp.slice(0,i0),nm=pp.dataset.chp.slice(i0+1),R=computeLines([chooseLine])[0];if(!R)return;
-  const it=R.it,pk='p:'+it.t.join(' ');(state.picks[pk]=state.picks[pk]||{})[s]=nm;(state.pin=state.pin||{})[R.k]=s;
-  if(!state.stores.includes(s)&&!it.store){const i=state.weekly.findIndex(w=>w.l===chooseLine);if(i>=0)state.weekly[i].l=chooseLine.replace(/\s*$/,' '+S[s].full.toLowerCase())}
-  persist();chooseLine=null;scClose();renderWeekly();render();toast(`Gekozen: ${nm} bij ${S[s].full}.`)});
-document.addEventListener('click',e=>{if(e.target.closest('[data-chback]')&&chooseLine)chooseStore(chooseLine)});
+    `<p class="muted" style="font-size:12.5px;margin:8px 0 0">Tik op een winkel om het product te kiezen. Tip: zet de winkel in de regel, bijv. "magere kwark jumbo".</p>`}
+function chooseProduct(s,q){chStore=s;const it=Match.parseLine(chooseLine);if(!it)return;
+  if(!$('chQ')||$('scan').hidden||$('scTitle').dataset.s!==s){chOpen('Welk product bij '+S[s].full+'?',chooseLine);$('scTitle').dataset.s=s;
+    $('scRes').innerHTML=`<input id="chQ" class="fin" type="search" placeholder="Zoek bij ${esc(S[s].full)}" value="${esc(q||'')}" style="margin:0 0 4px"><div id="chList"></div><button class="btn sec" data-chback style="margin-top:10px">‹ Andere winkel</button>`}
+  const qi=q?Match.parseLine(q):null,R=computeLines([chooseLine])[0],cur=R&&R.per[s]&&R.per[s].pick.p.name,seen=new Set(),rows=[];
+  const src=[...(qi?[]:[R&&R.per[s]?R.per[s].pick:null]),...Match.candidates(qi||it,IDX[s],qi?14:10)].filter(Boolean);
+  for(const c of src){if(seen.has(c.p.name))continue;seen.add(c.p.name);rows.push({p:c.p,cost:Match.costOf(it,c.p,(it.req&&it.req.d)||(c.p.qty&&c.p.qty.d))})}
+  rows.sort((a,b)=>a.cost.total-b.cost.total);
+  $('chList').innerHTML=rows.map(r=>`<button class="scr${r.p.name===cur?' best':''}" data-chp="${s}|${esc(r.p.name)}">${dot(s)}<span>${r.cost.packs>1?r.cost.packs+'× ':''}${esc(r.p.name)}<small>${r.p.size?esc(r.p.size):''}${r.p.name===cur?' · nu gekozen':''}</small></span><span class="pr">${eur(r.cost.total)}</span></button>`).join('')||'<p class="muted">Niets gevonden. Probeer een ander woord.</p>'}
+function applyPick(s,nm){if(chAdd){addLines([chooseLine]);chAdd=false}const R=computeLines([chooseLine])[0];if(!R)return;const it=R.it,pk='p:'+it.t.join(' ');
+  (state.picks[pk]=state.picks[pk]||{})[s]=nm;(state.pin=state.pin||{})[R.k]=s;if(state.picks[R.k])delete state.picks[R.k][s];
+  // winkel die je niet hebt aangevinkt: zet de winkel in de regel, zodat hij daar blijft
+  if(!state.stores.includes(s)&&!it.store){const nl=chooseLine.replace(/\s*$/,' '+S[s].full.toLowerCase());
+    const wi=(state.weekly||[]).findIndex(w=>w.l===chooseLine);if(wi>=0)state.weekly[wi].l=nl;
+    const ls=favLines(state.text),li=ls.indexOf(chooseLine);if(li>=0){ls[li]=nl;state.text=ls.join('\n');$('txt').value=state.text}}
+  persist();chooseLine=null;scClose();renderWeekly();render();toast(`Gekozen: ${nm} bij ${S[s].full}.`)}
+$('scRes').addEventListener('click',e=>{if(!chooseLine)return;const b=e.target.closest('[data-chs]');if(b){chooseProduct(b.dataset.chs,'');return}
+  const pp=e.target.closest('[data-chp]');if(pp){const i=pp.dataset.chp.indexOf('|');applyPick(pp.dataset.chp.slice(0,i),pp.dataset.chp.slice(i+1));return}
+  if(e.target.closest('[data-chback]')){$('scTitle').dataset.s='';chooseStore(chooseLine)}});
+$('scRes').addEventListener('input',e=>{if(e.target.id==='chQ'&&chStore){clearTimeout(chT);const v=e.target.value;chT=setTimeout(()=>chooseProduct(chStore,v),200)}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('scan').hidden)scClose()});
 $('scan').addEventListener('click',e=>{const t=e.target;
   if(t.closest('[data-scclose]')){scClose();return}
   if(t.id==='scGo'){scFound($('scCode').value);return}
   if(t.id==='scNameGo'){const n=$('scName').value.trim();if(n)scShow(n,'');return}
   const pl=t.closest('[data-scplain]');if(pl){addLines([pl.dataset.scplain]);$('txt').value=state.text;toast('Op je lijst gezet.');scClose();return}
-  const pk=t.closest('[data-scpick]');if(pk){const i=pk.dataset.scpick.indexOf('|'),s=pk.dataset.scpick.slice(0,i),nm=pk.dataset.scpick.slice(i+1);
-    const p=IDX[s].find(x=>x.name===nm),line=(brandless(nm)+(p&&p.size&&!/\d/.test(nm)?' '+p.size:'')).toLowerCase(),it=Match.parseLine(line);
-    if(it){const k='p:'+it.t.join(' ');(state.picks[k]=state.picks[k]||{})[s]=nm;(state.pin=state.pin||{})[keyOf(line)]=s}
-    addLines([line]);$('txt').value=state.text;toast(`Op je lijst gezet, bij ${S[s].full}.`);scClose()}});
+});
 $('scCode').addEventListener('keydown',e=>{if(e.key==='Enter')$('scGo').click()});
 /* ---------- vaste boodschappen ---------- */
 if(!Array.isArray(state.weekly))state.weekly=[];
@@ -660,19 +681,20 @@ async function aiCheck(){if(aiBusy||aiTries>6)return;const need=aiKeysNeeded();i
   catch(e){aiBusy=false}}
 /* ---------- lijst: mooie weergave met producten kiezen ---------- */
 let lastAssign=null,lvOpen=null;
-function renderLV(){const card=$('lvCard');if(!card)return;const R=lastR||[];card.hidden=!R.length&&!lastHome.length;if(card.hidden){$('lv').innerHTML='';return}
+function renderLV(){const card=$('lvCard');if(!card)return;const R=lastR||[];renderHome();card.hidden=!R.length;$('lvEmpty').hidden=!!R.length;$('lvN').textContent=R.length?R.length+(R.length===1?' product':' producten'):'';if(card.hidden){$('lv').innerHTML='';return}
   const sel=state.stores,rows=R.map(r=>({r,s:lastAssign?lastAssign(r):bestOf(r),c:catOf(r)})).sort((a,b)=>a.c-b.c);
-  $('lvN').textContent=R.length+(R.length===1?' product':' producten');let last=-1,html='';
+  let last=-1,html='';
   for(const {r,s,c} of rows){if(c!==last){html+=`<div class="lvcat">${esc(catName(c))}</div>`;last=c}
     const x=s&&r.per[s],op=lvOpen===r.k,done=!!state.done[r.k];
     html+=`<div class="lvi${op?' open':''}${done?' done':''}"><div class="lvr" data-lvopen="${esc(r.k)}">
       <div><div class="lbl">${esc(r.line)}</div>${x?buyBox(s,x):'<div class="buy"><span class="miss">Niet gevonden in je winkels</span></div>'}</div>
       <div class="rt"><div class="pr">${x?(x.deal&&x.regular>x.total+0.005?`<s>${eur(x.regular)}</s><span class="now">${eur(x.total)}</span>`:eur(x.total)):''}</div><span class="cnt"><button class="qb" data-lvq="${esc(r.k)}|-1" aria-label="Minder"${cntOf(r.line,x)<=1?' disabled':''}>−</button><b>${cntOf(r.line,x)}</b><button class="qb" data-lvq="${esc(r.k)}|1" aria-label="Meer">+</button></span></div></div>
-      ${op?`<div class="lvd"><div class="lvt"><span>Melding bij aanbieding ${folBtn(r.line)}</span><span>${HOME_RE.test(r.line)?`<button class="lvdel" style="color:var(--mute);margin-right:12px" data-hhome="${esc(r.k)}">Heb ik in huis</button>`:''}<button class="lvdel" data-lvdel="${esc(r.k)}">Verwijderen</button></span></div>
+      ${op?`<div class="lvd"><div class="lvt"><span>${folBtn(r.line)} Volgen bij aanbieding</span><span>${HOME_RE.test(r.line)||inPantry(r.line)?`<button class="lvdel" style="color:var(--mute);margin-right:12px" data-hhome="${esc(r.k)}">Heb ik in huis</button>`:''}<button class="lvdel" data-lvdel="${esc(r.k)}">Verwijderen</button></span></div>
       ${Object.keys(S).filter(t=>sel.includes(t)).map(t=>{const y=r.per[t];if(!y)return `<div class="cmp"><span>${dot(t)}</span><span class="muted">${S[t].label}: niet gevonden</span><span></span></div>`;
         return `<button class="cmp pickb${t===s?' best':''}" data-pickopen="${esc(r.k)}|${t}" aria-label="Ander product kiezen bij ${S[t].full}"><span>${dot(t)}</span><span class="pnm">${y.packs>1?y.packs+'× ':''}${esc(y.pick.p.name)}${y.pick.p.size?' · '+esc(y.pick.p.size):''}<small>${t===s?'Hier gekozen · wissel ›':'Wissel ›'}</small></span><span class="pr">${y.sub?'<span class="subtag">≈</span> ':''}${y.deal&&y.regular>y.total+0.005?`<s>${eur(y.regular)}</s><span class="now">${eur(y.total)}</span>`:eur(y.total)}</span></button>`}).join('')}</div>`:''}</div>`}
-  if(lastHome.length)html+=`<div class="lvcat">Waarschijnlijk in huis</div><p class="muted" style="margin:2px 0 8px;font-size:13px">Kleine hoeveelheden en basics. Tellen niet mee in de prijs.</p><div class="homes">${lastHome.map(l=>`<span class="home">${esc(l)}<button data-hbuy="${esc(keyOf(l))}">Toch kopen</button></span>`).join('')}</div>`;
   $('lv').innerHTML=html}
+function renderHome(){const box=$('homeAuto');if(!box)return;
+  box.innerHTML=lastHome.length?`<b style="font-size:14px">Op je lijst, maar overgeslagen</b><div class="homes" style="margin:6px 0 12px">${lastHome.map(l=>{const w=skipWhy(l);return `<span class="home"><span>${esc(l)}<small>${w==='klein'?'kleine hoeveelheid':'altijd in huis'}</small></span><button data-hbuy="${esc(keyOf(l))}">Toch kopen</button>${w==='klein'?`<button data-hpan="${esc(l)}" title="Nooit meer kopen">Altijd overslaan</button>`:''}</span>`}).join('')}</div>`:''}
 $('lv').addEventListener('click',e=>{const t=e.target;
   const q=t.closest('[data-lvq]');if(q){const i=q.dataset.lvq.lastIndexOf('|'),k=q.dataset.lvq.slice(0,i),d=+q.dataset.lvq.slice(i+1);
     const ls=favLines(state.text),j=ls.findIndex(l=>keyOf(l)===k);if(j<0)return;const nl=stepLine(ls[j],d);if(nl===ls[j])return;ls[j]=nl;
@@ -682,27 +704,12 @@ $('lv').addEventListener('click',e=>{const t=e.target;
   const d=t.closest('[data-lvdel]');if(d){const k=d.dataset.lvdel;state.text=favLines(state.text).filter(l=>keyOf(l)!==k).join('\n');delete state.done[k];if(lvOpen===k)lvOpen=null;$('txt').value=state.text;persist();render();return}
   const o=t.closest('[data-lvopen]');if(o&&!t.closest('[data-fol]')){lvOpen=lvOpen===o.dataset.lvopen?null:o.dataset.lvopen;renderLV()}});
 /* ---------- product kiezen ---------- */
-let lastR=[],sheetCtx=null,shT=null;
-function openSheet(k,s){const r=lastR.find(x=>x.k===k);if(!r)return;sheetCtx={r,s};
-  $('shTitle').textContent=`${S[s].full}: ${r.line}`;$('shSub').textContent='Kies het product dat je wilt. De app onthoudt je keuze.';
-  $('shQ').value=r.it.label;$('sheet').hidden=false;renderSheet()}
-function closeSheet(){$('sheet').hidden=true;sheetCtx=null}
-function renderSheet(){if(!sheetCtx)return;const {r,s}=sheetCtx,q=$('shQ').value.trim();let it=r.it;
-  if(q){const p=Match.parseLine(q);if(p)it={...r.it,t:p.t,label:p.label}}
-  const cur=r.per[s]&&r.per[s].pick.p.name,seen=new Set(),rows=[];
-  for(const c of Match.candidates(it,IDX[s],20)){if(seen.has(c.p.name))continue;seen.add(c.p.name);
-    const cost=c.cost||Match.costOf(r.it,c.p,c.p.qty&&c.p.qty.d);
-    rows.push(`<button class="opt${c.p.name===cur?' cur':''}" data-choose="${esc(c.p.name)}"><span><b>${esc(c.p.name)}</b><small>${c.p.size?esc(c.p.size)+' · ':''}${eur(c.p.price)} per stuk${cost.packs>1?` · ${cost.packs}× nodig`:''}</small></span><span class="pr">${eur(cost.total)}</span></button>`)}
-  $('shList').innerHTML=rows.length?rows.join(''):'<p class="muted">Niets gevonden. Probeer een ander woord.</p>'}
-$('shQ').addEventListener('input',()=>{clearTimeout(shT);shT=setTimeout(renderSheet,180)});
-$('sheet').addEventListener('click',e=>{if(e.target.closest('[data-shclose]')){closeSheet();return}
-  const c=e.target.closest('[data-choose]');if(!c||!sheetCtx)return;const {r,s}=sheetCtx,pk='p:'+r.it.t.join(' ');
-  (state.picks[pk]=state.picks[pk]||{})[s]=c.dataset.choose;(state.pin=state.pin||{})[r.k]=s;if(state.picks[r.k])delete state.picks[r.k][s];closeSheet();persist();render()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sheetCtx)closeSheet()});
+let lastR=[];
+
 /* ---------- events ---------- */
 document.addEventListener('click',e=>{const t=e.target;
-  const po=t.closest('[data-pickopen]');if(po){const i=po.dataset.pickopen.lastIndexOf('|');openSheet(po.dataset.pickopen.slice(0,i),po.dataset.pickopen.slice(i+1));return}
-  if(t.id==='shareBtn'&&lastShare){lastShare();return}
+  const po=t.closest('[data-pickopen]');if(po){const i=po.dataset.pickopen.lastIndexOf('|'),k=po.dataset.pickopen.slice(0,i),r=lastR.find(x=>x.k===k);if(r)chooseStore(r.line,po.dataset.pickopen.slice(i+1));return}
+  if(t.id==='shareBtn'){openShare();return}
   if(t.id==='allDone'){if(!t.dataset.sure){t.dataset.sure=1;t.textContent='Zeker? Lijst wordt leeg';setTimeout(()=>{if(t.isConnected){delete t.dataset.sure;t.textContent='✓ Boodschappen gedaan'}},4000);return}allDone();return}
   if(t.id==='clearDone'){state.text=favLines(state.text).filter(l=>!state.done[keyOf(l)]).join('\n');state.done={};state.booked={};persist();render();return}
   const st=t.closest('[data-s]');if(st){const s=st.dataset.s,on=state.stores.includes(s);
@@ -711,13 +718,20 @@ document.addEventListener('click',e=>{const t=e.target;
   const go=t.closest('[data-go]');if(go){e.preventDefault();tab(go.dataset.go);return}
   const oa=t.closest('[data-oadd]');if(oa){if(!oa.classList.contains('ok'))addLines([oa.dataset.oadd]);document.querySelectorAll(`[data-oadd="${CSS.escape(oa.dataset.oadd)}"]`).forEach(b=>{b.textContent='✓';b.classList.add('ok')});return}
   const of=t.closest('[data-ofil]');if(of){ofil=of.dataset.ofil;renderOffers();return}
+  if(t.closest('[data-otop]')){otop=!otop;renderOffers();return}
   if(t.matches('[data-done]')){const k=t.dataset.done;if(t.checked){state.done[k]=true;book(k,t.dataset.st)}else{delete state.done[k];unbook(k)}persist();render();return}
   if(t.closest('select'))return;
   const tg=t.closest('[data-tog]');if(tg&&!t.matches('input')){const cb=tg.querySelector('input[type=checkbox]');if(cb)cb.click();return}
 });
 document.addEventListener('change',e=>{const t=e.target;if(!t.matches('[data-pick]'))return;const[k,s]=t.dataset.pick.split('|');
   const name=t.value.split(' · ')[0].split(' — ')[0];const it=Match.parseLine(k)||{t:[]};const pk=it.t.length?'p:'+it.t.join(' '):k;(state.picks[pk]=state.picks[pk]||{})[s]=name;if(state.picks[k]&&k!==pk)delete state.picks[k][s];persist();render()});
-$('save').addEventListener('click',()=>{state.text=splitLines($('txt').value.split('\n')).join('\n');persist();$('lstat').textContent='Opgeslagen ✓';render();tab('route')});
+let txtT=null;
+function txtSave(){state.text=splitLines($('txt').value.split('\n')).join('\n');persist();render()}
+$('txt').addEventListener('input',()=>{clearTimeout(txtT);txtT=setTimeout(txtSave,700)});
+$('txtToggle').addEventListener('click',()=>{const b=$('txtBox');b.hidden=!b.hidden;if(!b.hidden){$('txt').value=state.text;$('txt').focus()}else{clearTimeout(txtT);txtSave()}$('txtToggle').textContent=b.hidden?'✎ Als tekst':'Klaar'});
+$('txtDone').addEventListener('click',()=>{clearTimeout(txtT);txtSave();$('txtBox').hidden=true;$('txtToggle').textContent='✎ Als tekst'});
+// Enter in het invoerveld: zet wat je typte op de lijst
+$('ps').addEventListener('keydown',e=>{if(e.key!=='Enter')return;e.preventDefault();const v=$('ps').value.trim();if(!v)return;const r=addLines([v]);$('ps').value='';$('psRes').innerHTML='';$('txt').value=state.text;toast(r.n?`${v} staat op je lijst.`:r.skip?`${v} heb je altijd in huis.`:`${v} stond er al op.`)});
 $('clear').addEventListener('click',e=>{const b=e.currentTarget;if(b.dataset.sure){state.text='';state.done={};state.booked={};$('txt').value='';persist();render();b.textContent='Lijst leegmaken';delete b.dataset.sure;$('lstat').textContent='Lijst leeggemaakt.'}else{b.dataset.sure=1;b.textContent='Zeker weten?';setTimeout(()=>{if(b.dataset.sure){delete b.dataset.sure;b.textContent='Lijst leegmaken'}},3000)}});
 $('q').addEventListener('input',renderOffers);
 function tab(t){document.querySelector('header').classList.toggle('slim',t!=='route');if(t!=='recipes')$('planBar').hidden=true;document.querySelectorAll('nav [data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
@@ -839,7 +853,9 @@ function joinWith(l,id){const mine=listLines().filter(x=>!l.text.some(y=>Match.n
 async function joinCode(v){v=String(v||'').trim();const m=v.match(/lijst=([A-Za-z0-9]{16,32})/);const q=m?'id='+m[1]:'code='+encodeURIComponent(v.toUpperCase().replace(/[^A-Z0-9]/g,''));
   try{const r=await fetch('/api/list?'+q,{cache:'no-store'});const l=await r.json();if(!r.ok){toast(l.error||'Deze code werkt niet.');return}joinWith(l,l.id||(m&&m[1]))}
   catch(e){toast('De gedeelde lijst kon niet geladen worden.')}}
-document.addEventListener('click',e=>{if(e.target.closest('[data-shgo]'))$('shareBox').scrollIntoView({behavior:'smooth',block:'center'})});
+function openShare(){renderShare();$('shareSheet').hidden=false}
+document.addEventListener('click',e=>{if(e.target.closest('[data-shgo]')){openShare();return}if(e.target.closest('[data-shclose2]')){$('shareSheet').hidden=true;return}
+  if(e.target.id==='shMsg'){if(lastShare)lastShare();else toast('Je lijst is nog leeg.');return}});
 document.addEventListener('change',e=>{if(e.target.id==='shName'){state.name=e.target.value.trim().slice(0,30);persist();if(state.push)pushSyncSoon()}});
 $('shareBox').addEventListener('click',async e=>{const t=e.target;
   if(t.id==='shStart'){if(!state.name){toast('Vul eerst je naam in, die zien de anderen in de melding.');$('shName').focus();return}
