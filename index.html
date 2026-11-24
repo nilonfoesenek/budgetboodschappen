@@ -417,7 +417,8 @@ img.pi{animation:fadein .35s ease}
   <div id="wStores" class="wst"></div>
   <div id="wAbout"><b>3. Over je huishouden</b>
   <p class="muted" style="margin:2px 0 6px;font-size:13.5px">Zo kunnen we prijzen en besparingen vergelijken met huishoudens zoals dat van jou.</p>
-  <div class="hhrow" id="wHh"></div>
+  <small class="muted" style="display:block;margin:0 0 4px">Hoeveel personen</small><div class="hhrow" id="wHh"></div>
+  <small class="muted" style="display:block;margin:0 0 4px">Je leeftijd</small><div class="hhrow" id="wAge"></div>
   <label class="pcl">Eerste 2 cijfers van je postcode <input id="wPc" class="fin" inputmode="numeric" maxlength="2" placeholder="bijv. 10" style="margin:0;width:90px"></label>
   <label class="consent"><input type="checkbox" id="wConsent"> <span><b>Help mee met onderzoek naar boodschappenprijzen.</b> Je boodschappen, gekozen winkels en besparingen worden anoniem gebruikt, zonder naam, adres of exacte locatie. De app werkt precies hetzelfde als je dit niet aanvinkt, en je kunt het altijd uitzetten. <a href="#" data-privacy>Meer uitleg</a></span></label></div>
   <div class="wtip" id="wInstall"><b>Tip: zet de app op je beginscherm</b><br>iPhone: tik in Safari op <b>Deel</b> en dan <b>Zet op beginscherm</b>. Android: menu ⋮ en dan <b>App installeren</b>.</div>
@@ -440,7 +441,7 @@ img.pi{animation:fadein .35s ease}
   <div style="font-size:14.5px;line-height:1.5">
   <p style="margin-top:0"><b>Zonder toestemming</b> blijft alles op je telefoon: je lijst, recepten, vaste boodschappen en besparingen. Alleen voor gedeelde lijsten, meldingen en het herkennen van producten gaat er iets naar onze server, en dan zonder je naam (behalve de naam die je zelf invult bij een gedeelde lijst).</p>
   <p><b>Met toestemming</b> bewaren we daarnaast anoniem:</p>
-  <ul style="padding-left:18px;margin:0 0 10px"><li>welke producten op je lijst komen (de productsoort, bijv. "magere kwark", nooit wat je zelf vrij typt als het geen product is)</li><li>welke winkel en welk product je kiest, met de prijs en of het in de aanbieding was</li><li>wat je koopt als je "Boodschappen gedaan" tikt, per winkel</li><li>welke winkels je gebruikt en je vaste winkel</li><li>de grootte van je huishouden en de eerste 2 cijfers van je postcode, als je die invult</li></ul>
+  <ul style="padding-left:18px;margin:0 0 10px"><li>welke producten op je lijst komen (de productsoort, bijv. "magere kwark", nooit wat je zelf vrij typt als het geen product is)</li><li>welke winkel en welk product je kiest, met de prijs en of het in de aanbieding was</li><li>wat je koopt als je "Boodschappen gedaan" tikt, per winkel</li><li>welke winkels je gebruikt en je vaste winkel</li><li>de grootte van je huishouden, je leeftijdsgroep en de eerste 2 cijfers van je postcode, als je die invult</li></ul>
   <p>Dit wordt gekoppeld aan een willekeurige code, niet aan je naam, telefoonnummer, e-mail of exacte locatie. We gebruiken het om te onderzoeken hoe prijzen, aanbiedingen en winkelkeuzes samenhangen, en delen alleen samengevoegde cijfers (bijv. "34% koos het huismerk"), nooit gegevens van één huishouden.</p>
   <p>Je kunt je toestemming altijd intrekken. Dan stopt het verzamelen meteen.</p>
   </div>
@@ -972,7 +973,8 @@ if(!state.onboarded&&(state.text||(state.favs&&state.favs.length)))state.onboard
 // winkels gesorteerd op afstand als die bekend is (na 'in de buurt')
 const nearOrder=()=>{const n=state.near||{};return Object.keys(S).sort((a,b)=>(n[a]??1e9)-(n[b]??1e9))};
 const distTxt=s=>{const d=state.near&&state.near[s];return d==null?(state.near?'<small>niet in de buurt</small>':''):`<small>${d<1000?Math.round(d/50)*50+' m':(d/1000).toFixed(1).replace('.',',')+' km'}</small>`};
-function renderAbout(){$('wHh').innerHTML=[1,2,3,4,5].map(n=>`<button data-hh="${n}" aria-pressed="${state.hh===n}">${n===5?'5+':n}</button>`).join('');$('wPc').value=state.pc2||'';$('wConsent').checked=!!state.consent}
+const AGES=['18-24','25-34','35-44','45-54','55-64','65+'];
+function renderAbout(){$('wAge').innerHTML=AGES.map(a=>`<button data-age="${a}" aria-pressed="${state.age===a}">${a}</button>`).join('');$('wHh').innerHTML=[1,2,3,4,5].map(n=>`<button data-hh="${n}" aria-pressed="${state.hh===n}">${n===5?'5+':n}</button>`).join('');$('wPc').value=state.pc2||'';$('wConsent').checked=!!state.consent}
 function renderWelcome(){renderAbout();$('wHome').innerHTML=nearOrder().map(s=>`<button data-wh="${s}" aria-pressed="${state.home===s}">${dot(s)}<span>${S[s].full}${distTxt(s)}</span></button>`).join('');
   $('wStores').innerHTML=nearOrder().filter(s=>s!==state.home).map(s=>`<button data-ws="${s}" aria-pressed="${state.stores.includes(s)}">${dot(s)}<span>${S[s].full}${distTxt(s)||(S[s].noOffers?'<small>geen acties</small>':'')}</span></button>`).join('')}
 /* ---------- supermarkten in de buurt (OpenStreetMap) ---------- */
@@ -1002,7 +1004,7 @@ function openStoresSheet(){$('wTitle').textContent='Je supermarkten';$('wIntro')
 document.addEventListener('click',e=>{if(e.target.closest('[data-stores]'))openStoresSheet()});
 if(state.onboarded&&!state.home)state.home=(state.stores&&state.stores[0])||'ah';
 if(!state.onboarded){state.stores=[];const sa=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;$('wInstall').hidden=sa;renderWelcome();showSlides(0);$('welcome').hidden=false}
-$('welcome').addEventListener('click',e=>{const hh=e.target.closest('[data-hh]');if(hh){state.hh=+hh.dataset.hh;renderAbout();return}
+$('welcome').addEventListener('click',e=>{const hh=e.target.closest('[data-hh]');if(hh){state.hh=+hh.dataset.hh;renderAbout();return}const ag=e.target.closest('[data-age]');if(ag){state.age=state.age===ag.dataset.age?null:ag.dataset.age;renderAbout();return}
   const h=e.target.closest('[data-wh]');if(h){state.home=h.dataset.wh;if(!state.stores.includes(state.home))state.stores=[...state.stores,state.home].sort((a,c)=>Object.keys(S).indexOf(a)-Object.keys(S).indexOf(c));renderWelcome();return}
   const b=e.target.closest('[data-ws]');if(b){const s=b.dataset.ws,on=state.stores.includes(s);
     state.stores=on?state.stores.filter(x=>x!==s):[...state.stores,s].sort((a,c)=>Object.keys(S).indexOf(a)-Object.keys(S).indexOf(c));renderWelcome();return}
@@ -1357,7 +1359,7 @@ function rid(){if(!state.rid){state.rid=[...crypto.getRandomValues(new Uint8Arra
 function setConsent(on){state.consent=!!on;state.consentAt=new Date().toISOString().slice(0,10);if(!on){try{localStorage.removeItem(EVQ)}catch(e){}}persist()}
 function evQueue(){try{return JSON.parse(localStorage.getItem(EVQ)||'[]')}catch(e){return []}}
 function ev(type,data){if(!state.consent)return;let q=evQueue();
-  q.push({r:rid(),t:new Date().toISOString().slice(0,13),e:type,v:1,d:Object.assign({hh:state.hh||null,pc:state.pc2||null,home:state.home||null,stores:state.stores},data)});
+  q.push({r:rid(),t:new Date().toISOString().slice(0,13),e:type,v:1,d:Object.assign({hh:state.hh||null,age:state.age||null,pc:state.pc2||null,home:state.home||null,stores:state.stores},data)});
   if(q.length>EVMAX)q=q.slice(-EVMAX);try{localStorage.setItem(EVQ,JSON.stringify(q))}catch(e){}flushSoon()}
 let flT=null;function flushSoon(){if(!CFG.events)return;clearTimeout(flT);flT=setTimeout(flush,4000)}
 async function flush(){if(!CFG.events||!state.consent)return;const q=evQueue();if(!q.length)return;const part=q.slice(0,200);
