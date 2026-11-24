@@ -768,18 +768,19 @@ const SEASON=()=>{const m=new Date().getMonth()+1;
   return['🍂 Seizoen','Wat nu lekker is',/(pompoen|paddenstoel|champignon|spruit|soep|stoof|appel|peer)/i]};
 const nm=o=>o.n.toLowerCase();
 const goodDisc=(o,m)=>disc(o)>=m||(MULTI.test(o.d||'')&&disc(o)>=m*.8);
+const otype=o=>o._ty||(o._ty=Match.offerType(o.n)||o.n);
 function shelfDefs(){const sn=SEASON();return [
   ['top','🔥 Topkortingen','40% of meer korting',o=>disc(o)>=0.4],
-  ['keep','📦 Lang houdbaar','Gaat niet snel over de datum, dus goed om in te slaan',o=>KEEP.test(o.n)&&!FRESHBAD.test(o.n)&&!NONFOOD.test(o.n)&&!/diepvries/i.test(o.n)&&goodDisc(o,.25)],
+  ['keep','📦 Lang houdbaar','Gaat niet snel over de datum, dus goed om in te slaan',o=>KEEP.test(otype(o))&&!FRESHBAD.test(o.n)&&!NONFOOD.test(o.n)&&!/diepvries/i.test(o.n)&&goodDisc(o,.25)],
   ['season',sn[0],sn[1],o=>sn[2].test(o.n)&&!/(azijn|balsamico|salade|saus)/i.test(o.n)&&disc(o)>=0.15],
-  ['dinner','🍽️ Avondeten','Vlees, vis, vega en pasta voor deze week',o=>[2,4].includes(catOfText(o.n))&&disc(o)>=0.2],
-  ['fresh','🥦 Vers: groente & fruit','Gebruik binnen een paar dagen',o=>catOfText(o.n)===0&&disc(o)>=0.15],
-  ['prot','💪 Eiwitrijk','Kwark, kip, eieren, vis en peulvruchten',o=>PROT.test(o.n)&&!/(chips|koek|reep|snoep)/i.test(o.n)&&disc(o)>=0.15],
-  ['freeze','🧊 Voor de vriezer','Diepvries, en vlees dat je kunt invriezen',o=>(FREEZE.test(o.n)||catOfText(o.n)===2&&/(gehakt|kip|filet|worst|burger|lapjes|schnitzel)/i.test(o.n))&&goodDisc(o,.25)],
+  ['dinner','🍽️ Avondeten','Vlees, vis, vega en pasta voor deze week',o=>[2,4].includes(catOfText(otype(o)))&&disc(o)>=0.2],
+  ['fresh','🥦 Vers: groente & fruit','Gebruik binnen een paar dagen',o=>catOfText(otype(o))===0&&disc(o)>=0.15],
+  ['prot','💪 Eiwitrijk','Kwark, kip, eieren, vis en peulvruchten',o=>PROT.test(otype(o))&&!/(chips|koek|reep|snoep)/i.test(o.n)&&disc(o)>=0.15],
+  ['freeze','🧊 Voor de vriezer','Diepvries, en vlees dat je kunt invriezen',o=>(FREEZE.test(o.n)||catOfText(otype(o))===2&&/(gehakt|kip|filet|worst|burger|lapjes|schnitzel)/i.test(otype(o)))&&goodDisc(o,.25)],
   ['multi','🎁 1+1 en meer-voor-minder','Handig als je toch meer nodig hebt',o=>MULTI.test(o.d||'')],
   ['low','📉 Laagste prijs in weken','Volgens de prijsgeschiedenis',o=>/^(📉|⭐)/.test(histTag(o))],
   ['home','🧴 Huishouden & verzorging','Wasmiddel, wc-papier en zo: altijd nodig, nooit bederf',o=>NONFOOD.test(o.n)&&disc(o)>=0.2],
-  ['treat','🍫 Lekker voor het weekend','Snacks, snoep en drinken',o=>[6,7].includes(catOfText(o.n))&&!NONFOOD.test(o.n)&&disc(o)>=0.3]]}
+  ['treat','🍫 Lekker voor het weekend','Snacks, snoep en drinken',o=>[6,7].includes(catOfText(otype(o)))&&!NONFOOD.test(o.n)&&disc(o)>=0.3]]}
 function dealCard(o){const d=disc(o),ht=histTag(o),hasP=o.was&&o.p!=null&&o.was>o.p;
   const pill=MULTI.test(o.d||'')?o.d.replace(/^(\d\+\d) gratis.*/i,'$1 gratis'):d>=0.1?`−${Math.round(d*100)}%`:'';
   return `<div class="dc" data-pdo="${esc(o.s+'|'+o.n)}"><div class="ib">${o.img?pimg(o)+dot(o.s):`<span class="ph">${dot(o.s)}</span>`}${pill?`<span class="pc">${esc(pill)}</span>`:''}</div><div class="nm">${esc(o.n)}</div>${ht?`<div class="hs">${esc(ht)}</div>`:''}<div class="bot"><span class="pr">${hasP?`<s>${eur(o.was)}</s>`:''}<span class="now">${o.p!=null?eur(o.p):''}</span></span>${addBtn(o)}</div></div>`}
@@ -1220,7 +1221,7 @@ const getJ=f=>fetch(GH+f,{cache:'no-cache'}).then(r=>{if(!r.ok)throw 0;return r.
 const splashT0=performance.now();function hideSplash(){const el=$('splash');if(!el||el.classList.contains('out'))return;setTimeout(()=>{el.classList.add('out');setTimeout(()=>el.remove(),400)},Math.max(0,900-(performance.now()-splashT0)))}
 setTimeout(hideSplash,5000);
 Promise.all([getJ('prices.json'),getJ('offers.json')]).then(([p,o])=>{
-  P=p;O=o;for(const x of O.offers)if(x.img&&x.img.startsWith('fz:'))x.img='https://img.offers-cdn.net/assets/uploads/offers/nl/'+x.img.slice(3);for(const s in P.stores)IDX[s]=Match.indexStore(P.stores[s]);
+  P=p;O=o;for(const x of O.offers)if(x.img&&x.img.startsWith('fz:'))x.img='https://img.offers-cdn.net/assets/uploads/offers/nl/'+x.img.slice(3);for(const s in P.stores)IDX[s]=Match.indexStore(P.stores[s]);Match.setHeads(Object.values(IDX));
   autoWeekly();render();if(!$('t-recipes').hidden)renderRecipes();if(!$('t-list').hidden)renderWeekly();if(!$('t-offers').hidden)renderOffers();hideSplash()}).catch(()=>{hideSplash();$('sum').innerHTML='<p class="muted">Prijzen konden niet geladen worden. Probeer het later opnieuw.</p>'});
 getJ('config.json').then(c=>{CFG=Object.assign({ai:false},c);render()}).catch(()=>{});
 getJ('history.json').then(h=>{H=h.items||{};if(!$('t-offers').hidden)renderOffers()}).catch(()=>{});

@@ -56,7 +56,7 @@ export function recipeCost(lines, IDX, offers, stores, today) {
 
 export async function loadData() {
   const [P, O] = await Promise.all(['prices.json', 'offers.json'].map(f => fetch(DATA + f).then(r => { if (!r.ok) throw new Error(f + ' ' + r.status); return r.json(); })));
-  const IDX = {}; for (const s in P.stores) IDX[s] = Match.indexStore(P.stores[s]);
+  const IDX = {}; for (const s in P.stores) IDX[s] = Match.indexStore(P.stores[s]); Match.setHeads(Object.values(IDX));
   return { IDX, offers: O.offers };
 }
 export { addDays };

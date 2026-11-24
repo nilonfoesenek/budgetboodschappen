@@ -212,8 +212,66 @@
   }
 
   // drogisterij en huishouden: alleen als de regel daar zelf om vraagt (geen handzeep 'melk & amandel' bij 'melk')
-  const NFO = /(palmolive|dove|nivea|sanex|rexona|axe|andrelon|elvive|garnier|l.?or[eé]al|head\s*&\s*shoulders|pantene|schwarzkopf|syoss|gliss|labello|colgate|prodent|zendium|oral-?b|sensodyne|vanish|ariel|persil|omo|robijn|lenor|dreft|ajax|dettol|finish|witte reus|pampers|always|libresse|kleenex|page|edet|etos|zwitsal|neutral|biodermal|kneipp|treets|radox|fa\b|zeep|shampoo|conditioner|douche|deo|deodorant|tandpasta|wasmiddel|wasverzachter|afwas|vaatwas|reiniger|toiletpapier|keukenpapier|luier|bodylotion|crème|creme|lotion|scheer|haar|nagel|make-?up|parfum|geurkaars|luchtverfrisser)/i;
-  function offerFor(item, offers, store) {
+  const NFO = /(\d+\s*mg\b|micellair|supplement|vitamine|palmolive|dove|nivea|sanex|rexona|axe|andrelon|elvive|garnier|l.?or[eé]al|head\s*&\s*shoulders|pantene|schwarzkopf|syoss|gliss|labello|colgate|prodent|zendium|oral-?b|sensodyne|vanish|ariel|persil|omo|robijn|lenor|dreft|ajax|dettol|finish|witte reus|pampers|always|libresse|kleenex|page|edet|etos|zwitsal|neutral|biodermal|kneipp|treets|radox|fa\b|zeep|shampoo|conditioner|douche|deo|deodorant|tandpasta|wasmiddel|wasverzachter|afwas|vaatwas|reiniger|toiletpapier|keukenpapier|luier|bodylotion|crème|creme|lotion|scheer|haar|nagel|make-?up|parfum|geurkaars|luchtverfrisser)/i;
+  // Past deze aanbieding echt bij de regel? Kern: het hoofdwoord van de regel (meestal het laatste: 'halfvolle MELK')
+  // moet ook in de aanbieding het hoofdwoord zijn. Na dat woord mogen alleen nog omschrijvingen komen
+  // (smaak, vorm, verpakking, maat). 'Galler melk POPCORN' is popcorn, geen melk; 'Campina yoghurt aardbei' is wel yoghurt.
+  const DESC = new Set(('naturel original origineel classic klassiek light zero bio biologisch biologische vers verse halfvol halfvolle vol volle mager magere ' +
+    'stuk stuks st pak pakken fles flessen blik blikken pot potten zak zakken doos dozen tray schaal bakje bakjes los losse groot grote klein kleine mini maxi xl xxl extra ' +
+    'multipack pack voordeel voordeelverpakking familie family duo trio kg gram gr ml cl liter ltr plakken plakjes blokjes reepjes stukjes schijfjes geraspt gesneden ' +
+    'gerookt gebakken gegrild gekookt gepeld gemarineerd ongezouten gezouten zoet zout pittig mild jong belegen oud ' +
+    'aardbei aardbeien vanille framboos frambozen perzik mango banaan kers kersen citroen limoen sinaasappel appel peer bosvruchten rode kokos ' +
+    'karamel caramel hazelnoot honing munt mint peper paprika kruiden knoflook ui chili barbecue bbq kaas spek kip rund tomaat basilicum ' +
+    'chocolade puur melkchocolade wit witte zwart zwarte groen groene rood geel donker licht ' +
+    'aroma intens intense sterk regular decafe cafeinevrij dark roast blend smooth crunchy creamy tros bos net kilo krop bak set pakket mix nl hollandse ' +
+    'met en of in op van voor de het alle diverse soorten variant smaken smaak').split(' '));
+  // hoofdwoorden die ook als smaak voorkomen: alleen goed als ze niet achter een ander product staan ('chips paprika' is geen paprika)
+  const PRODUCT = /^(snack|snacks|zoutjes|borrelnoten|bonbons|pralines|bloc|tablet|pizza|maaltijdmix|mix|lays|doritos|cheetos|pringles|croky|smiths|hamkas|tuc|chips|crisps|nootjes|noten|pinda|yoghurt|vla|kwark|skyr|toetje|pudding|ijs|ijsjes|thee|siroop|limonade|ranja|drink|drank|sap|smoothie|saus|dressing|soep|bouillon|koek|koeken|koekjes|biscuit|wafel|wafels|reep|repen|bonbon|snoep|drop|popcorn|cake|taart|gebak|jam|hagelslag|pasta|chocoladepasta|spread|smeerkaas|tosti|wrap|wraps|pizza|chips|crackers|cracker|toast|beschuit|muesli|granola|cruesli|cornflakes|ontbijtgranen|ijsthee|frisdrank|cola|bier|wijn|zeep|shampoo|douchegel|deo|deodorant|tandpasta|kaars|thee)$/;
+  // Hoofdwoorden uit het hele assortiment (laatste woord van een productnaam, bijv. 'woksaus', 'drinkyoghurt', 'hummus').
+  // Staat zo'n woord vóór het hoofdwoord van de regel, dan is de aanbieding een ander product.
+  let HEADS = null;
+  function setHeads(indexes) {
+    const c = new Map(), all = new Map();
+    for (const idx of indexes) for (const p of idx) { const t = p.t || toks(p.name); for (const w of t) all.set(w, (all.get(w) || 0) + 1); for (let k = t.length - 1; k >= 0; k--) { const w = t[k]; if (DESC.has(w) || IGN.has(w) || w.length < 3) continue; c.set(w, (c.get(w) || 0) + 1); break; } }
+    // echt een productsoort: vaak het laatste woord, en meestal ook als het voorkomt (merken staan vooraan)
+    HEADS = new Set([...c].filter(([w, n]) => n >= 8 && n / all.get(w) >= 0.35).map(([w]) => w));
+    HEADS.forEach(w => { if (w.length < 3) HEADS.delete(w); });
+  }
+  const isHeadish = w => HEADS && (HEADS.has(w) || [...HEADS].some(h => h.length >= 3 && w.length > h.length + 2 && w.endsWith(h)));
+  const headCache = new Map();
+  const headish = w => { let v = headCache.get(w); if (v === undefined) { v = isHeadish(w); headCache.set(w, v); } return v; };
+  // Soort product van een aanbieding: het eerste productwoord ('Campina yoghurt aardbei' -> yoghurt, 'Jumbo hummus pompoen' -> hummus),
+  // anders het laatste woord dat geen omschrijving is.
+  function offerType(name) {
+    const ot = toks(name);
+    for (let k = 0; k < ot.length; k++) { const w = ot[k]; if (IGN.has(w) || DESC.has(w)) continue; if (PRODUCT.test(w) || (k > 0 && headish(w))) return w; }
+    for (let k = ot.length - 1; k >= 0; k--) if (!DESC.has(ot[k]) && !IGN.has(ot[k])) return ot[k];
+    return ot[ot.length - 1] || '';
+  }
+  function offerFits(item, name) {
+    const lt0 = item.t.filter(x => !DESC.has(x)), lt = lt0.length ? lt0 : item.t, ot = toks(name);
+    if (!lt.length || !ot.length) return true;
+    const head = lt[lt.length - 1], sh = stem(head);
+    const same = w => w === head || stem(w) === sh || (head.length >= 5 && w.length > head.length + 2 && w.endsWith(head));
+    let i = -1;
+    for (let k = ot.length - 1; k >= 0; k--) if (same(ot[k])) { i = k; break; }
+    if (i < 0) return false;
+    // na het hoofdwoord alleen omschrijvingen
+    for (let k = i + 1; k < ot.length; k++) if (!DESC.has(ot[k]) && !IGN.has(ot[k])) return false;
+    // geen ander product vóór het hoofdwoord ('chips paprika', 'drinkyoghurt limoen', 'woksaus honing'), tenzij de regel het zelf noemt
+    for (let k = 0; k < i; k++) if ((PRODUCT.test(ot[k]) || (k > 0 && headish(ot[k]))) && !item.t.includes(ot[k]) && !item.t.some(q => stem(q) === stem(ot[k]))) return false;
+    // 'X met Y': dan is het product X, niet Y ('rode bieten met ui', 'roomkaas met gember')
+    const nn = norm(name);
+    const mi = nn.search(/\b(met|op|in)\b/), hi = nn.lastIndexOf(ot[i]);
+    if (mi >= 0 && hi > mi) return false;
+    // baby- en dierenvoeding alleen als de regel erom vraagt
+    if (BAN.some(b => nn.includes(b.trim())) && !BAN.some(b => norm(item.label || '').includes(b.trim()))) return false;
+    // andere eenheid dan gevraagd (1 kg appels is geen appeldrank van 200 ml)
+    const oq = parseQty(name);
+    if (item.req && oq && oq.d !== 'st' && item.req.d !== 'st' && oq.d !== item.req.d) return false;
+    return true;
+  }
+  function offerFor(item, offers, store, idx) {
     let best = null, bx = 1e9;
     const nfOk = NFO.test(item.label || item.t.join(' '));
     for (const o of offers) {
@@ -221,6 +279,7 @@
       const ot = o._t || (o._t = toks(o.n).filter(x => !IGN.has(x)));
       if (!item.t.every(q => tokScore(q, ot) < 1)) continue;
       if (!nfOk && (o._nf ?? (o._nf = NFO.test(o.n)))) continue;
+      if (!offerFits(item, o.n)) continue;
       // zo min mogelijk extra woorden (het meest 'pure' product), daarna de goedkoopste
       const x = ot.length - item.t.length;
       if (x < bx || (x === bx && (o.p || 99) < (best.p || 99))) { best = o; bx = x; }
@@ -264,5 +323,5 @@
     return [...out.entries()].sort((a, b) => a[1] - b[1]).slice(0, n).map(e => e[0]);
   }
 
-  root.Match = { norm, toks, parseQty, parseLine, indexStore, candidates, recall, costOf, offerFor };
+  root.Match = { norm, toks, parseQty, parseLine, indexStore, candidates, recall, costOf, offerFor, offerFits, offerType, setHeads };
 })(typeof window !== 'undefined' ? window : globalThis);
