@@ -9,7 +9,7 @@ const Match = globalThis.Match;
 const json = (b, status = 200) => new Response(JSON.stringify(b), { status, headers: { 'content-type': 'application/json' } });
 const MODELS = { haiku: 'claude-haiku-5-5', sonnet: 'claude-sonnet-5-5' };
 const DEFAULT = process.env.CLAUDE_MATCH_MODEL || 'haiku';
-const V = 2; // verhoog bij een nieuwe prompt: oude antwoorden worden dan opnieuw gevraagd
+const V = 3; // verhoog bij een nieuwe prompt: oude antwoorden worden dan opnieuw gevraagd
 const STORES = ['ah', 'jumbo', 'aldi', 'dirk', 'plus', 'lidl'];
 const NAMES = { ah: 'Albert Heijn', jumbo: 'Jumbo', aldi: 'Aldi', dirk: 'Dirk', plus: 'Plus', lidl: 'Lidl' };
 const N = 16, PER_DEVICE = 300, PER_DAY = 5000, MAX_LINES = 30, PARALLEL = 8, NEW_PER_CALL = 8;
@@ -40,7 +40,7 @@ Geef per supermarkt de nummers van ALLE producten die je kunt kopen als dit ingr
 - Geen light-, zero- of suikervrije variant tenzij de regel dat zegt.
 - Bij een algemene term (kaas, pasta, rijst, brood, olie, suiker) zijn de gewone basisvarianten goed die je voor koken of op brood gebruikt, geen bijzondere specialiteiten.
 - Bij kruiden: "tacokruiden" is een taco-kruidenmix; "1 tl komijn" is gemalen komijn; verse kruiden alleen als de regel "vers", "bosje" of "bakje" zegt, anders zijn gedroogde ook goed.
-- Twijfel je, laat het weg. Is er geen goed product, geef een lege lijst.
+- Neem ALLE producten mee die echt dit ingrediënt zijn, ook als ze anders heten (verse pepers = rode peper, maïskorrels = mais, bakkersgist = gist, ijsbergsla = krop ijsbergsla, panko paneermeel = panko). Laat alleen weg wat duidelijk iets anders is. Is er geen goed product, geef een lege lijst.
 
 ${lists}
 
