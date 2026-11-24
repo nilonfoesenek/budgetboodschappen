@@ -5,7 +5,7 @@ const lines = fs.readFileSync(path.join(__dirname, '../tests/ingredients.txt'), 
 (async () => {
   const all = {}; let todo = lines.slice(), rounds = 0;
   while (todo.length && rounds++ < 80) {
-    const r = await fetch(URL, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ lines: todo.slice(0, 30), device: 'toets' + (process.env.MODEL || ''), model: process.env.MODEL || undefined }) });
+    const r = await fetch(URL, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ lines: todo.slice(0, 30), device: 'toets' + (process.env.MODEL || '') + (process.env.RUN || ''), model: process.env.MODEL || undefined }) });
     const d = await r.json(); if (!r.ok || d.error) { console.error('fout', r.status, JSON.stringify(d)); if (!d.results) break; }
     Object.assign(all, d.results || {});
     require('../match.js'); const M = globalThis.Match;
