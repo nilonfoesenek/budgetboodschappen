@@ -268,7 +268,7 @@ function computeLines(lines){const res=[];
       if(o){let op=cost.packs;const oq=Match.parseQty(o.n);if(it.req&&oq&&oq.d===it.req.d&&oq.q>0)op=Math.max(1,Math.ceil(it.req.q/oq.q-1e-9));
         if(o.p!=null&&o.p*op<total){deal=o;total=o.p*op;cost.packs=op}else if(o.pct&&!want){deal=o;total=total*(1-o.pct)}}
       const regular=deal&&deal.was&&deal.p!=null?deal.was*cost.packs:cost.total;
-      per[s]={pick,cands,total,regular,packs:cost.packs,deal,sub:!!pick.sub}}
+      per[s]={pick,cands,total,regular,packs:cost.packs,deal,sub:!!pick.sub&&!want}}
     res.push({line,k,it,per})}
   return res}
 function addDays(d,n){const x=new Date(d+'T12:00');x.setDate(x.getDate()+n);return x.toISOString().slice(0,10)}
@@ -308,7 +308,7 @@ function render(){
     $('bons').innerHTML=`<div class="card empty">Je lijst is nog leeg.<br><button class="btn" style="margin-top:12px" data-go="list">Lijst maken</button></div>`+savingsHtml();return}
   const ALL=Object.keys(S).filter(x=>IDX[x]);state.mode='split';
   const one={};for(const s of ALL){one[s]={sum:0,miss:0,sub:0};for(const r of R){if(r.per[s]){one[s].sum+=r.per[s].total;if(r.per[s].sub)one[s].sub++}else one[s].miss++}}
-  const assign=r=>{let b=null;const ex=sel.some(s=>r.per[s]&&!r.per[s].sub),ms=Math.min(...sel.map(s=>r.per[s]&&r.per[s].sub?r.per[s].pick.score:99));for(const s of sel){const y=r.per[s];if(y&&(ex?!y.sub:y.pick.score<=ms+0.1)&&(!b||y.total<r.per[b].total-1e-9))b=s}return b};
+  const assign=r=>{const pn=state.pin&&state.pin[r.k];if(pn&&sel.includes(pn)&&r.per[pn])return pn;let b=null;const ex=sel.some(s=>r.per[s]&&!r.per[s].sub),ms=Math.min(...sel.map(s=>r.per[s]&&r.per[s].sub?r.per[s].pick.score:99));for(const s of sel){const y=r.per[s];if(y&&(ex?!y.sub:y.pick.score<=ms+0.1)&&(!b||y.total<r.per[b].total-1e-9))b=s}return b};
   const groups={},miss=[];let split=0;
   for(const r of R){const s=assign(r);if(!s){miss.push(r);continue}(groups[s]=groups[s]||[]).push(r);split+=r.per[s].total}
   const full=sel.filter(s=>one[s].miss===miss.length).sort((a,b)=>one[a].sum-one[b].sum);
@@ -348,7 +348,7 @@ function item(r,s,sel){const x=r.per[s],done=!!state.done[r.k],isOpen=open===r.k
     return `<button class="cmp pickb${t===s?' best':''}" data-pickopen="${esc(r.k)}|${t}" aria-label="Ander product kiezen bij ${S[t].full}"><span>${dot(t)}</span><span class="pnm">${y.packs>1?y.packs+'× ':''}${esc(y.pick.p.name)}${y.pick.p.size?' · '+esc(y.pick.p.size):''}<small>Wissel ›</small></span><span class="pr">${y.sub?'<span class="subtag">≈</span> ':''}${y.deal&&y.regular>y.total+0.005?`<s>${eur(y.regular)}</s><span class="now">${eur(y.total)}</span>`:eur(y.total)}</span></button>`}).join('')}</div>`:''}</div>`}
 
 /* ---------- recepten ---------- */
-function bestOf(r){let b=null;const ex=state.stores.some(s=>r.per[s]&&!r.per[s].sub);for(const s of state.stores){const y=r.per[s];if(y&&(!ex||!y.sub)&&(!b||y.total<r.per[b].total))b=s}return b}
+function bestOf(r){const pn=state.pin&&state.pin[r.k];if(pn&&state.stores.includes(pn)&&r.per[pn])return pn;let b=null;const ex=state.stores.some(s=>r.per[s]&&!r.per[s].sub);for(const s of state.stores){const y=r.per[s];if(y&&(!ex||!y.sub)&&(!b||y.total<r.per[b].total))b=s}return b}
 if(!Array.isArray(state.favs))state.favs=[];
 if(!Array.isArray(state.pantry))state.pantry=[];
 if(!state.plan||typeof state.plan!=='object')state.plan={};
@@ -535,7 +535,7 @@ function renderSheet(){if(!sheetCtx)return;const {r,s}=sheetCtx,q=$('shQ').value
 $('shQ').addEventListener('input',()=>{clearTimeout(shT);shT=setTimeout(renderSheet,180)});
 $('sheet').addEventListener('click',e=>{if(e.target.closest('[data-shclose]')){closeSheet();return}
   const c=e.target.closest('[data-choose]');if(!c||!sheetCtx)return;const {r,s}=sheetCtx,pk='p:'+r.it.t.join(' ');
-  (state.picks[pk]=state.picks[pk]||{})[s]=c.dataset.choose;if(state.picks[r.k])delete state.picks[r.k][s];closeSheet();persist();render()});
+  (state.picks[pk]=state.picks[pk]||{})[s]=c.dataset.choose;(state.pin=state.pin||{})[r.k]=s;if(state.picks[r.k])delete state.picks[r.k][s];closeSheet();persist();render()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sheetCtx)closeSheet()});
 /* ---------- events ---------- */
 document.addEventListener('click',e=>{const t=e.target;
