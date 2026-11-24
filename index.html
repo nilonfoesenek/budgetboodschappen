@@ -30,7 +30,8 @@
 *{box-sizing:border-box;min-width:0}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 Figtree,system-ui,sans-serif;overflow-x:clip}
 .wrap{max-width:680px;margin:0 auto;padding:0 16px}
-header{padding:calc(10px + env(safe-area-inset-top)) 0 8px}
+header{position:sticky;top:0;z-index:40;background:var(--bg);box-shadow:0 0 0 100vmax var(--bg);clip-path:inset(0 -100vmax);padding:calc(12px + env(safe-area-inset-top)) 16px 8px}
+header.sc{border-bottom:1px solid var(--line)}
 header .stores{margin-top:12px}
 h1{font-size:clamp(23px,6.6vw,30px);letter-spacing:-.5px;line-height:1.05;margin:0;font-weight:800}
 h2{font-size:20px;margin:0 0 8px;font-weight:700}
@@ -567,6 +568,7 @@ Promise.all([getJ('prices.json'),getJ('offers.json')]).then(([p,o])=>{
   P=p;O=o;for(const s in P.stores)IDX[s]=Match.indexStore(P.stores[s]);
   autoWeekly();render();if(!$('t-recipes').hidden)renderRecipes();if(!$('t-weekly').hidden)renderWeekly();if(!$('t-offers').hidden)renderOffers()}).catch(()=>{$('sum').innerHTML='<p class="muted">Prijzen konden niet geladen worden. Probeer het later opnieuw.</p>'});
 getJ('history.json').then(h=>{H=h.items||{};if(!$('t-offers').hidden)renderOffers()}).catch(()=>{});
+addEventListener('scroll',()=>document.querySelector('header').classList.toggle('sc',scrollY>4),{passive:true});
 render();
 
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
