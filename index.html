@@ -102,7 +102,7 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 #planBar[hidden]{display:none}#t-recipes{padding-bottom:72px}#planBar .pt{flex:1;font-weight:700;line-height:1.2}#planBar small{display:block;font-weight:500;opacity:.75}#planBar .btn{background:#fff;color:var(--ink)}#planBar .x{background:none;border:0;color:#fff;opacity:.7;font-size:20px;padding:0 6px;cursor:pointer}
 .cath{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);padding:10px 16px 2px}
 .pickb{width:100%;background:none;border:0;font:inherit;color:inherit;text-align:left;cursor:pointer;padding-left:0;padding-right:0}.pnm{min-width:0;font-weight:600;font-size:14px}.pnm small{display:block;color:var(--mute);font-weight:600;font-size:12px}
-#scan,#shareSheet{position:fixed;inset:0;z-index:50}#scan[hidden],#shareSheet[hidden]{display:none}.sh-bg{position:absolute;inset:0;background:rgba(10,12,10,.35)}
+#scan,#shareSheet,#privSheet{position:fixed;inset:0;z-index:50}#scan[hidden],#shareSheet[hidden],#privSheet[hidden]{display:none}#privSheet{z-index:65}.sh-bg{position:absolute;inset:0;background:rgba(10,12,10,.35)}
 .sh{position:absolute;left:0;right:0;bottom:0;max-width:600px;margin:0 auto;background:var(--card);border-radius:20px 20px 0 0;padding:14px 16px calc(16px + env(safe-area-inset-bottom));max-height:82vh;display:flex;flex-direction:column;box-shadow:0 -8px 30px rgba(0,0,0,.15)}
 .sh-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}.sh-hd .x{background:var(--field);border:0;border-radius:50%;width:36px;height:36px;font-size:20px;cursor:pointer;color:var(--ink)}
 #shList{overflow-y:auto;-webkit-overflow-scrolling:touch}.opt{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;background:none;border:0;border-top:1px solid var(--line);padding:11px 2px;font:inherit;color:inherit;text-align:left;cursor:pointer}
@@ -141,7 +141,9 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .buy .sb{flex:none}.buy .bt{min-width:0;overflow-wrap:anywhere}.buy small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);margin-bottom:1px}.buy .sz{color:var(--mute);white-space:nowrap}.buy .pk{color:var(--ok)}
 .it.done .buy{opacity:.5}
 .homes{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:6px}.home{display:inline-flex;align-items:center;gap:8px;background:var(--bg);border-radius:10px;padding:5px 6px 5px 10px;font-size:14px}.home button{border:1px solid var(--line);background:var(--card);border-radius:8px;font:600 12.5px Figtree,sans-serif;padding:4px 8px;cursor:pointer;color:var(--ink)}
-.donebar{display:flex;flex-direction:column;align-items:center;gap:6px;margin:6px 0 14px}.hm{font-size:10.5px;font-weight:700;background:var(--okbg);color:var(--ok);border-radius:6px;padding:1px 5px;margin-left:2px;vertical-align:1px}
+.donebar{display:flex;flex-direction:column;align-items:center;gap:6px;margin:6px 0 14px}.hhrow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}.hhrow button{min-width:46px;height:40px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);font:700 15px Figtree,sans-serif;color:var(--ink);cursor:pointer}.hhrow button[aria-pressed=true]{border-color:var(--ink);background:var(--field)}
+.pcl{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px;margin-bottom:12px}.consent{display:flex;gap:10px;align-items:flex-start;background:var(--okbg);border-radius:12px;padding:10px 12px;font-size:13.5px;line-height:1.4}.consent input{width:20px;height:20px;flex:none;margin-top:2px}
+.hm{font-size:10.5px;font-weight:700;background:var(--okbg);color:var(--ok);border-radius:6px;padding:1px 5px;margin-left:2px;vertical-align:1px}
 .hsel{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:14px;color:var(--mute)}.hsel select{height:38px;border-radius:10px;border:1px solid var(--line);background:var(--card);font:600 14px Figtree,sans-serif;color:var(--ink);padding:0 8px}
 .shtop{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:12px 14px;margin:0 0 10px;font:700 15px Figtree,sans-serif;color:var(--ink);cursor:pointer;text-align:left}.shtop span{font-weight:600;font-size:13px;color:var(--mute);white-space:nowrap}.shtop.on{background:var(--okbg);border-color:var(--ok)}
 .nmf{display:block;font-size:13px;color:var(--mute);margin:8px 0 0}.nmf .fin{margin:4px 0 0}.join{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
@@ -259,6 +261,11 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
   <b>2. Welke andere supermarkten mag de app gebruiken om te besparen?</b>
   <p class="muted" style="margin:2px 0 0;font-size:13.5px">Wat daar goedkoper is, zet de app daar. Dit kun je later bij Route altijd aanpassen.</p>
   <div id="wStores" class="wst"></div>
+  <div id="wAbout"><b>3. Over je huishouden</b>
+  <p class="muted" style="margin:2px 0 6px;font-size:13.5px">Zo kunnen we prijzen en besparingen vergelijken met huishoudens zoals dat van jou.</p>
+  <div class="hhrow" id="wHh"></div>
+  <label class="pcl">Eerste 2 cijfers van je postcode <input id="wPc" class="fin" inputmode="numeric" maxlength="2" placeholder="bijv. 10" style="margin:0;width:90px"></label>
+  <label class="consent"><input type="checkbox" id="wConsent"> <span><b>Help mee met onderzoek naar boodschappenprijzen.</b> Je boodschappen, gekozen winkels en besparingen worden anoniem gebruikt, zonder naam, adres of exacte locatie. De app werkt precies hetzelfde als je dit niet aanvinkt, en je kunt het altijd uitzetten. <a href="#" data-privacy>Meer uitleg</a></span></label></div>
   <div class="wtip" id="wInstall"><b>Tip: zet de app op je beginscherm</b><br>iPhone: tik in Safari op <b>Deel</b> en dan <b>Zet op beginscherm</b>. Android: menu ⋮ en dan <b>App installeren</b>.</div>
   <button class="btn" id="wGo" style="width:100%;margin-top:14px">Aan de slag</button></div></div>
 <div id="scan" hidden><div class="sh-bg" data-scclose></div><div class="sh" role="dialog" aria-modal="true" aria-labelledby="scTitle">
@@ -270,6 +277,18 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
   <div class="sh-hd"><div><b>Delen</b></div><button class="x" data-shclose2 aria-label="Sluiten">×</button></div>
   <div id="shareBox"></div>
   <div class="join"><b>Liever alleen een bericht?</b><p class="muted" style="margin:2px 0 6px;font-size:13px">Stuur je lijst als tekst via WhatsApp, met de winkels erbij. Dit wordt niet bijgehouden.</p><button class="btn sec" id="shMsg">✉︎ Als bericht sturen</button></div>
+</div></div>
+<div id="privSheet" hidden><div class="sh-bg" data-privclose></div><div class="sh" role="dialog" aria-modal="true" style="max-height:92vh;overflow-y:auto">
+  <div class="sh-hd"><div><b>Privacy en onderzoek</b></div><button class="x" data-privclose aria-label="Sluiten">×</button></div>
+  <div style="font-size:14.5px;line-height:1.5">
+  <p style="margin-top:0"><b>Zonder toestemming</b> blijft alles op je telefoon: je lijst, recepten, vaste boodschappen en besparingen. Alleen voor gedeelde lijsten, meldingen en het herkennen van producten gaat er iets naar onze server, en dan zonder je naam (behalve de naam die je zelf invult bij een gedeelde lijst).</p>
+  <p><b>Met toestemming</b> bewaren we daarnaast anoniem:</p>
+  <ul style="padding-left:18px;margin:0 0 10px"><li>welke producten op je lijst komen (de productsoort, bijv. "magere kwark", nooit wat je zelf vrij typt als het geen product is)</li><li>welke winkel en welk product je kiest, met de prijs en of het in de aanbieding was</li><li>wat je koopt als je "Boodschappen gedaan" tikt, per winkel</li><li>welke winkels je gebruikt en je vaste winkel</li><li>de grootte van je huishouden en de eerste 2 cijfers van je postcode, als je die invult</li></ul>
+  <p>Dit wordt gekoppeld aan een willekeurige code, niet aan je naam, telefoonnummer, e-mail of exacte locatie. We gebruiken het om te onderzoeken hoe prijzen, aanbiedingen en winkelkeuzes samenhangen, en delen alleen samengevoegde cijfers (bijv. "34% koos het huismerk"), nooit gegevens van één huishouden.</p>
+  <p>Je kunt je toestemming altijd intrekken. Dan stopt het verzamelen meteen.</p>
+  </div>
+  <label class="consent" style="margin-top:6px"><input type="checkbox" id="privConsent"> <span><b>Ik help mee met onderzoek</b> (anoniem)</span></label>
+  <button class="lnk" id="privWipe" style="color:#b42318;margin-top:10px">Wis mijn onderzoeksgegevens en maak een nieuwe code</button>
 </div></div>
 <div id="toast" role="status" aria-live="polite"></div>
 </div>
@@ -383,9 +402,9 @@ function render(){
   $('bons').innerHTML=order.map(s=>{const g=groups[s],sub=g.reduce((a,r)=>a+r.per[s].total,0);
     return `<div class="bon"><div class="hd"><b>${dot(s)}${S[s].full}</b><span>${eur(sub)}</span></div>${itemsByCat(g,s,sel)}</div>`}).join('')
    +`<div class="donebar"><button class="btn" id="allDone">✓ Boodschappen gedaan</button>${R.some(r=>state.done[r.k])?`<button class="lnk" id="clearDone" style="color:var(--mute)">Alleen afgevinkte weghalen (${R.filter(r=>state.done[r.k]).length})</button>`:''}</div>`
-   +savingsHtml()
+   +savingsHtml()+askConsentHtml()
    +(miss.length?`<div class="bon"><div class="hd"><b class="miss">Niet gevonden</b><span></span></div>${miss.map(r=>`<div class="it"><div class="row" style="cursor:default"><span></span><div><div class="lbl">${esc(r.line)}</div><div class="pn">Probeer een andere omschrijving in je lijst.</div></div><span></span></div></div>`).join('')}</div>`:'');
-  renderLV();
+  renderLV();trackList(R);
   if(CFG.ai)setTimeout(aiCheck,50);
 }
 /* ---------- bespaaroverzicht: telt mee bij afvinken ---------- */
@@ -397,10 +416,10 @@ function moreBtn(ALL,sel,one){const rest=ALL.filter(s=>!sel.includes(s)&&s!==sta
   let hint='';if(one&&!moreOpen){const mine=Math.min(...sel.filter(s=>one[s]&&!one[s].miss).map(s=>one[s].sum)),b=rest.filter(s=>!one[s].miss).sort((a,c)=>one[a].sum-one[c].sum)[0];if(b&&one[b].sum<mine-0.005)hint=` · ${S[b].label} is ${eur(mine-one[b].sum)} goedkoper`}
   return `<button class="morebtn" data-more>${moreOpen?'Minder winkels ‹':`Meer winkels (${rest.length})${hint} ›`}</button>`}
 document.addEventListener('click',e=>{if(e.target.closest('[data-more]')){moreOpen=!moreOpen;render()}});
-function homeSel(){return `<button class="lnk" data-stores style="margin-top:10px">📍 Winkels in de buurt en vaste winkel aanpassen ›</button><label class="hsel">Je vaste winkel <select id="homeSel">${Object.keys(S).filter(s=>IDX[s]).map(s=>`<option value="${s}"${s===state.home?' selected':''}>${S[s].full}</option>`).join('')}</select></label>`}
-document.addEventListener('change',e=>{if(e.target.id==='homeSel'){state.home=e.target.value;persist();render()}});
+function homeSel(){return `<button class="lnk" data-stores style="margin-top:10px">⚙︎ Winkels, huishouden en privacy ›</button><label class="hsel">Je vaste winkel <select id="homeSel">${Object.keys(S).filter(s=>IDX[s]).map(s=>`<option value="${s}"${s===state.home?' selected':''}>${S[s].full}</option>`).join('')}</select></label>`}
+document.addEventListener('change',e=>{if(e.target.id==='homeSel'){state.home=e.target.value;persist();render();ev('winkels',{})}});
 // bespaard = wat het bij je vaste winkel had gekost min wat je betaalt (zonder vaste winkel of niet te krijgen daar: de korting van de aanbieding)
-function book(k,s){const r=(lastR||[]).find(x=>x.k===k),x=r&&r.per[s];if(!x||state.booked[k])return;
+function book(k,s){const r=(lastR||[]).find(x=>x.k===k),x=r&&r.per[s];if(!x||state.booked[k])return;if(!allDoneBusy){const it=evItem(r,s);if(it)ev('afgevinkt',{item:it})}
   const hx=state.home&&r.per[state.home],m=monthKey(),sv=hx?hx.total-x.total:(x.deal?Math.max(0,x.regular-x.total):0),e=state.spend[m]=state.spend[m]||{sp:0,sv:0,n:0};
   e.sp+=x.total;e.sv+=sv;e.n++;state.booked[k]={m,sp:x.total,sv}}
 function unbook(k){const b=state.booked[k];if(!b)return;const e=state.spend[b.m];if(e){e.sp=Math.max(0,e.sp-b.sp);e.sv=Math.max(0,e.sv-b.sv);e.n=Math.max(0,e.n-1)}delete state.booked[k]}
@@ -507,7 +526,7 @@ $('t-recipes').addEventListener('click',e=>{const t=e.target;
   if(t.id==='planClear'){state.plan={};persist();renderRecipes();return}
   const qb=t.closest('[data-q]');if(qb){const[id,i,d]=qb.dataset.q.split('|'),f=state.favs.find(x=>x.id===id);if(f){f.items[+i]=stepLine(f.items[+i],+d);persist();renderRecipes()}return}
   const pm=t.closest('[data-pm],[data-pp]');if(pm){const id=pm.dataset.pm||pm.dataset.pp;state.plan[id]=Math.max(0,Math.min(14,(state.plan[id]||0)+(pm.dataset.pp?1:-1)));if(!state.plan[id])delete state.plan[id];persist();renderRecipes();return}
-  const a=t.closest('[data-fadd]');if(a){const f=state.favs.find(x=>x.id===a.dataset.fadd);if(f)a.textContent=addMsg(addLines(f.items));return}
+  const a=t.closest('[data-fadd]');if(a){const f=state.favs.find(x=>x.id===a.dataset.fadd);if(f){a.textContent=addMsg(addLines(f.items));ev('recept',{titel:f.title.slice(0,60),n:f.items.length,bron:f.src||null})}return}
   const o=t.closest('[data-fopen]');if(o){fopen=fopen===o.dataset.fopen?null:o.dataset.fopen;renderRecipes();return}
   const ed=t.closest('[data-fedit]');if(ed){fedit=ed.dataset.fedit;renderRecipes();return}
   const d=t.closest('[data-fdel]');if(d){if(d.dataset.sure){state.favs=state.favs.filter(x=>x.id!==d.dataset.fdel);delete state.plan[d.dataset.fdel];fedit=null;persist();renderRecipes()}else{d.dataset.sure='1';d.textContent='Zeker weten? Tik nog een keer'}return}});
@@ -551,7 +570,8 @@ if(!state.onboarded&&(state.text||(state.favs&&state.favs.length)))state.onboard
 // winkels gesorteerd op afstand als die bekend is (na 'in de buurt')
 const nearOrder=()=>{const n=state.near||{};return Object.keys(S).sort((a,b)=>(n[a]??1e9)-(n[b]??1e9))};
 const distTxt=s=>{const d=state.near&&state.near[s];return d==null?(state.near?'<small>niet in de buurt</small>':''):`<small>${d<1000?Math.round(d/50)*50+' m':(d/1000).toFixed(1).replace('.',',')+' km'}</small>`};
-function renderWelcome(){$('wHome').innerHTML=nearOrder().map(s=>`<button data-wh="${s}" aria-pressed="${state.home===s}">${dot(s)}<span>${S[s].full}${distTxt(s)}</span></button>`).join('');
+function renderAbout(){$('wHh').innerHTML=[1,2,3,4,5].map(n=>`<button data-hh="${n}" aria-pressed="${state.hh===n}">${n===5?'5+':n}</button>`).join('');$('wPc').value=state.pc2||'';$('wConsent').checked=!!state.consent}
+function renderWelcome(){renderAbout();$('wHome').innerHTML=nearOrder().map(s=>`<button data-wh="${s}" aria-pressed="${state.home===s}">${dot(s)}<span>${S[s].full}${distTxt(s)}</span></button>`).join('');
   $('wStores').innerHTML=nearOrder().filter(s=>s!==state.home).map(s=>`<button data-ws="${s}" aria-pressed="${state.stores.includes(s)}">${dot(s)}<span>${S[s].full}${distTxt(s)||(S[s].noOffers?'<small>geen acties</small>':'')}</span></button>`).join('')}
 /* ---------- supermarkten in de buurt (OpenStreetMap) ---------- */
 const BRAND=[['ah',/albert ?heijn|^ah( |$)|ah to go/i],['jumbo',/jumbo/i],['aldi',/aldi/i],['lidl',/lidl/i],['plus',/^plus\b|plus supermarkt/i],['dirk',/dirk/i],['dekamarkt',/dekamarkt|deka markt/i],['hoogvliet',/hoogvliet/i],['spar',/\bspar\b/i],['vomar',/vomar/i],['poiesz',/poiesz/i]];
@@ -580,10 +600,11 @@ function openStoresSheet(){$('wTitle').textContent='Je supermarkten';$('wIntro')
 document.addEventListener('click',e=>{if(e.target.closest('[data-stores]'))openStoresSheet()});
 if(state.onboarded&&!state.home)state.home=(state.stores&&state.stores[0])||'ah';
 if(!state.onboarded){state.stores=[];const sa=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;$('wInstall').hidden=sa;renderWelcome();$('welcome').hidden=false}
-$('welcome').addEventListener('click',e=>{const h=e.target.closest('[data-wh]');if(h){state.home=h.dataset.wh;if(!state.stores.includes(state.home))state.stores=[...state.stores,state.home].sort((a,c)=>Object.keys(S).indexOf(a)-Object.keys(S).indexOf(c));renderWelcome();return}
+$('welcome').addEventListener('click',e=>{const hh=e.target.closest('[data-hh]');if(hh){state.hh=+hh.dataset.hh;renderAbout();return}
+  const h=e.target.closest('[data-wh]');if(h){state.home=h.dataset.wh;if(!state.stores.includes(state.home))state.stores=[...state.stores,state.home].sort((a,c)=>Object.keys(S).indexOf(a)-Object.keys(S).indexOf(c));renderWelcome();return}
   const b=e.target.closest('[data-ws]');if(b){const s=b.dataset.ws,on=state.stores.includes(s);
     state.stores=on?state.stores.filter(x=>x!==s):[...state.stores,s].sort((a,c)=>Object.keys(S).indexOf(a)-Object.keys(S).indexOf(c));renderWelcome();return}
-  if(e.target.id==='wGo'){if(!state.home){$('wGo').textContent='Kies eerst je vaste supermarkt';return}state.onboarded=true;persist();$('welcome').hidden=true;moreOpen=false;render();if(!$('t-offers').hidden)renderOffers()}});
+  if(e.target.id==='wGo'){if(!state.home){$('wGo').textContent='Kies eerst je vaste supermarkt';return}const pc=$('wPc').value.replace(/\D/g,'');state.pc2=pc.length===2&&+pc>=10?pc:'';setConsent($('wConsent').checked);state.onboarded=true;persist();ev('profiel',{});$('welcome').hidden=true;moreOpen=false;render();if(!$('t-offers').hidden)renderOffers()}});
 /* ---------- product zoeken in Lijst ---------- */
 let psT=null;
 const brandless=n=>n.replace(/^(AH Excellent|AH Biologisch|AH Terra|AH|Jumbo's|Jumbo|PLUS|1 de Beste|Biologisch PLUS|g'woon|Vleeschmeesters)\s+/i,'').trim();
@@ -647,7 +668,7 @@ function chooseProduct(s,q){chStore=s;const it=Match.parseLine(chooseLine);if(!i
   for(const c of src){if(seen.has(c.p.name))continue;seen.add(c.p.name);rows.push({p:c.p,cost:Match.costOf(it,c.p,(it.req&&it.req.d)||(c.p.qty&&c.p.qty.d))})}
   rows.sort((a,b)=>a.cost.total-b.cost.total);
   $('chList').innerHTML=rows.map(r=>`<button class="scr${r.p.name===cur?' best':''}" data-chp="${s}|${esc(r.p.name)}">${dot(s)}<span>${r.cost.packs>1?r.cost.packs+'× ':''}${esc(r.p.name)}<small>${r.p.size?esc(r.p.size):''}${r.p.name===cur?' · nu gekozen':''}</small></span><span class="pr">${eur(r.cost.total)}</span></button>`).join('')||'<p class="muted">Niets gevonden. Probeer een ander woord.</p>'}
-function applyPick(s,nm){if(chAdd){addLines([chooseLine]);chAdd=false}const R=computeLines([chooseLine])[0];if(!R)return;const it=R.it,pk='p:'+it.t.join(' ');
+function applyPick(s,nm){if(chAdd){addLines([chooseLine]);chAdd=false}const R=computeLines([chooseLine])[0];if(!R)return;{const was=bestOf(R);ev('gekozen',{i:R.it.t.join(' '),s,p:nm,eerst:was?{s:was,p:R.per[was].pick.p.name,pr:Math.round(R.per[was].total*100)/100}:null,scan:chAdd})}const it=R.it,pk='p:'+it.t.join(' ');
   (state.picks[pk]=state.picks[pk]||{})[s]=nm;(state.pin=state.pin||{})[R.k]=s;if(state.picks[R.k])delete state.picks[R.k][s];
   // winkel die je niet hebt aangevinkt: zet de winkel in de regel, zodat hij daar blijft
   if(!state.stores.includes(s)&&!it.store){const nl=chooseLine.replace(/\s*$/,' '+S[s].full.toLowerCase());
@@ -744,7 +765,7 @@ document.addEventListener('click',e=>{const t=e.target;
   if(t.id==='clearDone'){state.text=favLines(state.text).filter(l=>!state.done[keyOf(l)]).join('\n');state.done={};state.booked={};persist();render();return}
   const st=t.closest('[data-s]');if(st){const s=st.dataset.s,on=state.stores.includes(s);
     if(on&&state.stores.length===1)return;state.stores=on?state.stores.filter(x=>x!==s):[...state.stores,s].sort((a,b)=>Object.keys(S).indexOf(a)-Object.keys(S).indexOf(b));
-    persist();render();return}
+    persist();render();ev('winkels',{});return}
   const go=t.closest('[data-go]');if(go){e.preventDefault();tab(go.dataset.go);return}
   const oa=t.closest('[data-oadd]');if(oa){if(!oa.classList.contains('ok'))addLines([oa.dataset.oadd]);document.querySelectorAll(`[data-oadd="${CSS.escape(oa.dataset.oadd)}"]`).forEach(b=>{b.textContent='✓';b.classList.add('ok')});return}
   const of=t.closest('[data-ofil]');if(of){ofil=of.dataset.ofil;renderOffers();return}
@@ -900,15 +921,55 @@ $('shareBox').addEventListener('click',async e=>{const t=e.target;
   try{const r=await fetch('/api/list?id='+encodeURIComponent(id),{cache:'no-store'});const l=await r.json();if(!r.ok){toast(l.error||'Deze link werkt niet.');return}joinWith(l,id)}
   catch(e){toast('De gedeelde lijst kon niet geladen worden.')}})();
 renderShare();if(state.share)listSync();
+/* ---------- anoniem onderzoek: alleen met toestemming ---------- */
+// Gebeurtenissen gaan in een wachtrij op de telefoon. Versturen gebeurt pas als er een database is (CFG.events).
+const EVQ='bb-events',EVMAX=3000;
+function rid(){if(!state.rid){state.rid=[...crypto.getRandomValues(new Uint8Array(12))].map(b=>b.toString(36).padStart(2,'0')).join('').slice(0,20);persist()}return state.rid}
+function setConsent(on){state.consent=!!on;state.consentAt=new Date().toISOString().slice(0,10);if(!on){try{localStorage.removeItem(EVQ)}catch(e){}}persist()}
+function evQueue(){try{return JSON.parse(localStorage.getItem(EVQ)||'[]')}catch(e){return []}}
+function ev(type,data){if(!state.consent)return;let q=evQueue();
+  q.push({r:rid(),t:new Date().toISOString().slice(0,13),e:type,v:1,d:Object.assign({hh:state.hh||null,pc:state.pc2||null,home:state.home||null,stores:state.stores},data)});
+  if(q.length>EVMAX)q=q.slice(-EVMAX);try{localStorage.setItem(EVQ,JSON.stringify(q))}catch(e){}flushSoon()}
+let flT=null;function flushSoon(){if(!CFG.events)return;clearTimeout(flT);flT=setTimeout(flush,4000)}
+async function flush(){if(!CFG.events||!state.consent)return;const q=evQueue();if(!q.length)return;const part=q.slice(0,200);
+  try{const r=await fetch(CFG.events,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({events:part}),keepalive:true});
+    if(r.ok){const rest=evQueue().slice(part.length);localStorage.setItem(EVQ,JSON.stringify(rest));if(rest.length)flushSoon()}}catch(e){}}
+// één product in vaste vorm: soort (woorden), hoeveelheid, winkel, gekozen product, prijs, aanbieding
+function evItem(r,s){const x=s&&r.per[s];if(!x||x.sub)return null;
+  return {i:r.it.t.join(' '),q:r.it.req?Math.round(r.it.req.q*1000)/1000:null,u:r.it.req?r.it.req.d:'st',n:r.it.n,s,p:x.pick.p.name,pr:Math.round(x.total*100)/100,reg:Math.round(x.regular*100)/100,actie:!!x.deal,
+    huis:state.home&&r.per[state.home]?Math.round(r.per[state.home].total*100)/100:null,pk:x.packs}}
+// lijst: wat is erbij gekomen of weggehaald sinds de vorige keer
+let evKeys=null;
+function trackList(R){if(!state.consent){evKeys=null;return}const now=new Map(R.map(r=>[r.k,r]));
+  if(evKeys===null){try{evKeys=new Set(JSON.parse(localStorage.getItem('bb-evkeys')||'[]'))}catch(e){evKeys=new Set()}}
+  const add=[...now.keys()].filter(k=>!evKeys.has(k)),del=[...evKeys].filter(k=>!now.has(k));
+  if(add.length){const items=add.map(k=>{const r=now.get(k);return evItem(r,lastAssign?lastAssign(r):bestOf(r))}).filter(Boolean);if(items.length)ev('toegevoegd',{items})}
+  if(del.length&&!allDoneBusy)ev('weggehaald',{n:del.length});
+  evKeys=new Set(now.keys());try{localStorage.setItem('bb-evkeys',JSON.stringify([...evKeys]))}catch(e){}}
+let allDoneBusy=false;
+function askConsentHtml(){if(state.consent!==undefined&&state.consent!==null)return '';
+  return `<div class="card"><b>Help je mee met onderzoek naar boodschappenprijzen?</b><p class="muted" style="margin:4px 0 8px;font-size:13.5px">Anoniem: zonder naam, adres of exacte locatie. De app werkt precies hetzelfde als je nee zegt.</p>
+  <div class="btns tight"><button class="btn" data-cons="1">Ja, help mee</button><button class="btn sec" data-cons="0">Nee</button><button class="lnk" data-privacy>Meer uitleg</button></div></div>`}
+function openPrivacy(){$('privConsent').checked=!!state.consent;$('privSheet').hidden=false}
+document.addEventListener('click',e=>{const t=e.target;
+  if(t.closest('[data-privacy]')){e.preventDefault();openPrivacy();return}
+  if(t.closest('[data-privclose]')){$('privSheet').hidden=true;return}
+  const c=t.closest('[data-cons]');if(c){setConsent(c.dataset.cons==='1');if(state.consent){ev('profiel',{});toast('Dank je! Vul bij ⚙︎ Winkels, huishouden en privacy je huishouden in.')}render();return}
+  if(t.id==='privWipe'){try{localStorage.removeItem(EVQ);localStorage.removeItem('bb-evkeys')}catch(e){}state.rid=null;evKeys=null;persist();toast('Je onderzoeksgegevens op deze telefoon zijn gewist en je hebt een nieuwe code.');return}});
+document.addEventListener('change',e=>{if(e.target.id==='privConsent'){setConsent(e.target.checked);if($('wConsent'))$('wConsent').checked=state.consent;render();toast(state.consent?'Dank je wel voor het meehelpen!':'Je helpt niet meer mee. Er wordt niets meer verzameld.')}});
+// eens per dag: welke winkels gebruik je
+(()=>{const d=new Date().toISOString().slice(0,10);if(state.consent&&state.evDay!==d){state.evDay=d;persist();setTimeout(()=>ev('sessie',{}),3000)}})();
 /* ---------- boodschappen gedaan ---------- */
-async function allDone(){const R=lastR||[];let sv=0,sent=0;
+async function allDone(){const R=lastR||[];let sv=0,sent=0;allDoneBusy=true;
+  {const items=R.map(r=>evItem(r,lastAssign?lastAssign(r):bestOf(r))).filter(Boolean),per={};for(const x of items){const p=per[x.s]=per[x.s]||{n:0,tot:0,acties:0};p.n++;p.tot=Math.round((p.tot+x.pr)*100)/100;if(x.actie)p.acties++}
+   const huis=items.reduce((a,x)=>a+(x.huis??x.pr),0),tot=items.reduce((a,x)=>a+x.pr,0);ev('gedaan',{items,per,tot:Math.round(tot*100)/100,bespaard:Math.round((huis-tot)*100)/100,gedeeld:!!state.share,afgevinkt:R.filter(r=>state.done[r.k]).length})}
   for(const r of R){const s=lastAssign?lastAssign(r):bestOf(r);if(s&&!state.booked[r.k])book(r.k,s);if(state.booked[r.k])sv+=state.booked[r.k].sv}
   const n=R.length;state.text='';state.done={};state.booked={};lvOpen=null;
   if(state.share){adopting=true;persist();adopting=false;try{const sub=state.push?await pushSub():null;
       const r=await fetch('/api/list',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'done',id:state.share.id,name:state.name||'',endpoint:sub?sub.endpoint:''})});
       const l=await r.json();if(r.ok){adopt(l);sent=l.sent||0}}catch(e){}}
   else persist();
-  $('txt').value='';render();toast(`Lekker gedaan! ${n} ${n===1?'product':'producten'} afgerond${sv>0.005?`, ${eur(sv)} bespaard`:''}.${sent?` ${sent===1?'De ander krijgt':'De anderen krijgen'} een seintje.`:''}`)}
+  allDoneBusy=false;$('txt').value='';render();toast(`Lekker gedaan! ${n} ${n===1?'product':'producten'} afgerond${sv>0.005?`, ${eur(sv)} bespaard`:''}.${sent?` ${sent===1?'De ander krijgt':'De anderen krijgen'} een seintje.`:''}`)}
 /* ---------- pushmeldingen ---------- */
 const canPush='serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window;
 const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
