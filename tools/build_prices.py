@@ -16,7 +16,7 @@ def clean_size(s):
     return re.sub(r'\s+', ' ', s)
 
 data = json.load(open(src, encoding='utf-8'))
-stores = {}
+stores, links, bases = {}, {}, {}
 for s in data:
     if s['n'] in ('ah', 'jumbo', 'dirk', 'plus', 'lidl', 'dekamarkt', 'hoogvliet', 'spar', 'vomar', 'poiesz') and s['d']:
         rows, seen_cj = [], set()
@@ -38,7 +38,10 @@ for s in data:
                 continue
             seen_cj.add(k)
             rows.append(row)
+            if p.get('l'):
+                links.setdefault(s['n'], {}).setdefault(name.lower(), p['l'])
         stores[s['n']] = rows
+        bases[s['n']] = s.get('u', '')
 
 aldi, seen = [], set()
 for f in sorted(glob.glob(os.path.join(aldi_dir, '*.txt'))):
@@ -72,4 +75,9 @@ meta = {
     'poiesz': {'label': 'Poiesz', 'source': 'Checkjebon open data', 'note': 'Selectie van het assortiment, geen aanbiedingen.'},
 }
 json.dump({'built': today, 'meta': meta, 'stores': stores}, open(out, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+# productlinks per winkel (voor productfoto's via /api/img): data/links/<winkel>.json
+ldir = os.path.join(os.path.dirname(os.path.abspath(out)), 'links')
+os.makedirs(ldir, exist_ok=True)
+for k, m in links.items():
+    json.dump({'base': bases.get(k, ''), 'l': m}, open(os.path.join(ldir, k + '.json'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
 print({k: len(v) for k, v in stores.items()}, os.path.getsize(out))
