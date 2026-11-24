@@ -9,7 +9,7 @@ const Match = globalThis.Match;
 const json = (b, status = 200) => new Response(JSON.stringify(b), { status, headers: { 'content-type': 'application/json' } });
 const MODELS = { haiku: 'claude-haiku-5-5', sonnet: 'claude-sonnet-5-5' };
 const DEFAULT = process.env.CLAUDE_MATCH_MODEL || 'haiku';
-const V = 3; // verhoog bij een nieuwe prompt: oude antwoorden worden dan opnieuw gevraagd
+const V = 4; // verhoog bij een nieuwe prompt: oude antwoorden worden dan opnieuw gevraagd
 const STORES = ['ah', 'jumbo', 'aldi', 'dirk', 'plus', 'lidl', 'dekamarkt', 'hoogvliet', 'spar', 'vomar', 'poiesz'];
 const NAMES = { ah: 'Albert Heijn', jumbo: 'Jumbo', aldi: 'Aldi', dirk: 'Dirk', plus: 'Plus', lidl: 'Lidl', dekamarkt: 'DekaMarkt', hoogvliet: 'Hoogvliet', spar: 'SPAR', vomar: 'Vomar', poiesz: 'Poiesz' };
 const N = 16, PER_DEVICE = 300, PER_DAY = 5000, MAX_LINES = 30, PARALLEL = 4, NEW_PER_CALL = 4;
@@ -44,7 +44,7 @@ Geef per supermarkt de nummers van ALLE producten die je kunt kopen als dit ingr
 
 ${lists}
 
-Antwoord ALLEEN met JSON, zoals {"ah":[1,4],"jumbo":[],"aldi":[2]} met een sleutel voor elke supermarkt hierboven.`;
+Antwoord ALLEEN met JSON met de codes van de goede producten, zoals {"ah":["ah1","ah4"],"jumbo":[],"aldi":["aldi2"]}, met een sleutel voor elke supermarkt hierboven.`;
 
 async function ask(key, label, cands, model) {
   const ks = Object.keys(cands), half = Math.ceil(ks.length / 2), parts = [ks.slice(0, half), ks.slice(half)].filter(x => x.length);
@@ -60,21 +60,21 @@ async function askRetry(key, label, cands, model) {
   throw last;
 }
 async function ask1(key, label, cands, model) {
-  const lists = Object.entries(cands).map(([s, ps]) => `${NAMES[s]} (${s}):\n` + (ps.length ? ps.map((p, i) => `${i + 1}. ${p.name}${p.size ? ' (' + p.size + ')' : ''}`).join('\n') : '(geen kandidaten)')).join('\n\n');
+  // elke kandidaat een eigen code (ah3, jumbo7): minder kans dat nummers tussen winkels verward worden
+  const lists = Object.entries(cands).map(([s, ps]) => `${NAMES[s]} (${s}):\n` + (ps.length ? ps.map((p, i) => `${s}${i + 1}: ${p.name}${p.size ? ' (' + p.size + ')' : ''}`).join('\n') : '(geen kandidaten)')).join('\n\n');
   const call = (extra) => fetch('https://api.anthropic.com/v1/messages', { method: 'POST',
     headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' },
-    signal: AbortSignal.timeout(7000),
-    body: JSON.stringify({ model: MODELS[model] || model, max_tokens: 1500, ...extra, messages: [{ role: 'user', content: PROMPT(label, lists) }] }) });
+    signal: AbortSignal.timeout(9000),
+    body: JSON.stringify({ model: MODELS[model] || model, max_tokens: 3000, ...extra, messages: [{ role: 'user', content: PROMPT(label, lists) }] }) });
   // eerst zonder denkstappen (snel en goedkoop); weigert het model dat, dan met lage inspanning
-  let r = await call({ thinking: { type: 'disabled' } });
-  if (r.status === 400) r = await call({ output_config: { effort: 'low' } });
+  const r = await call({ output_config: { effort: 'low' } });
   if (!r.ok) { const t = await r.text().catch(() => ''); console.log('anthropic', r.status, t.slice(0, 200)); const e = new Error('ai'); e.status = r.status; e.body = t; throw e; }
   const raw = await r.text(); let d; try { d = JSON.parse(raw); } catch { const e = new Error('onvolledig antwoord (' + raw.length + ' tekens)'); throw e; }
   const text = (d.content || []).filter(c => c.type === 'text').map(c => c.text).join('');
   const m = text.match(/\{[\s\S]*\}/); if (!m) { const e = new Error('geen antwoord (' + d.stop_reason + ')'); throw e; }
   let o; try { o = JSON.parse(m[0]); } catch (e) { throw new Error('json: ' + d.stop_reason + ' ' + text.slice(0, 160)); }
   const out = {};
-  for (const s in cands) out[s] = [...new Set((Array.isArray(o[s]) ? o[s] : []).map(n => cands[s][(+n) - 1]).filter(Boolean).map(p => p.name))];
+  for (const s in cands) out[s] = [...new Set((Array.isArray(o[s]) ? o[s] : []).map(n => { const m = String(n).match(/(\d+)\s*$/); return m && (String(n).startsWith(s) || /^\d+$/.test(String(n))) ? cands[s][+m[1] - 1] : null; }).filter(Boolean).map(p => p.name))];
   return out;
 }
 
@@ -111,7 +111,7 @@ export async function matchLines(lines, { key, device = 'onbekend', budget = Inf
       if (err && [401, 403].includes(err.status)) break;
     }
   }
-  return { m: 6, results, pending: left, limited, error: err ? (err.status === 401 ? 'sleutel' : /credit/i.test(err.body || '') ? 'tegoed' : 'ai') : null,
+  return { m: 7, results, pending: left, limited, error: err ? (err.status === 401 ? 'sleutel' : /credit/i.test(err.body || '') ? 'tegoed' : 'ai') : null,
     detail: err ? String((err.status || '') + ' ' + (err.body || err.message || '')).replace(/sk-ant-[\w-]+/g, '…').slice(0, 160) : undefined };
 }
 
