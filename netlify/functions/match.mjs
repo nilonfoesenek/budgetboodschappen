@@ -72,7 +72,7 @@ async function ask1(key, label, cands, model) {
   const raw = await r.text(); let d; try { d = JSON.parse(raw); } catch { const e = new Error('onvolledig antwoord (' + raw.length + ' tekens)'); throw e; }
   const text = (d.content || []).filter(c => c.type === 'text').map(c => c.text).join('');
   const m = text.match(/\{[\s\S]*\}/); if (!m) { const e = new Error('geen antwoord (' + d.stop_reason + ')'); throw e; }
-  const o = JSON.parse(m[0]);
+  let o; try { o = JSON.parse(m[0]); } catch (e) { throw new Error('json: ' + d.stop_reason + ' ' + text.slice(0, 160)); }
   const out = {};
   for (const s in cands) out[s] = [...new Set((Array.isArray(o[s]) ? o[s] : []).map(n => cands[s][(+n) - 1]).filter(Boolean).map(p => p.name))];
   return out;
@@ -104,14 +104,14 @@ export async function matchLines(lines, { key, device = 'onbekend', budget = Inf
         const cands = {}; for (const st of STORES) if (IDX[st]) cands[st] = Match.recall(x.it, IDX[st], N);
         try {
           const stores = await ask(key, x.it.label, cands, model);
-          await s.setJSON(x.h, { v: V, key: x.k, at: new Date().toISOString(), stores });
+          try { await s.setJSON(x.h, { v: V, key: x.k, at: new Date().toISOString(), stores }); } catch (e) { console.log('blobs', e.message); }
           results[x.k] = stores; left--;
         } catch (e) { err = e; }
       }));
       if (err && [401, 403].includes(err.status)) break;
     }
   }
-  return { results, pending: left, limited, error: err ? (err.status === 401 ? 'sleutel' : /credit/i.test(err.body || '') ? 'tegoed' : 'ai') : null,
+  return { m: 6, results, pending: left, limited, error: err ? (err.status === 401 ? 'sleutel' : /credit/i.test(err.body || '') ? 'tegoed' : 'ai') : null,
     detail: err ? String((err.status || '') + ' ' + (err.body || err.message || '')).replace(/sk-ant-[\w-]+/g, '…').slice(0, 160) : undefined };
 }
 
