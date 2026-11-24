@@ -282,7 +282,7 @@ img.pi{animation:fadein .35s ease}
 .pdsub{color:var(--mute);font-size:14px;margin:2px 0 12px}
 .pdsec{margin-top:18px}.pdsec h3{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin:0 0 8px;font-weight:800}
 .pbar{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;align-items:center;padding:5px 0}.pbar .tr{height:10px;border-radius:5px;background:var(--field);overflow:hidden}.pbar .tr i{display:block;height:100%;border-radius:5px;background:var(--mute);opacity:.5;transform-origin:left;animation:grow .6s var(--ease)}
-.pbar.best .tr i{background:var(--ok);opacity:1}.pbar.deal .tr i{background:var(--deal);opacity:1}.pbar .r{font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}.pbar small{display:block;font-size:11.5px;color:var(--mute);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pbar.best .tr i{background:var(--ok);opacity:1}.pbar.deal .tr i{background:var(--deal);opacity:1}.pbar small.pu{margin-top:2px;font-weight:500}.pbar .r{font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}.pbar small{display:block;font-size:11.5px;color:var(--mute);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 .nut{width:100%;border-collapse:collapse;font-size:14.5px}.nut td{padding:7px 0;border-bottom:1px solid var(--line)}.nut td:last-child{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}.nut tr.sub td:first-child{padding-left:14px;color:var(--mute)}
 .ns{display:inline-flex;gap:2px;margin-bottom:10px}.ns span{width:26px;height:30px;display:grid;place-items:center;font:800 14px Figtree,sans-serif;color:#fff;opacity:.35;border-radius:5px}.ns span.on{opacity:1;transform:scale(1.15)}
@@ -885,8 +885,7 @@ function renderDetail(){const o=pdCur;if(!o)return;const line=o.line||o.name||''
   $('pdBox').innerHTML=`<div class="pdimg">${img||`<img class="mascot" src="${MASCOT}" alt="" style="opacity:.35">`}${s0?dot(s0):''}${deal?`<span class="pc" style="position:absolute;left:12px;top:12px;border-radius:8px;padding:4px 9px;font:800 13px Figtree,sans-serif">${esc(disc(deal)>=0.05?'−'+Math.round(disc(deal)*100)+'%':deal.d)}</span>`:''}</div>
     <div class="pdh"><h2>${esc(nm)}</h2>${folBtn(o.line||nm)}</div>
     <div class="pdsub">${s0?S[s0].full:''}${R&&s0&&R.per[s0]&&R.per[s0].pick.p.size?' · '+esc(R.per[s0].pick.p.size):''}${deal?` · <b style="color:var(--deal)">${esc(deal.d)}</b>`:''}</div>
-    ${rows.length?`<div class="pdsec"><h3>Prijs per winkel</h3>${rows.map((r,i)=>{const v=r.x.total,dl=!!r.x.deal;return `<div class="pbar${i===0?' best':''}${dl?' deal':''}">${dot(r.s)}<div><small>${esc(r.x.pick.p.name)}</small><div class="tr"><i style="width:${Math.max(6,v/max*100)}%"></i></div></div><span class="r" style="${dl?'color:var(--deal)':i===0?'color:var(--ok)':''}">${eur(v)}</span></div>`}).join('')}
-      ${rows.length>1&&rows[rows.length-1].x.total-rows[0].x.total>0.005?`<p class="muted" style="margin:6px 0 0;font-size:13px">Bij ${S[rows[0].s].label} ben je ${eur(rows[rows.length-1].x.total-rows[0].x.total)} goedkoper uit dan bij ${S[rows[rows.length-1].s].label}.</p>`:''}</div>`:''}
+    ${rows.length?priceSec(rows):''}
     ${hist&&hist.length>1?`<div class="pdsec"><h3>Actieprijs eerder</h3>${spark(hist)}</div>`:''}
     <div class="pdsec" id="pdNut"><h3>Voedingswaarden</h3><div class="skel" style="height:120px"></div></div>
     <div class="pdbtns"><button class="btn sec" data-pdclose>Sluiten</button><button class="btn" data-pdadd>${onList(line)?'✓ Op je lijst':'+ Op lijst'}</button></div>`;
@@ -897,6 +896,32 @@ const stem=w=>w.replace(/(jes|tjes|je|en|e|s)$/,'');
 function sigWords(t){return [...new Set(wnorm(t).split(/[^a-z0-9]+/).filter(w=>w.length>1&&!SIGSTOP.has(w)&&!/^\d/.test(w)))]}
 function covers(name,need){if(!need.length)return true;const ws=wnorm(name).split(/[^a-z0-9]+/).filter(Boolean);
   return need.every(n=>{const sn=stem(n);return ws.some(w=>{const sw=stem(w);if(w===n||sw===sn)return true;if(sn.length<4)return false;return sw.startsWith(sn)&&sw.length-sn.length<=3||sn.startsWith(sw)&&sw.length>=4})})}
+
+/* prijs per winkel: zelfde verpakking -> prijs per pak; verschillende verpakkingen -> per kilo, liter of stuk */
+const UN={kg:'kg',l:'liter',st:'stuk'};
+function priceSec(rows){
+  // per product de inhoud in kg, liter en stuks (stuks ook uit de naam: '6 stuks', '6 x 55 ml', 'los')
+  const sizeQty=t=>{const m=String(t||'').toLowerCase().replace(',','.').match(/(\d+(?:\.\d+)?)\s*(milliliter|liter|gram|kilogram|kilo)\b/);if(!m)return null;const v=+m[1],u=m[2];return u==='milliliter'?{q:v/1000,d:'l'}:u==='liter'?{q:v,d:'l'}:u==='gram'?{q:v/1000,d:'kg'}:{q:v,d:'kg'}};
+  const pcs=p=>{const t=(p.name+' '+(p.size||'')).toLowerCase();let m=t.match(/(\d+)\s*(stuks|stuk|st)\b/)||t.match(/\b(\d+)\s*x\s*\d/);if(m)return +m[1];if(/\b(los|per stuk)\b/.test(t))return 1;return p.qty&&p.qty.d==='st'?p.qty.q:null};
+  const R2=rows.map(r=>{const p=r.x.pick.p,pk=r.x.total/(r.x.packs||1),q=(p.qty&&p.qty.d!=='st'?p.qty:null)||sizeQty(p.size)||sizeQty(p.name)||p.qty,am={};if(q&&q.q>0&&q.d!=='st')am[q.d]=q.q;const n=pcs(p);if(n)am.st=n;return {...r,pk,am}});
+  const cnt={kg:0,l:0,st:0};for(const r of R2)for(const d in r.am)cnt[d]++;
+  // de eenheid die bij de meeste winkels bekend is; bij gelijkspel: stuks voor dingen die je per stuk koopt, anders kilo, dan liter
+  const PIECE=/(ijs|ei|eieren|broodje|bol|croissant|reep|repen|blik|fles|pak|zak|tablet|capsule|rol|stuk)/i;
+  const dim=Object.keys(cnt).filter(d=>cnt[d]).sort((a,b)=>cnt[b]-cnt[a]||(PIECE.test(rows[0].x.pick.p.name)?(a==='st'?-1:b==='st'?1:0):0)||['kg','l','st'].indexOf(a)-['kg','l','st'].indexOf(b))[0];
+  const sizes=R2.map(r=>dim&&r.am[dim]).filter(Boolean),same=!dim||sizes.length===R2.length&&Math.max(...sizes)<=Math.min(...sizes)*1.05;
+  const perUnit=!same&&dim&&cnt[dim]>=2;
+  for(const r of R2)r.u=dim&&r.am[dim]?r.pk/r.am[dim]:null;
+  const val=r=>perUnit?r.u:r.pk;
+  const L=R2.filter(r=>val(r)!=null).sort((a,b)=>val(a)-val(b)).concat(R2.filter(r=>val(r)==null));
+  const max=Math.max(...L.map(val).filter(v=>v!=null),0.01),best=L[0];
+  const fmtU=v=>eur(v)+' / '+UN[dim];
+  const rowsH=L.map((r,i)=>{const v=val(r),dl=!!r.x.deal,sz=r.x.pick.p.size||'';
+    const main=v==null?`<span style="color:var(--mute);font-weight:600">${eur(r.pk)}</span>`:perUnit?fmtU(v):eur(v);
+    const sub=perUnit?(v==null?`${sz?esc(sz)+' · ':''}per ${UN[dim]} onbekend`:`${eur(r.pk)}${sz?' · '+esc(sz):''}`):(r.u!=null&&dim?fmtU(r.u):esc(sz));
+    return `<div class="pbar${i===0&&v!=null?' best':''}${dl?' deal':''}">${dot(r.s)}<div><small>${esc(r.x.pick.p.name)}</small><div class="tr"><i style="width:${v==null?0:Math.max(6,v/max*100)}%"></i></div><small class="pu">${sub}</small></div><span class="r" style="${dl?'color:var(--deal)':i===0&&v!=null?'color:var(--ok)':''}">${main}</span></div>`}).join('');
+  const last=L.filter(r=>val(r)!=null).slice(-1)[0];
+  const note=best&&last&&best!==last&&val(last)-val(best)>0.005?(perUnit?`Per ${UN[dim]} is ${S[best.s].label} het goedkoopst: ${fmtU(val(best))}, tegenover ${fmtU(val(last))} bij ${S[last.s].label}.`:`Bij ${S[best.s].label} ben je ${eur(val(last)-val(best))} goedkoper uit dan bij ${S[last.s].label}.`):'';
+  return `<div class="pdsec"><h3>Prijs per winkel${perUnit?` · per ${UN[dim]}`:''}</h3>${perUnit?'<p class="muted" style="margin:-4px 0 8px;font-size:12.5px">De verpakkingen verschillen, daarom vergelijken we per '+UN[dim]+'.</p>':''}${rowsH}${note?`<p class="muted" style="margin:6px 0 0;font-size:13px">${note}</p>`:''}</div>`}
 function spark(rows){const pts=rows.filter(r=>r[1]!=null).slice(-12);if(pts.length<2)return '';const v=pts.map(r=>r[1]),mn=Math.min(...v),mx=Math.max(...v),W=300,Hh=70;
   const xy=pts.map((r,i)=>[i/(pts.length-1)*W,Hh-6-(mx>mn?(r[1]-mn)/(mx-mn):.5)*(Hh-16)]);
   return `<svg viewBox="0 0 ${W} ${Hh}" width="100%" height="${Hh}" style="overflow:visible"><polyline points="${xy.map(p=>p.join(',')).join(' ')}" fill="none" stroke="var(--deal)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>${xy.map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="3.5" fill="var(--deal)"/>`).join('')}</svg><div style="display:flex;justify-content:space-between;font-size:12px;color:var(--mute)"><span>${dnl(pts[0][0])}</span><span>laagste ${eur(mn)}</span><span>${dnl(pts[pts.length-1][0])}</span></div>`}
