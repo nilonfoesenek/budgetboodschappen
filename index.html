@@ -872,7 +872,11 @@ const NSC={a:'#038141',b:'#85BB2F',c:'#FECB02',d:'#EE8100',e:'#E63E11'};
 function openDetail(o){pdCur=o;pdPer='100';$('pd').hidden=false;renderDetail();loadNutrition(o)}
 function renderDetail(){const o=pdCur;if(!o)return;const line=o.line||o.name||'';const R=P?computeLines([line])[0]:null;
   const stores=Object.keys(S).filter(s=>IDX[s]&&(state.stores.includes(s)||s===state.home||s===o.s));
-  const rows=R?stores.map(s=>({s,x:R.per[s]})).filter(y=>y.x).sort((a,b)=>a.x.total-b.x.total):[];
+  // alleen echt hetzelfde soort product: elk woord uit de regel moet in de productnaam staan (geen 'IJsbergsla' bij 'Magnum ijs')
+  const need=sigWords(line);
+  const it=R&&Match.parseLine(line);
+  const alt=s=>{if(!it||!IDX[s])return null;const c=Match.candidates(it,IDX[s],40).find(c=>covers(c.p.name,need));if(!c)return null;const cost=Match.costOf(it,c.p,(it.req&&it.req.d)||(c.p.qty&&c.p.qty.d));return{pick:{p:c.p},total:cost.total,packs:cost.packs}};
+  const rows=R?stores.map(s=>{const x=R.per[s];return {s,x:x&&!x.sub&&covers(x.pick.p.name,need)?x:alt(s)}}).filter(y=>y.x).sort((a,b)=>a.x.total-b.x.total):[];
   const max=Math.max(...rows.map(r=>r.x.regular||r.x.total),0.01),s0=o.s||(rows[0]&&rows[0].s),nm=o.name||(R&&s0&&R.per[s0]?R.per[s0].pick.p.name:line);
   const img=o.img?`<img class="pi" src="${esc(o.img)}" alt="" referrerpolicy="no-referrer" onerror="this.remove()">`:thumb(s0,nm)||(o.offImg?`<img class="pi" src="${esc(o.offImg)}" alt="">`:'');
   const deal=o.offer||(R&&s0&&R.per[s0]&&R.per[s0].deal);
@@ -886,6 +890,12 @@ function renderDetail(){const o=pdCur;if(!o)return;const line=o.line||o.name||''
     <div class="pdsec" id="pdNut"><h3>Voedingswaarden</h3><div class="skel" style="height:120px"></div></div>
     <div class="pdbtns"><button class="btn sec" data-pdclose>Sluiten</button><button class="btn" data-pdadd>${onList(line)?'✓ Op je lijst':'+ Op lijst'}</button></div>`;
   if(pdNut)showNut()}
+const SIGSTOP=new Set('de het een en of met van voor in op naar per x g kg gr gram ml cl l liter st stuk stuks pak zak doos fles blik pot ca los ah jumbo aldi lidl dirk plus spar vomar poiesz hoogvliet deka dekamarkt beste'.split(' '));
+const wnorm=t=>(t||'').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').replace(/['’`]/g,'');
+const stem=w=>w.replace(/(jes|tjes|je|en|e|s)$/,'');
+function sigWords(t){return [...new Set(wnorm(t).split(/[^a-z0-9]+/).filter(w=>w.length>1&&!SIGSTOP.has(w)&&!/^\d/.test(w)))]}
+function covers(name,need){if(!need.length)return true;const ws=wnorm(name).split(/[^a-z0-9]+/).filter(Boolean);
+  return need.every(n=>{const sn=stem(n);return ws.some(w=>{const sw=stem(w);if(w===n||sw===sn)return true;if(sn.length<4)return false;return sw.startsWith(sn)&&sw.length-sn.length<=3||sn.startsWith(sw)&&sw.length>=4})})}
 function spark(rows){const pts=rows.filter(r=>r[1]!=null).slice(-12);if(pts.length<2)return '';const v=pts.map(r=>r[1]),mn=Math.min(...v),mx=Math.max(...v),W=300,Hh=70;
   const xy=pts.map((r,i)=>[i/(pts.length-1)*W,Hh-6-(mx>mn?(r[1]-mn)/(mx-mn):.5)*(Hh-16)]);
   return `<svg viewBox="0 0 ${W} ${Hh}" width="100%" height="${Hh}" style="overflow:visible"><polyline points="${xy.map(p=>p.join(',')).join(' ')}" fill="none" stroke="var(--deal)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>${xy.map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="3.5" fill="var(--deal)"/>`).join('')}</svg><div style="display:flex;justify-content:space-between;font-size:12px;color:var(--mute)"><span>${dnl(pts[0][0])}</span><span>laagste ${eur(mn)}</span><span>${dnl(pts[pts.length-1][0])}</span></div>`}
