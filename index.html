@@ -370,10 +370,10 @@ const fmtQ=(q,d)=>d==='kg'?(q<1?Math.round(q*1000)+' g':String(+q.toFixed(2)).re
 // zelfde product twee keer? Dan optellen: 300 g + 500 g kipfilet = 800 g kipfilet
 function mergeLines(base,add){const out=[...base];
   for(const l of add){const it=Match.parseLine(l);if(!it){if(!out.some(x=>Match.norm(x)===Match.norm(l)))out.push(l);continue}
-    const k=it.t.join(' '),i=out.findIndex(x=>{const e=Match.parseLine(x);return e&&e.t.join(' ')===k});
+    const k=it.t.join(' '),sub=(a,b)=>a.every(t=>b.includes(t)),i=out.findIndex(x=>{const e=Match.parseLine(x);return e&&(e.t.join(' ')===k||(it.req&&e.req&&it.req.d===e.req.d&&(sub(it.t,e.t)||sub(e.t,it.t))))});
     if(i<0){out.push(l);continue}
     const e=Match.parseLine(out[i]);
-    if(it.req&&e.req&&it.req.d===e.req.d)out[i]=fmtQ(it.req.q+e.req.q,it.req.d)+' '+e.label;
+    if(it.req&&e.req&&it.req.d===e.req.d)out[i]=fmtQ(it.req.q+e.req.q,it.req.d)+' '+(it.t.length>e.t.length?it.label:e.label);
     else if(!it.req&&!e.req)out[i]=(e.n+it.n)+' '+e.label;
     else if(it.req&&!e.req&&e.n===1)out[i]=l;
     else if(!it.req&&e.req&&it.n===1){}
