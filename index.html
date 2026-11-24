@@ -185,6 +185,17 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .dc .bot{display:flex;align-items:center;justify-content:space-between;margin-top:auto}.dc .pr s{display:block;font-size:12px;color:var(--mute)}.dc .now{font-weight:800;font-size:16px}
 .empty{text-align:center;padding:28px 10px;color:var(--mute)}
 /* ================= Boodje design v2 ================= */
+.spin{display:flex;flex-direction:column;align-items:center;gap:6px}
+#splash{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;transition:opacity .35s ease,visibility .35s}
+#splash.out{opacity:0;visibility:hidden}
+#splash img{width:96px;height:96px;border-radius:24px;box-shadow:0 12px 30px rgba(30,122,76,.3);animation:splashpop .6s var(--ease)}
+#splash b{font-size:38px;font-weight:800;letter-spacing:-1px;margin-top:12px;animation:fadein .5s ease .1s both}
+#splash span{color:var(--mute);font-size:16px;font-weight:600;animation:fadein .5s ease .25s both}
+#splash .sbar{position:absolute;bottom:calc(64px + env(safe-area-inset-bottom));left:50%;width:120px;margin-left:-60px;height:4px;border-radius:2px;background:var(--line);overflow:hidden}
+#splash .sbar i{display:block;height:100%;width:40%;border-radius:2px;background:var(--ok);animation:sload 1s ease-in-out infinite}
+@keyframes sload{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
+@keyframes splashpop{0%{transform:scale(.7);opacity:0}70%{transform:scale(1.06)}100%{transform:none;opacity:1}}
+
 :root{color-scheme:light dark;--bg:#FAF8F4;--card:#fff;--ink:#17181A;--mute:#6B6E73;--line:#ECE9E3;--field:#F2EFE9;--ok:#1E7A4C;--okbg:#E3F1E8;--deal:#F2542D;--dealbg:#FFE8E1;--warnbg:#FFF2D6;--warnink:#8A5A00;--danger:#C0352B;
   --navbg:rgba(255,255,255,.88);--sh1:0 1px 2px rgba(23,24,26,.04),0 6px 20px rgba(23,24,26,.06);--sh2:0 10px 40px rgba(23,24,26,.16);--r:20px;--ease:cubic-bezier(.2,.8,.2,1)}
 @media (prefers-color-scheme:dark){:root{--bg:#111312;--card:#1B1E1C;--ink:#F1F0EC;--mute:#9DA19C;--line:#2A2E2B;--field:#242826;--ok:#4FC38B;--okbg:#17342A;--deal:#FF7A59;--dealbg:#3B2018;--warnbg:#3A2F12;--warnink:#F2C66B;--danger:#FF7B70;
@@ -308,6 +319,7 @@ img.pi{animation:fadein .35s ease}
 </style>
 </head>
 <body>
+<div id="splash" aria-hidden="true"><div class="spin"><img src="icons/logo.svg" alt="" width="96" height="96"><b>Boodje</b><span>Je slimme boodschappenmaatje</span></div><i class="sbar"><i></i></i></div>
 <header class="wrap">
   <div class="brand"><a class="logo" href="./" aria-label="Boodje"><img src="icons/logo.svg" alt="" width="32" height="32"><h1>Boodje</h1></a><span class="hbtns"><button class="hb" data-stores aria-label="Supermarkten wijzigen" title="Supermarkten wijzigen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5 5.6 4.8A1.2 1.2 0 0 1 6.7 4h10.6a1.2 1.2 0 0 1 1.1.8L20 9.5"/><path d="M4 9.5h16v.6a2.65 2.65 0 0 1-5.3 0 2.65 2.65 0 0 1-5.4 0 2.65 2.65 0 0 1-5.3 0z"/><path d="M5.5 12.6V19a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-6.4"/><path d="M10 20v-4.2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1V20"/></svg></button><button class="hb bell" id="pushBtn" aria-pressed="false" aria-label="Meldingen" hidden></button></span></div>
 </header>
@@ -1205,9 +1217,11 @@ document.querySelector('nav').addEventListener('click',e=>{const t=e.target.clos
 /* ---------- data laden ---------- */
 const GH='https://raw.githubusercontent.com/nilonfoesenek/budgetboodschappen/main/data/';
 const getJ=f=>fetch(GH+f,{cache:'no-cache'}).then(r=>{if(!r.ok)throw 0;return r.json()}).catch(()=>fetch('data/'+f).then(r=>r.json()));
+const splashT0=performance.now();function hideSplash(){const el=$('splash');if(!el||el.classList.contains('out'))return;setTimeout(()=>{el.classList.add('out');setTimeout(()=>el.remove(),400)},Math.max(0,900-(performance.now()-splashT0)))}
+setTimeout(hideSplash,5000);
 Promise.all([getJ('prices.json'),getJ('offers.json')]).then(([p,o])=>{
   P=p;O=o;for(const x of O.offers)if(x.img&&x.img.startsWith('fz:'))x.img='https://img.offers-cdn.net/assets/uploads/offers/nl/'+x.img.slice(3);for(const s in P.stores)IDX[s]=Match.indexStore(P.stores[s]);
-  autoWeekly();render();if(!$('t-recipes').hidden)renderRecipes();if(!$('t-list').hidden)renderWeekly();if(!$('t-offers').hidden)renderOffers()}).catch(()=>{$('sum').innerHTML='<p class="muted">Prijzen konden niet geladen worden. Probeer het later opnieuw.</p>'});
+  autoWeekly();render();if(!$('t-recipes').hidden)renderRecipes();if(!$('t-list').hidden)renderWeekly();if(!$('t-offers').hidden)renderOffers();hideSplash()}).catch(()=>{hideSplash();$('sum').innerHTML='<p class="muted">Prijzen konden niet geladen worden. Probeer het later opnieuw.</p>'});
 getJ('config.json').then(c=>{CFG=Object.assign({ai:false},c);render()}).catch(()=>{});
 getJ('history.json').then(h=>{H=h.items||{};if(!$('t-offers').hidden)renderOffers()}).catch(()=>{});
 try{const qt=new URLSearchParams(location.search).get('tab');if(qt&&$('t-'+qt))tab(qt)}catch(e){}

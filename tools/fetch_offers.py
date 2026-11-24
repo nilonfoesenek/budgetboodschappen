@@ -3,7 +3,7 @@ en schrijft data/offers.json in het formaat van de app.
 
 Gebruik: python3 -I tools/fetch_offers.py <data/prices.json> <oude data/offers.json> <uit offers.json> [JJJJ-MM-DD]
 
-- Alleen eten, drinken (geen wijn of sterke drank), drogisterij en huishouden; geen bloemen, dierenvoer of overige non-food.
+- Eten, drinken (ook wijn en sterke drank), drogisterij, huishouden en dierenvoer; geen bloemen of overige non-food.
 - Geldigheid komt uit de labels van Folderz: "5 dagen", "23 uur", "Vanaf morgen geldig", "Over 2 dagen geldig".
 - Lukt een winkel niet (te weinig aanbiedingen gevonden), dan blijven de nog geldige aanbiedingen van die winkel uit het oude bestand staan.
 """
@@ -106,7 +106,7 @@ def deal(o):
         r['p'] = round(pr, 2)
     return r
 
-BAD = re.compile(r'\b(wijn|wijnen|rosé|rose|chardonnay|sauvignon|merlot|pinot|riesling|rioja|primitivo|malbec|verdejo|prosecco|cava|champagne|crémant|cremant|port|sherry|whisky|whiskey|wodka|vodka|gin|rum|likeur|jenever|cognac|brandy|bloem|bloemen|boeket|tulp|tulpen|roos|rozen|hyacint|amaryllis|chrysant|bolchrysant|orchidee|plant|planten|kerstboom|kunstkerstboom|kerststuk|kaars|kaarsen|tafellaken|servet|servetten|servetring|puzzel|speelgoed|lego|knuffel|pyjama|sokken|kleding|schoen|schoenen|pantoffels|deken|plaid|kussen|handdoek|dekbed|bbq|grill|koekenpan|pan|pannenset|messenset|mes|bord|borden|beker|mok|glazen|vaas|lamp|lampjes|verlichting|led|batterij|batterijen|kattenvoer|hondenvoer|kattenbak|kattensnack|kattensnacks|hondensnacks|vogelvoer|dierenvoer|gereedschap|boormachine|schroevendraaier|accu|fiets|tent|stoel|tafel|kast|rek|opberg|schort|mand|mandje|winkelmandje|slushy|maker|airfryer|blender|mixer|stofzuiger|strijkijzer|föhn|krultang|tandenborstel elektrische)\b', re.I)
+BAD = re.compile(r'\b(bloem|bloemen|boeket|tulp|tulpen|roos|rozen|hyacint|amaryllis|chrysant|bolchrysant|orchidee|plant|planten|kerstboom|kunstkerstboom|kerststuk|kaars|kaarsen|tafellaken|servet|servetten|servetring|puzzel|speelgoed|lego|knuffel|pyjama|sokken|kleding|schoen|schoenen|pantoffels|deken|plaid|kussen|handdoek|dekbed|bbq|grill|koekenpan|pan|pannenset|messenset|mes|bord|borden|beker|mok|glazen|vaas|lamp|lampjes|verlichting|led|batterij|batterijen|kattenbak|gereedschap|boormachine|schroevendraaier|accu|fiets|tent|stoel|tafel|kast|rek|opberg|schort|mand|mandje|winkelmandje|slushy|maker|airfryer|blender|mixer|stofzuiger|strijkijzer|föhn|krultang|tandenborstel elektrische)\b', re.I)
 
 def vocab(rows):
     v = set()
@@ -115,7 +115,7 @@ def vocab(rows):
             v.add(w)
     return v
 NONFOOD_BRAND = re.compile(r'\b(parkside|silvercrest|esmara|livergy|lupilu|crivit|melinera|livarno|ernesto|crofton|workzone|easy home|ambiano|mistral|quigg|top craft|scarlett|switch on|medion|tronic|ferrex|lightzone|gardenline|belavi|serra|walkx|actuel|cucina|home creation|tcm|tchibo)\b', re.I)
-NONFOOD_WORD = re.compile(r'(likeur|funko|zandbak|prentenboek|boek\b|zitverhoger|topper|tape\b|pietenpak|lenzen|leesbril|kostuum|verkleed|dekbed|overtrek|hoeslaken|jas\b|jack\b|sweater|trui|broek|legging|shirt|beha|slip|boxer|ondergoed|bestek|slijpmachine|zaag|schaar|cactus|vetplant|spel\b|houten|gieter|bloempot|kussensloop|matras|lade|organizer|opbergbox|emmer|bezem|dweil|stofdoek|droogrek|wasmand|strijk|thermo|vacuüm|weegschaal|klok|wekker|kabel|oplader|speaker|koptelefoon|camera|horloge|sieraad|ketting|oorbel|sjaal|muts|handschoen|paraplu|tas\b|rugzak|koffer|kerstbal|slinger|piek\b|decoratie|figuur|beeld\b|fotolijst|canvas|schilderij)', re.I)
+NONFOOD_WORD = re.compile(r'(funko|zandbak|prentenboek|boek\b|zitverhoger|topper|tape\b|pietenpak|lenzen|leesbril|kostuum|verkleed|dekbed|overtrek|hoeslaken|jas\b|jack\b|sweater|trui|broek|legging|shirt|beha|slip|boxer|ondergoed|bestek|slijpmachine|zaag|schaar|cactus|vetplant|spel\b|houten|gieter|bloempot|kussensloop|matras|lade|organizer|opbergbox|emmer|bezem|dweil|stofdoek|droogrek|wasmand|strijk|thermo|vacuüm|weegschaal|klok|wekker|kabel|oplader|speaker|koptelefoon|camera|horloge|sieraad|ketting|oorbel|sjaal|muts|handschoen|paraplu|tas\b|rugzak|koffer|kerstbal|slinger|piek\b|decoratie|figuur|beeld\b|fotolijst|canvas|schilderij)', re.I)
 GENERIC = set('zwart zwarte witte groot grote klein kleine mini maxi extra pack pakket stuks set voor alle diverse soorten bijv naturel original classic premium luxe'.split())
 
 P = json.load(open(prices_path, encoding='utf-8'))
