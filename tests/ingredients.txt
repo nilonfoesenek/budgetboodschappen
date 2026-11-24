@@ -1,0 +1,259 @@
+# Toets voor de productkeuze. Per regel: boodschappenregel | moet passen (regex) | mag niet passen (regex, optioneel)
+# Regex wordt getest op de productnaam in kleine letters zonder accenten.
+# --- groente
+600 g kruimige aardappelen | aardappel | kroket|puree|friet|partjes|rosti|schijfjes|chips|salade
+1 kg vastkokende aardappelen | aardappel | kroket|puree|friet|partjes|rosti|chips|salade
+750 g krieltjes | kriel | 
+1 kg zoete aardappel | zoete aardappel | friet|chips|partjes
+1 ui | \bui\b|uien | ring|soep|chips|gebakken|saus|jus|poeder|cracker
+2 uien | \bui(en)?\b|uien | ring|soep|chips|gebakken|saus
+1 rode ui | rode ui | ring|chips|gebakken|saus
+3 teentjes knoflook | knoflook | saus|olie|poeder|boter|brood|kruiden|pasta|dip|gerookt
+1 winterpeen | winterpeen|wortel | sap|salade|soep|cake
+500 g wortels | wortel|peen | sap|salade|soep|cake|doperwt
+1 bos wortelen | wortel|peen | sap|salade|soep|cake|doperwt
+1 broccoli | broccoli | soep|salade|roomsaus|ovenschotel
+1 bloemkool | bloemkool | rijst|soep|salade|puree|ovenschotel|kaas
+450 g boerenkool | boerenkool | stamppot|soep|maaltijd
+400 g spinazie | spinazie | soep|lasagne|ovenschotel|pizza|quiche
+1 courgette | courgette | soep|pasta|spaghetti|noedel|lint
+1 aubergine | aubergine | 
+2 rode paprika | paprika | chips|poeder|saus|spread|gegrild|geroosterd|kruiden
+1 groene paprika | groene paprika|paprika | chips|poeder|saus|spread|gegrild|geroosterd
+1 komkommer | komkommer | salade|zuur|augurk
+4 tomaten | tomaat|tomaten | soep|saus|ketchup|puree|blokjes|passata|gedroogd|chips|sap|frito
+250 g cherrytomaten | cherry|snoep|tomaat|tomaten | soep|saus|ketchup|gedroogd|sap
+1 krop ijsbergsla | ijsberg | 
+1 zak rucola | rucola | 
+2 prei | prei | soep|stamppot
+1 venkel | venkel | thee|zaad
+250 g champignons | champignon | soep|saus|roomsaus|pizza|gemarineerd
+250 g kastanjechampignons | kastanje ?champignon | soep|saus
+1 bosje lente-uitjes | lente|bosui | 
+1 knolselderij | knolselderij|selderij | soep|zout
+2 stengels bleekselderij | bleekselderij|selderij | soep|zout
+1 pompoen | pompoen | soep|pitten|zaden
+200 g sperziebonen | sperzie | 
+300 g sugarsnaps | sugar ?snap | 
+150 g peultjes | peul | 
+1 rode peper | rode peper|chilipeper|peper rood|spaanse peper | saus|chips|vlokken|poeder|gemalen|zout
+1 stukje gember | gember | thee|shot|bier|ale|koek|siroop|gemberbolletje|poeder|gemalen|drank
+1 bosje peterselie | peterselie | gedroogd|boter
+1 bosje koriander | koriander | gedroogd|gemalen|zaad
+1 avocado | avocado | dip|guacamole|olie|spread
+200 g witlof | witlof | 
+1 zak spitskool | spitskool | 
+1 rodekool | rode ?kool | appeltjes|potje|zuur
+1 zuurkool | zuurkool | stamppot|maaltijd
+150 g taugé | tauge | 
+2 bieten | biet | sap|salade|chips
+# --- fruit
+1 kg appels | appel | sap|moes|compote|taart|flap|chips|stroop|azijn|repen|biscuit|koek|drink|thee|kaneel|smaak|knijp
+6 bananen | banaan|bananen | chips|brood|smoothie|drink|yoghurt|choco|ijs|cake|snoep
+1 kg sinaasappels | sinaasappel | sap|marmelade|drink|limonade|chocolade|smaak
+2 citroenen | citroen | sap|thee|limonade|afwas|reinig|taart|cake|ijs|siroop|smaak|zeep|kip|peper|drink
+1 limoen | limoen | sap|limonade|cranberry|smaak|drink|siroop
+500 g aardbeien | aardbei | jam|yoghurt|drink|smaak|ijs|taart|limonade|siroop|snoep|vla|kwark
+125 g blauwe bessen | blauwe bes|blauwebes | jam|yoghurt|muffin|smaak|drink|sap|ijs
+500 g druiven | druif|druiven | sap|jam|confituur|rozijn|smaak
+1 mango | mango | sap|chutney|drink|smaak|ijs|lassi|gedroogd
+1 ananas | ananas | sap|blik|stukjes op sap|smaak|drink
+1 kiwi | kiwi | smaak|drink
+2 peren | peer|peren | sap|moes|stroop|drank|cake|taart|ijs
+1 granaatappel | granaatappel | sap|siroop
+1 meloen | meloen | 
+# --- vlees en vis
+500 g kipfilet | kipfilet | salade|beleg|smaak|soep|gesneden gerookt|gerookt|chips|gegrild|vleeswaren|spread|knak
+400 g kipdijfilet | kipdij | salade|soep
+4 kippendijen | kipdij|kippendij|kippenbout|dijen | soep|salade
+300 g kipreepjes | kip ?reepjes|kipfilet ?reepjes|kipshoarma|kipgyros|kip | salade|soep|vega|plantaardig
+1 hele kip | kip | filet|soep|salade|bouillon|reepjes|dij|vleugel|vega|plantaardig
+500 g rundergehakt | rundergehakt | vega|plantaardig|bal
+500 g half-om-half gehakt | half|gehakt | vega|plantaardig|bal
+500 g gehakt | gehakt | vega|plantaardig|bal|kip
+4 hamburgers | hamburger | broodje|vega|plantaardig|saus|kaas
+2 biefstukken | biefstuk | ossenworst|vega|plantaardig|chips
+500 g runderlappen | runder ?lap|runder ?braadlap|sukade|riblap|stoof | 
+500 g varkenshaas | varkenshaas | 
+4 speklappen | speklap | 
+200 g spekjes | spek | vega|plantaardig|chips|pannenkoek
+150 g ontbijtspek | ontbijtspek|bacon | vega|plantaardig|chips
+1 rookworst | rookworst | vega|plantaardig|soep|stamppot
+2 braadworsten | braadworst|worst | vega|plantaardig|rook|droge|knak|boterham|lever
+8 knakworsten | knakworst|knak | vega|plantaardig
+200 g gerookte zalm | gerookte.*zalm|zalm.*gerookt | kauw|kat|hond|pate|salade|spread|smeer
+2 zalmfilets | zalm | gerookt|pate|salade|spread|kauw|kat|hond|smeer
+400 g kabeljauw | kabeljauw | kat|hond|kibbeling|lekkerbek|soep
+300 g garnalen | garnaal|garnalen | chips|kroepoek|salade|soep|cocktail|saus|kroket
+2 blikjes tonijn | tonijn | salade|spread|pate|kat|hond|pizza|olijf|kroket
+200 g kibbeling | kibbeling | saus
+4 visstick | vissticks?|fish ?stick | 
+200 g gerookte makreel | makreel | salade|spread|pate|kat|hond
+200 g kipshoarma | shoarma|shawarma | saus|kruiden|vega|plantaardig
+300 g shoarmavlees | shoarma|shawarma | saus|kruiden|vega|plantaardig
+200 g gyros | gyros | saus|kruiden|vega|plantaardig
+150 g plakjes ham | ham | kaas|smeerkaas|chips|croissant|pizza|tosti|salade|hamburger|champignon
+100 g salami | salami | pizza|kaas|chips|truffel
+100 g filet americain | americain | 
+2 slavinken | slavink | 
+4 kippenpoten | kippenpo|drumstick|kippenbout|bout | 
+# --- vega
+200 g tofu | tofu | 
+2 vegaburgers | burger | broodje|saus|kip|rund|hamburger$
+200 g vegetarische kipstukjes | vega|plantaardig|vegetarisch | 
+1 blik kikkererwten | kikkererwt | hummus|chips|meel
+1 blik kidneybonen | kidney | chili|soep|mix
+1 blik zwarte bonen | zwarte bonen | teriyaki|soep|saus|mix
+1 blik bruine bonen | bruine bonen | soep|mix
+1 blik witte bonen | witte bonen | tomatensaus|soep|mix
+200 g linzen | linzen | soep|chips|snack
+150 g edamame | edamame | 
+# --- zuivel en eieren
+1 l halfvolle melk | halfvolle melk|melk halfvol | koffie|chocolade|drink|choco|hagel|poeder|houdbaar.*koffie|lactosevrij
+1 l volle melk | volle melk|melk vol | koffie|chocolade|choco|hagel|poeder
+1 l karnemelk | karnemelk | 
+250 ml kookroom | kookroom|room | ijs|slagroom|creme|soep|saus|truffel
+250 ml slagroom | slagroom | ijs|spuitbus|taart|vla|soes|wafel|kaas|cake
+125 g creme fraiche | creme fraiche | dip|saus|soep
+200 g zure room | zure room | dip|chips
+500 g magere kwark | kwark | toetje|drink|vruchten|aardbei|smaak|chocolade|proteine pudding
+500 g Griekse yoghurt | griekse yoghurt|griekse stijl|yoghurt griekse | drink|toetje|aardbei|smaak|chips|honing|dressing
+1 l magere yoghurt | yoghurt | drink|toetje|aardbei|smaak|dressing|saus|chips|perzik|framboos|vanille|ijs
+1 l vla | vla | vlaflip|toetje|vlaai
+250 g roomboter | roomboter|boter | koek|cake|bladerdeeg|croissant|spritsen|sprits|stroopwafel|kruiden|boterham|knoflook|ham
+250 g margarine | margarine|halvarine|bak en braad|blue band|becel | 
+6 eieren | eieren|ei\b | paas|choco|kinder|noedel|salade|chocolade|spread|koek|pasta|biscuit
+10 eieren | eieren|ei\b | paas|choco|kinder|noedel|salade|chocolade|spread|koek|pasta|biscuit
+400 g jong belegen kaas | jong ?beleg | blokjes|snack|smeer|crackers|chips|tosti|croissant|salami|worst
+150 g geraspte kaas | geraspt|raspkaas|gratin|pizza ?kaas|pasta ?kaas|strooikaas | salami|worst|chips|pizza (salami|tonijn|margh)|ovenschotel
+100 g Parmezaanse kaas | parmezaan|parmigiano|grana padano|parmesan | salami|worst|chips|crackers|kruiden|truffel|pasta|saus|pesto|dressing
+200 g feta | feta | dip|olijf|salade|spinazie|pasta|kip|wrap|pizza|smeer
+125 g mozzarella | mozzarella | pizza|sticks|tomaat|salade|stick
+200 g geitenkaas | geit | koek|crackers|salade|pizza|quiche
+100 g blauwe kaas | blauwe|blauwschimmel|cambozola|gorgonzola|roquefort|danablu|bleu|blue | 
+150 g roomkaas | roomkaas|philadelphia|cream cheese|zuivelspread|naturel | kruiden.*knoflook
+1 pakje plakken kaas | kaas|belegen|goudse|gouda|cheddar|leerdammer|maasdammer|edammer | salami|worst|chips|crackers|croissant|tosti|bapao|soep|saus|biscuit|tortellini|ravioli|camembert
+# --- brood en ontbijt
+1 volkorenbrood | volkoren|brood|tijger|bus | beschuit|cracker|koek|ontbijtkoek|krenten|rozijn|suiker|kruiden|mais|pita|naan|wrap|tosti|knakworst|worst|bapao|knoflook
+1 wit brood | wit|brood | beschuit|cracker|koek|krenten|rozijn|suiker|kruiden|pita|naan|knoflook
+6 krentenbollen | krenten ?bol | 
+1 pak beschuit | beschuit | 
+8 wraps | wrap|tortilla | chips|kaas|kip|salade|kruiden(?!.*wrap)
+4 pitabroodjes | pita | chips|kruiden|saus
+2 stokbroden | stokbro|baguette | kruiden|knoflook|kaas|pizza|tonijn
+4 croissants | croissant | kaas|ham|choco
+1 pot pindakaas | pindakaas | koek|reep|chocolade|saus|kruidnoot|ijs|snack|cracker|wafel
+1 pot hagelslag | hagelslag | 
+1 pot jam | jam\b|confituur|fruitspread | 
+1 pot honing | honing | thee|rooibos|mosterd|ham|koek|cruesli|muesli|granola|rings|loops|ontbijtkoek|dressing|saus|kip|crackers|drop|yoghurt|pomelo|citroen|gember|sweet|smaak
+500 g havermout | havermout|haver ?vlokken|oats | koek|reep|drink|melk|cookie|biscuit
+1 pak cruesli | cruesli | 
+1 pak muesli | muesli | reep|koek|yoghurt|koffie
+1 pak cornflakes | cornflakes | broodje|koek|reep
+1 ontbijtkoek | ontbijtkoek | 
+1 pak crackers | cracker | 
+# --- pasta, rijst, wereld
+500 g spaghetti | spaghetti | saus|bolognese|maaltijd|pompoen|courgette|groente
+400 g penne | penne | saus|maaltijd|salade
+500 g macaroni | macaroni | saus|maaltijd|salade|kaas
+500 g fusilli | fusilli | saus|maaltijd|salade
+250 g tagliatelle | tagliatelle | saus|maaltijd
+500 g pasta | penne|fusilli|macaroni|spaghetti|farfalle|tagliatelle|linguine|rigatoni|orzo|pasta | saus|pesto|speculoos|hazelnoot|pinda|miso|tomaten ?pasta|maaltijd|salade|kip|kaas|pizza|cookie|koek|amandel|sesam|curry|tandpasta|kruiden
+250 g lasagnebladen | lasagne ?blad|lasagnevellen|lasagne vellen|lasagnebladen | maaltijd|saus|kant
+1 zak verse tortellini | tortellini | 
+400 g basmatirijst | basmati | 
+1 kg zilvervliesrijst | zilvervlies | wafel|koek|cracker
+500 g rijst | rijst | wafel|koek|cracker|bloemkool|melk|drink|pap|broccoli|sushi|azijn|noedel|papier|tafel
+300 g risottorijst | risotto|arborio | 
+250 g mie | mie\b|mienestje|mie ?nest|noedel | soep|kip|smaak|beker|cup|chips|saus
+250 g noedels | noedel|mie|udon|rijstnoedel | soep|kip|smaak|beker|cup|chips|saus|instant
+200 g couscous | couscous | salade|maaltijd
+200 g bulgur | bulgur | 
+1 pak tacoschelpen | taco ?schelp|taco shell|taco's | kruiden|saus|mix
+1 zakje tacokruiden | taco ?kruiden|taco ?mix|taco ?seasoning|taco spice | provencaal|italiaans|croutons|aardappel
+1 zakje nasikruiden | nasi | 
+150 ml teriyakisaus | teriyaki | bonen|kip|noedel|chips
+150 ml sojasaus | soja ?saus|ketjap | bonen|melk|drink|yoghurt|scheuten|olie
+1 fles ketjap manis | ketjap | 
+1 blik kokosmelk | kokosmelk|coconut milk|kokos ?room | drink|yoghurt|water|zeep|shampoo|ijs|chips
+1 pot rode currypasta | currypasta|curry ?pasta|curry paste|rode curry | saus|ketchup|kruiden|poeder|soep
+1 pot pesto | pesto | chips|pasta (?!.*pesto)|saus
+1 pot sambal | sambal | chips|pinda|katjang|nootjes|kip
+1 fles sweet chilisaus | sweet chili | chips|kip|nootjes
+150 g rijstvellen | rijstvel|rijstpapier | 
+1 pak kroepoek | kroepoek|krupuk|prawn crackers | 
+# --- conserven, sauzen en bakken
+1 blik tomatenblokjes | tomatenblokjes|tomaten blokjes|gehakte tomaten|tomaten gehakt|tomatenstukjes|tomaten in stukjes | soep|saus|bouillon
+1 pak passata | passata|tomaten gezeefd|gezeefde tomaten | 
+1 blikje tomatenpuree | tomatenpuree|tomaten ?puree | 
+1 pot pastasaus | pastasaus|pasta ?saus|bolognese|napoletana|arrabbiata|tomatensaus | spaghetti|penne|maaltijd
+1 blik mais | mais | bonen ?mix|bonenmix|cornflakes|chips|wafel|broodje|meel|kip|olie|tortilla|popcorn|kolf
+1 pot augurken | augurk | chips|salade
+1 blik doperwten | doperwt | wortel
+1 pot olijven | olijf|olijven | olie|tapenade|brood|crackers|chips|feta
+1 pot kappertjes | kappertje | artisjok
+1 pot mosterd | mosterd | honing|ovenschotel|beenham|saus|mayonaise|dille|dipper|dressing|soep|kaas|rollade|worst
+1 fles ketchup | ketchup | chips|curry|saus
+1 pot mayonaise | mayonaise|mayo | truffel|sriracha|knoflook|wasabi|chips|salade|ei
+1 pot fritessaus | fritessaus | 
+1 fles olijfolie | olijfolie|olive oil | tonijn|ansjovis|sardine|olijven|makreel|kip|tomaten|zongedroogd|artisjok|knoflook|brood|chips
+1 fles zonnebloemolie | zonnebloemolie | tonijn|makreel|sardine|chips|zalm
+2 el olijfolie | olijfolie|olive oil | tonijn|ansjovis|sardine|olijven|makreel|kip|tomaten|zongedroogd|artisjok|knoflook|brood|chips
+1 el sesamolie | sesamolie|sesam olie | 
+1 fles balsamico | balsamico|balsamic | chips|dressing
+1 fles azijn | azijn | chips|augurk|zilverui|schoonmaak|reinig
+1 l frituurolie | frituur|frituurvet|olie | 
+1 kg bloem | bloem|tarwe ?bloem|patent | bloemkool|bloemen|kerstster|tas|honing|wijntas|fles
+1 kg suiker | kristalsuiker|suiker | vanille|riet|poeder|gelei|basterd|kandij|parel|klontjes|vrij|koek|wafel|smaak
+1 pak poedersuiker | poedersuiker|poeder suiker | 
+1 zakje bakpoeder | bakpoeder | 
+1 zakje gist | gist | 
+1 pak paneermeel | paneermeel|panko|broodkruim | 
+1 zak panko | panko | 
+1 pak maizena | maizena|maiszetmeel|bindmiddel | 
+1 pakje bouillonblokjes | bouillon | soep|tomaten|ballen
+1 pak kippenbouillon | kippenbouillon|bouillon kip|kip bouillon | ballen
+1 blok pure chocolade | chocolade|chocola | melk|drink|hagel|koek|kruidnoot|pinda|rozijn|munten|letter|pasta|ijs|cake|mousse|vla|crispies|nootjes|repen|reep melk|wit
+200 g walnoten | walnoot|walnoten | brood|cake|olie
+200 g cashewnoten | cashew | drink|pasta|boter|reep|mix
+100 g pijnboompitten | pijnboompit | pesto
+200 g amandelen | amandel | drink|melk|spijs|koek|pasta|boter|olie|krokant|schaafsel|meel|spray|zeep|cake|reep|gebak
+1 zak rozijnen | rozijn | brood|bol|koek|mix|chocolade
+1 blik ananas | ananas | sap|drink|smaak
+1 pot appelmoes | appelmoes | 
+# --- kruiden en specerijen
+1 tl paprikapoeder | paprikapoeder|paprika ?poeder|paprika edelzoet|gerookte paprika | chips|kruidenmix|kip|rood|geel|groen|saus
+1 tl komijn | komijn|djinten|cumin | kaas
+1 tl kerriepoeder | kerrie|curry ?poeder|currypoeder | saus|ketchup|pasta|kip|worst|soep
+1 tl kaneel | kaneel | thee|koek|appel|smaak|beschuit|stroop|broodje|suiker
+1 tl Italiaanse kruiden | italiaanse kruiden|kruiden italiaans|italian | pizza|brood|pasta|olie|kaas
+1 tl oregano | oregano | 
+1 tl tijm | tijm | 
+1 tl kurkuma | kurkuma|geelwortel|turmeric | 
+1 tl chilivlokken | chilivlok|chili vlok|chilipeper vlok|chili flakes|cayenne|chilipoeder|chili poeder|chilipeper gemalen|sambal | chips|saus|sweet
+1 tl nootmuskaat | nootmuskaat | 
+1 tl gemberpoeder | gember | thee|shot|bier|koek|siroop|bolletje|drank|vers|stem
+1 laurierblad | laurier | 
+1 bakje verse basilicum | basilicum | pesto|saus|olie|tomaten
+zout | zout | chips|zoute|popcorn|pinda|noot|drop|stick|vaatwas|strooi|boter|kerstst|haring|karamel|cracker|koek
+peper | zwarte peper|peper zwart|peper gemalen|peper grof|peper molen|peper wit|witte peper|peper | rode|groene|paprika|chips|saus|zout|chili|sambal|pepermunt|peperkoek|spaanse|jalapeno|gele|chilipeper
+1 tl knoflookpoeder | knoflook ?poeder|knoflookgranulaat|knoflook granulaat | saus
+# --- dranken
+1 l sinaasappelsap | sinaasappelsap|jus d'orange|sinaasappel ?sap | limonade|siroop|drink|ranja|frisdrank|light
+1 l appelsap | appelsap|appel ?sap | limonade|siroop|drink|ranja|azijn
+1,5 l cola | cola | rucola|light|zero|chips|snoep|drop|mentos|rum|whisky
+6 flessen water | water | meloen|bleek|ijs|kraanwater|zeep|kers|gedemineraliseerd|toilet|tonic|cocos|kokos|gearomatiseerd|smaak
+1 pak koffie | koffie | melk|creamer|muesli|koek|smaak|cake|ijs|siroop|likeur|chocolade|room|becel|beker|filter(zakjes|papier)|koffiefilter|machine|cappuccino|latte
+500 g koffiebonen | bonen|koffiebonen|espresso | 
+1 pak thee | thee | koek|ijs|kop|pot|glas|lepel
+1 pak koffiemelk | koffiemelk|koffie ?creamer|creamer | 
+# --- huishouden (de app moet ook non-food goed doen)
+1 pak toiletpapier | toiletpapier|wc-?papier | vochtig
+1 rol keukenpapier | keukenpapier|keukenrol | 
+1 fles afwasmiddel | afwasmiddel | vaatwas|tablet
+1 pak vaatwastabletten | vaatwas | zout|glansspoel|afwasmiddel|reiniger
+1 fles wasmiddel | wasmiddel | afwas|vaatwas|verzachter
+1 pak vuilniszakken | vuilniszak|vuilzak|afvalzak|pedaalemmerzak | 
+1 tube tandpasta | tandpasta | 
+1 stuk zeep | zeep|handzeep|douche | 
+1 rol aluminiumfolie | aluminiumfolie|alufolie|aluminium folie | 

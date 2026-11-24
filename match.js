@@ -1,6 +1,6 @@
 /* Matching-logica voor de boodschappen-app (los bestand zodat het ook in tests draait). */
 (function (root) {
-  const STOP = new Set(['van', 'de', 'het', 'een', 'en', 'of', 'met', 'voor', 'in', 'op', 'vers', 'verse', 'gram', 'gr', 'g', 'kg', 'ml', 'cl', 'l', 'liter', 'stuk', 'stuks', 'st', 'ca', 'x', 'per', 'pak', 'zak', 'bak', 'pot', 'blik', 'fles', 'el', 'tl', 'eetlepel', 'eetlepels', 'theelepel', 'theelepels', 'snufje', 'snuf', 'scheutje', 'scheut', 'handje', 'handvol', 'takje', 'takjes', 'teentje', 'teentjes', 'beetje', 'klontje', 'mespunt', 'naar', 'smaak']);
+  const STOP = new Set(['van', 'de', 'het', 'een', 'en', 'of', 'met', 'voor', 'in', 'op', 'vers', 'verse', 'gram', 'gr', 'g', 'kg', 'ml', 'cl', 'l', 'liter', 'stuk', 'stuks', 'st', 'ca', 'x', 'per', 'pak', 'zak', 'bak', 'pot', 'blik', 'fles', 'el', 'tl', 'eetlepel', 'eetlepels', 'theelepel', 'theelepels', 'snufje', 'snuf', 'scheutje', 'scheut', 'handje', 'handvol', 'takje', 'takjes', 'teentje', 'teentjes', 'beetje', 'klontje', 'mespunt', 'naar', 'smaak', 'zakje', 'zakjes', 'pakje', 'pakjes', 'potje', 'potjes', 'blikje', 'blikjes', 'bosje', 'bos', 'krop', 'stukje', 'stengel', 'stengels', 'tube', 'rol', 'rollen', 'doos', 'flessen', 'bakje', 'bakjes', 'netje', 'kuipje', 'scheutje', 'handjevol']);
   const IGN = new Set(['ah', 'jumbo', 'jumbos', 'aldi', 'milsani', 'golden', 'seafood', 'excellent', 'basic', 'huismerk', 'plus', 'dirk', 'beste', 'lidl', 'zuivelmeester', 'neutraal', 'vleeschmeesters']);
   const BAN = ['kattenvoer', 'hondenvoer', 'kattensnack', 'hondensnack', 'sheba', 'whiskas', 'felix', 'pedigree', 'kitekat', 'dreamies', 'olvarit', 'hipp', 'nutrilon', 'kat ', 'hond ', 'pets unlimited', 'gesuikerde', 'mousse', 'creamer', 'katten', 'honden', 'max mila', 'reinigingsmelk', 'bodymilk', 'bodylotion', 'kattenbrok', 'hondenbrok', 'kauwstrips', 'kauwsticks', 'wijntas', 'kerstster', 'dumbbells'];
   const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/'s\b/g, 's').replace(/[^a-z0-9.,]+/g, ' ').trim();
@@ -127,7 +127,7 @@
     melk: /^(halfvolle|volle|magere)$/, appels: /^(elstar|jonagold|appels|appel|goudreinette|granny)$/, appel: /^(elstar|jonagold|appels|appel)$/, zalm: /^(zalmfilet|zalmfilets|zalmmoot|zalmmoten)$/, ham: /^(beenham|achterham|ham)$/, gehakt: /^(rundergehakt|half|gehakt)$/,
     thee: /^(groene|zwarte|earl|english)$/, room: /^(slagroom|kookroom)$/, tomaten: /^(tomaten|trostomaten|tomaat)$/, bloem: /^(tarwebloem|patentbloem|bloem)$/, bonen: /^(sperziebonen|kidneybonen|bruine)$/ };
   // woorden die hetzelfde product zijn zonder het woord: 'kaas' = jong belegen, 'pasta' = penne
-  const ALIAS = { parmezaan: /^(parmigiano|reggiano|grana|padano)$/, kaas: /^(belegen|jongbelegen|goudse|gouda|cheddar|edammer)$/, pasta: /^(penne|fusilli|macaroni|spaghetti|farfalle|tagliatelle|linguine|rigatoni)$/ };
+  const ALIAS = { kippenpoten: /^(drumsticks?|kipdrumsticks|bouten|kippenbouten|kippenpoten)$/, kippenpoot: /^(drumsticks?|kipdrumsticks|bouten|kippenbouten)$/, passata: /^(gezeefd|gezeefde)$/, lenteui: /^(bosui|lente)$/, parmezaanse: /^(parmezaan|parmezaanse|parmigiano|reggiano|grana|padano|parmesan)$/, parmezaan: /^(parmigiano|reggiano|grana|padano)$/, kaas: /^(belegen|jongbelegen|goudse|gouda|cheddar|edammer)$/, pasta: /^(penne|fusilli|macaroni|spaghetti|farfalle|tagliatelle|linguine|rigatoni)$/ };
   // Geen exacte match: zoek het product dat er het meest op lijkt (gemarkeerd als vervanger).
   const SYN = { havermelk: 'haverdrink', sojamelk: 'sojadrink', amandelmelk: 'amandeldrink', rijstmelk: 'rijstdrink', kokosdrink: 'kokosmelk', vegaburger: 'vegetarische', zoetaardappel: 'zoete', courgettes: 'courgette', aubergines: 'aubergine' };
   const tri = w => { const o = []; for (let i = 0; i + 3 <= w.length; i++) o.push(w.slice(i, i + 3)); return o; };
@@ -195,5 +195,41 @@
     return best;
   }
 
-  root.Match = { norm, toks, parseQty, parseLine, indexStore, candidates, costOf, offerFor };
+  // Breed zoeken: alle producten die in de buurt komen (voor de keuze door Claude). Het goede product moet erbij zitten.
+  // enkelvoud-vormen: biefstukken→biefstuk, peultjes→peul, kippenpoten→kippenpoot, stokbroden→stokbrood
+  function forms(w) {
+    const f = new Set([w]);
+    const cut = w.replace(/(tjes|jes|eren|en|s|e|n)$/, ''); f.add(cut);
+    f.add(cut.replace(/([bcdfgklmnprstvz])\1$/, '$1'));
+    const m = w.match(/^(.*[^aeiou])([aeiou])([bdfgklmnprstvz])en$/); if (m) f.add(m[1] + m[2] + m[2] + m[3]);
+    if (w.endsWith('se')) f.add(w.slice(0, -2));
+    return [...f].filter(x => x.length >= 3);
+  }
+  function recall(item, idx, n) {
+    n = n || 24; const q = item.t, out = new Map(), FQ = q.map(forms);
+    const add = (p, sc) => { const o = out.get(p); if (o === undefined || sc < o) out.set(p, sc); };
+    for (const c of candidates(item, idx, 12)) add(c.p, -10 + (c.score || 0));
+    const rows = [], df = q.map(() => 0);
+    for (const p of idx) {
+      let hit = 0, sc = 0; const per = [];
+      for (let wi = 0; wi < q.length; wi++) { const w = q[wi];
+        let s = tokScore(w, p.t);
+        if (s === Infinity && FQ[wi].some(f => f.length >= 4 && p.j.includes(f))) s = 0.4;
+        if (s === Infinity && w.length >= 6 && (p.j.includes(stem(w)) || p.j.includes(w))) s = 0.5;
+        if (s === Infinity && w.length >= 7) { for (let i = 3; i <= w.length - 3; i++) { const a = w.slice(0, i), b = w.slice(i); if (p.t.some(x => x.startsWith(stem(a))) && p.t.some(x => x.startsWith(stem(b).slice(0, 4)))) { s = 0.8; break; } } }
+        if (s === Infinity && ALIAS[w] && p.t.some(x => ALIAS[w].test(x))) s = 0.2;
+        if (s === Infinity && w.length >= 8) { for (let i = 4; i <= w.length - 4; i++) { const a = w.slice(0, i); if (p.t.some(x => x === a || x.startsWith(a) && x.length - a.length <= 3)) { s = 1.2; break; } } }
+        if (s === Infinity && SYN[w] && tokScore(SYN[w], p.t) < Infinity) s = 0.3;
+        if (s === Infinity) { const f = w.length >= 5 ? fuzzy(w, p) : 0; if (f >= 0.75) s = 1.5; }
+        per.push(s); if (s < Infinity) { hit++; sc += s; df[wi]++; }
+      }
+      if (hit) rows.push({ p, per, hit, sc });
+    }
+    // een gemist zeldzaam woord (parmezaanse) weegt zwaarder dan een gemist gewoon woord (kaas)
+    const w = df.map(d => Math.log(1 + idx.length / (1 + d)));
+    for (const r of rows) { let miss = 0; r.per.forEach((x, k) => { if (x === Infinity) miss += w[k]; }); add(r.p, miss * 1.5 + r.sc + Math.max(0, r.p.t.length - r.hit) * 0.4); }
+    return [...out.entries()].sort((a, b) => a[1] - b[1]).slice(0, n).map(e => e[0]);
+  }
+
+  root.Match = { norm, toks, parseQty, parseLine, indexStore, candidates, recall, costOf, offerFor };
 })(typeof window !== 'undefined' ? window : globalThis);
