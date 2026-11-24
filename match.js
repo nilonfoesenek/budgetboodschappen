@@ -271,8 +271,13 @@
     if (item.req && oq && oq.d !== 'st' && item.req.d !== 'st' && oq.d !== item.req.d) return false;
     return true;
   }
+  const DIMC = new WeakMap();
   function offerFor(item, offers, store, idx) {
     let best = null, bx = 1e9;
+    // welke eenheid hoort bij deze regel (melk = liter)? Volgt uit het assortiment; aanbieding in een andere eenheid (chocolade 90 g) past niet
+    let dim = item.req ? item.req.d : null;
+    if (!dim && idx) { let m = DIMC.get(idx); if (!m) DIMC.set(idx, m = new Map()); const key = item.t.join(' ');
+      if (m.has(key)) dim = m.get(key); else { const c = candidates(item, idx, 1)[0]; dim = c && c.p.qty ? c.p.qty.d : null; m.set(key, dim); } }
     const nfOk = NFO.test(item.label || item.t.join(' '));
     for (const o of offers) {
       if (o.s !== store) continue;
@@ -280,6 +285,12 @@
       if (!item.t.every(q => tokScore(q, ot) < 1)) continue;
       if (!nfOk && (o._nf ?? (o._nf = NFO.test(o.n)))) continue;
       if (!offerFits(item, o.n)) continue;
+      if (dim && dim !== 'st') {
+        let q = o._q !== undefined ? o._q : (o._q = parseQty(o.n));
+        // geen inhoud in de naam: kijk naar hetzelfde product in het assortiment ('LU Scholiertje melk' is een koek van 150 g)
+        if (!q && idx) { if (o._cq === undefined) { const oi = parseLine(o.n); const c = oi && candidates(oi, idx, 1)[0]; o._cq = c && !c.sub && c.p.qty ? c.p.qty : null; } q = o._cq; }
+        if (q && q.d !== 'st' && q.d !== dim) continue;
+      }
       // zo min mogelijk extra woorden (het meest 'pure' product), daarna de goedkoopste
       const x = ot.length - item.t.length;
       if (x < bx || (x === bx && (o.p || 99) < (best.p || 99))) { best = o; bx = x; }

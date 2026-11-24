@@ -20,7 +20,7 @@ export async function run({ dry = false } = {}) {
       hits.push({ f, c, key });
     }
     // gevolgde producten die nu in de aanbieding zijn
-    const fh = followHits(rec.follow || [], offers, rec.stores, today).filter(x => rec.sent['f:' + x.line] !== x.key);
+    const fh = followHits(rec.follow || [], offers, rec.stores, today, IDX).filter(x => rec.sent['f:' + x.line] !== x.key);
     if (!hits.length && !fh.length) continue;
     hits.sort((a, b) => b.c.saving - a.c.saving);
     fh.sort((a, b) => (b.pct || 0) - (a.pct || 0));

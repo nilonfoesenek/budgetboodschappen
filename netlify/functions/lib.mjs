@@ -36,7 +36,7 @@ export function recipeCost(lines, IDX, offers, stores, today) {
       if (!IDX[s]) continue;
       const pick = Match.candidates(it, IDX[s], 6)[0]; if (!pick) continue;
       const cost = pick.cost || Match.costOf(it, pick.p, pick.p.qty && pick.p.qty.d);
-      let total = cost.total, o = Match.offerFor(it, live, s), used = null;
+      let total = cost.total, o = Match.offerFor(it, live, s, IDX[s]), used = null;
       if (o) {
         let op = cost.packs; const oq = Match.parseQty(o.n);
         if (it.req && oq && oq.d === it.req.d && oq.q > 0) op = Math.max(1, Math.ceil(it.req.q / oq.q - 1e-9));
@@ -63,13 +63,13 @@ export { addDays };
 
 const NAMES = { ah: 'AH', jumbo: 'Jumbo', aldi: 'Aldi', dirk: 'Dirk', plus: 'Plus', lidl: 'Lidl', dekamarkt: 'DekaMarkt', hoogvliet: 'Hoogvliet', spar: 'SPAR', vomar: 'Vomar', poiesz: 'Poiesz' };
 // gevolgde producten: welke zijn nu bij een van je winkels in de aanbieding?
-export function followHits(lines, offers, stores, today) {
+export function followHits(lines, offers, stores, today, IDX) {
   const live = offers.filter(o => o.to >= today && o.from <= today), out = [];
   for (const line of lines) {
     const it = Match.parseLine(line); if (!it) continue;
     let best = null;
     const disc = o => o.pct || (o.was && o.p != null && o.was > o.p ? 1 - o.p / o.was : 0);
-    for (const s of stores) { const o = Match.offerFor(it, live, s); if (o && (!best || disc(o) > disc(best))) best = o; } // elke aanbieding telt
+    for (const s of stores) { const o = Match.offerFor(it, live, s, IDX && IDX[s]); if (o && (!best || disc(o) > disc(best))) best = o; } // elke aanbieding telt
     if (best) out.push({ line, label: it.label.charAt(0).toUpperCase() + it.label.slice(1), deal: best.d, pct: disc(best), storeName: NAMES[best.s] || best.s, key: best.s + best.n + best.to });
   }
   return out;

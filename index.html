@@ -185,6 +185,27 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .dc .bot{display:flex;align-items:center;justify-content:space-between;margin-top:auto}.dc .pr s{display:block;font-size:12px;color:var(--mute)}.dc .now{font-weight:800;font-size:16px}
 .empty{text-align:center;padding:28px 10px;color:var(--mute)}
 /* ================= Boodje design v2 ================= */
+
+/* kassabonnen */
+#rc{position:fixed;inset:0;z-index:57}#rc[hidden]{display:none}
+.rcc{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:var(--r);box-shadow:var(--sh1);padding:14px 16px;margin-bottom:14px;cursor:pointer}
+.rcc .ic{width:44px;height:44px;border-radius:14px;background:var(--okbg);display:grid;place-items:center;font-size:22px;flex:none}
+.rcc .tx{flex:1;min-width:0;line-height:1.25}.rcc .tx b{display:block;font-size:15.5px}.rcc .tx small{color:var(--mute);font-size:13px}
+.rcc .btn{min-height:40px;padding:0 14px;background:var(--ok);color:#fff;flex:none}
+.streak{display:inline-block;background:var(--warnbg);color:var(--warnink);font-weight:800;font-size:12px;border-radius:999px;padding:2px 8px;margin-left:6px}
+.rcload{text-align:center;padding:28px 6px}.rcload img{width:110px;animation:bounce 1.1s var(--ease) infinite}.rcload b{display:block;font-size:19px;margin-top:6px}
+.rch{display:flex;align-items:center;gap:10px;margin-bottom:6px}.rch .sb{width:36px;height:36px}.rch b{font-size:19px}.rch small{display:block;color:var(--mute);font-size:13px}
+.rbig{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 4px}.rbig div{background:var(--field);border-radius:14px;padding:10px 12px}.rbig small{display:block;color:var(--mute);font-size:12px;font-weight:600}.rbig b{font-size:22px;letter-spacing:-.5px}
+.rbig .g{background:var(--okbg)}.rbig .g b{color:var(--ok)}
+.rnote{border-radius:14px;padding:12px 14px;margin:10px 0;font-size:14.5px;line-height:1.4}.rnote.ok{background:var(--okbg)}.rnote.warn{background:var(--dealbg)}.rnote b{display:block;margin-bottom:2px}
+.rnote ul{margin:6px 0 0;padding-left:18px}.rnote li{margin:2px 0}
+.ritem{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:6px 0;border-top:1px solid var(--line);font-size:14px}.ritem:first-child{border-top:0}.ritem small{display:block;color:var(--deal);font-size:12px;font-weight:700}
+.catbar{display:grid;grid-template-columns:120px minmax(0,1fr) auto;gap:10px;align-items:center;font-size:13.5px;padding:4px 0}.catbar .tr{height:10px;border-radius:5px;background:var(--field);overflow:hidden}.catbar .tr i{display:block;height:100%;background:var(--ok);border-radius:5px}
+.rclist .bonrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);cursor:pointer}.rclist .bonrow:first-child{border-top:0}.bonrow .sb{width:30px;height:30px}.bonrow .t{flex:1}.bonrow small{display:block;color:var(--mute);font-size:12.5px}
+.wrapped{background:linear-gradient(135deg,#1E7A4C,#2A9A63);color:#fff;border-radius:20px;padding:16px;margin:12px 0}.wrapped h3{color:#fff;margin:0 0 6px;font-size:18px;text-transform:none;letter-spacing:0}
+.wrapped .w2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.wrapped .w2 div{background:rgba(255,255,255,.14);border-radius:12px;padding:8px 10px}.wrapped small{display:block;opacity:.85;font-size:12px}.wrapped b{font-size:18px}
+.wrapped .btn{background:#fff;color:#1E7A4C;margin-top:10px;width:100%}
+
 .spin{display:flex;flex-direction:column;align-items:center;gap:6px}
 #splash{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;transition:opacity .35s ease,visibility .35s}
 #splash.out{opacity:0;visibility:hidden}
@@ -395,6 +416,7 @@ img.pi{animation:fadein .35s ease}
   <section id="t-offers">
     <div class="hello"><h2 id="hiTxt">Hoi 👋</h2><p class="muted" id="offStores" hidden></p></div>
     <div id="hero"></div>
+    <div id="rcCard"></div>
     <div class="hsrch"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" id="q" placeholder="Zoek een product of aanbieding" aria-label="Zoek in aanbiedingen" autocomplete="off"></div>
     <div class="card" id="offMineCard" hidden><h2>Voor jou</h2><div id="offMine"></div></div>
     <div id="shelves"></div>
@@ -424,8 +446,10 @@ img.pi{animation:fadein .35s ease}
   <div class="wtip" id="wInstall"><b>Tip: zet de app op je beginscherm</b><br>iPhone: tik in Safari op <b>Deel</b> en dan <b>Zet op beginscherm</b>. Android: menu ⋮ en dan <b>App installeren</b>.</div>
   <button class="btn" id="wGo" style="width:100%;margin-top:14px">Aan de slag</button></div></div></div>
 <div id="pd" hidden><div class="sh-bg" data-pdclose></div><div class="sh" role="dialog" aria-modal="true" id="pdBox"></div></div>
-<div id="party" hidden><canvas id="confetti"></canvas><div class="pbox"><img src="icons/boodje.svg" alt=""><h2>Klaar! 🎉</h2><div class="v" id="partyV"></div><p id="partyT"></p><button class="btn" data-partyclose style="width:100%">Lekker</button></div></div>
+<div id="party" hidden><canvas id="confetti"></canvas><div class="pbox"><img src="icons/boodje.svg" alt=""><h2>Klaar! 🎉</h2><div class="v" id="partyV"></div><p id="partyT"></p><button class="btn" data-rcscan style="width:100%;background:var(--ok);color:#fff">📸 Scan je bon en zie wat je écht bespaarde</button><button class="lnk" data-partyclose style="display:block;margin:10px auto 0;color:var(--mute)">Nu niet</button></div></div>
 <div id="lbar" hidden></div>
+<input type="file" id="rcFile" accept="image/*" hidden>
+<div id="rc" hidden><div class="sh-bg" data-rcclose></div><div class="sh" role="dialog" aria-modal="true" id="rcBox" style="max-height:92vh;overflow-y:auto"></div></div>
 <div id="scan" hidden><div class="sh-bg" data-scclose></div><div class="sh" role="dialog" aria-modal="true" aria-labelledby="scTitle">
   <div class="sh-hd"><div><b id="scTitle">Streepjescode scannen</b><div class="muted" id="scSub" style="font-size:13px">Richt de camera op de streepjescode van de verpakking.</div></div><button class="x" data-scclose aria-label="Sluiten">×</button></div>
   <div id="scCam"><video id="scVideo" playsinline muted></video><div class="scline"></div></div>
@@ -441,7 +465,7 @@ img.pi{animation:fadein .35s ease}
   <div style="font-size:14.5px;line-height:1.5">
   <p style="margin-top:0"><b>Zonder toestemming</b> blijft alles op je telefoon: je lijst, recepten, vaste boodschappen en besparingen. Alleen voor gedeelde lijsten, meldingen en het herkennen van producten gaat er iets naar onze server, en dan zonder je naam (behalve de naam die je zelf invult bij een gedeelde lijst).</p>
   <p><b>Met toestemming</b> bewaren we daarnaast anoniem:</p>
-  <ul style="padding-left:18px;margin:0 0 10px"><li>welke producten op je lijst komen (de productsoort, bijv. "magere kwark", nooit wat je zelf vrij typt als het geen product is)</li><li>welke winkel en welk product je kiest, met de prijs en of het in de aanbieding was</li><li>wat je koopt als je "Boodschappen gedaan" tikt, per winkel</li><li>welke winkels je gebruikt en je vaste winkel</li><li>de grootte van je huishouden, je leeftijdsgroep en de eerste 2 cijfers van je postcode, als je die invult</li></ul>
+  <ul style="padding-left:18px;margin:0 0 10px"><li>welke producten op je lijst komen (de productsoort, bijv. "magere kwark", nooit wat je zelf vrij typt als het geen product is)</li><li>welke winkel en welk product je kiest, met de prijs en of het in de aanbieding was</li><li>wat je koopt als je "Boodschappen gedaan" tikt, per winkel</li><li>de producten en prijzen van kassabonnen die je scant (de foto zelf wordt niet bewaard)</li><li>welke winkels je gebruikt en je vaste winkel</li><li>de grootte van je huishouden, je leeftijdsgroep en de eerste 2 cijfers van je postcode, als je die invult</li></ul>
   <p>Dit wordt gekoppeld aan een willekeurige code, niet aan je naam, telefoonnummer, e-mail of exacte locatie. We gebruiken het om te onderzoeken hoe prijzen, aanbiedingen en winkelkeuzes samenhangen, en delen alleen samengevoegde cijfers (bijv. "34% koos het huismerk"), nooit gegevens van één huishouden.</p>
   <p>Je kunt je toestemming altijd intrekken. Dan stopt het verzamelen meteen.</p>
   </div>
@@ -522,7 +546,7 @@ function computeLines(lines){const res=[];
         else if(!al.length)cands=[]}
       if(!cands)cands=Match.candidates(it,IDX[s],6);let pick=cands[0];
       const pk='p:'+it.t.join(' '),want=state.picks[pk]?.[s]||state.picks[k]?.[s];if(want){let f=cands.find(c=>c.p.name===want);if(!f){const p=IDX[s].find(x=>x.name===want);if(p){f={p,cost:Match.costOf(it,p,p.qty&&p.qty.d)};cands.unshift(f)}}if(f)pick=f}
-      const o=Match.offerFor(it,liveAll(),s);
+      const o=Match.offerFor(it,liveAll(),s,IDX[s]);
       if(!pick&&o&&o.p!=null){const pq=Match.parseQty(o.n);const fake={name:o.n,price:o.p,size:'',qty:pq};pick={p:fake,cost:Match.costOf(it,fake,pq&&pq.d)};cands.unshift(pick)}
       if(!pick){per[s]=null;continue}
       const cost=pick.cost||Match.costOf(it,pick.p,pick.p.qty&&pick.p.qty.d);
@@ -742,11 +766,11 @@ function histTag(o){const rows=H[hkey(o)];if(!rows)return '';if(hFor!==H){hFor=H
   if(recent.length>=4)return 'Vaak in actie, geen haast';
   return ''}
 function offRow(o,why){const ht=histTag(o);const d=disc(o),hasP=o.was&&o.p!=null&&o.was>o.p;const meta=[hasP?'':o.d,d>=0.1?`−${Math.round(d*100)}%`:'',o.from>today?'vanaf '+dnl(o.from):''].filter(Boolean).join(' · ');return `<div class="off" data-pdo="${esc(o.s+'|'+o.n)}"><span class="th">${pimg(o)}${dot(o.s)}</span><div>${esc(o.n)}${why?`<span class="why">${esc(why)}</span>`:''}${ht?`<span class="hist">${esc(ht)}</span>`:''}${meta?`<small>${esc(meta)}</small>`:''}</div><span class="end">${priceHtml(o)}${addBtn(o)}</span></div>`}
-function renderOffers(){renderHero();if(!O)return;const live=liveOffers(),sel=state.stores.filter(s=>!S[s].noOffers);
+function renderOffers(){renderHero();renderRcCard();if(!O)return;const live=liveOffers(),sel=state.stores.filter(s=>!S[s].noOffers);
   $('offStores').innerHTML=`Aanbiedingen van ${sel.map(s=>S[s].label).join(', ')||'geen winkels'}${state.stores.some(x=>S[x]&&S[x].noOffers)?` (${state.stores.filter(x=>S[x]&&S[x].noOffers).map(x=>S[x].label).join(', ')} zonder acties)`:''} · <a href="#" data-go="route">winkels wijzigen</a>`;
   // voor jou: wat op je lijst of in je favorieten staat
   const mine=[],seen=new Set();const src=[...state.follow.map(l=>[l,'♥ Favoriet']),...favLines(state.text).map(l=>[l,'Op je lijst']),...state.weekly.map(w=>[w.l,'Vaste boodschap']),...state.favs.flatMap(f=>f.items.map(l=>[l,'Voor '+f.title]))];
-  for(const [l,why] of src){const it=Match.parseLine(l);if(!it)continue;for(const st of sel){const o=Match.offerFor(it,live,st);if(!o)continue;const k=o.s+o.n;if(seen.has(k))continue;seen.add(k);mine.push([o,why])}}
+  for(const [l,why] of src){const it=Match.parseLine(l);if(!it)continue;for(const st of sel){const o=Match.offerFor(it,live,st,IDX[st]);if(!o)continue;const k=o.s+o.n;if(seen.has(k))continue;seen.add(k);mine.push([o,why])}}
   mine.sort((a,b)=>disc(b[0])-disc(a[0]));
   renderShelves(live);
   $('offMineCard').hidden=!mine.length;$('offMine').innerHTML=mine.slice(0,6).map(([o,w])=>offRow(o,w)).join('');
@@ -968,6 +992,122 @@ document.addEventListener('click',e=>{const t=e.target;
   const pd=t.closest('[data-pd]');if(pd&&!t.closest('button,input')){e.preventDefault();e.stopPropagation();const [s,n,l]=pd.dataset.pd.split('|');openDetail({s:s||null,name:n||null,line:l||n});return}
   const po=t.closest('[data-pdo]');if(po&&!t.closest('button,input')){e.stopPropagation();const o=liveOffers().find(x=>x.s+'|'+x.n===po.dataset.pdo);if(o)openDetail({s:o.s,name:o.n,line:offLine(o),img:o.img,offer:o})}},true);
 
+
+/* ================= kassabon scannen ================= */
+if(!Array.isArray(state.rcpt))state.rcpt=[];
+const isoWeek=d=>{const x=new Date(d+'T12:00');x.setDate(x.getDate()+3-(x.getDay()+6)%7);const w1=new Date(x.getFullYear(),0,4);return x.getFullYear()+'-'+String(1+Math.round(((x-w1)/864e5-3+(w1.getDay()+6)%7)/7)).padStart(2,'0')};
+function streak(){const ws=new Set(state.rcpt.map(r=>isoWeek(r.date)));let n=0,d=new Date(today+'T12:00');
+  if(!ws.has(isoWeek(today)))d.setDate(d.getDate()-7);// deze week nog niet gescand: reeks loopt nog tot vorige week
+  while(ws.has(isoWeek(d.toISOString().slice(0,10)))){n++;d.setDate(d.getDate()-7)}return n}
+const monthOf=d=>d.slice(0,7),MN=m=>new Date(m+'-15').toLocaleDateString('nl-NL',{month:'long'});
+function monthStats(m){const rs=state.rcpt.filter(r=>monthOf(r.date)===m);const paid=rs.reduce((a,r)=>a+r.paid,0),saved=rs.reduce((a,r)=>a+(r.saved||0),0);return {rs,paid,saved}}
+function renderRcCard(){const box=$('rcCard');if(!box)return;const m=monthOf(today),st=monthStats(m),k=streak();
+  box.innerHTML=`<div class="rcc" data-rcopen><span class="ic">🧾</span><span class="tx"><b>${st.rs.length?`${eur(st.paid)} uitgegeven in ${MN(m)}`:'Scan je kassabon'}${k>=2?`<span class="streak">🔥 ${k} weken</span>`:''}</b><small>${st.rs.length?`${st.saved>0.005?eur(st.saved)+' écht bespaard · ':''}${st.rs.length} ${st.rs.length===1?'bon':'bonnen'} ›`:'Zie wat je écht bespaarde en of alle acties goed zijn verrekend'}</small></span><button class="btn" data-rcscan>📸 Bon</button></div>`}
+
+/* foto → stukken (lange bonnen in delen, zodat elk deel scherp genoeg is) */
+function tiles(file){return new Promise((ok,no)=>{const im=new Image(),u=URL.createObjectURL(file);im.onload=()=>{URL.revokeObjectURL(u);
+  const W=Math.min(im.width,1100),k=W/im.width,H=Math.round(im.height*k),TH=1500,OV=90,out=[];
+  for(let y=0;y<H&&out.length<5;y+=TH-OV){const h=Math.min(TH,H-y);if(h<120&&out.length)break;const c2=document.createElement('canvas');c2.width=W;c2.height=h;c2.getContext('2d').drawImage(im,0,y/k,im.width,h/k,0,0,W,h);out.push(c2.toDataURL('image/jpeg',0.85).split(',')[1]);if(y+h>=H)break}
+  ok(out)};im.onerror=()=>{URL.revokeObjectURL(u);no(new Error('img'))};im.src=u})}
+async function readReceipt(file){const parts=await tiles(file);
+  const res=await Promise.all(parts.map((image,i)=>fetch('/api/receipt',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({image,part:i+1,parts:parts.length,device:devId})}).then(async r=>{const d=await r.json().catch(()=>({error:'De bon kon niet gelezen worden.'}));if(!r.ok&&!d.error)d.error='De bon kon niet gelezen worden.';return d})));
+  const err=res.find(r=>r.error&&!(r.items&&r.items.length));if(res.every(r=>r.error))throw new Error(err.error);
+  const rc={store:null,date:null,total:null,items:[],discounts:[]};
+  for(const r of res){if(r.error)continue;rc.store=rc.store||r.store;rc.date=rc.date||r.date;if(r.total!=null)rc.total=r.total;
+    // overlap tussen stukken: dezelfde regel niet twee keer
+    for(const it of r.items){const prev=rc.items.slice(-3);if(rc.items.length&&prev.some(p=>p.name.toLowerCase()===it.name.toLowerCase()&&p.price===it.price)&&r!==res[0]&&r.items.indexOf(it)<3)continue;rc.items.push(it)}
+    rc.discounts.push(...r.discounts)}
+  return rc}
+
+/* analyse: echt bespaard, bon-check, wat je kocht */
+function offersAt(store,date){return O?O.offers.filter(o=>o.s===store&&o.from<=date&&o.to>=date):[]}
+function dealNeed(d){d=(d||'').toLowerCase();let m=d.match(/(\d+)\s*\+\s*(\d+)/);if(m)return +m[1]+ +m[2];m=d.match(/(\d+)\s*voor/);if(m)return +m[1];if(/2e/.test(d))return 2;return 1}
+function analyze(rc){const store=rc.store,date=rc.date||today;
+  const items=rc.items.map(x=>{const it=Match.parseLine(x.name);return {...x,it,cat:catOfText(x.name)}});
+  const disc=Math.round((rc.discounts.reduce((a,d)=>a+d.amount,0)||items.reduce((a,x)=>a+x.discount,0))*100)/100;
+  const paid=rc.total!=null&&rc.total>0?rc.total:Math.round((items.reduce((a,x)=>a+x.price,0)-disc)*100)/100;
+  // 1. vergelijken met alles bij de vaste winkel (alleen producten die daar te vinden zijn)
+  let ref=null,refSum=0,ourSum=0,found=0;const H=state.home;
+  if(H&&IDX[H]&&store&&H!==store){for(const x of items){if(!x.it)continue;const c=Match.candidates(x.it,IDX[H],3).find(c=>!c.sub);if(!c)continue;const cost=Match.costOf(x.it,c.p,c.p.qty&&c.p.qty.d);
+      const rp=cost.total*x.qty,op=x.price-x.discount;if(!(rp>0&&op>0)||rp>op*2.5||rp<op/2.5)continue;// onzekere vergelijking: overslaan
+      refSum+=rp;ourSum+=op;found++}
+    if(found>=Math.max(2,items.length*0.5)&&refSum>ourSum&&refSum-ourSum<ourSum*0.4)ref={store:H,diff:Math.round((refSum-ourSum)*100)/100,found}}
+  // 2. bon-check: aanbiedingen die die dag golden, maar niet op de bon verrekend lijken
+  const live=store?offersAt(store,date):[],missed=[];
+  for(const x of items){if(!x.it||x.discount>0||x.deal)continue;const o=Match.offerFor(x.it,live,store,IDX[store]);if(!o)continue;
+    if(x.qty<dealNeed(o.d))continue;const unit=x.price/x.qty;let exp=0;
+    if(o.p!=null&&unit>o.p+0.01)exp=(unit-o.p)*x.qty;else if(o.pct)exp=x.price*o.pct;
+    if(exp>=0.1)missed.push({name:x.name,deal:o.d,amount:Math.round(exp*100)/100})}
+  const saved=Math.round((disc+(ref?ref.diff:0))*100)/100;
+  return {id:Date.now().toString(36),store,date,paid,disc,ref,missed,saved,items:items.map(({it,...x})=>x),at:new Date().toISOString()}}
+
+/* 4. je lijst regelt zichzelf: afvinken en vaste boodschappen voorstellen */
+function applyToList(r){let n=0;if(lastR)for(const l of lastR){if(state.done[l.k])continue;const it=l.it||Match.parseLine(l.line);if(!it)continue;
+    if(r.items.some(x=>Match.offerFits(it,x.name))){state.done[l.k]=true;n++}}
+  return n}
+function weeklySuggest(){const c=new Map();for(const r of state.rcpt){const seen=new Set();for(const x of r.items){const k=(Match.parseLine(x.name)||{label:x.name}).label.toLowerCase();if(seen.has(k))continue;seen.add(k);c.set(k,(c.get(k)||0)+1)}}
+  const have=new Set((state.weekly||[]).map(w=>w.l.toLowerCase()));return [...c].filter(([k,n])=>n>=3&&![...have].some(h=>h.includes(k)||k.includes(h))).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([k])=>k)}
+
+function rcSheet(html){$('rcBox').innerHTML=html;$('rc').hidden=false}
+async function scanFlow(file){$('party').hidden=true;
+  rcSheet(`<div class="rcload"><img src="${MASCOT}" alt=""><b>Boodje leest je bon…</b><p class="muted">Even geduld, dit duurt een paar seconden.</p></div>`);
+  let rc;try{rc=await readReceipt(file)}catch(e){rcSheet(`<div class="rcload"><img src="${MASCOT}" alt="" style="animation:none;opacity:.6"><b>Dat lukte niet</b><p class="muted">${esc(e.message||'Probeer een scherpere foto, recht van boven en met de hele bon in beeld.')}</p><button class="btn" data-rcscan style="width:100%">Opnieuw</button></div>`);return}
+  if(!rc.store){rcSheet(`<h2>Van welke winkel is deze bon?</h2><div class="wst">${Object.keys(S).map(s=>`<button data-rcstore="${s}">${dot(s)}<span>${S[s].full}</span></button>`).join('')}</div>`);pendingRc=rc;return}
+  finishRc(rc)}
+let pendingRc=null;
+function finishRc(rc){const r=analyze(rc);
+  // dezelfde bon niet twee keer
+  const dup=state.rcpt.find(x=>x.store===r.store&&x.date===r.date&&Math.abs(x.paid-r.paid)<0.01);
+  if(!dup){state.rcpt.unshift(r);state.rcpt=state.rcpt.slice(0,200)}
+  const ticked=applyToList(r);persist();render();renderRcCard();
+  ev('bon',{winkel:r.store,datum:r.date,betaald:r.paid,korting:r.disc,gemist:r.missed.length,items:r.items.map(x=>({n:(Match.parseLine(x.name)||{label:x.name}).label,q:x.qty,p:x.price,k:x.discount,cat:catName(x.cat)}))});
+  showRc(dup||r,{ticked,dup:!!dup})}
+function showRc(r,o={}){const k=streak(),sug=weeklySuggest();
+  rcSheet(`<div class="rch">${r.store?dot(r.store):''}<div><b>${r.store?S[r.store].full:'Bon'}</b><small>${new Date(r.date+'T12:00').toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'long'})} · ${r.items.length} producten</small></div></div>
+    ${o.dup?'<p class="muted" style="margin:0 0 6px">Deze bon had je al gescand.</p>':''}
+    <div class="rbig"><div><small>Betaald</small><b>${eur(r.paid)}</b></div><div class="g"><small>Écht bespaard</small><b>${eur(r.saved)}</b></div></div>
+    ${r.disc>0.005?`<div class="rnote ok"><b>🎉 ${eur(r.disc)} aan acties op je bon</b>Die korting zit al in wat je betaalde.</div>`:''}
+    ${r.ref?`<div class="rnote ok"><b>💚 ${eur(r.ref.diff)} goedkoper dan bij ${S[r.ref.store].label}</b>Dezelfde ${r.ref.found} producten hadden bij je vaste winkel ${S[r.ref.store].label} meer gekost.</div>`:''}
+    ${r.missed.length?`<div class="rnote warn"><b>🔎 Bon-check: ${r.missed.length===1?'1 actie':r.missed.length+' acties'} mogelijk niet verrekend (± ${eur(r.missed.reduce((a,x)=>a+x.amount,0))})</b>Deze producten waren die dag in de aanbieding, maar we zien geen korting op je bon. Check het even bij de servicebalie.<ul>${r.missed.map(x=>`<li>${esc(x.name)}: ${esc(x.deal)} (± ${eur(x.amount)})</li>`).join('')}</ul></div>`:(r.store?'<div class="rnote ok"><b>✅ Bon-check: alles klopt</b>Geen gemiste aanbiedingen gevonden.</div>':'')}
+    ${o.ticked?`<div class="rnote ok"><b>✓ ${o.ticked} ${o.ticked===1?'product':'producten'} afgevinkt op je lijst</b></div>`:''}
+    ${sug.length?`<div class="rnote ok"><b>🔁 Koop je dit vaak?</b>Zet het bij je vaste boodschappen, dan staat het elke week klaar.<div class="btns">${sug.map(x=>`<button class="chip" data-rcweek="${esc(x)}">+ ${esc(x)}</button>`).join('')}</div></div>`:''}
+    ${k>=2?`<p style="text-align:center;font-weight:800;margin:12px 0 0">🔥 ${k} weken op rij gescand!</p>`:''}
+    <details style="margin-top:10px"><summary class="muted" style="cursor:pointer">Alle producten op de bon</summary>${r.items.map(x=>`<div class="ritem"><span>${x.qty>1?x.qty+'× ':''}${esc(x.name)}${x.discount?`<small>−${eur(x.discount)}${x.deal?' · '+esc(x.deal):''}</small>`:''}</span><b>${eur(x.price)}</b></div>`).join('')}</details>
+    <div class="btns"><button class="btn sec" data-rcall>Alle bonnen</button><button class="btn" data-rcclose>Klaar</button></div>`)}
+
+/* 5 en 6: uitgaven per maand en categorie, bonnen-archief, maandoverzicht */
+function showAll(m){m=m||monthOf(today);const ms=[...new Set([monthOf(today),...state.rcpt.map(r=>monthOf(r.date))])].sort().reverse();const st=monthStats(m);
+  const cats={},stores={},prod={};for(const r of st.rs){stores[r.store||'?']=(stores[r.store||'?']||0)+r.paid;for(const x of r.items){const c=catName(x.cat);cats[c]=(cats[c]||0)+x.price-x.discount;const k=(Match.parseLine(x.name)||{label:x.name}).label;prod[k]=(prod[k]||0)+x.qty}}
+  const cs=Object.entries(cats).sort((a,b)=>b[1]-a[1]),mx=Math.max(...cs.map(c=>c[1]),1),top=Object.entries(prod).sort((a,b)=>b[1]-a[1]).slice(0,3),fav=Object.entries(stores).sort((a,b)=>b[1]-a[1])[0];
+  rcSheet(`<div class="sh-hd"><div><b style="font-size:20px">Je bonnen</b>${streak()>=2?`<span class="streak">🔥 ${streak()} weken op rij</span>`:''}</div><button class="x" data-rcclose aria-label="Sluiten">×</button></div>
+    <div class="mode hscroll" style="margin:0 0 8px">${ms.map(x=>`<button class="chip${x===m?' on':''}" data-rcmonth="${x}">${MN(x)}</button>`).join('')}</div>
+    ${st.rs.length?`<div class="wrapped"><h3>Jouw ${MN(m)} 🧺</h3><div class="w2"><div><small>Uitgegeven</small><b>${eur(st.paid)}</b></div><div><small>Écht bespaard</small><b>${eur(st.saved)}</b></div><div><small>Bonnen</small><b>${st.rs.length}</b></div><div><small>Favoriete winkel</small><b>${fav&&S[fav[0]]?S[fav[0]].label:'–'}</b></div></div>
+      ${top.length?`<p style="margin:10px 0 0;font-size:14px">Je kocht het vaakst: <b>${top.map(t=>esc(t[0])).join(', ')}</b></p>`:''}<button class="btn" data-rcwrap="${m}">Deel je maand</button></div>
+      <h3 class="muted" style="font-size:13px;text-transform:uppercase;letter-spacing:.06em">Per categorie</h3>${cs.map(([c,v])=>`<div class="catbar"><span>${esc(c)}</span><div class="tr"><i style="width:${v/mx*100}%"></i></div><b>${eur(v)}</b></div>`).join('')}
+      <h3 class="muted" style="font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin-top:14px">Bonnen</h3><div class="rclist">${st.rs.map(r=>`<div class="bonrow" data-rcshow="${r.id}">${r.store?dot(r.store):''}<span class="t">${r.store?S[r.store].full:'Bon'}<small>${new Date(r.date+'T12:00').toLocaleDateString('nl-NL',{day:'numeric',month:'short'})} · ${r.items.length} producten${r.saved>0.005?' · '+eur(r.saved)+' bespaard':''}</small></span><b>${eur(r.paid)}</b></div>`).join('')}</div>`
+    :`<div class="empty"><img class="mascot" src="${MASCOT}" alt="">Nog geen bonnen in ${MN(m)}.</div>`}
+    <button class="btn" data-rcscan style="width:100%;margin-top:12px">📸 Bon scannen</button>`)}
+async function shareMonth(m){const st=monthStats(m);const c=document.createElement('canvas');c.width=1080;c.height=1350;const g=c.getContext('2d');const gr=g.createLinearGradient(0,0,1080,1350);gr.addColorStop(0,'#1E7A4C');gr.addColorStop(1,'#2A9A63');g.fillStyle=gr;g.fillRect(0,0,1080,1350);
+  const img=new Image();img.src=MASCOT;await new Promise(r=>{img.onload=r;img.onerror=r});try{g.drawImage(img,390,110,300,270)}catch(e){}
+  g.fillStyle='#fff';g.textAlign='center';g.font='800 72px Figtree, sans-serif';g.fillText(`Mijn ${MN(m)}`,540,480);
+  g.font='600 44px Figtree, sans-serif';g.globalAlpha=.85;g.fillText('écht bespaard',540,600);g.globalAlpha=1;g.font='800 180px Figtree, sans-serif';g.fillText(eur(st.saved),540,780);
+  g.font='600 44px Figtree, sans-serif';g.fillText(`${st.rs.length} bonnen · ${streak()>=2?'🔥 '+streak()+' weken op rij':'met Boodje'}`,540,900);g.globalAlpha=.7;g.font='500 36px Figtree, sans-serif';g.fillText('budgetboodschappen.netlify.app',540,1240);
+  const blob=await new Promise(r=>c.toBlob(r,'image/png'));const f=new File([blob],'boodje-'+m+'.png',{type:'image/png'});
+  try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],text:`In ${MN(m)} bespaarde ik ${eur(st.saved)} met Boodje!`});return}}catch(e){return}
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=f.name;a.click()}
+
+$('rcFile').addEventListener('change',e=>{const f=e.target.files[0];e.target.value='';if(f)scanFlow(f)});
+document.addEventListener('click',e=>{const t=e.target;
+  if(t.closest('[data-rcscan]')){e.stopPropagation();$('rcFile').click();return}
+  if(t.closest('[data-rcclose]')){$('rc').hidden=true;return}
+  if(t.closest('[data-rcall]')){showAll();return}
+  if(t.closest('[data-rcopen]')){showAll();return}
+  const mo=t.closest('[data-rcmonth]');if(mo){showAll(mo.dataset.rcmonth);return}
+  const sh=t.closest('[data-rcshow]');if(sh){const r=state.rcpt.find(x=>x.id===sh.dataset.rcshow);if(r)showRc(r);return}
+  const wp=t.closest('[data-rcwrap]');if(wp){shareMonth(wp.dataset.rcwrap);return}
+  const st=t.closest('[data-rcstore]');if(st&&pendingRc){pendingRc.store=st.dataset.rcstore;const rc=pendingRc;pendingRc=null;finishRc(rc);return}
+  const wk=t.closest('[data-rcweek]');if(wk){state.weekly.push({l:wk.dataset.rcweek,on:true});persist();wk.disabled=true;wk.textContent='✓ '+wk.dataset.rcweek;toast('Toegevoegd aan je vaste boodschappen.');return}},true);
+
 /* ---------- welkom (eerste keer) ---------- */
 if(!state.onboarded&&(state.text||(state.favs&&state.favs.length)))state.onboarded=true;
 // winkels gesorteerd op afstand als die bekend is (na 'in de buurt')
@@ -1133,7 +1273,7 @@ function toggleFav(l){
 function favProdInfo(l){const it=Match.parseLine(l);if(!it||!P)return null;
   const stores=it.store&&state.stores.concat(it.store).includes(it.store)?[it.store]:state.stores;
   let deal=null,low=null;
-  for(const s of stores){const o=O&&Match.offerFor(it,liveAll(),s);if(o&&(!deal||disc(o)>disc(deal)))deal=o;
+  for(const s of stores){const o=O&&Match.offerFor(it,liveAll(),s,IDX[s]);if(o&&(!deal||disc(o)>disc(deal)))deal=o;
     if(!IDX[s])continue;const c=Match.candidates(it,IDX[s],6)[0];if(!c)continue;const cost=c.cost||Match.costOf(it,c.p,c.p.qty&&c.p.qty.d);if(!low||cost.total<low.t)low={s,t:cost.total,n:c.p.name}}
   return{deal,low}}
 function renderFavProds(){const L=state.follow||[];
