@@ -11,6 +11,8 @@ const BODY = { spar: /https:\/\/media\.spar\.nl\/productdetail\/[^"' )<>\\]+/, v
 const LINKS = {}; // per winkel, blijft in het geheugen zolang de functie warm is
 const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1';
 const DAY = 86400;
+// algemene plaatjes (logo, footer) die een site toont als het product niet meer bestaat
+const BAD = /logo|placeholder|404|header|footer|static-images|default|no-?image/i;
 
 async function links(s) {
   if (!LINKS[s]) LINKS[s] = fetch(DATA + 'links/' + s + '.json').then(r => { if (!r.ok) throw new Error('links ' + r.status); return r.json(); })
@@ -26,7 +28,7 @@ function ogImage(html, base) {
   const c = m[0].match(/content=["']([^"']+)["']/i); if (!c) return null;
   let u = decode(c[1].trim());
   if (u.startsWith('//')) u = 'https:' + u; else if (u.startsWith('/')) u = new URL(u, base).href;
-  if (!/^https:\/\//.test(u) || /logo|placeholder|404|header/i.test(u)) return null;
+  if (!/^https:\/\//.test(u) || BAD.test(u)) return null;
   return u;
 }
 
@@ -43,7 +45,8 @@ export default async (req) => {
   if (!STORES.includes(s) || !n) return none();
   const db = globalThis.__testImgStore || getStore({ name: 'img' }), key = s + '/' + await hash(n);
   const hit = await db.get(key, { type: 'json' }).catch(() => null);
-  if (hit && hit.u) return go(hit.u);
+  if (hit && hit.u && !BAD.test(hit.u)) return go(hit.u);
+  if (hit && hit.u) return none();
   if (hit && Date.now() - hit.t < 7 * DAY * 1000) return none(); // onlangs niets gevonden: een week niet opnieuw proberen
   let u = null;
   try {

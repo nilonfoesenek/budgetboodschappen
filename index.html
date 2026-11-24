@@ -328,7 +328,7 @@ const thumb=(s,n)=>{if(!IMGS.has(s)||!n)return '';const k=imgKey(s,n),u=IMC[k];i
   return u?`<img class="pi" src="${esc(u)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`:`<img class="pi" data-img="${esc(k)}" alt="" referrerpolicy="no-referrer" onerror="this.remove()" hidden>`};
 let imgSaveT=null;const imgQ=new Map();let imgBusy=0;
 function imgPump(){while(imgBusy<6&&imgQ.size){const [k,els]=imgQ.entries().next().value;imgQ.delete(k);imgFly.add(k);imgBusy++;const [s,...r]=k.split('|');
-  fetch(`/api/img?j=1&s=${s}&n=${encodeURIComponent(r.join('|'))}`).then(x=>x.ok?x.json():{u:null}).catch(()=>({u:undefined})).then(d=>{
+  fetch(`/api/img?j=1&s=${s}&n=${encodeURIComponent(r.join('|'))}`).then(x=>x.ok?x.json():{u:null}).catch(()=>({u:undefined})).then(d=>{if(d.u&&/logo|placeholder|footer|static-images|default|no-?image/i.test(d.u))d.u=null;
     if(d.u!==undefined){IMC[k]=d.u||'';clearTimeout(imgSaveT);imgSaveT=setTimeout(()=>{try{const ks=Object.keys(IMC);if(ks.length>3000)ks.slice(0,ks.length-3000).forEach(x=>delete IMC[x]);localStorage.setItem('bb-img',JSON.stringify(IMC))}catch(e){}},800)}
     document.querySelectorAll(`img[data-img="${CSS.escape(k)}"]`).forEach(im=>{if(d.u){im.src=d.u;im.hidden=false;im.removeAttribute('data-img')}else im.remove()})}).finally(()=>{imgBusy--;imgFly.delete(k);imgPump()})}}
 const imgFly=new Set();
