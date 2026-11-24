@@ -10,8 +10,8 @@ self.addEventListener('fetch', e => {
 });
 // pushmeldingen
 self.addEventListener('push', e => {
-  let d = {}; try { d = e.data ? e.data.json() : {}; } catch (x) { d = { title: 'BudgetBoodschappen', body: e.data ? e.data.text() : '' }; }
-  e.waitUntil(self.registration.showNotification(d.title || 'BudgetBoodschappen', { body: d.body || '', icon: 'icons/icon-512.png', badge: 'icons/icon-64.png', data: { url: d.url || '/' } }));
+  let d = {}; try { d = e.data ? e.data.json() : {}; } catch (x) { d = { title: 'Boodje', body: e.data ? e.data.text() : '' }; }
+  e.waitUntil(self.registration.showNotification(d.title || 'Boodje', { body: d.body || '', icon: 'icons/icon-512.png', badge: 'icons/icon-64.png', data: { url: d.url || '/' } }));
 });
 self.addEventListener('notificationclick', e => {
   e.notification.close();

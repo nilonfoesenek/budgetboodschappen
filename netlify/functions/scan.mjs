@@ -88,7 +88,7 @@ export async function readPage(raw) {
     const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 10000);
     let r, href = u.href;
     for (let hop = 0; hop < 4; hop++) { // doorverwijzingen zelf volgen en elke stap controleren
-      r = await fetch(href, { signal: ctl.signal, redirect: 'manual', headers: { 'user-agent': 'Mozilla/5.0 (BudgetBoodschappen recept-import)', 'accept': 'text/html' } });
+      r = await fetch(href, { signal: ctl.signal, redirect: 'manual', headers: { 'user-agent': 'Mozilla/5.0 (Boodje recept-import)', 'accept': 'text/html' } });
       const loc = r.status >= 300 && r.status < 400 && r.headers.get('location');
       if (!loc) break;
       const nu = new URL(loc, href); if (!/^https?:$/.test(nu.protocol) || blockedHost(nu.hostname)) { clearTimeout(t); return { error: 'Deze link kan ik niet openen.' }; }

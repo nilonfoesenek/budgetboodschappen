@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cut">
-<title>BudgetBoodschappen</title>
+<title>Boodje</title>
 <link rel="icon" type="image/svg+xml" href="icons/logo.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="icons/icon-64.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<meta name="apple-mobile-web-app-title" content="BudgetBoodschappen">
+<meta name="apple-mobile-web-app-title" content="Boodje">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#fbfbfa">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="description" content="Zet je boodschappenlijst erin en zie bij welke supermarkt je het goedkoopst uit bent, met de aanbiedingen van deze week.">
-<meta property="og:title" content="BudgetBoodschappen">
+<meta property="og:title" content="Boodje">
 <meta property="og:description" content="Zie bij welke supermarkt je het goedkoopst uit bent, met de aanbiedingen van deze week.">
 <meta property="og:image" content="icons/icon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,7 +36,7 @@ header .stores{margin-top:12px}
 h1{font-size:clamp(23px,6.6vw,30px);letter-spacing:-.5px;line-height:1.05;margin:0;font-weight:800}
 h2{font-size:20px;margin:0 0 8px;font-weight:700}
 .brand{display:flex;align-items:center;gap:10px}.logo{display:flex;align-items:center;gap:7px;text-decoration:none;color:var(--ink)}.logo img{flex:none;width:32px;height:32px;border-radius:9px;box-shadow:0 2px 5px rgba(15,107,58,.22)}
-.logo h1{display:flex;flex-direction:column;font-size:13px;line-height:1.02;letter-spacing:-.1px;font-weight:800;margin:0}.logo h1 b{font-weight:800;color:var(--ink)}.logo h1 span{font-size:11.5px;font-weight:700}
+.logo h1{font-size:22px;line-height:1;letter-spacing:-.6px;font-weight:800;margin:0;color:var(--ink)}.logo h1 b{font-weight:800;color:var(--ink)}.logo h1 span{font-size:11.5px;font-weight:700}
 h1 span{color:var(--ok)}
 .pct{display:inline-block;background:var(--okbg);color:var(--ok);font-weight:800;font-size:12px;border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:1px}
 .sub{color:var(--mute);font-size:14px;margin-top:4px}
@@ -187,7 +187,7 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 </head>
 <body>
 <header class="wrap">
-  <div class="brand"><a class="logo" href="./" aria-label="BudgetBoodschappen"><img src="icons/logo.svg" alt="" width="32" height="32"><h1><b>Budget</b><span>Boodschappen</span></h1></a><button class="bell" id="pushBtn" aria-pressed="false" aria-label="Meldingen" hidden>🔕</button></div>
+  <div class="brand"><a class="logo" href="./" aria-label="Boodje"><img src="icons/logo.svg" alt="" width="32" height="32"><h1>Boodje</h1></a><button class="bell" id="pushBtn" aria-pressed="false" aria-label="Meldingen" hidden>🔕</button></div>
 </header>
 <nav><div class="seg" role="tablist">
   <button role="tab" data-tab="offers" aria-selected="true" aria-label="Home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 9.5V20h5v-6h4v6h5V9.5"/></svg></button>
@@ -271,7 +271,7 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
   </section>
 </main>
 <div id="welcome" hidden><div class="sh-bg"></div><div class="sh" role="dialog" aria-modal="true" aria-labelledby="wTitle" style="max-height:92vh;overflow-y:auto">
-  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><img src="icons/logo.svg" alt="" width="40" height="40" style="border-radius:10px"><h2 id="wTitle" style="margin:0">Welkom bij BudgetBoodschappen</h2></div>
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><img src="icons/logo.svg" alt="" width="40" height="40" style="border-radius:10px"><h2 id="wTitle" style="margin:0">Welkom bij Boodje</h2></div>
   <p class="muted" id="wIntro" style="margin:0 0 12px">Zet je boodschappen erin en zie bij welke supermarkt je het goedkoopst uit bent, met de aanbiedingen van deze week.</p>
   <div class="wloc"><button class="btn sec" id="wLoc" style="width:100%">📍 Supermarkten bij mij in de buurt</button><div class="muted" id="wLocSt" style="font-size:13px;margin-top:6px">Je locatie wordt alleen gebruikt om winkels in de buurt op te zoeken en wordt niet bewaard.</div></div>
   <b>1. Wat is je vaste supermarkt?</b>
@@ -984,7 +984,7 @@ setInterval(()=>{if(state.share&&document.visibilityState==='visible')listSync()
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')listSync()});
 const shareLink=()=>SITE+'?lijst='+state.share.id;
 const fmtCode=c=>c?c.slice(0,3)+'-'+c.slice(3):'';
-function sendLink(){const c=state.share.code,text=`Doe mee met onze boodschappenlijst in BudgetBoodschappen 🛒\n\n1. Open: ${shareLink()}\n2. iPhone: tik op Deel → Zet op beginscherm. Android: menu ⋮ → App installeren.\n3. Open de app vanaf je beginscherm, tik bij Lijst op "Meedoen" en vul de code in: ${fmtCode(c)}\n\nZet daarna 🔔 aan, dan krijg je een seintje als de boodschappen gedaan zijn.`;
+function sendLink(){const c=state.share.code,text=`Doe mee met onze boodschappenlijst in Boodje 🛒\n\n1. Open: ${shareLink()}\n2. iPhone: tik op Deel → Zet op beginscherm. Android: menu ⋮ → App installeren.\n3. Open de app vanaf je beginscherm, tik bij Lijst op "Meedoen" en vul de code in: ${fmtCode(c)}\n\nZet daarna 🔔 aan, dan krijg je een seintje als de boodschappen gedaan zijn.`;
   if(navigator.share)navigator.share({text}).catch(()=>{});else window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank')}
 const nameField=()=>`<label class="nmf">Je naam <input id="shName" class="fin" maxlength="30" placeholder="Bijv. Mama" value="${esc(state.name||'')}"></label>`;
 function renderShare(){const b=$('shareBox'),top=$('shTop');if(!b)return;

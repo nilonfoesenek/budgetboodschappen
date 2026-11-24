@@ -1,6 +1,6 @@
 {
-  "name": "BudgetBoodschappen",
-  "short_name": "BudgetBoodschappen",
+  "name": "Boodje",
+  "short_name": "Boodje",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f4f5f2",

@@ -78,7 +78,7 @@ async function finished(s, b) {
     await Promise.all(ids.map(async pid => {
       const rec = await ps.get('subs/' + pid, { type: 'json' });
       if (!rec) { delete l.members[pid]; return; }
-      try { await webpush.sendNotification(rec.subscription, JSON.stringify({ title: 'BudgetBoodschappen', body: `${name} heeft de boodschappen gedaan 🛒`, url: '/?tab=list' }), { TTL: 60 * 60 * 12 }); sent++; }
+      try { await webpush.sendNotification(rec.subscription, JSON.stringify({ title: 'Boodje', body: `${name} heeft de boodschappen gedaan 🛒`, url: '/?tab=list' }), { TTL: 60 * 60 * 12 }); sent++; }
       catch (e) { if (e.statusCode === 404 || e.statusCode === 410) delete l.members[pid]; }
     }));
     await s.setJSON(b.id, l);
