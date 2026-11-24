@@ -135,6 +135,7 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .lvcat{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin:14px 0 2px}
 .lvd{padding:0 0 12px}.lvt{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;color:var(--mute);padding:2px 0 6px}
 .lvdel{background:none;border:0;color:#b42318;font:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:4px 0}
+.cnt{display:inline-flex;align-items:center;gap:2px;margin-top:6px;border:1px solid var(--line);border-radius:10px;padding:2px}.cnt .qb{border:0;width:32px;height:30px;background:none}.cnt .qb:disabled{opacity:.3}.cnt b{min-width:22px;text-align:center;font-size:15px}
 .fin{width:100%;box-sizing:border-box;font:500 16px Figtree,sans-serif;background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:4px}
 .thumbs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.thumbs img{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
 .ing{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}.ing input{width:20px;height:20px;flex:none}.ing input[type=text]{flex:1;width:auto;height:auto;font:500 15px Figtree,sans-serif;border:0;background:none;color:var(--ink);padding:2px 0}
@@ -412,6 +413,15 @@ function saveFav(id){const title=$('fTitle').value.trim()||'Mijn recept',items=f
   if(id&&id!=='new'){const f=state.favs.find(x=>x.id===id);if(f){f.title=title;f.items=items}}else state.favs.unshift({id:'f'+Date.now().toString(36),title,items});
   fedit=null;persist();renderRecipes()}
 // hoeveelheid één stap omhoog/omlaag: stuks ±1, gram/ml in logische stappen
+/* aantal: bij gewicht in hele verpakkingen (275 g rookworst + = 550 g = 2 rookworsten) */
+function stepPk(line,d,x){const it=Match.parseLine(line);if(!it)return line;const pq=x&&x.pick.p.qty;
+  if(it.req&&pq&&pq.d===it.req.d&&pq.q>0){const n=Math.max(1,(x.packs||1)+d);return fmtQ(n*pq.q,it.req.d)+' '+it.label}
+  if(it.req)return stepQty(line,d);return Math.max(1,it.n+d)+' '+it.label}
+function stepLine(line,d){const r=P?computeLines([line])[0]:null,b=r&&bestOf(r),x=b?r.per[b]:null,it=Match.parseLine(line);
+  // bij gewicht: houd hetzelfde product vast, zodat + echt één verpakking extra is
+  if(x&&it&&it.req){const pk='p:'+it.t.join(' ');(state.picks[pk]=state.picks[pk]||{})[b]=x.pick.p.name}
+  return stepPk(line,d,x)}
+function cntOf(line,x){const it=Match.parseLine(line);if(!it)return 1;return it.req?(x?x.packs||1:1):it.n}
 function stepQty(line,d){const it=Match.parseLine(line);if(!it)return line;
   if(it.req){let q=it.req.q*1000,st=q<100?10:q<500?50:it.req.d==='l'&&q>=1000?500:q<2000?100:250;q=Math.max(st,Math.round((q+d*st)/st)*st);return fmtQ(q/1000,it.req.d)+' '+it.label}
   return Math.max(1,it.n+d)+' '+it.label}
@@ -429,7 +439,7 @@ $('t-recipes').addEventListener('click',e=>{const t=e.target;
   if(t.id==='fSave'){saveFav(fedit);return}
   if(t.id==='planAdd'){const r=addLines(planLines());state.plan={};persist();renderRecipes();$('lstat').textContent='';tab('route');return}
   if(t.id==='planClear'){state.plan={};persist();renderRecipes();return}
-  const qb=t.closest('[data-q]');if(qb){const[id,i,d]=qb.dataset.q.split('|'),f=state.favs.find(x=>x.id===id);if(f){f.items[+i]=stepQty(f.items[+i],+d);persist();renderRecipes()}return}
+  const qb=t.closest('[data-q]');if(qb){const[id,i,d]=qb.dataset.q.split('|'),f=state.favs.find(x=>x.id===id);if(f){f.items[+i]=stepLine(f.items[+i],+d);persist();renderRecipes()}return}
   const pm=t.closest('[data-pm],[data-pp]');if(pm){const id=pm.dataset.pm||pm.dataset.pp;state.plan[id]=Math.max(0,Math.min(14,(state.plan[id]||0)+(pm.dataset.pp?1:-1)));if(!state.plan[id])delete state.plan[id];persist();renderRecipes();return}
   const a=t.closest('[data-fadd]');if(a){const f=state.favs.find(x=>x.id===a.dataset.fadd);if(f)a.textContent=addMsg(addLines(f.items));return}
   const o=t.closest('[data-fopen]');if(o){fopen=fopen===o.dataset.fopen?null:o.dataset.fopen;renderRecipes();return}
@@ -513,7 +523,7 @@ $('wkAuto').addEventListener('change',e=>{state.wkAuto=e.target.checked;if(state
 $('t-weekly').addEventListener('click',e=>{const t=e.target;
   if(t.id==='wkToList'){const on=state.weekly.filter(w=>w.on).map(w=>w.l);if(!on.length)return;t.textContent=addMsg(addLines(on));state.wkLast=weekKey(today);persist();return}
   if(t.id==='wkFromList'){const items=favLines(state.text);if(!items.length){t.textContent='Je lijst is nog leeg';return}addWeekly(items);return}
-  const q=t.closest('[data-wkq]');if(q){const[i,d]=q.dataset.wkq.split('|');state.weekly[+i].l=stepQty(state.weekly[+i].l,+d);persist();renderWeekly();return}
+  const q=t.closest('[data-wkq]');if(q){const[i,d]=q.dataset.wkq.split('|');state.weekly[+i].l=stepLine(state.weekly[+i].l,+d);persist();renderWeekly();return}
   const dl=t.closest('[data-wkdel]');if(dl){state.weekly.splice(+dl.dataset.wkdel,1);persist();renderWeekly();return}});
 $('t-weekly').addEventListener('change',e=>{const c=e.target.closest('[data-wkon]');if(c){state.weekly[+c.dataset.wkon].on=c.checked;persist();renderWeekly();return}
   const q=e.target.closest('[data-wki]');if(q){const v=q.value.trim();if(v)state.weekly[+q.dataset.wki].l=v;else state.weekly.splice(+q.dataset.wki,1);persist();renderWeekly()}});
@@ -537,13 +547,17 @@ function renderLV(){const card=$('lvCard');if(!card)return;const R=lastR||[];car
   for(const {r,s,c} of rows){if(c!==last){html+=`<div class="lvcat">${esc(catName(c))}</div>`;last=c}
     const x=s&&r.per[s],op=lvOpen===r.k,done=!!state.done[r.k];
     html+=`<div class="lvi${op?' open':''}${done?' done':''}"><div class="lvr" data-lvopen="${esc(r.k)}">${catIcon(c)}
-      <div><div class="lbl">${esc(r.line)}</div><div class="pn">${x?`${dot(s)} ${x.sub?'<span class="subtag">lijkt op</span> ':''}${x.packs>1?x.packs+'× ':''}${esc(x.pick.p.name)}${x.pick.p.size?' · '+esc(x.pick.p.size):''}`:'<span class="miss">Niet gevonden</span>'}</div>${x&&x.deal?`<span class="tag">${esc(x.deal.d)}</span>`:''}</div>
+      <div><div class="lbl">${esc(r.line)}</div><div class="pn">${x?`${dot(s)} ${x.sub?'<span class="subtag">lijkt op</span> ':''}${x.packs>1?x.packs+'× ':''}${esc(x.pick.p.name)}${x.pick.p.size?' · '+esc(x.pick.p.size):''}`:'<span class="miss">Niet gevonden</span>'}</div>${x&&x.deal?`<span class="tag">${esc(x.deal.d)}</span>`:''}
+      <span class="cnt"><button class="qb" data-lvq="${esc(r.k)}|-1" aria-label="Minder"${cntOf(r.line,x)<=1?' disabled':''}>−</button><b>${cntOf(r.line,x)}</b><button class="qb" data-lvq="${esc(r.k)}|1" aria-label="Meer">+</button></span></div>
       <div class="pr">${x?(x.deal&&x.regular>x.total+0.005?`<s>${eur(x.regular)}</s><span class="now">${eur(x.total)}</span>`:eur(x.total)):''}</div><span class="chev" aria-hidden="true">›</span></div>
       ${op?`<div class="lvd"><div class="lvt"><span>Melding bij aanbieding ${folBtn(r.line)}</span><button class="lvdel" data-lvdel="${esc(r.k)}">Verwijderen</button></div>
       ${Object.keys(S).filter(t=>sel.includes(t)).map(t=>{const y=r.per[t];if(!y)return `<div class="cmp"><span>${dot(t)}</span><span class="muted">${S[t].label}: niet gevonden</span><span></span></div>`;
         return `<button class="cmp pickb${t===s?' best':''}" data-pickopen="${esc(r.k)}|${t}" aria-label="Ander product kiezen bij ${S[t].full}"><span>${dot(t)}</span><span class="pnm">${y.packs>1?y.packs+'× ':''}${esc(y.pick.p.name)}${y.pick.p.size?' · '+esc(y.pick.p.size):''}<small>${t===s?'Hier gekozen · wissel ›':'Wissel ›'}</small></span><span class="pr">${y.sub?'<span class="subtag">≈</span> ':''}${y.deal&&y.regular>y.total+0.005?`<s>${eur(y.regular)}</s><span class="now">${eur(y.total)}</span>`:eur(y.total)}</span></button>`}).join('')}</div>`:''}</div>`}
   $('lv').innerHTML=html}
 $('lv').addEventListener('click',e=>{const t=e.target;
+  const q=t.closest('[data-lvq]');if(q){const i=q.dataset.lvq.lastIndexOf('|'),k=q.dataset.lvq.slice(0,i),d=+q.dataset.lvq.slice(i+1);
+    const ls=favLines(state.text),j=ls.findIndex(l=>keyOf(l)===k);if(j<0)return;const nl=stepLine(ls[j],d);if(nl===ls[j])return;ls[j]=nl;
+    if(state.done[k]){delete state.done[k];state.done[keyOf(nl)]=true}if(lvOpen===k)lvOpen=keyOf(nl);state.text=ls.join('\n');$('txt').value=state.text;persist();render();return}
   const d=t.closest('[data-lvdel]');if(d){const k=d.dataset.lvdel;state.text=favLines(state.text).filter(l=>keyOf(l)!==k).join('\n');delete state.done[k];if(lvOpen===k)lvOpen=null;$('txt').value=state.text;persist();render();return}
   const o=t.closest('[data-lvopen]');if(o&&!t.closest('[data-fol]')){lvOpen=lvOpen===o.dataset.lvopen?null:o.dataset.lvopen;renderLV()}});
 /* ---------- product kiezen ---------- */
