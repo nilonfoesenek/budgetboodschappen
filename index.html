@@ -169,7 +169,7 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:12px}
 .facts div{background:var(--field);border-radius:10px;padding:8px}.facts b{display:block;font-size:18px;white-space:nowrap}.facts small{color:var(--mute);font-size:12px}
 .rh{cursor:pointer}h3{font-size:16px;margin:12px 0 4px}.steps{margin:0;padding-left:20px}.steps li{margin-bottom:6px}
-.sb.lg{background:#fff;box-shadow:inset 0 0 0 1px var(--line);padding:2px;overflow:hidden}.sb.lg.jb{background:#ffd400;box-shadow:none;padding:1px}.sb.lg.full{padding:0;box-shadow:none;background:none}.sb.lg img{width:100%;height:100%;object-fit:contain;display:block}
+.sb.lg{background:#fff;border-radius:50%!important;padding:0;overflow:hidden;box-shadow:0 0 0 1px rgba(20,24,20,.08)}.sb.lg img{width:100%;height:100%;object-fit:cover;display:block}
 .shelf{margin:0 0 16px}.shelf h2{display:flex;align-items:baseline;gap:8px;margin:0 2px 2px;font-size:18px}.shelf h2 small{font:500 13px Figtree,sans-serif;color:var(--mute)}.shelf p{margin:0 2px 8px;font-size:13px;color:var(--mute)}
 .srow{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:2px 16px 4px;scroll-snap-type:x proximity}.srow::-webkit-scrollbar{display:none}
 .dc{flex:none;width:150px;scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px;display:flex;flex-direction:column;gap:6px}
@@ -319,8 +319,7 @@ const eur=n=>'€'+n.toFixed(2).replace('.',',');
 const S={ah:{label:'AH',full:'AH',c:'var(--ah)'},jumbo:{label:'Jumbo',full:'Jumbo',c:'var(--jumbo)'},aldi:{label:'Aldi',full:'Aldi',c:'var(--aldi)'},dirk:{label:'Dirk',full:'Dirk',c:'var(--dirk)'},plus:{label:'Plus',full:'Plus',c:'var(--plus)'},lidl:{label:'Lidl',full:'Lidl',c:'var(--lidl)',noOffers:true},dekamarkt:{label:'Deka',full:'DekaMarkt',c:'var(--deka)'},hoogvliet:{label:'Hoogvliet',full:'Hoogvliet',c:'var(--hoog)'},spar:{label:'SPAR',full:'SPAR',c:'var(--spar)'},vomar:{label:'Vomar',full:'Vomar',c:'var(--vomar)',noOffers:true},poiesz:{label:'Poiesz',full:'Poiesz',c:'var(--poiesz)',noOffers:true}};
 const AB={ah:['AH','#fff'],jumbo:['J','#111'],aldi:['A','#fff'],dirk:['D','#fff'],plus:['P','#fff'],lidl:['L','#fff'],dekamarkt:['DM','#fff'],hoogvliet:['HV','#fff'],spar:['S','#fff'],vomar:['V','#fff'],poiesz:['Po','#fff']};
 // echte logo's waar we ze hebben (icons/stores), anders de letters
-const LOGO={ah:'full',aldi:'full',lidl:'full',jumbo:'jb',spar:''};
-const dot=s=>s in LOGO?`<span class="sb lg ${LOGO[s]}" aria-hidden="true"><img src="icons/stores/${s}.svg" alt=""></span>`:`<span class="sb" style="background:${S[s].c};color:${AB[s][1]}" aria-hidden="true">${AB[s][0]}</span>`;
+const dot=s=>S[s]?`<span class="sb lg" aria-hidden="true"><img src="icons/stores/${s}.png" alt=""></span>`:`<span class="sb" style="background:${S[s].c};color:${AB[s][1]}" aria-hidden="true">${AB[s][0]}</span>`;
 const IMGS=new Set(['ah','jumbo','dirk','hoogvliet','spar','vomar']);// winkels waarvan we productfoto's kunnen opzoeken
 const thumb=(s,n)=>!IMGS.has(s)||!n?'':`<img class="pi" src="/api/img?s=${s}&n=${encodeURIComponent(n.toLowerCase())}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`;
 const th=(s,n)=>`<span class="th">${thumb(s,n)}${dot(s)}</span>`;
