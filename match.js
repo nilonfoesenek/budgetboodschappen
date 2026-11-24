@@ -169,6 +169,19 @@
   }
   function mode(a) { const c = {}; let b = null; for (const x of a) if (x) { c[x] = (c[x] || 0) + 1; if (!b || c[x] > c[b]) b = x; } return b; }
   const LOOSE = /(ui|uien|sjalot|paprika|appel|peer|peren|banaan|bananen|citroen|limoen|tomaat|tomaten|avocado|kiwi|sinaasappel|mandarijn|aardappel|wortel|courgette|aubergine|komkommer|knoflook|teen|tenen|champignon|nectarine|perzik|pruim)/i;
+  // Hoeveel stuks zitten er in een verpakking? Eerst uit de naam ('6 stuks', '4-pack'), anders geschat uit het gewicht.
+  const PIECE = [[/wrap|tortilla/, 62], [/pita/, 70], [/croissant/, 45], [/krentenbol|bolletje|broodje/, 60], [/hamburger|burger/, 100], [/braadworst|saucijs/, 100], [/knakworst/, 40],
+    [/slavink|speklap|schnitzel|kipdij/, 110], [/kipfilet/, 140], [/rode ui|sjalot/, 90], [/\bui|uien/, 130], [/tomaat|tomaten/, 100], [/paprika/, 160], [/appel/, 180], [/peer|peren/, 180],
+    [/banaan|bananen/, 130], [/aardappel/, 150], [/citroen/, 110], [/limoen/, 70], [/sinaasappel|mandarijn/, 180], [/courgette/, 250], [/wortel|peen/, 80], [/kiwi/, 90]];
+  function piecesIn(item, p) {
+    const s = (p.name + ' ' + (p.size || '')).toLowerCase();
+    const m = s.match(/(\d+)\s*(stuks?|st\b|st\.|pcs|-?pack|wraps|tortilla'?s|broodjes|plakken|zakjes|eieren)/) || s.match(/\b(\d+)\s*x\b(?!\s*\d)/);
+    if (m && +m[1] > 1 && +m[1] < 100) return +m[1];
+    const q = p.qty; if (!q || q.d !== 'kg') return null;
+    const lab = (item.label || '').toLowerCase();
+    for (const [re, g] of PIECE) if (re.test(lab)) return Math.max(1, Math.round(q.q * 1000 / g));
+    return null;
+  }
   function costOf(item, p, dim) {
     const q = p.qty;
     if (item.req && q && q.d === item.req.d && q.q > 0) {
@@ -178,7 +191,9 @@
     const unit = q && q.d === dim && q.q > 0 ? p.price / q.q : null;
     // Aantal stuks gevraagd ("2 uien"): één verpakking volstaat als die groot genoeg is.
     let packs = item.n;
+    const pcs = !(q && q.d === 'st') ? piecesIn(item, p) : null;
     if (q && q.d === 'st' && q.q > 1) packs = Math.max(1, Math.ceil(item.n / q.q - 1e-9));
+    else if (pcs) packs = Math.max(1, Math.ceil(item.n / pcs - 1e-9));
     // losse groente/fruit in een zak: '2 uien' = 1 zak. Verpakte producten: '2 rookworsten' = 2 stuks.
     else if (q && q.d !== 'st' && LOOSE.test(item.label || '')) packs = 1;
     const total = packs * p.price;
