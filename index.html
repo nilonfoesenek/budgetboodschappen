@@ -149,6 +149,7 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .srow{display:flex;gap:8px}.scanb{flex:none;width:48px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-size:24px;cursor:pointer;color:var(--ink)}
 #scan .sh{max-height:92vh;overflow-y:auto}#scCam{position:relative;border-radius:14px;overflow:hidden;background:#000;aspect-ratio:4/3;margin:6px 0 10px}#scCam video{width:100%;height:100%;object-fit:cover;display:block}.scline{position:absolute;left:12%;right:12%;top:50%;height:2px;background:#ff3b30;box-shadow:0 0 8px #ff3b30}
 .scr{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;border:0;border-top:1px solid var(--line);background:none;padding:11px 2px;text-align:left;font:inherit;color:var(--ink);cursor:pointer}.scr small{display:block;color:var(--mute);font-size:12.5px}.scr .pr{font-weight:800}.scr.best .pr{color:var(--ok)}
+.wkpick{cursor:pointer}.wkw{display:block;font-weight:500;font-size:12px;color:var(--mute);max-width:52vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .fin{width:100%;box-sizing:border-box;font:500 16px Figtree,sans-serif;background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:4px}
 .thumbs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.thumbs img{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
 .ing{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}.ing input{width:20px;height:20px;flex:none}.ing input[type=text]{flex:1;width:auto;height:auto;font:500 15px Figtree,sans-serif;border:0;background:none;color:var(--ink);padding:2px 0}
@@ -351,7 +352,7 @@ function render(){
     $('bons').innerHTML=`<div class="card empty">Je lijst is nog leeg.<br><button class="btn" style="margin-top:12px" data-go="list">Lijst maken</button></div>`+savingsHtml();renderLV();return}
   const ALL=Object.keys(S).filter(x=>IDX[x]);state.mode='split';
   const one={};for(const s of ALL){one[s]={sum:0,miss:0,sub:0};for(const r of R){if(r.per[s]){one[s].sum+=r.per[s].total;if(r.per[s].sub)one[s].sub++}else one[s].miss++}}
-  const assign=r=>{const pn=state.pin&&state.pin[r.k];if(pn&&sel.includes(pn)&&r.per[pn])return pn;let b=null;const ex=sel.some(s=>r.per[s]&&!r.per[s].sub),ms=Math.min(...sel.map(s=>r.per[s]&&r.per[s].sub?r.per[s].pick.score:99));for(const s of sel){const y=r.per[s];if(y&&(ex?!y.sub:y.pick.score<=ms+0.1)&&(!b||y.total<r.per[b].total-1e-9))b=s}return b};
+  const assign=r=>{const fx=r.it&&r.it.store;if(fx&&r.per[fx])return fx;const pn=state.pin&&state.pin[r.k];if(pn&&sel.includes(pn)&&r.per[pn])return pn;let b=null;const ex=sel.some(s=>r.per[s]&&!r.per[s].sub),ms=Math.min(...sel.map(s=>r.per[s]&&r.per[s].sub?r.per[s].pick.score:99));for(const s of sel){const y=r.per[s];if(y&&(ex?!y.sub:y.pick.score<=ms+0.1)&&(!b||y.total<r.per[b].total-1e-9))b=s}return b};
   const groups={},miss=[];let split=0;
   lastAssign=assign;
   for(const r of R){const s=assign(r);if(!s){miss.push(r);continue}(groups[s]=groups[s]||[]).push(r);split+=r.per[s].total}
@@ -399,7 +400,7 @@ function item(r,s,sel){const x=r.per[s],done=!!state.done[r.k],isOpen=false;
     return `<button class="cmp pickb${t===s?' best':''}" data-pickopen="${esc(r.k)}|${t}" aria-label="Ander product kiezen bij ${S[t].full}"><span>${dot(t)}</span><span class="pnm">${y.packs>1?y.packs+'× ':''}${esc(y.pick.p.name)}${y.pick.p.size?' · '+esc(y.pick.p.size):''}<small>Wissel ›</small></span><span class="pr">${y.sub?'<span class="subtag">≈</span> ':''}${y.deal&&y.regular>y.total+0.005?`<s>${eur(y.regular)}</s><span class="now">${eur(y.total)}</span>`:eur(y.total)}</span></button>`}).join('')}</div>`:''}</div>`}
 
 /* ---------- recepten ---------- */
-function bestOf(r){const pn=state.pin&&state.pin[r.k];if(pn&&state.stores.includes(pn)&&r.per[pn])return pn;let b=null;const ex=state.stores.some(s=>r.per[s]&&!r.per[s].sub);for(const s of state.stores){const y=r.per[s];if(y&&(!ex||!y.sub)&&(!b||y.total<r.per[b].total))b=s}return b}
+function bestOf(r){const fx=r.it&&r.it.store;if(fx&&r.per[fx])return fx;const pn=state.pin&&state.pin[r.k];if(pn&&state.stores.includes(pn)&&r.per[pn])return pn;let b=null;const ex=state.stores.some(s=>r.per[s]&&!r.per[s].sub);for(const s of state.stores){const y=r.per[s];if(y&&(!ex||!y.sub)&&(!b||y.total<r.per[b].total))b=s}return b}
 if(!Array.isArray(state.favs))state.favs=[];
 if(!Array.isArray(state.pantry))state.pantry=[];
 if(!state.plan||typeof state.plan!=='object')state.plan={};
@@ -414,8 +415,8 @@ function mergeLines(base,add){const out=[...base];
     const k=it.t.join(' '),sub=(a,b)=>a.every(t=>b.includes(t)),i=out.findIndex(x=>{const e=Match.parseLine(x);return e&&(e.t.join(' ')===k||(it.req&&e.req&&it.req.d===e.req.d&&(sub(it.t,e.t)||sub(e.t,it.t))))});
     if(i<0){out.push(l);continue}
     const e=Match.parseLine(out[i]);
-    if(it.req&&e.req&&it.req.d===e.req.d)out[i]=fmtQ(it.req.q+e.req.q,it.req.d)+' '+(it.t.length>e.t.length?it.label:e.label);
-    else if(!it.req&&!e.req)out[i]=(e.n+it.n)+' '+e.label;
+    if(it.req&&e.req&&it.req.d===e.req.d)out[i]=fmtQ(it.req.q+e.req.q,it.req.d)+' '+labelOf(it.t.length>e.t.length?it:e,it.store||e.store);
+    else if(!it.req&&!e.req)out[i]=(e.n+it.n)+' '+labelOf(e,it.store||e.store);
     else if(it.req&&!e.req&&e.n===1)out[i]=l;
     else if(!it.req&&e.req&&it.n===1){}
     else out.push(l)}
@@ -455,16 +456,18 @@ function saveFav(id){const title=$('fTitle').value.trim()||'Mijn recept',items=f
 // hoeveelheid één stap omhoog/omlaag: stuks ±1, gram/ml in logische stappen
 /* aantal: bij gewicht in hele verpakkingen (275 g rookworst + = 550 g = 2 rookworsten) */
 function stepPk(line,d,x){const it=Match.parseLine(line);if(!it)return line;const pq=x&&x.pick.p.qty;
-  if(it.req&&pq&&pq.d===it.req.d&&pq.q>0){const n=Math.max(1,(x.packs||1)+d);return fmtQ(n*pq.q,it.req.d)+' '+it.label}
-  if(it.req)return stepQty(line,d);return Math.max(1,it.n+d)+' '+it.label}
+  if(it.req&&pq&&pq.d===it.req.d&&pq.q>0){const n=Math.max(1,(x.packs||1)+d);return fmtQ(n*pq.q,it.req.d)+' '+labelOf(it)}
+  if(it.req)return stepQty(line,d);return Math.max(1,it.n+d)+' '+labelOf(it)}
 function stepLine(line,d){const r=P?computeLines([line])[0]:null,b=r&&bestOf(r),x=b?r.per[b]:null,it=Match.parseLine(line);
   // bij gewicht: houd hetzelfde product vast, zodat + echt één verpakking extra is
   if(x&&it&&it.req){const pk='p:'+it.t.join(' ');(state.picks[pk]=state.picks[pk]||{})[b]=x.pick.p.name}
   return stepPk(line,d,x)}
 function cntOf(line,x){const it=Match.parseLine(line);if(!it)return 1;return it.req?(x?x.packs||1:1):it.n}
+// label plus de winkel als die in de regel stond ('magere kwark jumbo')
+function labelOf(it,st){st=st===undefined?it.store:st;return it.label+(st&&S[st]?' '+S[st].full.toLowerCase():'')}
 function stepQty(line,d){const it=Match.parseLine(line);if(!it)return line;
-  if(it.req){let q=it.req.q*1000,st=q<100?10:q<500?50:it.req.d==='l'&&q>=1000?500:q<2000?100:250;q=Math.max(st,Math.round((q+d*st)/st)*st);return fmtQ(q/1000,it.req.d)+' '+it.label}
-  return Math.max(1,it.n+d)+' '+it.label}
+  if(it.req){let q=it.req.q*1000,st=q<100?10:q<500?50:it.req.d==='l'&&q>=1000?500:q<2000?100:250;q=Math.max(st,Math.round((q+d*st)/st)*st);return fmtQ(q/1000,it.req.d)+' '+labelOf(it)}
+  return Math.max(1,it.n+d)+' '+labelOf(it)}
 $('t-recipes').addEventListener('change',e=>{const q=e.target.closest('[data-qi]');if(!q)return;const[id,i]=q.dataset.qi.split('|'),f=state.favs.find(x=>x.id===id);if(!f)return;
   const v=q.value.trim();if(v)f.items[+i]=v;else f.items.splice(+i,1);persist();renderRecipes()});
 function renderPantry(){$('pan').innerHTML=state.pantry.map(k=>`<button data-pdel="${esc(k)}" aria-label="${esc(k)} verwijderen">${esc(k)}</button>`).join('')}
@@ -539,7 +542,7 @@ const brandless=n=>n.replace(/^(AH Excellent|AH Biologisch|AH Terra|AH|Jumbo's|J
 function renderSearch(){const q=$('ps').value.trim(),box=$('psRes');if(q.length<2||!P){box.innerHTML='';return}
   const it=Match.parseLine(q);if(!it){box.innerHTML='';return}
   const rows=[],seen=new Set();
-  for(const s of state.stores){if(!IDX[s])continue;for(const c of Match.candidates(it,IDX[s],5)){const k=s+c.p.name;if(seen.has(k))continue;seen.add(k);
+  for(const s of (it.store?[it.store]:state.stores)){if(!IDX[s])continue;for(const c of Match.candidates(it,IDX[s],it.store?12:5)){const k=s+c.p.name;if(seen.has(k))continue;seen.add(k);
     const cost=c.cost||Match.costOf(it,c.p,c.p.qty&&c.p.qty.d);rows.push({s,c,cost})}}
   rows.sort((a,b)=>(a.c.sub?1:0)-(b.c.sub?1:0)||a.c.score-b.c.score||a.cost.total-b.cost.total);
   const best=rows.slice(0,14).sort((a,b)=>(a.c.sub?1:0)-(b.c.sub?1:0)||a.cost.total-b.cost.total);
@@ -554,7 +557,7 @@ let scStream=null,scTimer=null,scReader=null,scBusy=false,scLine='';
 function scStop(){clearInterval(scTimer);scTimer=null;scReader=null;if(scStream){scStream.getTracks().forEach(t=>t.stop());scStream=null}}
 function scClose(){scStop();$('scan').hidden=true}
 const loadZXing=()=>window.ZXing?Promise.resolve():new Promise((ok,no)=>{const sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js';sc.onload=ok;sc.onerror=no;document.head.appendChild(sc)});
-async function scOpen(){$('scan').hidden=false;$('scRes').innerHTML='';$('scCode').value='';$('scCam').hidden=false;$('scSub').textContent='Richt de camera op de streepjescode van de verpakking.';scBusy=false;
+async function scOpen(){$('scTitle').textContent='Streepjescode scannen';$('scManual').style.display='';$('scan').hidden=false;$('scRes').innerHTML='';$('scCode').value='';$('scCam').hidden=false;$('scSub').textContent='Richt de camera op de streepjescode van de verpakking.';scBusy=false;
   const v=$('scVideo');
   try{scStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false});v.srcObject=scStream;await v.play()}
   catch(e){$('scCam').hidden=true;$('scSub').textContent='De camera kon niet openen. Typ de cijfers onder de streepjescode.';return}
@@ -584,6 +587,24 @@ function scShow(name,qty){const q=Match.parseQty(qty),line=name+(q&&!/\d/.test(n
     rows.map((r,i)=>`<button class="scr${i===0&&!r.c.sub?' best':''}" data-scpick="${r.s}|${esc(r.c.p.name)}">${dot(r.s)}<span>${r.c.sub?'<span class="subtag">lijkt op</span> ':''}${r.cost.packs>1?r.cost.packs+'× ':''}${esc(r.c.p.name)}<small>${S[r.s].full}${r.c.p.size?' · '+esc(r.c.p.size):''}</small></span><span class="pr">${eur(r.cost.total)}</span></button>`).join('')+
     `<p class="muted" style="font-size:12.5px;margin:8px 0 0">Tik op de winkel waar je hem wilt halen. Het product komt dan bij die winkel op je lijst.</p>`}
 $('scanOpen').addEventListener('click',scOpen);
+// winkel en product kiezen voor een regel (Vast): alle winkels, goedkoopste bovenaan
+let chooseLine=null;
+function chooseStore(line){const it=Match.parseLine(line);if(!it||!P)return;chooseLine=line;
+  $('scan').hidden=false;$('scCam').hidden=true;$('scManual').style.display='none';$('scTitle').textContent='Waar wil je dit halen?';$('scSub').textContent=line;
+  const R=computeLines([line])[0],stores=Object.keys(S).filter(s=>IDX[s]&&R&&R.per[s]);
+  const rows=stores.map(s=>({s,x:R.per[s]})).sort((a,b)=>(a.x.sub?1:0)-(b.x.sub?1:0)||a.x.total-b.x.total),cur=bestOf(R);
+  $('scRes').innerHTML=rows.map(({s,x})=>`<button class="scr${s===cur?' best':''}" data-chs="${s}">${dot(s)}<span>${x.sub?'<span class="subtag">lijkt op</span> ':''}${x.packs>1?x.packs+'× ':''}${esc(x.pick.p.name)}<small>${S[s].full}${s===cur?' · nu gekozen':''}${state.stores.includes(s)?'':' · niet in je winkels'}</small></span><span class="pr">${eur(x.total)}</span></button>`).join('')+
+    `<p class="muted" style="font-size:12.5px;margin:8px 0 0">De app onthoudt je keuze. Tip: zet de winkel in de regel, bijv. "magere kwark jumbo".</p>`}
+$('scRes').addEventListener('click',e=>{const b=e.target.closest('[data-chs]'),pp=e.target.closest('[data-chp]');if((!b&&!pp)||!chooseLine)return;
+  if(b){const s=b.dataset.chs,R=computeLines([chooseLine])[0];if(!R)return;const it=R.it,seen=new Set(),rows=[];
+    for(const c of [R.per[s]?R.per[s].pick:null,...Match.candidates(it,IDX[s],8)].filter(Boolean)){if(seen.has(c.p.name))continue;seen.add(c.p.name);rows.push({p:c.p,cost:c.cost||Match.costOf(it,c.p,c.p.qty&&c.p.qty.d)})}
+    rows.sort((a,c)=>a.cost.total-c.cost.total);$('scTitle').textContent='Welk product bij '+S[s].full+'?';
+    $('scRes').innerHTML=rows.map(r=>`<button class="scr" data-chp="${s}|${esc(r.p.name)}">${dot(s)}<span>${r.cost.packs>1?r.cost.packs+'× ':''}${esc(r.p.name)}<small>${r.p.size?esc(r.p.size):''}</small></span><span class="pr">${eur(r.cost.total)}</span></button>`).join('')+`<button class="btn sec" data-chback style="margin-top:10px">‹ Andere winkel</button>`;return}
+  const i0=pp.dataset.chp.indexOf('|'),s=pp.dataset.chp.slice(0,i0),nm=pp.dataset.chp.slice(i0+1),R=computeLines([chooseLine])[0];if(!R)return;
+  const it=R.it,pk='p:'+it.t.join(' ');(state.picks[pk]=state.picks[pk]||{})[s]=nm;(state.pin=state.pin||{})[R.k]=s;
+  if(!state.stores.includes(s)&&!it.store){const i=state.weekly.findIndex(w=>w.l===chooseLine);if(i>=0)state.weekly[i].l=chooseLine.replace(/\s*$/,' '+S[s].full.toLowerCase())}
+  persist();chooseLine=null;scClose();renderWeekly();render();toast(`Gekozen: ${nm} bij ${S[s].full}.`)});
+document.addEventListener('click',e=>{if(e.target.closest('[data-chback]')&&chooseLine)chooseStore(chooseLine)});
 $('scan').addEventListener('click',e=>{const t=e.target;
   if(t.closest('[data-scclose]')){scClose();return}
   if(t.id==='scGo'){scFound($('scCode').value);return}
@@ -602,13 +623,14 @@ function renderWeekly(){const box=$('wkList');let sum=0;
   const R=P?computeLines(state.weekly.map(w=>w.l)):[];
   box.innerHTML=state.weekly.map((w,i)=>{const r=R[i],b=r?bestOf(r):null,pr=b?r.per[b].total:null;if(w.on&&pr)sum+=pr;
     return `<div class="wk${w.on?'':' wkoff'}"><input type="checkbox" data-wkon="${i}"${w.on?' checked':''} aria-label="Deze week kopen">
-      <div class="wkm"><input class="qin" data-wki="${i}" value="${esc(w.l)}" aria-label="Product en hoeveelheid">${b?stockTip(w.l,r.per[b].deal):''}<div class="wkb"><span class="pr">${pr!=null?(b?dot(b)+' ':'')+eur(pr):'<span class="muted">niet gevonden</span>'}${b&&r.per[b].deal?` <span class="tag" style="margin:0">${esc(r.per[b].deal.d)}</span>`:''}</span><span class="qrow">${folBtn(w.l)}<button class="qb" data-wkq="${i}|-1" aria-label="Minder">−</button><button class="qb" data-wkq="${i}|1" aria-label="Meer">+</button><button class="qb del" data-wkdel="${i}" aria-label="Verwijderen">×</button></span></div></div></div>`}).join('');
+      <div class="wkm"><input class="qin" data-wki="${i}" value="${esc(w.l)}" aria-label="Product en hoeveelheid">${b?stockTip(w.l,r.per[b].deal):''}<div class="wkb"><span class="pr wkpick" data-wkpick="${i}" role="button" title="Andere winkel of ander product kiezen">${pr!=null?(b?dot(b)+' ':'')+eur(pr)+' <small class="wkw">'+esc(r.per[b].pick.p.name)+' ›</small>':'<span class="muted">niet gevonden ›</span>'}${b&&r.per[b].deal?` <span class="tag" style="margin:0">${esc(r.per[b].deal.d)}</span>`:''}</span><span class="qrow">${folBtn(w.l)}<button class="qb" data-wkq="${i}|-1" aria-label="Minder">−</button><button class="qb" data-wkq="${i}|1" aria-label="Meer">+</button><button class="qb del" data-wkdel="${i}" aria-label="Verwijderen">×</button></span></div></div></div>`}).join('');
   $('wkSum').textContent=P?'± '+eur(sum):'';$('wkAuto').checked=!!state.wkAuto}
 function addWeekly(list){for(const l of list){const v=l.trim();if(v&&!state.weekly.some(w=>pkey(w.l)===pkey(v)))state.weekly.push({l:v,on:true})}persist();renderWeekly()}
 $('wkAdd').addEventListener('click',()=>{const v=$('wkIn').value.split(',').map(x=>x.trim()).filter(Boolean);if(!v.length)return;addWeekly(v);$('wkIn').value=''});
 $('wkIn').addEventListener('keydown',e=>{if(e.key==='Enter')$('wkAdd').click()});
 $('wkAuto').addEventListener('change',e=>{state.wkAuto=e.target.checked;if(state.wkAuto)state.wkLast=weekKey(today);persist()});
 $('t-weekly').addEventListener('click',e=>{const t=e.target;
+  const wp=t.closest('[data-wkpick]');if(wp){chooseStore(state.weekly[+wp.dataset.wkpick].l);return}
   if(t.id==='wkToList'){const on=state.weekly.filter(w=>w.on).map(w=>w.l);if(!on.length)return;t.textContent=addMsg(addLines(on));state.wkLast=weekKey(today);persist();return}
   if(t.id==='wkFromList'){const items=favLines(state.text);if(!items.length){t.textContent='Je lijst is nog leeg';return}addWeekly(items);return}
   const q=t.closest('[data-wkq]');if(q){const[i,d]=q.dataset.wkq.split('|');state.weekly[+i].l=stepLine(state.weekly[+i].l,+d);persist();renderWeekly();return}

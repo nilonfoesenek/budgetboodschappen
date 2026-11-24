@@ -38,8 +38,19 @@
     return out;
   }
 
+  // winkel in de regel: 'magere kwark jumbo', 'magere kwark bij de Jumbo', 'jumbo magere kwark', 'kwark (AH)'
+  const STOREW = { 'albert heijn': 'ah', 'ah': 'ah', 'appie': 'ah', 'jumbo': 'jumbo', 'aldi': 'aldi', 'dirk': 'dirk', 'dirk van den broek': 'dirk', 'plus': 'plus', 'lidl': 'lidl',
+    'dekamarkt': 'dekamarkt', 'deka': 'dekamarkt', 'hoogvliet': 'hoogvliet', 'spar': 'spar', 'vomar': 'vomar', 'poiesz': 'poiesz' };
+  const SW = Object.keys(STOREW).sort((a, b) => b.length - a.length).join('|');
+  const STORE_END = new RegExp('[\\s,(-]+(?:bij|van|@)?\\s*(?:de\\s+)?(' + SW + ')\\)?\\s*$', 'i');
+  const STORE_START = new RegExp('^((?:[\\d.,]+\\s*(?:kg|kilo|gram|gr|g|ml|cl|liter|l|stuks|stuk|st|x)?\\.?\\s+)?)(' + SW + ')\\s+', 'i');
   function parseLine(line) {
-    let s = String(line || '').replace(/\(.*?\)/g, ' ').replace(/^[\s\-*•·\[\]x✓☐]+/, '').trim();
+    let s = String(line || '').replace(/^[\s\-*•·\[\]x✓☐]+/, '').trim();
+    let store = null, sm;
+    if ((sm = s.match(STORE_END))) { store = STOREW[sm[1].toLowerCase()]; s = s.slice(0, sm.index).trim(); }
+    else if ((sm = s.match(/\((albert heijn|ah|jumbo|aldi|dirk|plus|lidl|dekamarkt|deka|hoogvliet|spar|vomar|poiesz)\)/i))) { store = STOREW[sm[1].toLowerCase()]; s = s.replace(sm[0], ' ').trim(); }
+    else if ((sm = s.match(STORE_START)) && s.slice(sm[0].length).trim()) { store = STOREW[sm[2].toLowerCase()]; s = (sm[1] + s.slice(sm[0].length)).trim(); }
+    s = s.replace(/\(.*?\)/g, ' ').trim();
     if (!s) return null;
     let n = 1, req = null, m;
     const U = '(kg|kilo|gram|gr|g|ml|cl|liter|l|stuks|stuk|st|x|el|tl|eetlepels?|theelepels?|snufje|scheutje|scheut|handje|handvol|takjes?|teentjes?|tenen|teen|plakjes?|plakken)';
@@ -53,7 +64,7 @@
       if (!u || u === 'x' || u.startsWith('st')) n = Math.max(1, Math.round(v)); else req = parseQty(v + ' ' + u);
     }
     const t = toks(s);
-    return t.length ? { label: s.trim(), t, n, req } : null;
+    return t.length ? { label: s.trim(), t, n, req, store } : null;
   }
 
   // bewerkte vormen: '500 g aardappels' ≠ aardappelkroketjes, 'tomaten' ≠ tomatensoep
