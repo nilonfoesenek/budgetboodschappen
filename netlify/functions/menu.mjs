@@ -2,7 +2,7 @@
 import { store, DATA } from './lib.mjs';
 const json = (b, status = 200) => new Response(JSON.stringify(b), { status, headers: { 'content-type': 'application/json' } });
 const MODEL = process.env.CLAUDE_MODEL || 'claude-sonnet-5-5';
-const NAMES = { ah: 'AH', jumbo: 'Jumbo', aldi: 'Aldi', dirk: 'Dirk', plus: 'Plus' };
+const NAMES = { ah: 'AH', jumbo: 'Jumbo', aldi: 'Aldi', dirk: 'Dirk', plus: 'Plus', dekamarkt: 'DekaMarkt', hoogvliet: 'Hoogvliet', spar: 'SPAR' };
 const disc = o => o.pct || (o.was && o.p != null && o.was > o.p ? 1 - o.p / o.was : 0);
 
 export default async (req) => {

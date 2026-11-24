@@ -1,7 +1,7 @@
 // Toets de productkeuze: node tools/eval.js [ai-antwoorden.json]
 // Per regel en per winkel: goed / fout / niet gevonden. Fout = verkeerd product gekozen.
 require('../match.js'); const M = globalThis.Match; const fs = require('fs'), path = require('path');
-const D = require('../data/prices.json').stores, STORES = ['ah', 'jumbo', 'aldi', 'dirk', 'plus', 'lidl'];
+const D = require('../data/prices.json').stores, STORES = ['ah', 'jumbo', 'aldi', 'dirk', 'plus', 'lidl', 'dekamarkt', 'hoogvliet', 'spar', 'vomar', 'poiesz'];
 const idx = {}; for (const s of STORES) idx[s] = M.indexStore(D[s]);
 const AI = process.argv[2] ? JSON.parse(fs.readFileSync(process.argv[2], 'utf8')) : null;
 const deacc = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');

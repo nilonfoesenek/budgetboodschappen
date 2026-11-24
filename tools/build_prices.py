@@ -1,7 +1,7 @@
 """Bouwt data/prices.json voor de boodschappen-app.
 
 Gebruik: python3 -I build_prices.py <checkjebon_supermarkets.json> <aldi_dir> <out.json>
-- AH, Jumbo, Dirk, Plus en Lidl komen uit de Checkjebon open data (github.com/supermarkt/checkjebon).
+- AH, Jumbo, Dirk, Plus, Lidl, DekaMarkt, Hoogvliet, SPAR, Vomar en Poiesz komen uit de Checkjebon open data (github.com/supermarkt/checkjebon).
   Lidl daar komt via boodschaapje.nl en wordt opgeschoond (non-food met artikelcode, prijs < 0,10 weg).
 - Aldi komt uit tekstbestanden in <aldi_dir> met regels: naam | inhoud | prijs
 """
@@ -18,7 +18,7 @@ def clean_size(s):
 data = json.load(open(src, encoding='utf-8'))
 stores = {}
 for s in data:
-    if s['n'] in ('ah', 'jumbo', 'dirk', 'plus', 'lidl') and s['d']:
+    if s['n'] in ('ah', 'jumbo', 'dirk', 'plus', 'lidl', 'dekamarkt', 'hoogvliet', 'spar', 'vomar', 'poiesz') and s['d']:
         rows, seen_cj = [], set()
         for p in s['d']:
             name = (p.get('n') or '').strip()
@@ -65,6 +65,11 @@ meta = {
     'plus': {'label': 'Plus', 'source': 'Checkjebon open data', 'note': ''},
     'lidl': {'label': 'Lidl', 'source': 'Checkjebon open data (via boodschaapje.nl)', 'note': 'Alleen gewone prijzen, geen aanbiedingen. Productnamen zijn soms afgekort.'},
     'aldi': {'label': 'Aldi', 'source': 'aldi.nl', 'note': 'Selectie van het assortiment (±600 producten).'},
+    'dekamarkt': {'label': 'DekaMarkt', 'source': 'Checkjebon open data', 'note': ''},
+    'hoogvliet': {'label': 'Hoogvliet', 'source': 'Checkjebon open data', 'note': ''},
+    'spar': {'label': 'SPAR', 'source': 'Checkjebon open data', 'note': ''},
+    'vomar': {'label': 'Vomar', 'source': 'Checkjebon open data', 'note': 'Kleine selectie van het assortiment, geen aanbiedingen.'},
+    'poiesz': {'label': 'Poiesz', 'source': 'Checkjebon open data', 'note': 'Selectie van het assortiment, geen aanbiedingen.'},
 }
 json.dump({'built': today, 'meta': meta, 'stores': stores}, open(out, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
 print({k: len(v) for k, v in stores.items()}, os.path.getsize(out))

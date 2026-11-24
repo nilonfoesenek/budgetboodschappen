@@ -10,8 +10,8 @@ const json = (b, status = 200) => new Response(JSON.stringify(b), { status, head
 const MODELS = { haiku: 'claude-haiku-5-5', sonnet: 'claude-sonnet-5-5' };
 const DEFAULT = process.env.CLAUDE_MATCH_MODEL || 'haiku';
 const V = 3; // verhoog bij een nieuwe prompt: oude antwoorden worden dan opnieuw gevraagd
-const STORES = ['ah', 'jumbo', 'aldi', 'dirk', 'plus', 'lidl'];
-const NAMES = { ah: 'Albert Heijn', jumbo: 'Jumbo', aldi: 'Aldi', dirk: 'Dirk', plus: 'Plus', lidl: 'Lidl' };
+const STORES = ['ah', 'jumbo', 'aldi', 'dirk', 'plus', 'lidl', 'dekamarkt', 'hoogvliet', 'spar', 'vomar', 'poiesz'];
+const NAMES = { ah: 'Albert Heijn', jumbo: 'Jumbo', aldi: 'Aldi', dirk: 'Dirk', plus: 'Plus', lidl: 'Lidl', dekamarkt: 'DekaMarkt', hoogvliet: 'Hoogvliet', spar: 'SPAR', vomar: 'Vomar', poiesz: 'Poiesz' };
 const N = 16, PER_DEVICE = 300, PER_DAY = 5000, MAX_LINES = 30, PARALLEL = 8, NEW_PER_CALL = 8;
 const db = () => globalThis.__testMatch || getStore({ name: 'match', consistency: 'strong' });
 
@@ -68,7 +68,8 @@ export async function matchLines(lines, { key, device = 'onbekend', budget = Inf
     x.h = 'm/' + await hash(V + '|' + model + '|' + x.k);
     const c = await s.get(x.h, { type: 'json' });
     // nog geldig als elk eerder gekozen product nog in het assortiment staat (of er toen al niets was)
-    if (c && STORES.every(st => !c.stores[st] || !c.stores[st].length || c.stores[st].some(n => NAMESET[st] && NAMESET[st].has(n)))) results[x.k] = c.stores;
+    // nieuwe winkel erbij (nog geen antwoord voor die winkel) of producten verdwenen: opnieuw vragen
+    if (c && STORES.every(st => !IDX[st] || (c.stores[st] && (!c.stores[st].length || c.stores[st].some(n => NAMESET[st].has(n)))))) results[x.k] = c.stores;
     else todo.push(x);
   }));
   let left = todo.length, limited = false, err = null;

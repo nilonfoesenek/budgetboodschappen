@@ -61,7 +61,7 @@ export async function loadData() {
 }
 export { addDays };
 
-const NAMES = { ah: 'AH', jumbo: 'Jumbo', aldi: 'Aldi', dirk: 'Dirk', plus: 'Plus', lidl: 'Lidl' };
+const NAMES = { ah: 'AH', jumbo: 'Jumbo', aldi: 'Aldi', dirk: 'Dirk', plus: 'Plus', lidl: 'Lidl', dekamarkt: 'DekaMarkt', hoogvliet: 'Hoogvliet', spar: 'SPAR', vomar: 'Vomar', poiesz: 'Poiesz' };
 // gevolgde producten: welke zijn nu bij een van je winkels in de aanbieding?
 export function followHits(lines, offers, stores, today) {
   const live = offers.filter(o => o.to >= today && o.from <= today), out = [];
