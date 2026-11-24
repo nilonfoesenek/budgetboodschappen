@@ -153,6 +153,7 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .morebtn{display:block;width:100%;margin-top:8px;border:0;background:none;color:var(--mute);font:600 14px Figtree,sans-serif;text-align:left;padding:6px 2px;cursor:pointer}
 .lhd{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}.lhd .lnk{margin-left:auto}.lnk{border:0;background:none;color:var(--ok);font:700 14px Figtree,sans-serif;cursor:pointer;padding:4px 0}
 .home span small{display:block;font-size:11.5px;color:var(--mute)}.home{flex-wrap:wrap}
+.wloc{background:var(--okbg);border-radius:14px;padding:10px;margin:0 0 14px}.wst small{display:block;font-weight:500;color:var(--mute);font-size:11px}
 .fin{width:100%;box-sizing:border-box;font:500 16px Figtree,sans-serif;background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:4px}
 .thumbs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.thumbs img{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
 .ing{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}.ing input{width:20px;height:20px;flex:none}.ing input[type=text]{flex:1;width:auto;height:auto;font:500 15px Figtree,sans-serif;border:0;background:none;color:var(--ink);padding:2px 0}
@@ -251,7 +252,8 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 </main>
 <div id="welcome" hidden><div class="sh-bg"></div><div class="sh" role="dialog" aria-modal="true" aria-labelledby="wTitle" style="max-height:92vh;overflow-y:auto">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><img src="icons/logo.svg" alt="" width="40" height="40" style="border-radius:10px"><h2 id="wTitle" style="margin:0">Welkom bij BudgetBoodschappen</h2></div>
-  <p class="muted" style="margin:0 0 12px">Zet je boodschappen erin en zie bij welke supermarkt je het goedkoopst uit bent, met de aanbiedingen van deze week.</p>
+  <p class="muted" id="wIntro" style="margin:0 0 12px">Zet je boodschappen erin en zie bij welke supermarkt je het goedkoopst uit bent, met de aanbiedingen van deze week.</p>
+  <div class="wloc"><button class="btn sec" id="wLoc" style="width:100%">📍 Supermarkten bij mij in de buurt</button><div class="muted" id="wLocSt" style="font-size:13px;margin-top:6px">Je locatie wordt alleen gebruikt om winkels in de buurt op te zoeken en wordt niet bewaard.</div></div>
   <b>1. Wat is je vaste supermarkt?</b>
   <div id="wHome" class="wst"></div>
   <b>2. Welke andere supermarkten mag de app gebruiken om te besparen?</b>
@@ -395,7 +397,7 @@ function moreBtn(ALL,sel,one){const rest=ALL.filter(s=>!sel.includes(s)&&s!==sta
   let hint='';if(one&&!moreOpen){const mine=Math.min(...sel.filter(s=>one[s]&&!one[s].miss).map(s=>one[s].sum)),b=rest.filter(s=>!one[s].miss).sort((a,c)=>one[a].sum-one[c].sum)[0];if(b&&one[b].sum<mine-0.005)hint=` · ${S[b].label} is ${eur(mine-one[b].sum)} goedkoper`}
   return `<button class="morebtn" data-more>${moreOpen?'Minder winkels ‹':`Meer winkels (${rest.length})${hint} ›`}</button>`}
 document.addEventListener('click',e=>{if(e.target.closest('[data-more]')){moreOpen=!moreOpen;render()}});
-function homeSel(){return `<label class="hsel">Je vaste winkel <select id="homeSel">${Object.keys(S).filter(s=>IDX[s]).map(s=>`<option value="${s}"${s===state.home?' selected':''}>${S[s].full}</option>`).join('')}</select></label>`}
+function homeSel(){return `<button class="lnk" data-stores style="margin-top:10px">📍 Winkels in de buurt en vaste winkel aanpassen ›</button><label class="hsel">Je vaste winkel <select id="homeSel">${Object.keys(S).filter(s=>IDX[s]).map(s=>`<option value="${s}"${s===state.home?' selected':''}>${S[s].full}</option>`).join('')}</select></label>`}
 document.addEventListener('change',e=>{if(e.target.id==='homeSel'){state.home=e.target.value;persist();render()}});
 // bespaard = wat het bij je vaste winkel had gekost min wat je betaalt (zonder vaste winkel of niet te krijgen daar: de korting van de aanbieding)
 function book(k,s){const r=(lastR||[]).find(x=>x.k===k),x=r&&r.per[s];if(!x||state.booked[k])return;
@@ -546,14 +548,42 @@ function renderOffers(){if(!O)return;const live=liveOffers(),sel=state.stores.fi
 
 /* ---------- welkom (eerste keer) ---------- */
 if(!state.onboarded&&(state.text||(state.favs&&state.favs.length)))state.onboarded=true;
-function renderWelcome(){$('wHome').innerHTML=Object.keys(S).map(s=>`<button data-wh="${s}" aria-pressed="${state.home===s}">${dot(s)}<span>${S[s].full}</span></button>`).join('');
-  $('wStores').innerHTML=Object.keys(S).filter(s=>s!==state.home).map(s=>`<button data-ws="${s}" aria-pressed="${state.stores.includes(s)}">${dot(s)}<span>${S[s].full}${S[s].noOffers?'<small>geen acties</small>':''}</span></button>`).join('')}
+// winkels gesorteerd op afstand als die bekend is (na 'in de buurt')
+const nearOrder=()=>{const n=state.near||{};return Object.keys(S).sort((a,b)=>(n[a]??1e9)-(n[b]??1e9))};
+const distTxt=s=>{const d=state.near&&state.near[s];return d==null?(state.near?'<small>niet in de buurt</small>':''):`<small>${d<1000?Math.round(d/50)*50+' m':(d/1000).toFixed(1).replace('.',',')+' km'}</small>`};
+function renderWelcome(){$('wHome').innerHTML=nearOrder().map(s=>`<button data-wh="${s}" aria-pressed="${state.home===s}">${dot(s)}<span>${S[s].full}${distTxt(s)}</span></button>`).join('');
+  $('wStores').innerHTML=nearOrder().filter(s=>s!==state.home).map(s=>`<button data-ws="${s}" aria-pressed="${state.stores.includes(s)}">${dot(s)}<span>${S[s].full}${distTxt(s)||(S[s].noOffers?'<small>geen acties</small>':'')}</span></button>`).join('')}
+/* ---------- supermarkten in de buurt (OpenStreetMap) ---------- */
+const BRAND=[['ah',/albert ?heijn|^ah( |$)|ah to go/i],['jumbo',/jumbo/i],['aldi',/aldi/i],['lidl',/lidl/i],['plus',/^plus\b|plus supermarkt/i],['dirk',/dirk/i],['dekamarkt',/dekamarkt|deka markt/i],['hoogvliet',/hoogvliet/i],['spar',/\bspar\b/i],['vomar',/vomar/i],['poiesz',/poiesz/i]];
+const hav=(a,b,c,d)=>{const R=6371e3,t=x=>x*Math.PI/180,x=Math.sin(t(c-a)/2)**2+Math.cos(t(a))*Math.cos(t(c))*Math.sin(t(d-b)/2)**2;return 2*R*Math.asin(Math.sqrt(x))};
+async function nearbyStores(lat,lon,rad){const q=`[out:json][timeout:20];nwr["shop"="supermarket"](around:${rad},${lat.toFixed(4)},${lon.toFixed(4)});out center tags;`;
+  const r=await fetch('https://overpass-api.de/api/interpreter',{method:'POST',body:'data='+encodeURIComponent(q),headers:{'content-type':'application/x-www-form-urlencoded'}});if(!r.ok)throw new Error('osm '+r.status);
+  const d=await r.json(),near={};
+  for(const e of d.elements||[]){const t=e.tags||{},nm=(t.brand||'')+' '+(t.name||''),la=e.lat??(e.center&&e.center.lat),lo=e.lon??(e.center&&e.center.lon);if(la==null)continue;
+    const b=BRAND.find(([,re])=>re.test(nm));if(!b||!S[b[0]])continue;if(b[0]==='ah'&&/to go/i.test(nm))continue;const dist=hav(lat,lon,la,lo);if(near[b[0]]==null||dist<near[b[0]])near[b[0]]=Math.round(dist)}
+  return near}
+async function findNear(){const st=$('wLocSt'),btn=$('wLoc');if(!navigator.geolocation){st.textContent='Je browser kan je locatie niet bepalen. Kies hieronder zelf.';return}
+  btn.disabled=true;st.textContent='Locatie opvragen…';
+  try{const pos=await new Promise((ok,no)=>navigator.geolocation.getCurrentPosition(ok,no,{enableHighAccuracy:false,timeout:15000,maximumAge:600000}));
+    st.textContent='Supermarkten zoeken…';const{latitude:la,longitude:lo}=pos.coords;
+    let near=await nearbyStores(la,lo,3000);if(Object.keys(near).length<2)near=await nearbyStores(la,lo,8000);
+    state.near=near;const ks=Object.keys(near).sort((a,b)=>near[a]-near[b]);
+    if(!ks.length){st.textContent='Geen bekende supermarkten gevonden binnen 8 km. Kies hieronder zelf.';renderWelcome();return}
+    // voorstel: dichtstbijzijnde als vaste winkel, en alles binnen 3 km (of het dichtstbijzijnde + 1,5 km) erbij
+    const lim=Math.max(3000,near[ks[0]]+1500);state.home=ks[0];state.stores=ks.filter(s=>near[s]<=lim).sort((a,c)=>Object.keys(S).indexOf(a)-Object.keys(S).indexOf(c));
+    st.textContent=`${ks.length} ${ks.length===1?'supermarkt':'supermarkten'} gevonden. Voorstel: ${S[ks[0]].full} als vaste winkel en ${state.stores.length-1} in de buurt om te besparen. Pas gerust aan.`;persist();renderWelcome()}
+  catch(e){st.textContent=e&&e.code===1?'Geen toestemming voor je locatie. Kies hieronder zelf, of zet locatie aan in je instellingen.':'Winkels zoeken lukte niet. Kies hieronder zelf.'}
+  finally{btn.disabled=false}}
+$('wLoc').addEventListener('click',findNear);
+// ook later: winkels aanpassen via Route
+function openStoresSheet(){$('wTitle').textContent='Je supermarkten';$('wIntro').hidden=true;$('wInstall').hidden=true;$('wGo').textContent='Opslaan';renderWelcome();$('welcome').hidden=false}
+document.addEventListener('click',e=>{if(e.target.closest('[data-stores]'))openStoresSheet()});
 if(state.onboarded&&!state.home)state.home=(state.stores&&state.stores[0])||'ah';
 if(!state.onboarded){state.stores=[];const sa=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;$('wInstall').hidden=sa;renderWelcome();$('welcome').hidden=false}
 $('welcome').addEventListener('click',e=>{const h=e.target.closest('[data-wh]');if(h){state.home=h.dataset.wh;if(!state.stores.includes(state.home))state.stores=[...state.stores,state.home].sort((a,c)=>Object.keys(S).indexOf(a)-Object.keys(S).indexOf(c));renderWelcome();return}
   const b=e.target.closest('[data-ws]');if(b){const s=b.dataset.ws,on=state.stores.includes(s);
     state.stores=on?state.stores.filter(x=>x!==s):[...state.stores,s].sort((a,c)=>Object.keys(S).indexOf(a)-Object.keys(S).indexOf(c));renderWelcome();return}
-  if(e.target.id==='wGo'){if(!state.home){$('wGo').textContent='Kies eerst je vaste supermarkt';return}state.onboarded=true;persist();$('welcome').hidden=true;render()}});
+  if(e.target.id==='wGo'){if(!state.home){$('wGo').textContent='Kies eerst je vaste supermarkt';return}state.onboarded=true;persist();$('welcome').hidden=true;moreOpen=false;render();if(!$('t-offers').hidden)renderOffers()}});
 /* ---------- product zoeken in Lijst ---------- */
 let psT=null;
 const brandless=n=>n.replace(/^(AH Excellent|AH Biologisch|AH Terra|AH|Jumbo's|Jumbo|PLUS|1 de Beste|Biologisch PLUS|g'woon|Vleeschmeesters)\s+/i,'').trim();
