@@ -47,9 +47,10 @@ h1 span{color:var(--ok)}
 .sb{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;font:800 10.5px/1 Figtree,sans-serif;letter-spacing:-.3px;flex:none;vertical-align:-5px}
 .st[aria-pressed=false] .dot{opacity:.3}
 .st small{display:block;font:600 11px Figtree,sans-serif;color:var(--mute);line-height:1.1}
-nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid var(--line);padding:6px 0 calc(6px + env(safe-area-inset-bottom))}
-body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
-nav .seg{display:flex;max-width:560px;margin:0 auto}
+nav{position:fixed;left:12px;right:12px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:20;max-width:536px;margin:0 auto;background:rgba(255,255,255,.86);border:1px solid rgba(20,24,20,.08);border-radius:24px;padding:4px 6px;box-shadow:0 6px 24px rgba(20,24,20,.14)}
+body{padding-bottom:calc(110px + env(safe-area-inset-bottom))}
+nav .seg{display:flex}
+nav button[data-tab=offers] svg{width:28px;height:28px}
 nav button{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:0;font:600 11.5px Figtree,sans-serif;color:var(--mute);min-height:52px;padding:4px 0;cursor:pointer;-webkit-tap-highlight-color:transparent}
 nav svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 nav button[aria-selected=true]{color:var(--ink)}nav button[aria-selected=true] svg{stroke-width:2.4}nav button[data-tab=recipes][aria-selected=true] svg{fill:currentColor}
@@ -167,6 +168,13 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:12px}
 .facts div{background:var(--field);border-radius:10px;padding:8px}.facts b{display:block;font-size:18px;white-space:nowrap}.facts small{color:var(--mute);font-size:12px}
 .rh{cursor:pointer}h3{font-size:16px;margin:12px 0 4px}.steps{margin:0;padding-left:20px}.steps li{margin-bottom:6px}
+.shelf{margin:0 0 16px}.shelf h2{display:flex;align-items:baseline;gap:8px;margin:0 2px 2px;font-size:18px}.shelf h2 small{font:500 13px Figtree,sans-serif;color:var(--mute)}.shelf p{margin:0 2px 8px;font-size:13px;color:var(--mute)}
+.row{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:2px 16px 4px;scroll-snap-type:x proximity}.row::-webkit-scrollbar{display:none}
+.dc{flex:none;width:150px;scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px;display:flex;flex-direction:column;gap:6px}
+.dc .top{display:flex;align-items:center;justify-content:space-between}.dc .pc{background:var(--okbg);color:var(--ok);font:800 12px Figtree,sans-serif;border-radius:6px;padding:2px 6px}
+.dc .nm{font-size:14px;font-weight:600;line-height:1.25;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:52px}
+.dc .dd{font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dc .hs{font-size:11.5px;color:#8a5a00;font-weight:600}
+.dc .bot{display:flex;align-items:center;justify-content:space-between;margin-top:auto}.dc .pr s{display:block;font-size:12px;color:var(--mute)}.dc .now{font-weight:800;font-size:16px}
 .empty{text-align:center;padding:28px 10px;color:var(--mute)}
 :focus-visible{outline:3px solid var(--aldi);outline-offset:2px}
 .status{font-size:14px;color:var(--mute);min-height:20px;margin-top:6px}
@@ -177,14 +185,14 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
   <div class="brand"><a class="logo" href="./" aria-label="BudgetBoodschappen"><img src="icons/logo.svg" alt="" width="32" height="32"><h1><b>Budget</b><span>Boodschappen</span></h1></a><button class="bell" id="pushBtn" aria-pressed="false" aria-label="Meldingen" hidden>🔕</button></div>
 </header>
 <nav><div class="seg" role="tablist">
-  <button role="tab" data-tab="route" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21c-1.7 0-3-1.3-3-3s1.3-3 3-3h12c1.7 0 3-1.3 3-3s-1.3-3-3-3H9"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="2.5"/></svg>Route</button>
+  <button role="tab" data-tab="offers" aria-selected="true" aria-label="Home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 9.5V20h5v-6h4v6h5V9.5"/></svg></button>
+  <button role="tab" data-tab="route" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21c-1.7 0-3-1.3-3-3s1.3-3 3-3h12c1.7 0 3-1.3 3-3s-1.3-3-3-3H9"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="2.5"/></svg>Route</button>
   <button role="tab" data-tab="list" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M3.5 6l1 1 2-2M3.5 12l1 1 2-2M3.5 18l1 1 2-2"/></svg>Lijst</button>
   <button role="tab" data-tab="weekly" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-13.7 5.6L4 15"/><path d="M4 20v-5h5"/></svg>Vast</button>
   <button role="tab" data-tab="recipes" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.3-9.2C1.4 8.4 3.6 5 7 5c2.1 0 3.6 1.2 5 3 1.4-1.8 2.9-3 5-3 3.4 0 5.6 3.4 4.3 6.8C19.5 16.4 12 21 12 21z"/></svg>Recepten</button>
-  <button role="tab" data-tab="offers" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9-9-9z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>Acties</button>
 </div></nav>
 <main class="wrap">
-  <section id="t-route">
+  <section id="t-route" hidden>
     <div class="card" id="sum"></div>
     <div id="bons"></div>
   </section>
@@ -242,10 +250,11 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
       <div id="impThumbs" class="thumbs"></div><div id="impOut"></div></div>
 
   </section>
-  <section id="t-offers" hidden>
+  <section id="t-offers">
     <p class="muted" id="offStores" style="margin:0 2px 10px;font-size:13px"></p>
     <div class="card" id="offMineCard" hidden><h2>Voor jou</h2><div id="offMine"></div></div>
-    <div class="card"><h2>Alle aanbiedingen</h2>
+    <div id="shelves"></div>
+    <div class="card" id="allOff"><h2>Alle aanbiedingen</h2>
       <input type="search" id="q" placeholder="Zoek in aanbiedingen" aria-label="Zoek in aanbiedingen">
       <div class="mode hscroll"><span id="ofil" style="display:contents"></span></div>
       <div id="offList" style="margin-top:8px"></div>
@@ -559,11 +568,50 @@ function renderOffers(){if(!O)return;const live=liveOffers(),sel=state.stores.fi
   const mine=[],seen=new Set();const src=[...state.follow.map(l=>[l,'🔔 Gevolgd']),...favLines(state.text).map(l=>[l,'Op je lijst']),...state.weekly.map(w=>[w.l,'Vaste boodschap']),...state.favs.flatMap(f=>f.items.map(l=>[l,'Voor '+f.title]))];
   for(const [l,why] of src){const it=Match.parseLine(l);if(!it)continue;for(const st of sel){const o=Match.offerFor(it,live,st);if(!o)continue;const k=o.s+o.n;if(seen.has(k))continue;seen.add(k);mine.push([o,why])}}
   mine.sort((a,b)=>disc(b[0])-disc(a[0]));
+  renderShelves(live);
   $('offMineCard').hidden=!mine.length;$('offMine').innerHTML=mine.slice(0,6).map(([o,w])=>offRow(o,w)).join('');
   if(ofil!=='all'&&!sel.includes(ofil))ofil='all';
   $('ofil').innerHTML=`<button class="chip${otop?' on':''}" data-otop>🔥 Hoogste korting</button>`+(sel.length>1?['all',...sel]:[]).map(s=>`<button class="chip${ofil===s?' on':''}" data-ofil="${s}">${s==='all'?'Alle':S[s].label}</button>`).join('');
   const q=Match.norm($('q').value),L=live.filter(o=>(ofil==='all'||o.s===ofil)&&(!q||Match.norm(o.n).includes(q)));if(otop)L.sort((a,b)=>disc(b)-disc(a));
   $('offList').innerHTML=L.map(o=>offRow(o)).join('')||'<div class="empty">Geen aanbiedingen gevonden.</div>'}
+
+
+/* ---------- home: aanbiedingen per categorie ---------- */
+const NONFOOD=/(wasmiddel|wasverzachter|vaatwas|afwasmiddel|toiletpapier|wc-?papier|keukenpapier|keukenrol|tandpasta|tandenborstel|shampoo|conditioner|douche|deodorant|deo\b|scheer|zeep|luiers|billendoek|maandverband|tampon|schoonmaak|allesreiniger|vuilniszak|pampers|tissue|zakdoek|batterij|kattenvoer|hondenvoer|kattenbak)/i;
+const FRESHBAD=/(vers|gekoeld|salade|sla\b|melk|yoghurt|kwark|vla|brood|croissant|gebak|taart|gehakt|filet|kip\b|kipfilet|vis\b|zalm|aardbei|bessen)/i;
+const PROT=/(kwark|skyr|kipfilet|kippendij|kip\b|eieren|tonijn|zalm|cottage|linzen|kikkererwt|tofu|tempeh|tartaar|biefstuk|kalkoen|eiwit|protein|proteïne|garnal|hüttenkäse|magere)/i;
+const FREEZE=/(diepvries|bevroren|\bijs\b|pizza|friet|patat|kroket|frikandel|loempia|vissticks)/i;
+const MULTI=/(1\s*\+\s*1|2\s*\+\s*1|3\s*\+\s*1|2e\s+(gratis|halve)|2\s+voor|3\s+voor|gratis)/i;
+const SEASON=()=>{const m=new Date().getMonth()+1;
+  if(m===11||m===12)return['🎄 Sint & kerst','Voor pakjesavond en de feestdagen',/(speculaas|kruidnoot|kruidnoten|pepernoot|pepernoten|borstplaat|chocoladeletter|marsepein|banketstaaf|amandelstaaf|kerst|gourmet|fondue|wild|stol|oliebol|champagne|prosecco|cava|\bwijn\b|hapjes|paté|\bpate\b)/i];
+  if(m>=5&&m<=8)return['☀️ Zomer & BBQ','Voor de barbecue en warme dagen',/(bbq|barbecue|saté|sate|spies|worst|hamburger|ijs\b|ijsjes|watermeloen|rosé|bier|frisdrank|stokbrood|salade)/i];
+  if(m===1||m===2)return['🍲 Winterkost','Stamppot, soep en ovenschotels',/(boerenkool|zuurkool|andijvie|rookworst|soep|stoof|hachee|erwten|snert|ovenschotel|stamppot)/i];
+  return['🍂 Seizoen','Wat nu lekker is',/(pompoen|paddenstoel|champignon|spruit|soep|stoof|appel|peer)/i]};
+const nm=o=>o.n.toLowerCase();
+const goodDisc=(o,m)=>disc(o)>=m||(MULTI.test(o.d||'')&&disc(o)>=m*.8);
+function shelfDefs(){const sn=SEASON();return [
+  ['top','🔥 Topkortingen','40% of meer korting',o=>disc(o)>=0.4],
+  ['keep','📦 Lang houdbaar','Gaat niet snel over de datum, dus goed om in te slaan',o=>KEEP.test(o.n)&&!FRESHBAD.test(o.n)&&!NONFOOD.test(o.n)&&!/diepvries/i.test(o.n)&&goodDisc(o,.25)],
+  ['season',sn[0],sn[1],o=>sn[2].test(o.n)&&!/(azijn|balsamico|salade|saus)/i.test(o.n)&&disc(o)>=0.15],
+  ['dinner','🍽️ Avondeten','Vlees, vis, vega en pasta voor deze week',o=>[2,4].includes(catOfText(o.n))&&disc(o)>=0.2],
+  ['fresh','🥦 Vers: groente & fruit','Gebruik binnen een paar dagen',o=>catOfText(o.n)===0&&disc(o)>=0.15],
+  ['prot','💪 Eiwitrijk','Kwark, kip, eieren, vis en peulvruchten',o=>PROT.test(o.n)&&!/(chips|koek|reep|snoep)/i.test(o.n)&&disc(o)>=0.15],
+  ['freeze','🧊 Voor de vriezer','Diepvries, en vlees dat je kunt invriezen',o=>(FREEZE.test(o.n)||catOfText(o.n)===2&&/(gehakt|kip|filet|worst|burger|lapjes|schnitzel)/i.test(o.n))&&goodDisc(o,.25)],
+  ['multi','🎁 1+1 en meer-voor-minder','Handig als je toch meer nodig hebt',o=>MULTI.test(o.d||'')],
+  ['low','📉 Laagste prijs in weken','Volgens de prijsgeschiedenis',o=>/^(📉|⭐)/.test(histTag(o))],
+  ['home','🧴 Huishouden & verzorging','Wasmiddel, wc-papier en zo: altijd nodig, nooit bederf',o=>NONFOOD.test(o.n)&&disc(o)>=0.2],
+  ['treat','🍫 Lekker voor het weekend','Snacks, snoep en drinken',o=>[6,7].includes(catOfText(o.n))&&!NONFOOD.test(o.n)&&disc(o)>=0.3]]}
+function dealCard(o){const d=disc(o),ht=histTag(o),hasP=o.was&&o.p!=null&&o.was>o.p;
+  return `<div class="dc"><div class="top">${dot(o.s)}${d>=0.1?`<span class="pc">−${Math.round(d*100)}%</span>`:''}</div><div class="nm">${esc(o.n)}</div>${o.d&&!hasP?`<div class="dd">${esc(o.d)}</div>`:''}${ht?`<div class="hs">${esc(ht)}</div>`:''}<div class="bot"><span class="pr">${hasP?`<s>${eur(o.was)}</s>`:''}<span class="now">${o.p!=null?eur(o.p):''}</span></span>${addBtn(o)}</div></div>`}
+function renderShelves(live){const out=[],topSeen=new Set();
+  for(const [id,title,sub,f] of shelfDefs()){let L=live.filter(f);
+    if(id!=='top')L=L.filter(o=>!topSeen.has(o.s+o.n)||L.length<6);// topkortingen niet overal herhalen
+    L.sort((a,b)=>disc(b)-disc(a));
+    // afwisselen tussen winkels zodat één winkel de rij niet vult
+    const by={};for(const o of L)(by[o.s]=by[o.s]||[]).push(o);const mix=[];for(let i=0;mix.length<L.length;i++)for(const k in by)if(by[k][i])mix.push(by[k][i]);
+    const show=mix.slice(0,12);if(show.length<2)continue;if(id==='top')show.forEach(o=>topSeen.add(o.s+o.n));
+    out.push(`<div class="shelf"><h2>${title}<small>${L.length}</small></h2><p>${sub}</p><div class="row">${show.map(dealCard).join('')}</div></div>`)}
+  $('shelves').innerHTML=out.join('')}
 
 /* ---------- welkom (eerste keer) ---------- */
 if(!state.onboarded&&(state.text||(state.favs&&state.favs.length)))state.onboarded=true;
@@ -785,7 +833,7 @@ $('txtDone').addEventListener('click',()=>{clearTimeout(txtT);txtSave();$('txtBo
 $('ps').addEventListener('keydown',e=>{if(e.key!=='Enter')return;e.preventDefault();const v=$('ps').value.trim();if(!v)return;const r=addLines([v]);$('ps').value='';$('psRes').innerHTML='';$('txt').value=state.text;toast(r.n?`${v} staat op je lijst.`:r.skip?`${v} heb je altijd in huis.`:`${v} stond er al op.`)});
 $('clear').addEventListener('click',e=>{const b=e.currentTarget;if(b.dataset.sure){state.text='';state.done={};state.booked={};$('txt').value='';persist();render();b.textContent='Lijst leegmaken';delete b.dataset.sure;$('lstat').textContent='Lijst leeggemaakt.'}else{b.dataset.sure=1;b.textContent='Zeker weten?';setTimeout(()=>{if(b.dataset.sure){delete b.dataset.sure;b.textContent='Lijst leegmaken'}},3000)}});
 $('q').addEventListener('input',renderOffers);
-function tab(t){document.querySelector('header').classList.toggle('slim',t!=='route');if(t!=='recipes')$('planBar').hidden=true;document.querySelectorAll('nav [data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
+function tab(t){document.querySelector('header').classList.toggle('slim',t!=='offers');if(t!=='recipes')$('planBar').hidden=true;document.querySelectorAll('nav [data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
   document.querySelectorAll('main>section').forEach(s=>s.hidden=s.id!=='t-'+t);if(t==='list')$('txt').value=state.text;if(t==='offers')renderOffers();if(t==='recipes')renderRecipes();if(t==='weekly')renderWeekly();window.scrollTo(0,0)}
 document.querySelector('nav').addEventListener('click',e=>{const t=e.target.closest('[data-tab]');if(t)tab(t.dataset.tab)});
 
