@@ -129,6 +129,12 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .meal{border-top:1px solid var(--line);padding:12px 0 4px}.meal h3{margin:0 0 2px;font-size:16.5px}.meal ul{margin:6px 0;padding-left:18px;font-size:14px}.meal ol{margin:6px 0;padding-left:18px;font-size:13.5px;color:var(--mute)}.deal{display:inline-block;background:var(--okbg);color:var(--ok);border-radius:8px;padding:2px 7px;font-size:12px;font-weight:700;margin:2px 4px 2px 0}
 .hist{display:block;color:#8a5a00;font-size:12px;font-weight:600}
 .sav{margin-top:4px}.savm{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.savm span{font-size:12.5px;color:var(--mute);background:var(--bg);border-radius:10px;padding:4px 8px}.savm b{margin-left:5px;color:var(--ink)}
+.lvi{border-top:1px solid var(--line)}.lvi:first-child{border-top:0}
+.lvr{display:grid;grid-template-columns:auto 1fr auto auto;gap:10px;align-items:center;padding:11px 0;cursor:pointer}
+.lvr .chev{color:var(--mute);font-size:18px;transition:transform .15s}.lvi.open .chev{transform:rotate(90deg)}
+.lvcat{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin:14px 0 2px}
+.lvd{padding:0 0 12px}.lvt{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;color:var(--mute);padding:2px 0 6px}
+.lvdel{background:none;border:0;color:#b42318;font:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:4px 0}
 .fin{width:100%;box-sizing:border-box;font:500 16px Figtree,sans-serif;background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:4px}
 .thumbs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.thumbs img{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
 .ing{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}.ing input{width:20px;height:20px;flex:none}.ing input[type=text]{flex:1;width:auto;height:auto;font:500 15px Figtree,sans-serif;border:0;background:none;color:var(--ink);padding:2px 0}
@@ -169,6 +175,8 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
       <div class="btns"><button class="btn" id="save">Opslaan en vergelijken</button><button class="btn sec" id="clear">Lijst leegmaken</button></div>
       <div class="status" id="lstat"></div>
     </div>
+    <div class="card" id="lvCard" hidden><div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><h2 style="margin:0">Je boodschappen</h2><span class="muted" id="lvN" style="font-size:13px"></span></div>
+      <p class="muted" style="margin:2px 0 6px;font-size:13px">Tik op een product om te zien wat elke winkel heeft en een ander product te kiezen.</p><div id="lv"></div></div>
     <div class="card" id="shareBox"></div>
     <div class="card"><h2>Altijd in huis</h2>
       <div id="pan" class="pan"></div>
@@ -305,11 +313,12 @@ function render(){
   if(!R.length){const ALL=Object.keys(S).filter(x=>IDX[x]);
     $('sum').innerHTML=`<div class="muted">Bij welke winkels doe je boodschappen?</div>
     <div class="bars">${ALL.map(s=>{const on=sel.includes(s);return `<button class="bar${on?' on':''}" data-s="${s}" aria-pressed="${on}"><span class="ck" aria-hidden="true"></span><span class="nm">${dot(s)} ${S[s].label}</span><span class="tr" style="visibility:hidden"></span><span class="r"></span></button>`}).join('')}</div>`;
-    $('bons').innerHTML=`<div class="card empty">Je lijst is nog leeg.<br><button class="btn" style="margin-top:12px" data-go="list">Lijst maken</button></div>`+savingsHtml();return}
+    $('bons').innerHTML=`<div class="card empty">Je lijst is nog leeg.<br><button class="btn" style="margin-top:12px" data-go="list">Lijst maken</button></div>`+savingsHtml();renderLV();return}
   const ALL=Object.keys(S).filter(x=>IDX[x]);state.mode='split';
   const one={};for(const s of ALL){one[s]={sum:0,miss:0,sub:0};for(const r of R){if(r.per[s]){one[s].sum+=r.per[s].total;if(r.per[s].sub)one[s].sub++}else one[s].miss++}}
   const assign=r=>{const pn=state.pin&&state.pin[r.k];if(pn&&sel.includes(pn)&&r.per[pn])return pn;let b=null;const ex=sel.some(s=>r.per[s]&&!r.per[s].sub),ms=Math.min(...sel.map(s=>r.per[s]&&r.per[s].sub?r.per[s].pick.score:99));for(const s of sel){const y=r.per[s];if(y&&(ex?!y.sub:y.pick.score<=ms+0.1)&&(!b||y.total<r.per[b].total-1e-9))b=s}return b};
   const groups={},miss=[];let split=0;
+  lastAssign=assign;
   for(const r of R){const s=assign(r);if(!s){miss.push(r);continue}(groups[s]=groups[s]||[]).push(r);split+=r.per[s].total}
   const full=sel.filter(s=>one[s].miss===miss.length).sort((a,b)=>one[a].sum-one[b].sum);
   const bestOne=full[0],nGroups=Object.keys(groups).length;
@@ -325,6 +334,7 @@ function render(){
    +(R.some(r=>state.done[r.k])?`<div style="text-align:center;margin:4px 0 14px"><button class="btn sec" id="clearDone">Afgevinkte producten weghalen (${R.filter(r=>state.done[r.k]).length})</button></div>`:'')
    +savingsHtml()
    +(miss.length?`<div class="bon"><div class="hd"><b class="miss">Niet gevonden</b><span></span></div>${miss.map(r=>`<div class="it"><div class="row" style="cursor:default"><span></span><span></span><div><div class="lbl">${esc(r.line)}</div><div class="pn">Probeer een andere omschrijving in je lijst.</div></div><span></span></div></div>`).join('')}</div>`:'');
+  renderLV();
 }
 /* ---------- bespaaroverzicht: telt mee bij afvinken ---------- */
 if(!state.spend||typeof state.spend!=='object')state.spend={};if(!state.booked||typeof state.booked!=='object')state.booked={};
@@ -339,9 +349,9 @@ function savingsHtml(){const ms=Object.keys(state.spend).filter(m=>state.spend[m
   return `<div class="card sav"><div class="muted" style="font-size:13px">Bespaard met aanbiedingen · ${nm(ms[0])}</div><div class="big" style="color:var(--ok)">${eur(cur.sv)}</div>
     <div class="muted" style="font-size:13px">${cur.n} producten afgevinkt voor ${eur(cur.sp)}${ms.length>1?` · totaal bespaard ${eur(tot)}`:''}</div>
     ${ms.length>1?`<div class="savm">${ms.slice(0,6).map(m=>`<span>${nm(m)}<b>${eur(state.spend[m].sv)}</b></span>`).join('')}</div>`:''}</div>`}
-function item(r,s,sel){const x=r.per[s],done=!!state.done[r.k],isOpen=open===r.k;
+function item(r,s,sel){const x=r.per[s],done=!!state.done[r.k],isOpen=false;
   const p=x.pick.p,sz=p.size?` · ${esc(p.size)}`:'',pk=x.packs>1?`${x.packs}× `:'';
-  return `<div class="it${done?' done':''}"><div class="row" data-open="${esc(r.k)}"><input type="checkbox" aria-label="${esc(r.line)} afvinken" data-done="${esc(r.k)}" data-st="${s}"${done?' checked':''}>${catIcon(catOf(r))}
+  return `<div class="it${done?' done':''}"><div class="row" data-tog="${esc(r.k)}"><input type="checkbox" aria-label="${esc(r.line)} afvinken" data-done="${esc(r.k)}" data-st="${s}"${done?' checked':''}>${catIcon(catOf(r))}
   <div><div class="lbl">${esc(r.line)}</div><div class="pn">${x.sub?'<span class="subtag">lijkt op</span> ':''}${pk}${esc(p.name)}${sz}</div>${x.deal?`<span class="tag">${esc(x.deal.d)}</span>`:''}${stockTip(r.line,x.deal)}</div>
   <div class="pr">${x.deal&&x.regular>x.total+0.005?`<s>${eur(x.regular)}</s><span class="now">${eur(x.total)}</span>`:eur(x.total)}</div></div>
   ${isOpen?`<div class="det"><div style="display:flex;justify-content:flex-end;align-items:center;gap:6px;font-size:13px;color:var(--mute);padding:2px 0 4px">Melding bij aanbieding ${folBtn(r.line)}</div>${Object.keys(S).filter(t=>sel.includes(t)).map(t=>{const y=r.per[t];if(!y)return `<div class="cmp"><span>${dot(t)}</span><span class="muted">${S[t].label}: niet gevonden</span><span></span></div>`;
@@ -519,6 +529,23 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-fol]');if(
   if(isFollowed(l)){state.follow=state.follow.filter(x=>pkey(x)!==pkey(l));toast('Je volgt dit product niet meer.')}
   else{state.follow.push(l.replace(/^[\d.,]+\s*(g|kg|ml|l|cl|stuks?|st)?\s+/i,''));toast(state.push?'Gevolgd: je krijgt een melding als dit in de aanbieding is.':'Gevolgd. Zet meldingen aan met 🔕 bovenin om een seintje te krijgen.')}
   persist();document.querySelectorAll(`[data-fol="${CSS.escape(l)}"]`).forEach(x=>x.classList.toggle('on',isFollowed(l)));if(!$('t-offers').hidden)renderOffers()},true);
+/* ---------- lijst: mooie weergave met producten kiezen ---------- */
+let lastAssign=null,lvOpen=null;
+function renderLV(){const card=$('lvCard');if(!card)return;const R=lastR||[];card.hidden=!R.length;if(!R.length){$('lv').innerHTML='';return}
+  const sel=state.stores,rows=R.map(r=>({r,s:lastAssign?lastAssign(r):bestOf(r),c:catOf(r)})).sort((a,b)=>a.c-b.c);
+  $('lvN').textContent=R.length+(R.length===1?' product':' producten');let last=-1,html='';
+  for(const {r,s,c} of rows){if(c!==last){html+=`<div class="lvcat">${esc(catName(c))}</div>`;last=c}
+    const x=s&&r.per[s],op=lvOpen===r.k,done=!!state.done[r.k];
+    html+=`<div class="lvi${op?' open':''}${done?' done':''}"><div class="lvr" data-lvopen="${esc(r.k)}">${catIcon(c)}
+      <div><div class="lbl">${esc(r.line)}</div><div class="pn">${x?`${dot(s)} ${x.sub?'<span class="subtag">lijkt op</span> ':''}${x.packs>1?x.packs+'× ':''}${esc(x.pick.p.name)}${x.pick.p.size?' · '+esc(x.pick.p.size):''}`:'<span class="miss">Niet gevonden</span>'}</div>${x&&x.deal?`<span class="tag">${esc(x.deal.d)}</span>`:''}</div>
+      <div class="pr">${x?(x.deal&&x.regular>x.total+0.005?`<s>${eur(x.regular)}</s><span class="now">${eur(x.total)}</span>`:eur(x.total)):''}</div><span class="chev" aria-hidden="true">›</span></div>
+      ${op?`<div class="lvd"><div class="lvt"><span>Melding bij aanbieding ${folBtn(r.line)}</span><button class="lvdel" data-lvdel="${esc(r.k)}">Verwijderen</button></div>
+      ${Object.keys(S).filter(t=>sel.includes(t)).map(t=>{const y=r.per[t];if(!y)return `<div class="cmp"><span>${dot(t)}</span><span class="muted">${S[t].label}: niet gevonden</span><span></span></div>`;
+        return `<button class="cmp pickb${t===s?' best':''}" data-pickopen="${esc(r.k)}|${t}" aria-label="Ander product kiezen bij ${S[t].full}"><span>${dot(t)}</span><span class="pnm">${y.packs>1?y.packs+'× ':''}${esc(y.pick.p.name)}${y.pick.p.size?' · '+esc(y.pick.p.size):''}<small>${t===s?'Hier gekozen · wissel ›':'Wissel ›'}</small></span><span class="pr">${y.sub?'<span class="subtag">≈</span> ':''}${y.deal&&y.regular>y.total+0.005?`<s>${eur(y.regular)}</s><span class="now">${eur(y.total)}</span>`:eur(y.total)}</span></button>`}).join('')}</div>`:''}</div>`}
+  $('lv').innerHTML=html}
+$('lv').addEventListener('click',e=>{const t=e.target;
+  const d=t.closest('[data-lvdel]');if(d){const k=d.dataset.lvdel;state.text=favLines(state.text).filter(l=>keyOf(l)!==k).join('\n');delete state.done[k];if(lvOpen===k)lvOpen=null;$('txt').value=state.text;persist();render();return}
+  const o=t.closest('[data-lvopen]');if(o&&!t.closest('[data-fol]')){lvOpen=lvOpen===o.dataset.lvopen?null:o.dataset.lvopen;renderLV()}});
 /* ---------- product kiezen ---------- */
 let lastR=[],sheetCtx=null,shT=null;
 function openSheet(k,s){const r=lastR.find(x=>x.k===k);if(!r)return;sheetCtx={r,s};
@@ -550,7 +577,7 @@ document.addEventListener('click',e=>{const t=e.target;
   const of=t.closest('[data-ofil]');if(of){ofil=of.dataset.ofil;renderOffers();return}
   if(t.matches('[data-done]')){const k=t.dataset.done;if(t.checked){state.done[k]=true;book(k,t.dataset.st)}else{delete state.done[k];unbook(k)}persist();render();return}
   if(t.closest('select'))return;
-  const op=t.closest('[data-open]');if(op){open=open===op.dataset.open?null:op.dataset.open;render()}
+  const tg=t.closest('[data-tog]');if(tg&&!t.matches('input')){const cb=tg.querySelector('input[type=checkbox]');if(cb)cb.click();return}
 });
 document.addEventListener('change',e=>{const t=e.target;if(!t.matches('[data-pick]'))return;const[k,s]=t.dataset.pick.split('|');
   const name=t.value.split(' · ')[0].split(' — ')[0];const it=Match.parseLine(k)||{t:[]};const pk=it.t.length?'p:'+it.t.join(' '):k;(state.picks[pk]=state.picks[pk]||{})[s]=name;if(state.picks[k]&&k!==pk)delete state.picks[k][s];persist();render()});
