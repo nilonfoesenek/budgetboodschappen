@@ -81,17 +81,18 @@ if own_dir and os.path.isdir(own_dir):
         if not st: continue
         clean_rows, seen = [], set()
         for r in rows:
+            rdate = r[7] if len(r) > 7 and r[7] else d.get('date', today)   # optioneel 8e veld: datum van deze prijs (kassabon)
             name, normal, size = re.sub(r'\s+', ' ', str(r[0])).strip(), r[5] if len(r) > 5 and r[5] else r[1], clean_size(r[2] if len(r) > 2 else '')
             try: normal = round(float(normal), 2)
             except (TypeError, ValueError): continue
             k = (name.lower(), size)
             if normal <= 0 or k in seen: continue
-            seen.add(k); clean_rows.append([name, normal, size])
+            seen.add(k); clean_rows.append([name, normal, size, rdate])
         if d.get('partial'):
-            partial[st] = [(r[0], r[1], d.get('source', st), d.get('date', today), r[2]) for r in clean_rows]
+            partial.setdefault(st, []).extend((r[0], r[1], d.get('source', st), r[3], r[2]) for r in clean_rows)
             print(f'{st}: gedeeltelijke uitlezing ({len(clean_rows)} normale prijzen) gaat naar het prijsgeheugen', file=sys.stderr)
         elif len(clean_rows) >= MIN_OWN.get(st, 1000):
-            stores[st] = clean_rows; src_note[st] = f"{d.get('source')} {d.get('date')}"
+            stores[st] = [r[:3] for r in clean_rows]; src_note[st] = f"{d.get('source')} {d.get('date')}"
             if d.get('links'): links[st] = {**links.get(st, {}), **d['links']}
             print(f'{st}: eigen uitlezing gebruikt ({len(clean_rows)} producten)', file=sys.stderr)
         else:
@@ -100,6 +101,9 @@ if own_dir and os.path.isdir(own_dir):
 # ---- prijsgeheugen voor winkels zonder volledige, actuele bron (AH, Lidl):
 # data/overrides/<winkel>.json bewaart elke normale prijs die we ergens zien (folder, Lidl-weekpagina) met datum.
 # Die prijzen vervangen de verouderde Checkjebon-prijs van precies hetzelfde product (zelfde naam), tot 183 dagen oud.
+# Bronnen: de folder (normale prijs bij een aanbieding) en gedeeltelijke uitlezingen ("partial": true, bijv. AH-kassabonnen).
+# Bij twee bronnen voor hetzelfde product wint de nieuwste datum. De datum gaat als 4e veld mee in prices.json,
+# zodat de app kan tonen hoe vers een prijs is ("prijs van 12 nov").
 ovdir = os.path.join(os.path.dirname(os.path.abspath(out)), 'overrides')
 offers = json.load(open(offers_path, encoding='utf-8')).get('offers', []) if offers_path and os.path.exists(offers_path) else []
 cut = (datetime.date.today() - datetime.timedelta(days=183)).isoformat()
@@ -107,23 +111,33 @@ for st in ('ah', 'lidl'):
     if st in src_note: continue                      # volledige eigen uitlezing: geen geheugen nodig
     op = os.path.join(ovdir, st + '.json')
     mem = json.load(open(op, encoding='utf-8')) if os.path.exists(op) else {}
+    def put(k, v):
+        if k not in mem or v[1] >= mem[k][1]: mem[k] = v
     for o in offers:
         if o.get('s') == st and o.get('was') and o.get('from', '') <= today:
-            mem[re.sub(r'\s+', ' ', o['n']).strip().lower()] = [round(o['was'], 2), max(o.get('from', today), cut), 'folder', '']
+            put(re.sub(r'\s+', ' ', o['n']).strip().lower(), [round(o['was'], 2), max(o.get('from', today), cut), 'folder', ''])
     for name, price, source, date, size in partial.get(st, []):
-        mem[name.lower()] = [price, date, source, size]
+        if cut <= date <= today:   # kassabon: sleutel naam|inhoud (zelfde product in meerdere inhouden); Lidl-weekpagina: alleen naam
+            put(name.lower() + ('|' + size if size and source == 'kassabon' else ''), [price, date, source, size])
     mem = {k: v for k, v in mem.items() if v[1] >= cut}
     os.makedirs(ovdir, exist_ok=True)
     json.dump(mem, open(op, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'), sort_keys=True)
     cur = stores.get(st, []); idx = {}
     for r in cur: idx.setdefault(r[0].lower(), []).append(r)
     n = added = 0
-    for k, (price, date, source, *rest) in mem.items():
+    for key, (price, date, source, *rest) in mem.items():
+        k = key.split('|')[0]
         if k in idx:
-            for r in idx[k]:
+            # dezelfde naam in meerdere inhouden: alleen de inhoud uit de bron, of anders de inhoud met de dichtstbijzijnde oude prijs
+            rs = idx[k]
+            if len(rs) > 1:
+                sz = clean_size(rest[0]) if rest and rest[0] else ''
+                rs = [r for r in rs if r[2] == sz] if sz else [min(rs, key=lambda r: abs(r[1] / price - 1))]
+            for r in rs:
                 if abs(r[1] - price) > 0.005: r[1] = price; n += 1
-        elif source != 'folder':                     # producten van de Lidl-weekpagina die nog niet in de lijst stonden
-            cur.append([k[:1].upper() + k[1:], price, rest[0] if rest else '']); added += 1
+                del r[3:]; r.append(date)
+        elif source not in ('folder', 'kassabon'):   # producten van de Lidl-weekpagina die nog niet in de lijst stonden
+            cur.append([k[:1].upper() + k[1:], price, rest[0] if rest else '', date]); added += 1
     stores[st] = cur
     if n or added: src_note[st] = f'prijsgeheugen: {n} prijzen bijgewerkt, {added} toegevoegd ({len(mem)} bekend)'
     print(f'{st}: prijsgeheugen {len(mem)} producten, {n} vaste prijzen bijgewerkt, {added} toegevoegd', file=sys.stderr)
@@ -141,6 +155,10 @@ meta = {
     'vomar': {'label': 'Vomar', 'source': 'Checkjebon open data', 'note': 'Kleine selectie van het assortiment, geen aanbiedingen.'},
     'poiesz': {'label': 'Poiesz', 'source': 'Checkjebon open data', 'note': 'Selectie van het assortiment, geen aanbiedingen.'},
 }
+# vaste prijzen zonder eigen datum komen uit een bevroren bron: de app toont dan "prijs uit <maand>, mogelijk verouderd"
+STALE = {'ah': '2025-11'}   # Checkjebon: vaste AH-prijzen veranderen sinds november 2025 niet meer (data/db/LEESMIJ.md)
+for st, ym in STALE.items():
+    if st in meta and not (st in src_note and not src_note[st].startswith('prijsgeheugen')): meta[st]['stale'] = ym
 for st, note in src_note.items():
     if st not in meta: continue
     if note.startswith('prijsgeheugen'): meta[st]['source'] += ' + ' + note

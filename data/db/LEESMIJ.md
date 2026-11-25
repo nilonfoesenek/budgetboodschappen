@@ -37,6 +37,8 @@ python3 tools/db_query.py aanbiedingen 2026-06-01 ah       # aanbiedingen die to
   (volledig online assortiment). Die vervangen vanaf dan Checkjebon voor die winkels; in `snapshots.tsv` staat de bron per peildatum.
   Omdat de id's per bron verschillen, toont de eerste peildatum met de nieuwe bron alle oude producten als verdwenen en de nieuwe als nieuw.
   Lidl publiceert alleen de producten van de week (met normale prijs); die staan als aparte winkel `lidl_week`.
+- **AH-kassabonnen** (`ah_week`): normale AH-prijzen uit kassabonnen die gebruikers met toestemming scanden, alleen producten die
+  eenduidig aan een AH-product te koppelen zijn (zie `tools/BONPRIJZEN.md`). Gedeeltelijk en scheef verdeeld: alleen wat mensen kopen.
 - **Aanbiedingen:** folderz.nl (weekfolders van alle 11 winkels), vanaf 23-11-2026.
 
 ## Belangrijke kanttekeningen voor onderzoek

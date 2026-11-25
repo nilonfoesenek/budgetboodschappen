@@ -142,7 +142,7 @@ input[type=search]{width:100%;font:16px Figtree,sans-serif;color:var(--ink);back
 .lvdel{background:none;border:0;color:#b42318;font:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:4px 0}
 .cnt{display:inline-flex;align-items:center;gap:0;border:1px solid var(--line);border-radius:9px;padding:1px}.cnt .qb{border:0;width:28px;height:26px;background:none;font-size:16px}.cnt .qb:disabled{opacity:.3}.cnt b{min-width:18px;text-align:center;font-size:14px}
 .buy{display:flex;align-items:center;gap:7px;margin-top:4px;background:var(--bg);border-radius:8px;padding:4px 8px;font-size:13.5px;line-height:1.3;color:var(--ink)}.buy .bt{overflow-wrap:anywhere}.buy .dl{color:var(--ok);font-weight:700;font-size:12.5px;white-space:nowrap}
-.buy .sb{flex:none}.buy .bt{min-width:0;overflow-wrap:anywhere}.buy small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);margin-bottom:1px}.buy .sz{color:var(--mute);white-space:nowrap}.buy .pk{color:var(--ok)}
+.buy .sb{flex:none}.buy .bt{min-width:0;overflow-wrap:anywhere}.buy small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);margin-bottom:1px}.buy .sz{color:var(--mute);white-space:nowrap}.buy .age{display:block;font-size:11.5px;color:var(--mute)}.buy .age.old{color:var(--warn)}.buy .pk{color:var(--ok)}
 .it.done .buy{opacity:.5}
 .homes{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:6px}.home{display:inline-flex;align-items:center;gap:8px;background:var(--bg);border-radius:10px;padding:5px 6px 5px 10px;font-size:14px}.home button{border:1px solid var(--line);background:var(--card);border-radius:8px;font:600 12.5px Figtree,sans-serif;padding:4px 8px;cursor:pointer;color:var(--ink)}
 .donebar{display:flex;flex-direction:column;align-items:center;gap:6px;margin:6px 0 14px}.hhrow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}.hhrow button{min-width:46px;height:40px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);font:700 15px Figtree,sans-serif;color:var(--ink);cursor:pointer}.hhrow button[aria-pressed=true]{border-color:var(--ink);background:var(--field)}
@@ -468,7 +468,7 @@ img.pi{animation:fadein .35s ease}
   <div style="font-size:14.5px;line-height:1.5">
   <p style="margin-top:0"><b>Zonder toestemming</b> blijft alles op je telefoon: je lijst, recepten, vaste boodschappen en besparingen. Alleen voor gedeelde lijsten, meldingen en het herkennen van producten gaat er iets naar onze server, en dan zonder je naam (behalve de naam die je zelf invult bij een gedeelde lijst).</p>
   <p><b>Met toestemming</b> bewaren we daarnaast anoniem:</p>
-  <ul style="padding-left:18px;margin:0 0 10px"><li>welke producten op je lijst komen (de productsoort, bijv. "magere kwark", nooit wat je zelf vrij typt als het geen product is)</li><li>welke winkel en welk product je kiest, met de prijs en of het in de aanbieding was</li><li>wat je koopt als je "Boodschappen gedaan" tikt, per winkel</li><li>de producten en prijzen van kassabonnen die je scant (de foto zelf wordt niet bewaard)</li><li>welke winkels je gebruikt en je vaste winkel</li><li>de grootte van je huishouden, je leeftijdsgroep en de eerste 2 cijfers van je postcode, als je die invult</li></ul>
+  <ul style="padding-left:18px;margin:0 0 10px"><li>welke producten op je lijst komen (de productsoort, bijv. "magere kwark", nooit wat je zelf vrij typt als het geen product is)</li><li>welke winkel en welk product je kiest, met de prijs en of het in de aanbieding was</li><li>wat je koopt als je "Boodschappen gedaan" tikt, per winkel</li><li>de producten en prijzen van kassabonnen die je scant (de foto zelf wordt niet bewaard). Van Albert Heijn-bonnen gebruiken we de normale prijzen ook, los van je code en met alleen de week van de bon, om de AH-prijzen in de app actueel te houden.</li><li>welke winkels je gebruikt en je vaste winkel</li><li>de grootte van je huishouden, je leeftijdsgroep en de eerste 2 cijfers van je postcode, als je die invult</li></ul>
   <p>Dit wordt gekoppeld aan een willekeurige code, niet aan je naam, telefoonnummer, e-mail of exacte locatie. We gebruiken het om te onderzoeken hoe prijzen, aanbiedingen en winkelkeuzes samenhangen, en delen alleen samengevoegde cijfers (bijv. "34% koos het huismerk"), nooit gegevens van één huishouden.</p>
   <p>Je kunt je toestemming altijd intrekken. Dan stopt het verzamelen meteen.</p>
   </div>
@@ -515,7 +515,7 @@ const th=(s,n)=>`<span class="th">${thumb(s,n)}${dot(s)}</span>`;
 const pimg=o=>o.img?`<img class="pi" src="${esc(o.img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`:'';
 const dnl=d=>new Date(d+'T12:00').toLocaleDateString('nl-NL',{day:'numeric',month:'short'});
 const today=new Date().toISOString().slice(0,10);
-let lastTot=null,P=null,O=null,IDX={},state={text:'',done:{},picks:{},stores:['ah','jumbo','aldi'],mode:'split'},open=null,ofil='all',otop=false;
+let lastTot=null,P=null,O=null,IDX={},AGE={},state={text:'',done:{},picks:{},stores:['ah','jumbo','aldi'],mode:'split'},open=null,ofil='all',otop=false;
 let docRef=null,saving=Promise.resolve(),adopting=false;
 /* productkeuze door Claude: per regel (woorden) en winkel de goedgekeurde producten */
 let CFG={ai:false},AIM={};const NM={};try{AIM=JSON.parse(localStorage.getItem('bb-match')||'{}')}catch(e){}
@@ -643,7 +643,11 @@ function savingsHtml(){const ms=Object.keys(state.spend).filter(m=>state.spend[m
   return `<div class="card sav"><div class="muted" style="font-size:13px">Bespaard ${state.home?'t.o.v. alles bij '+S[state.home].label:'met aanbiedingen'} · ${nm(ms[0])}</div><div class="big" style="color:${cur.sv>=0?'var(--ok)':'#b42318'}">${eur(cur.sv)}</div>
     <div class="muted" style="font-size:13px">${cur.n} ${cur.n===1?'product':'producten'} gekocht voor ${eur(cur.sp)}${ms.length>1?` · totaal bespaard ${eur(tot)}`:''}</div>
     ${ms.length>1?`<div class="savm">${ms.slice(0,6).map(m=>`<span>${nm(m)}<b>${eur(state.spend[m].sv)}</b></span>`).join('')}</div>`:''}</div>`}
-function buyBox(s,x,noDot){const p=x.pick.p;return `<div class="buy">${noDot?'':dot(s)}<span class="bt">${x.sub?'<span class="subtag">lijkt op</span> ':''}${x.packs>1?`<b class="pk">${x.packs}×</b> `:''}${esc(p.name)}${p.size&&!(p.size.match(/[\d.,]+/)&&p.name.includes(p.size.match(/[\d.,]+/)[0]))?` <span class="sz">${esc(p.size)}</span>`:''}</span></div>`}
+function buyBox(s,x,noDot){const p=x.pick.p;return `<div class="buy">${noDot?'':dot(s)}<span class="bt">${x.sub?'<span class="subtag">lijkt op</span> ':''}${x.packs>1?`<b class="pk">${x.packs}×</b> `:''}${esc(p.name)}${p.size&&!(p.size.match(/[\d.,]+/)&&p.name.includes(p.size.match(/[\d.,]+/)[0]))?` <span class="sz">${esc(p.size)}</span>`:''}${ageTag(s,x)}</span></div>`}
+// hoe vers is de vaste prijs? Alleen bij winkels met een (deels) verouderde bron, zoals AH.
+function ageTag(s,x){const a=AGE[s];if(!a||x.deal)return '';const d=a.m.get(x.pick.p.name);
+  if(d)return `<span class="age">prijs van ${new Date(d+'T12:00').toLocaleDateString('nl-NL',{day:'numeric',month:'short',year:d.slice(0,4)===today.slice(0,4)?undefined:'numeric'})}</span>`;
+  return a.st?`<span class="age old">prijs uit ${new Date(a.st+'-15T12:00').toLocaleDateString('nl-NL',{month:'short',year:'numeric'})}, mogelijk verouderd</span>`:''}
 function item(r,s,sel){const x=r.per[s],done=!!state.done[r.k],isOpen=false;
   const p=x.pick.p,sz=p.size?` · ${esc(p.size)}`:'',pk=x.packs>1?`${x.packs}× `:'';
   return `<div class="it${done?' done':''}"><div class="row" data-tog="${esc(r.k)}"><input type="checkbox" aria-label="${esc(r.line)} afvinken" data-done="${esc(r.k)}" data-st="${s}"${done?' checked':''}><span data-pd="${s}|${esc(p.name)}|${esc(r.line)}">${th(s,p.name)}</span>
@@ -1035,8 +1039,8 @@ function tiles(file){return new Promise((ok,no)=>{const im=new Image(),u=URL.cre
   const W=Math.min(im.width,1100),k=W/im.width,H=Math.round(im.height*k),TH=1500,OV=90,out=[];
   for(let y=0;y<H&&out.length<5;y+=TH-OV){const h=Math.min(TH,H-y);if(h<120&&out.length)break;const c2=document.createElement('canvas');c2.width=W;c2.height=h;c2.getContext('2d').drawImage(im,0,y/k,im.width,h/k,0,0,W,h);out.push(c2.toDataURL('image/jpeg',0.85).split(',')[1]);if(y+h>=H)break}
   ok(out)};im.onerror=()=>{URL.revokeObjectURL(u);no(new Error('img'))};im.src=u})}
-async function readReceipt(file){const parts=await tiles(file);
-  const res=await Promise.all(parts.map((image,i)=>fetch('/api/receipt',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({image,part:i+1,parts:parts.length,device:devId})}).then(async r=>{const d=await r.json().catch(()=>({error:'De bon kon niet gelezen worden.'}));if(!r.ok&&!d.error)d.error='De bon kon niet gelezen worden.';return d})));
+async function readReceipt(file){const parts=await tiles(file),scan=[...crypto.getRandomValues(new Uint8Array(12))].map(b=>b.toString(36).padStart(2,'0')).join('').slice(0,20);
+  const res=await Promise.all(parts.map((image,i)=>fetch('/api/receipt',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({image,part:i+1,parts:parts.length,device:devId,scan,share:!!state.consent})}).then(async r=>{const d=await r.json().catch(()=>({error:'De bon kon niet gelezen worden.'}));if(!r.ok&&!d.error)d.error='De bon kon niet gelezen worden.';return d})));
   const err=res.find(r=>r.error&&!(r.items&&r.items.length));if(res.every(r=>r.error))throw new Error(err.error);
   const rc={store:null,date:null,total:null,items:[],discounts:[]};
   for(const r of res){if(r.error)continue;rc.store=rc.store||r.store;rc.date=rc.date||r.date;if(r.total!=null)rc.total=r.total;
@@ -1396,7 +1400,8 @@ async function getCached(f){try{if(!('caches' in window))return null;const c=awa
 async function getFresh(f){const r=await fetch(GH+f,{cache:'no-cache'}).catch(()=>null);let res=r&&r.ok?r:await fetch('data/'+f,{cache:'no-cache'});if(!res.ok)throw 0;
   const txt=await res.text();try{const c=await caches.open(DC);const old=await c.match('/d/'+f);const same=old&&(await old.text())===txt;await c.put('/d/'+f,new Response(txt,{headers:{'content-type':'application/json'}}));return {d:JSON.parse(txt),same}}catch(e){return {d:JSON.parse(txt),same:false}}}
 function applyData(p,o){
-  P=p;O=o;for(const x of O.offers)if(x.img&&x.img.startsWith('fz:'))x.img='https://img.offers-cdn.net/assets/uploads/offers/nl/'+x.img.slice(3);
+  P=p;O=o;AGE={};for(const s in P.stores){const st=P.meta&&P.meta[s]&&P.meta[s].stale,m=new Map();for(const r of P.stores[s])if(r[3])m.set(r[0],r[3]);if(st||m.size)AGE[s]={m,st}}
+  for(const x of O.offers)if(x.img&&x.img.startsWith('fz:'))x.img='https://img.offers-cdn.net/assets/uploads/offers/nl/'+x.img.slice(3);
   for(const k in IDX)delete IDX[k];liveAllO=null;offSig='';
   // eerst de winkels die je gebruikt (snel beginnen), de rest daarna op de achtergrond
   const first=[...new Set([...state.stores,state.home].filter(s=>s&&P.stores[s]))];for(const s of first)IDX[s]=Match.indexStore(P.stores[s]);Match.setHeads(Object.values(IDX));

@@ -6,6 +6,8 @@ const Match = globalThis.Match;
 
 export const DATA = 'https://raw.githubusercontent.com/nilonfoesenek/budgetboodschappen/main/data/';
 export const store = () => globalThis.__testStore || getStore({ name: 'push', consistency: 'strong' });
+// AH-prijzen uit kassabonnen (anoniem, alleen met toestemming): zie receipt.mjs en bonprijzen.mjs.
+export const bonStore = () => globalThis.__testBon || getStore({ name: 'bonprijzen', consistency: 'strong' });
 
 // VAPID-sleutels: worden één keer aangemaakt en in Netlify Blobs bewaard (niet in GitHub).
 export async function vapid() {

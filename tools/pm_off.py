@@ -54,7 +54,7 @@ P=json.load(open('/home/claude/budgetboodschappen/data/prices.json'))
 out={};stats={}
 for s,items in P['stores'].items():
     m={};hit=0
-    for name,price,size in items:
+    for name,price,size,*_ in items:
         nt=set(toks(name))
         if len(nt)<1:continue
         q=qty(size) or qty(name)

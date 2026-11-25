@@ -15,14 +15,14 @@ PHOTO=['jumbo','dirk','spar']
 key=lambda n:frozenset(toks(n))
 pool={}
 for s in PHOTO:
-    for name,price,size in P['stores'][s]:
+    for name,price,size,*_ in P['stores'][s]:
         k=key(name)
         if len(k)<2 or k&{'ah','jumbo','plus','lidl','aldi','dirk','beste','spar','hoogvliet','dekamarkt','dekavers','vomar','poiesz'}:continue
         pool.setdefault(k,(s,name))
 out={};st={}
 for s,items in P['stores'].items():
     o={};na=0;nc=0
-    for name,price,size in items:
+    for name,price,size,*_ in items:
         ln=name.lower();m=M[s].get(ln);alt=None
         if s not in PHOTO:
             k=key(name)

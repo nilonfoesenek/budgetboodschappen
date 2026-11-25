@@ -1,6 +1,7 @@
 """Gedeelde hulpfuncties voor de winkel-scrapers (tools/scrape/*.py).
 Elke scraper schrijft <uit>/<winkel>.json: {"store":..,"date":..,"source":..,"rows":[[naam, prijs, inhoud, id, ean, normale_prijs, actie]]}
-prijs = wat je nu betaalt zonder kaart/app; normale_prijs = prijs zonder actie (gelijk aan prijs als er geen actie is)."""
+prijs = wat je nu betaalt zonder kaart/app; normale_prijs = prijs zonder actie (gelijk aan prijs als er geen actie is).
+Optioneel 8e veld: datum van die prijs (JJJJ-MM-DD), als die per regel verschilt (kassabonnen); anders geldt "date" van het bestand."""
 import datetime, gzip, json, os, re, time, urllib.request, urllib.error
 
 UA = 'Mozilla/5.0 (compatible; BoodjeBot/1.0; persoonlijk prijsvergelijkingsproject)'
