@@ -1,0 +1,644 @@
+# Te beoordelen gevallen, controle 2026-11-25. Maatstaf: tools/AUDIT.md.
+# Schrijf de FOUTE gevallen naar data/audit/verdicts.txt als: id|fout|korte reden. Niet genoemd = goed.
+# 309 aanbiedingen en 328 productkeuzes.
+
+## AANBIEDINGEN
+cb5b186f | AANB | aldi | regel: 600 g kruimige aardappelen | aanbieding: Kruimige aardappelen | voor 4,99 €4,99 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Kruimige aardappelen 1 kg €1,09
+2d9f134a | AANB | jumbo | regel: 1 kg vastkokende aardappelen | aanbieding: Jumbo Vastkokende Aardappelen | 1+1 gratis €1,93 (was €3,85) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Aardappelen Vastkokend 1 kg 1 kg €1,29
+7228795c | AANB | hoogvliet | regel: 750 g krieltjes | aanbieding: Krieltjes | voor 0,89 €0,89 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Krieltjes 500 gram €1,09
+3ad89ff3 | AANB | ah | regel: 1 kg zoete aardappel | aanbieding: Aviko Zoete aardappel blokjes | 2e halve prijs €2,47 (was €3,29) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Oranje zoete aardappel 1 kg €3,29
+af526612 | AANB | plus | regel: 1 kg zoete aardappel | aanbieding: PLUS Zoete aardappelen | voor 2,49 €2,49 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS zoete aardappel 1000 gram €2,78
+03a64f73 | AANB | ah | regel: 1 ui | aanbieding: AH Verse pinsa spek ui | 2 voor 10.00 €5,00 (was €5,99) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Amsterdamse uien 320 g €0,79
+174b90a6 | AANB | ah | regel: 3 teentjes knoflook | aanbieding: Paturain Knoflook | 1+1 gratis €0,99 (was €1,99) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Knoflook 2 stuks €1,29
+da447b39 | AANB | hoogvliet | regel: 3 teentjes knoflook | aanbieding: Queens Pangalicious knoflook kruiden | voor 2,49 €2,49 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Hoogvliet Knoflook 1 stuk €1,25
+751cc26d | AANB | jumbo | regel: 3 teentjes knoflook | aanbieding: Paolo Crostini Knoflook 150 g | 1+1 gratis €0,81 (was €1,62) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Knoflook 100 g €1,19
+1dd7a4c0 | AANB | jumbo | regel: 500 g wortels | aanbieding: Wortelen | voor 0,99 €0,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Wortelen 680 g 680 g €1,15
+ab63ddb9 | AANB | jumbo | regel: 1 bos wortelen | aanbieding: Wortelen | voor 0,99 €0,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Wortelen 340 g 340 g €0,85
+9258d0a0 | AANB | ah | regel: 1 broccoli | aanbieding: AH Broccoli Los | voor 0,99 €0,99 | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Broccoli 500 g €1,05
+55d744a2 | AANB | dirk | regel: 1 broccoli | aanbieding: Broccoli | voor 0,99 €0,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: 1 de Beste Broccoli 800 g €1,99
+2bc4e94c | AANB | hoogvliet | regel: 1 broccoli | aanbieding: Broccoli los | voor 0,99 €0,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Broccoli 400 gram €2,95
+f704dce3 | AANB | ah | regel: 450 g boerenkool | aanbieding: AH Boerenkool | 50% korting €0,99 (was €1,98) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Boerenkool 300 g €1,99
+23c230e4 | AANB | plus | regel: 450 g boerenkool | aanbieding: PLUS Stamppotvariatie boerenkool | voor 1,29 €1,29 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Boerenkool mini-p 500 g €1,10
+05fde344 | AANB | aldi | regel: 450 g boerenkool | aanbieding: Boerenkool | 40% KORTING €0,89 (was €1,48) | 2026-11-25 t/m 2026-11-29 | gewone keuze: Boerenkool 300 g €1,95
+8285ce8e | AANB | ah | regel: 400 g spinazie | aanbieding: Hak Spinazie | 1+1 gratis €1,29 (was €2,59) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Spinazie 750 g €1,15
+fa938114 | AANB | ah | regel: 1 courgette | aanbieding: AH Terra Pureersoep courgette | 2 voor 7.00 €3,50 (was €4,49) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Courgette stuk €0,65
+5df107de | AANB | jumbo | regel: 1 courgette | aanbieding: Courgette | voor 0,69 €0,69 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Courgette €0,79
+a4045a08 | AANB | lidl | regel: 1 courgette | aanbieding: Courgette | -46% €0,39 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Courgette €0,79
+0e106a0b | AANB | spar | regel: 1 courgette | aanbieding: courgette | voor 0,69 €0,69 | 2026-11-19 t/m 2026-11-25 | gewone keuze: courgette 1 stuks €0,69
+63df2dff | AANB | aldi | regel: 1 courgette | aanbieding: Courgette | voor 0,59 €0,59 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Courgette stuk €0,59
+fecd42bc | AANB | lidl | regel: 2 rode paprika | aanbieding: Rode paprika | voor 1,05 €1,05 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Biologische zoete rode puntpaprika 750 g €2,89
+88f93837 | AANB | aldi | regel: 2 rode paprika | aanbieding: Rode paprika's | voor 1,79 €1,79 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Rode paprika stuk €0,95
+17c2c03c | AANB | ah | regel: 4 tomaten | aanbieding: AH Trostomaten Los | voor 0,89 €0,89 | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Tomaten 500 g €1,55
+5d20995f | AANB | dirk | regel: 4 tomaten | aanbieding: Heinz Tomaten gepeld | voor 0,89 €0,89 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Trostomaten los 1 kg (ca. 10 stuks) €1,90
+5ad0d3b7 | AANB | hoogvliet | regel: 4 tomaten | aanbieding: Cocktail trostomaten | voor 2,49 €2,49 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Hoogvliet Trostomaten 500 gram €1,39
+beed0513 | AANB | lidl | regel: 2 prei | aanbieding: Prei | -29% €0,39 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Prei €0,59
+a0d0277d | AANB | poiesz | regel: 2 prei | aanbieding: Losse prei | voor 1,00 €1,00 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Iglo Creme de la creme prei 500 gram €3,45
+0a20f397 | AANB | aldi | regel: 2 prei | aanbieding: Prei | 29% KORTING €0,39 (was €0,55) | 2026-11-25 t/m 2026-11-29 | gewone keuze: Prei stuk €0,39
+ce5e4fdd | AANB | ah | regel: 250 g champignons | aanbieding: AH Witte champignons 400 gram | 2e halve prijs €1,85 (was €2,47) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Witte champignons 250 g €1,09
+0185eafc | AANB | dirk | regel: 250 g champignons | aanbieding: BIO+ kastanje champignons | voor 1,69 €1,69 | 2026-11-25 t/m 2026-12-01 | gewone keuze: 1 de Beste Kastanje champignons 250 g €1,45
+c7ddb05c | AANB | vomar | regel: 250 g champignons | aanbieding: Gesneden Kastanje Champignons | voor 1,49 €1,49 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Cupasoup champignon €1,79
+89f27228 | AANB | aldi | regel: 250 g champignons | aanbieding: Kastanjechampignons | 17% KORTING €1,39 (was €1,67) | 2026-11-25 t/m 2026-11-29 | gewone keuze: Champignons 250 g €1,05
+0a3cc1a5 | AANB | aldi | regel: 250 g kastanjechampignons | aanbieding: Kastanjechampignons | 17% KORTING €1,39 (was €1,67) | 2026-11-25 t/m 2026-11-29 | gewone keuze: Kastanjechampignons 250 g €1,69
+c82e69a9 | AANB | plus | regel: 1 pompoen | aanbieding: De Kleine Keuken Bio knijpmix 6+ banaan pompoen | voor 1,12 €1,12 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Pompoen 1 st €2,99
+334b5385 | AANB | ah | regel: 200 g sperziebonen | aanbieding: Hak Sperziebonen | 1+1 gratis €0,97 (was €1,95) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Sperziebonen 220 g €1,49
+14fb9c22 | AANB | vomar | regel: 200 g sperziebonen | aanbieding: Sperziebonen | voor 1,69 €1,69 | 2026-11-25 t/m 2026-11-28
+63afb6fc | AANB | hoogvliet | regel: 1 bosje peterselie | aanbieding: Queens Pangalicious citroen peterselie | voor 2,49 €2,49 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Verse krul peterselie 30 gram €1,15
+33967c47 | AANB | lidl | regel: 1 avocado | aanbieding: Avocado | -32% €1,89 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Avocado €1,29
+a9d26383 | AANB | plus | regel: 1 avocado | aanbieding: Eat me Avocado | voor 2,49 €2,49 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Avocado eetrijp 1 st €1,49
+49be4ac5 | AANB | poiesz | regel: 1 avocado | aanbieding: Mango of avocado | voor 1,00 €1,00 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Avocado eetrijp 1 stuks €1,00
+8bf8bcb7 | AANB | vomar | regel: 1 avocado | aanbieding: Avocado's | voor 2,49 €2,49 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Avocado ready to eat. €1,69
+49a11876 | AANB | dekamarkt | regel: 200 g witlof | aanbieding: Hollandse witlof | voor 0,99 €0,99 | 2026-11-25 t/m 2026-11-30 | gewone keuze: Hollandse Witlof 1 kg (ca. 5 stuks) €2,50
+aa1cf1ba | AANB | jumbo | regel: 200 g witlof | aanbieding: Witlof | voor 0,99 €0,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Witlof - 2-3 Personen - 500g 500 g €1,25
+74ea57da | AANB | plus | regel: 200 g witlof | aanbieding: Nederlandse Witlof Los | voor 0,99 €0,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Witlof 500 gram €1,39
+6516332b | AANB | poiesz | regel: 200 g witlof | aanbieding: Witlof | voor 1,50 €1,50 | 2026-11-25 t/m 2026-11-28
+a6f1b501 | AANB | ah | regel: 1 zuurkool | aanbieding: Alle AH Biologisch houdbare zuurkool | 2e halve prijs | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Biologisch Verse zuurkool 250 g €1,49
+5ae18cf7 | AANB | ah | regel: 2 bieten | aanbieding: Hak Rode bieten | 1+1 gratis €1,09 (was €2,19) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Rode bieten 340 g €1,79
+74df68ef | AANB | aldi | regel: 2 bieten | aanbieding: Biologische rode bieten | 20% KORTING €0,99 (was €1,24) | 2026-11-25 t/m 2026-11-29 | gewone keuze: Biologische rode bieten 500 g €0,99
+a12c7a51 | AANB | ah | regel: 1 kg appels | aanbieding: Pink Lady Appels | 25% korting €2,77 (was €3,69) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Appels 2.5 kg €4,99
+681a843c | AANB | dekamarkt | regel: 1 kg appels | aanbieding: Pink Lady appelen | voor 2,49 €2,49 | 2026-11-25 t/m 2026-11-30 | gewone keuze: Appelen morgana 4 stuks €1,99
+fa0c335f | AANB | hoogvliet | regel: 1 kg appels | aanbieding: Handsinaasappels | voor 2,69 €2,69 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Morgana appels 1.5 kilo €3,49
+3f64c054 | AANB | jumbo | regel: 1 kg appels | aanbieding: Kanzi Appels | voor 1,99 €1,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Jonagold Appels 1,5 kg 1.5 kg €1,89
+818554a9 | AANB | lidl | regel: 1 kg appels | aanbieding: Evelina appels | -48% €1,49 | 2026-11-25 t/m 2026-11-29 | gewone keuze: K H S appel €1,79
+2bc47535 | AANB | plus | regel: 1 kg appels | aanbieding: Van de Boom Appel | 1+1 gratis €1,29 (was €2,59) | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Handappels Jonagold 1000 gram €1,89
+7c9d387c | AANB | vomar | regel: 1 kg appels | aanbieding: Perssinaas-appelen | voor 1,99 €1,99 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Kanzi appelen 1 kg. 1 kg €2,49
+8ce8d397 | AANB | aldi | regel: 1 kg appels | aanbieding: Elstar appels | 18% KORTING €1,99 (was €2,43) | 2026-11-25 t/m 2026-11-29 | gewone keuze: Appels 6 stuks €2,99
+45ab5cb9 | AANB | vomar | regel: 6 bananen | aanbieding: Bananen | voor 0,99 €0,99 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Bananen los €1,37
+da725053 | AANB | ah | regel: 1 kg sinaasappel | aanbieding: LU Pim's sinaasappel | 2+1 gratis €2,13 (was €3,19) | 2026-11-25 t/m 2026-11-29 | gewone keuze: Wicky Sinaasappel 1.5 l €1,89
+096fca96 | AANB | lidl | regel: 2 citroenen | aanbieding: Citroenen | -34% €0,99 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Citroenen 750gr 750 g €1,49
+79d8fd6e | AANB | plus | regel: 1 limoen | aanbieding: Karvan Cévitam Refresh zero limoen & munt | 2 voor 5.99 €3,00 (was €4,29) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Bacardi Limón 700 ml €20,99
+02e1e9a4 | AANB | ah | regel: 500 g aardbeien | aanbieding: Alpro Plantaardig variatie aardbei | 2e halve prijs €1,79 (was €2,39) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Nederlandse aardbeien 250 g €3,29
+80c7b43b | AANB | plus | regel: 500 g aardbeien | aanbieding: PLUS Donut Aardbei | 2+3 gratis €0,32 (was €0,79) | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Aardbeien 225 g €1,59
+2714e1bc | AANB | dekamarkt | regel: 125 g blauwe bessen | aanbieding: Blauwe bessen | voor 3,99 €3,99 | 2026-11-25 t/m 2026-11-30 | gewone keuze: Blauwe bessen bak 500 g €6,99
+949012b0 | AANB | dirk | regel: 125 g blauwe bessen | aanbieding: Blauwe bessen | voor 3,99 €3,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: 1 de Beste Blauwe bessen 300 g €3,69
+7c0e7126 | AANB | jumbo | regel: 125 g blauwe bessen | aanbieding: Blauwe Bessen | voor 3,49 €3,49 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Blauwe Bessen 125 g €2,15
+94272a58 | AANB | poiesz | regel: 125 g blauwe bessen | aanbieding: Blauwe bessen | voor 4,00 €4,00 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Activia Kefir bosbessmaak 0.28 kilogram €1,49
+de72ebe7 | AANB | vomar | regel: 125 g blauwe bessen | aanbieding: Blauwe Bessen | voor 3,89 €3,89 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Fruti vr.wijn framb.bessen  1l 1l €3,85
+a0619d04 | AANB | aldi | regel: 125 g blauwe bessen | aanbieding: Blauwe bessen | 50% korting € 3,00 €3,99 (was €7,98) | 2026-11-25 t/m 2026-11-29 | gewone keuze: Blauwe bessen 125 g €1,99
+5469e1b5 | AANB | hoogvliet | regel: 500 g druiven | aanbieding: Hoogvliet Pitloze witte druiven | voor 1,99 €1,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Hoogvliet Pitloze rode druiven 500 gram €2,99
+6b5dda62 | AANB | jumbo | regel: 500 g druiven | aanbieding: Pitloze Witte Druiven | voor 2,19 €2,19 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Pitloze Druiven Wit 500 g 500 g €2,49
+690550e3 | AANB | plus | regel: 500 g druiven | aanbieding: PLUS Sable druiven | voor 2,49 €2,49 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Druiven rood pitloos 500 g €2,39
+c88568a8 | AANB | ah | regel: 1 mango | aanbieding: AH Mango Los | 30% korting €1,39 (was €1,99) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Mango stuk €1,99
+5b29ed57 | AANB | jumbo | regel: 1 mango | aanbieding: Stelz Mango 0.0% 250ML | 1+1 gratis €0,99 (was €1,99) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Mango €1,99
+65ce3deb | AANB | plus | regel: 1 mango | aanbieding: Mango | voor 1,49 €1,49 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Mango 250 g €1,69
+698e1c16 | AANB | jumbo | regel: 1 ananas | aanbieding: Jumbo Ananas 250 g | 1+1 gratis €1,40 (was €2,79) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Ananas 175 g 175 g €2,49
+f2646ed0 | AANB | lidl | regel: 1 ananas | aanbieding: Ananas | -25% €1,49 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Ananas 453.59238 g €1,99
+6717fc59 | AANB | poiesz | regel: 1 kiwi | aanbieding: Zespri Sungold kiwi | voor 3,00 €3,00 | 2026-11-25 t/m 2026-11-28 | gewone keuze: O2 Life Apple Kiwi 750 milliliter €1,95
+d16588eb | AANB | dirk | regel: 2 peren | aanbieding: Hollandse Conference peren | voor 1,29 €1,29 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Hollandse Conference peren 1 kg (ca. 5 stuks) €1,79
+d6e9261f | AANB | lidl | regel: 2 peren | aanbieding: Gieser wildeman peren | -20% €1,59 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Conference peren 1 kg €1,79
+673a74e8 | AANB | poiesz | regel: 2 peren | aanbieding: Key aardbeien of Sunny Field peren | voor 1,00 €1,00 | 2026-11-25 t/m 2026-11-28 | gewone keuze: g'woon Peren Fruitijsjes 600 gram €1,58
+db374bcc | AANB | dirk | regel: 1 granaatappel | aanbieding: Mango of granaatappel | voor 0,99 €0,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Almhof Roomyoghurt framboos granaatappel 500 g €2,55
+599c9c24 | AANB | ah | regel: 500 g kipfilet | aanbieding: Streeckgenoten Gerookte kipfilet | 25% korting €2,77 (was €3,69) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Scharrel kipfilet 3 stuks 600 g €7,99
+904f3837 | AANB | dirk | regel: 500 g kipfilet | aanbieding: Kipfilet | voor 5,99 €5,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Vleeschmeesters Kipfilet 180 g €3,05
+a624842b | AANB | hoogvliet | regel: 500 g kipfilet | aanbieding: Hoogvliet Kipfilet voordeel | voor 2,99 €2,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Kipfilet 150 gram €2,36
+75825523 | AANB | lidl | regel: 500 g kipfilet | aanbieding: Kipfilet | voor 9,49 €9,49 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Kipfilet €6,69
+d43a0333 | AANB | plus | regel: 500 g kipfilet | aanbieding: PLUS Puur van smaak Ovengebakken Kipfilet | voor 3,30 €3,30 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Neutraal Kipfilet 150 g €2,79
+580fd382 | AANB | aldi | regel: 500 g kipfilet | aanbieding: Kipfilet | voor 0,99 €0,99 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Kipfilet 500 g €5,49
+0fac4049 | AANB | ah | regel: 1 hele kip | aanbieding: Scharrel Hele kip Naturel | voor 11,34 €11,34 | 2026-11-27 t/m 2026-12-03 | gewone keuze: AH Scharrel hele kip ca. 1375 g €11,45
+9a0da4ba | AANB | dekamarkt | regel: 500 g rundergehakt | aanbieding: Mager rundergehakt | voor 4,99 €4,99 | 2026-11-25 t/m 2026-11-30 | gewone keuze: DekaVers Rundergehakt 500 g €6,49
+dc9696af | AANB | vomar | regel: 500 g rundergehakt | aanbieding: Rundergehakt | voor 7,99 €7,99 | 2026-11-25 t/m 2026-11-28
+97673f50 | AANB | ah | regel: 500 g gehakt | aanbieding: Streeckgenoten Mosterdgehakt | 25% korting €2,24 (was €2,99) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Rundergehakt 500 g €6,49
+357aedcd | AANB | dekamarkt | regel: 500 g gehakt | aanbieding: Mager rundergehakt | voor 4,99 €4,99 | 2026-11-25 t/m 2026-11-30 | gewone keuze: DekaVers Rundergehakt 500 g €6,49
+83872d72 | AANB | hoogvliet | regel: 500 g gehakt | aanbieding: Verstegen kruidenmix voor gehakt | 1 + 1 Gratis €2,44 (was €4,89) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Hoogvliet Rundergehakt 500 gram €4,79
+9a0e489e | AANB | jumbo | regel: 500 g gehakt | aanbieding: Gemengd Gehakt | voor 4,99 €4,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Rundergehakt 500 g 500 g €5,29
+23bf0256 | AANB | plus | regel: 500 g gehakt | aanbieding: PLUS Plantaardig gehakt | voor 2,24 €2,24 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Rundergehakt 500 g €4,49
+109b21fd | AANB | poiesz | regel: 500 g gehakt | aanbieding: Stroganoff of Noorder gehakt | voor 5,00 €5,00 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Italiaans Gehakt 500 gram €6,49
+14dd9752 | AANB | vomar | regel: 500 g gehakt | aanbieding: Rundergehakt | voor 7,99 €7,99 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Go tan gehakte knoflook 100gr 100gr €2,19
+2b598051 | AANB | aldi | regel: 500 g gehakt | aanbieding: Kipgehakt | 50% korting € 3,00 €2,69 (was €5,38) | 2026-11-25 t/m 2026-11-29 | gewone keuze: Rundergehakt 500 g €5,35
+cd509471 | AANB | ah | regel: 4 hamburgers | aanbieding: AH Runder-hamburger 2 stuks | 2e halve prijs €3,88 (was €5,17) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Hamburgers 4 x 70 g €1,69
+d16fe009 | AANB | plus | regel: 4 hamburgers | aanbieding: PLUS Hamburger | voor 2,99 €2,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Hamburgers 4 st €1,69
+f622f931 | AANB | ah | regel: 500 g runderlappen | aanbieding: AH Greenfields Magere runderlappen | voor 12,89 €12,89 | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Greenfields Magere runderlappen ca. 720 g €15,69
+952fa573 | AANB | vomar | regel: 500 g runderlappen | aanbieding: Magere Runderlappen | voor 8,99 €8,99 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Csw ierse runderlappen 3st €10,19
+2391e50d | AANB | dekamarkt | regel: 4 speklappen | aanbieding: Speklappen | voor 2,99 €2,99 | 2026-11-25 t/m 2026-11-30 | gewone keuze: DekaVers Speklappen 2 stuks 280 g €3,64
+eb34d49e | AANB | ah | regel: 200 g spekjes | aanbieding: AH Terra Plantaardige spekjes | 2e halve prijs €1,39 (was €1,85) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Terra Plantaardige spekjes 140 g €1,45
+8707ff89 | AANB | jumbo | regel: 200 g spekjes | aanbieding: Vivera Plantaardige Spekjes 175 g | 1+1 gratis €2,00 (was €3,99) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo's Pastasaus Tomaat Spekjes 250 g 250 g €2,69
+86813d1e | AANB | lidl | regel: 200 g spekjes | aanbieding: Sint spekjes | voor 1,49 €1,49 | 2026-11-29 t/m 2026-12-05 | gewone keuze: Sint spekjes €1,49
+ac1b59b1 | AANB | plus | regel: 200 g spekjes | aanbieding: PLUS Plantaardige spekjes | voor 1,27 €1,27 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Plantaardige spekjes 160 g €2,95
+5a4f0c74 | AANB | ah | regel: 1 rookworst | aanbieding: Streeckgenoten Rookworst | 25% korting €3,29 (was €4,39) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Rookworst 250 g €2,99
+2e6b65e5 | AANB | dekamarkt | regel: 1 rookworst | aanbieding: Unox rookworst | voor 2,99 €2,99 | 2026-11-25 t/m 2026-11-30 | gewone keuze: Valess Rookworst 2 st. 160 g €3,49
+ef522f3d | AANB | dirk | regel: 1 rookworst | aanbieding: Slagerhuis Gelderse rookworst | 50% korting € 3,00 €0,79 (was €1,58) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Vleeschmeesters Rookworst 275 gram 275 g €3,79
+f47f8a5a | AANB | poiesz | regel: 1 rookworst | aanbieding: Slagershuis Gelderse- of magere rookworst | voor 1,00 €1,00 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Unox Gelderse Rookworst 285 gram €4,29
+127e00e7 | AANB | aldi | regel: 1 rookworst | aanbieding: Slagersrookworst | -26% €1,99 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Boterhamworst 150 g €1,36
+ca04f67f | AANB | vomar | regel: 2 braadworsten | aanbieding: Runder-braadworst | voor 3,99 €3,99 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Unox geld. rookworst 285gr 285gr €3,69
+38fea91f | AANB | ah | regel: 200 g gerookte zalm | aanbieding: Excellent Gerookte Zalm met Rode Peper | voor 4,99 €4,99 | 2026-11-27 t/m 2026-12-03 | gewone keuze: AH Gerookte zalm 200 g €7,99
+e4b51716 | AANB | plus | regel: 200 g gerookte zalm | aanbieding: GIJS Warmgerookte zalm citroen peper | voor 3,99 €3,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Bagel gerookte zalm 1 st €4,49
+3ce41b1f | AANB | aldi | regel: 200 g gerookte zalm | aanbieding: Gerookte zalm | voor 2,99 €2,99 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Gerookte Noorse zalm 200 g €5,95
+3ae3fb51 | AANB | ah | regel: 2 zalmfilets | aanbieding: AH Zalmfilet | voor 15,02 €15,02 | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Zalmfilet 250 g €4,59
+6d1caff7 | AANB | hoogvliet | regel: 2 zalmfilets | aanbieding: Verse zalmfilet | voor 8,99 €8,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Gerookte zalmfilet 200 gram €5,99
+43f21494 | AANB | jumbo | regel: 2 zalmfilets | aanbieding: Zalmfilet | voor 7,99 €7,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Wilde Zalmfilet 2 x 125 g 2 x 125 g €3,39
+d0a7c129 | AANB | poiesz | regel: 2 zalmfilets | aanbieding: Zalmfilet | voor 8,99 €8,99 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Gerookte Atlantische Zalmfilet 200 gram €6,49
+c71461f5 | AANB | ah | regel: 300 g garnalen | aanbieding: AH Excellent Hollandse garnalen, 200 g | voor 12,99 €12,99 | 2026-11-27 t/m 2026-12-03 | gewone keuze: AH Garnalen 100 g €2,99
+2e0d16c3 | AANB | dirk | regel: 300 g garnalen | aanbieding: Puuls wokgarnalen | voor 5,99 €5,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: HEIPLOEG Noordse garnalen 100 g €3,79
+f863bf65 | AANB | lidl | regel: 300 g garnalen | aanbieding: Woe Garnalen | voor 7,99 €7,99 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Jumbo garnalen 100 g €2,69
+4a19a46e | AANB | plus | regel: 300 g garnalen | aanbieding: Feestelijk PLUS Gourmet mini garnalen knoflook | 2+1 gratis €2,66 (was €3,99) | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Roze garnalen 100 g €2,39
+f241932c | AANB | ah | regel: 2 blikjes tonijn | aanbieding: AH Excellent Geelvintonijn | voor 5,69 €5,69 | 2026-11-27 t/m 2026-12-03 | gewone keuze: Princes Tonijn in water 85 g €1,49
+1bc424b9 | AANB | aldi | regel: 2 blikjes tonijn | aanbieding: John West Tonijn | voor 5,99 €5,99 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Tonijn in olijfolie 160 g €1,89
+ad219ebe | AANB | poiesz | regel: 200 g kibbeling | aanbieding: Gebakken kibbeling | voor 6,00 €6,00 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Iglo Viskraam Kibbeling 245 gram €5,29
+30bfb263 | AANB | plus | regel: 200 g kipshoarma | aanbieding: Feestelijk PLUS Gourmet mini kipshoarma | 1+1 gratis €1,50 (was €2,99) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Uit de keuken van PLUS Pizza Kipshoarma 549 g €6,49
+34b464eb | AANB | plus | regel: 300 g shoarmavlees | aanbieding: PLUS Shoarmavlees | voor 4,44 €4,44 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Shoarmavlees 500 gram €4,99
+5ab36246 | AANB | ah | regel: 200 g gyros | aanbieding: Vivera Plantaardige gyros | 2+1 gratis €2,46 (was €3,69) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Gyros 500 g €5,49
+009cfacd | AANB | jumbo | regel: 200 g gyros | aanbieding: Vivera Plantaardige Gyros 175 g | 1+1 gratis €1,84 (was €3,69) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Gyros 500 g 500 g €5,25
+d306e17a | AANB | plus | regel: 200 g gyros | aanbieding: PLUS Gesneden verspakket Pita Gyros | voor 5,49 €5,49 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Boerentrots Kipdijfiletreepjes Gyros 400 g €5,99
+5778cb69 | AANB | ah | regel: 100 g salami | aanbieding: Streeckgenoten Salami | 25% korting €2,24 (was €2,99) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Salami 150 g €1,89
+4efe6f9b | AANB | jumbo | regel: 100 g salami | aanbieding: Dr. Oetker Big Americans Filled Crust Triple Salami 489 g | 1+1 gratis €2,85 (was €5,69) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Salami ca. 100 g €2,00
+25c51c2c | AANB | ah | regel: 100 g filet americain | aanbieding: Streeckgenoten Filet americain | 25% korting €2,47 (was €3,29) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Filet americain 150 g €2,69
+fef8bd2f | AANB | hoogvliet | regel: 100 g filet americain | aanbieding: Kips Vega filet americain | 1 + 1 Gratis €1,02 (was €2,05) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Luiten Filet americain 150 gram €1,89
+a50df7da | AANB | poiesz | regel: 100 g filet americain | aanbieding: Filet americain naturel | voor 3,00 €3,00 | 2026-11-25 t/m 2026-11-28
+23da4180 | AANB | vomar | regel: 100 g filet americain | aanbieding: Slagers Filet Americain | voor 2,49 €2,49 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Slagers filet americain uien €2,99
+81d3b568 | AANB | aldi | regel: 100 g filet americain | aanbieding: Filet americain | voor 1,99 €1,99 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Filet Americain 150 g €2,05
+9ce2dcb2 | AANB | lidl | regel: 2 slavinken | aanbieding: Slavink | voor 2,99 €2,99 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Slavinken 400 g €3,79
+4797f752 | AANB | plus | regel: 2 slavinken | aanbieding: Feestelijk PLUS Gourmet mini Slavinken | 2+1 gratis €1,66 (was €2,49) | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Slavink Ambachtelijk 2st 200 g €2,45
+0d6aeaf7 | AANB | ah | regel: 200 g tofu | aanbieding: Vivera Zachte tofu | 2+1 gratis €1,33 (was €1,99) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Terra Biologische tofu 325 g €1,35
+67071282 | AANB | ah | regel: 1 blik kikkererwten | aanbieding: Hak Kikkererwten | 1+1 gratis €0,74 (was €1,49) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Terra Kikkererwten 200 g €0,85
+5be0df4f | AANB | jumbo | regel: 1 blik kikkererwten | aanbieding: Boon Kikkererwten 190 g | 1+1 gratis €0,49 (was €0,99) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Biologische Kikkererwten 210 g 210 g €0,99
+6e0f28eb | AANB | jumbo | regel: 1 blik kidneybonen | aanbieding: Hak Kidneybonen 190 g | 1+1 gratis €0,55 (was €1,09) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Hak Kidneybonen 190 g 190 g €1,09
+e4aa9f61 | AANB | ah | regel: 1 blik zwarte bonen | aanbieding: Hak Zwarte bonen | 1+1 gratis €1,09 (was €2,19) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Terra Zwarte bonen 200 g €0,79
+7ed96dd2 | AANB | jumbo | regel: 1 blik zwarte bonen | aanbieding: HAK Zwarte Bonen 380g | 1+1 gratis €0,74 (was €1,49) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Zwarte Bonen 400 g 400 g €0,90
+bc605969 | AANB | ah | regel: 1 blik bruine bonen | aanbieding: Hak Bruine bonen | 1+1 gratis €0,99 (was €1,99) | 2026-11-25 t/m 2026-11-29 | gewone keuze: Hak Bruine bonen 380 g €1,39
+25f0a3a3 | AANB | jumbo | regel: 1 blik bruine bonen | aanbieding: Bonduelle Bruine bonen 175g | 1+1 gratis €0,65 (was €1,29) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Biologische Bruine Bonen 205 g 205 g €0,79
+c82e0be9 | AANB | ah | regel: 1 blik witte bonen | aanbieding: Hak Witte bonen | 1+1 gratis €1,09 (was €2,19) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Terra Witte bonen 400 g €0,89
+14c04449 | AANB | ah | regel: 200 g linzen | aanbieding: Hak Linzen | 1+1 gratis €1,09 (was €2,19) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Terra Linzen 200 g €0,89
+bde593c8 | AANB | jumbo | regel: 200 g linzen | aanbieding: Boon Linzen 190 g | 1+1 gratis €0,49 (was €0,99) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo's Linzen Burger 200 g 200 g €3,49
+db086b7c | AANB | hoogvliet | regel: 500 g magere kwark | aanbieding: Optimel Magere Kwark Aardbei | 1 + 1 Gratis €1,12 (was €2,25) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Oing Magere kwark naturel 500 gram €0,99
+052786a3 | AANB | jumbo | regel: 500 g magere kwark | aanbieding: Campina Magere Milde Kwark Naturel 500 g | voor 1,99 €1,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Öing Magere Kwark 500 g 500 g €0,99
+05cf1744 | AANB | plus | regel: 500 g magere kwark | aanbieding: Campina Magere kwark naturel | 2 voor 2.99 €1,50 (was €1,99) | 2026-11-25 t/m 2026-12-01 | gewone keuze: BIO+ Magere kwark 500 g €1,49
+c58b0de0 | AANB | plus | regel: 1 l magere yoghurt | aanbieding: Campina Magere yoghurt | 2 voor 2.99 €1,50 (was €1,69) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Zuivelmeester Magere yoghurt 1000 ml €1,15
+6bf85237 | AANB | dirk | regel: 1 l vla | aanbieding: Melkunie vla | voor 0,99 €0,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Melkan Vla chocolade 1 liter €1,38
+199476bd | AANB | jumbo | regel: 1 l vla | aanbieding: Campina Karamel vla 1 L | voor 2,19 €2,19 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Vla 3 x 1L €5,23
+145545a5 | AANB | ah | regel: 250 g roomboter | aanbieding: Président Roomboter ongezouten | 1+1 gratis €1,75 (was €3,49) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Roomboter picolientje stuk €0,65
+e28d3673 | AANB | aldi | regel: 250 g margarine | aanbieding: Becel Margarine light | voor 3,39 €3,39 | 2026-11-25 t/m 2026-11-29
+7957a298 | AANB | dekamarkt | regel: 6 eieren | aanbieding: Wegdam vrije uitloop eieren | 57% KORTING €2,49 (was €5,79) | 2026-11-25 t/m 2026-11-30 | gewone keuze: Bio+ Biologische eieren s/m/l 10 stuks €3,15
+8c7ccc40 | AANB | plus | regel: 6 eieren | aanbieding: GIJS Boerderij eieren | voor 1,98 €1,98 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Biologisch PLUS Eieren 6 st €2,69
+8520a2ab | AANB | poiesz | regel: 6 eieren | aanbieding: Scharreleieren | voor 3,00 €3,00 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Eieren M/L - 6 stuks 6 stuks €2,59
+38cb5d1b | AANB | vomar | regel: 6 eieren | aanbieding: Scharreleieren | voor 3,99 €3,99 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Sum&sam chinese eiermie 250. €1,55
+1f14afff | AANB | dekamarkt | regel: 10 eieren | aanbieding: Wegdam vrije uitloop eieren | 57% KORTING €2,49 (was €5,79) | 2026-11-25 t/m 2026-11-30 | gewone keuze: Bio+ Biologische eieren s/m/l 10 stuks €3,15
+4cce9338 | AANB | plus | regel: 10 eieren | aanbieding: GIJS Boerderij eieren | voor 1,98 €1,98 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Biologisch PLUS Eieren 10 st €4,39
+4b52526b | AANB | poiesz | regel: 10 eieren | aanbieding: Scharreleieren | voor 3,00 €3,00 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Eieren M/L - 10 stuks 10 stuks €3,00
+a390befa | AANB | vomar | regel: 10 eieren | aanbieding: Scharreleieren | voor 3,99 €3,99 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Sum&sam chinese eiermie 250. €1,55
+e549c90c | AANB | dirk | regel: 400 g jong belegen kaas | aanbieding: Kroon van Holland Jong belegen kaas 48+ plakken | voor 1,99 €1,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: 1 de Beste Jong belegen 48+ plakken 400 g €3,79
+bed2e677 | AANB | jumbo | regel: 400 g jong belegen kaas | aanbieding: Milner Jong Belegen 30+ Kaas Plakken | voor 2,99 €2,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Jong Belegen Kaas 30+ Stuk 455 g 455 g €6,75
+bc560f86 | AANB | hoogvliet | regel: 150 g geraspte kaas | aanbieding: Geraspte kaas mild | voor 3,49 €3,49 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Vergeer Geraspte cheddar 150 gram €2,59
+5d0ac66a | AANB | poiesz | regel: 150 g geraspte kaas | aanbieding: Vergeer geraspte kaas | voor 3,00 €3,00 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Uniekaas geraspte kaas belegen 150 gram €2,89
+5c1fcfcf | AANB | ah | regel: 125 g mozzarella | aanbieding: AH Biologisch Buffelmozzarella 52+ | 2+1 gratis €1,86 (was €2,79) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Mozzarella 200 g €0,99
+9bdafa1b | AANB | dirk | regel: 125 g mozzarella | aanbieding: Valess Tomaat mozzarella | voor 2,49 €2,49 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Galbani Mozzarella 125 g €1,64
+0f7ed46b | AANB | hoogvliet | regel: 125 g mozzarella | aanbieding: Wagner Fina mozzarella | voor 2,49 €2,49 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Melkan Mozzarella 125 gram €1,80
+ef82f4a4 | AANB | plus | regel: 125 g mozzarella | aanbieding: Feestelijk PLUS Gourmet mini mozzarella | 2+1 gratis €1,99 (was €2,99) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Melkan Mozzarella 240 g €1,79
+188bd3a5 | AANB | ah | regel: 200 g geitenkaas | aanbieding: AH Biologisch Geitenkaas naturel 48+ | 2+1 gratis €1,99 (was €2,99) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Geitenkaas ongesneden 180 g €1,99
+6deec768 | AANB | hoogvliet | regel: 200 g geitenkaas | aanbieding: Alle Bettine geitenkaas | voor 1,29 €1,29 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Hoogvliet Geitenkaas 82 gram €1,50
+9b8f9263 | AANB | poiesz | regel: 150 g roomkaas | aanbieding: Garlan roomkaas knoflook & kruiden | voor 1,00 €1,00 | 2026-11-25 t/m 2026-11-28
+d26aedde | AANB | dirk | regel: 1 pakje plakken kaas | aanbieding: Kroon van Holland Jonge kaas 48+ plakken | voor 1,99 €1,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: 1 de Beste Belegen 48+ plakken 190 g €2,35
+524d0b5d | AANB | jumbo | regel: 1 pakje plakken kaas | aanbieding: Milner Jong 30+ Kaas Plakken | voor 2,79 €2,79 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Cheddar 8 Plakken 150 g 150 g €1,69
+12ca3405 | AANB | plus | regel: 1 pakje plakken kaas | aanbieding: Beemster Kaas plakken | voor 3,99 €3,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Belegen Plakken 100 g €1,50
+2e7dee5e | AANB | ah | regel: 1 pak beschuit | aanbieding: Bolletje Echte beschuit | 25% korting €0,73 (was €0,97) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Beschuit naturel 125 g €0,59
+2cb4fca2 | AANB | dirk | regel: 8 wraps | aanbieding: Santa Maria wraps | 51% KORTING €1,49 (was €3,04) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Libanese wraps 5 stuks €1,49
+b14755cb | AANB | plus | regel: 2 stokbroden | aanbieding: PLUS Korenlanders Stokbroden | voor 0,99 €0,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Knackebrod goudbruin 375 g €1,49
+bb9228c1 | AANB | poiesz | regel: 4 croissants | aanbieding: Roomboter croissants | voor 1,00 €1,00 | 2026-11-25 t/m 2026-11-28
+098bb0bb | AANB | ah | regel: 1 pot pindakaas | aanbieding: Whole earth Smooth 100% pindakaas | 50% korting €1,74 (was €3,48) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Smeuïge pindakaas 350 g €2,49
+189642ff | AANB | hoogvliet | regel: 1 pot pindakaas | aanbieding: Alle Whole Earth pindakaas | voor 1,99 €1,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: G'woon Pindakaas 350 gram €1,55
+2c90e68d | AANB | jumbo | regel: 1 pot pindakaas | aanbieding: Jumbo's Pindakaas met Stukjes 350 g | 25% korting €1,26 (was €1,68) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Pindakaas Naturel 600 g 600 g €1,34
+27bb5e23 | AANB | spar | regel: 1 pot pindakaas | aanbieding: Calvé pindakaas | voor 4,99 €4,99 | 2026-11-19 t/m 2026-11-25 | gewone keuze: g'woon 100% pindakaas 350 gram €2,65
+e2209d76 | AANB | aldi | regel: 1 pot pindakaas | aanbieding: Calvé Pindakaas | voor 3,49 €3,49 | 2026-11-25 t/m 2026-11-29 | gewone keuze: 100% pindakaas 350 g €1,75
+5c2645cf | AANB | lidl | regel: 1 pot hagelslag | aanbieding: Twinkelz Hagelslag mix | voor 2,65 €2,65 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Hagelslag puur 600 g €2,69
+bf91d61a | AANB | poiesz | regel: 1 pot honing | aanbieding: Alle Melvita honing | voor 2,99 €2,99 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Elephant Pretzel honing-mosterd 70 gram €1,00
+2662739c | AANB | hoogvliet | regel: 500 g havermout | aanbieding: Brinta Havermout | voor 1,69 €1,69 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Quaker Havermout 600 gram €2,45
+ddbfceb8 | AANB | plus | regel: 500 g havermout | aanbieding: Brinta Havermout | 2 voor 3.49 €1,75 (was €2,49) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Molina Havermout 500 g €0,79
+3ae3122f | AANB | plus | regel: 1 pak cruesli | aanbieding: Quaker Cruesli | voor 5,99 €5,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Quaker Cruesli 4 noten 450 g €3,99
+4e8284c8 | AANB | poiesz | regel: 1 pak cruesli | aanbieding: Quaker cruesli | voor 6,00 €6,00 | 2026-11-25 t/m 2026-11-28
+ea6c57a1 | AANB | ah | regel: 1 pak cornflakes | aanbieding: Kellogg's Cornflakes | 2 voor 5.49 €2,75 (was €3,09) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Cornflakes 500 g €1,35
+a9a513a5 | AANB | ah | regel: 1 ontbijtkoek | aanbieding: Bolletje Ontbijtkoek naturel gesneden | 25% korting €2,17 (was €2,89) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Ontbijtkoek naturel ongesneden 550 g €1,19
+d6f2f575 | AANB | lidl | regel: 1 ontbijtkoek | aanbieding: Ontbijtkoek | voor 0,99 €0,99 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Ontbijtkoek volkoren 485 g €1,37
+6406494d | AANB | ah | regel: 1 pak crackers | aanbieding: AH Edamame crackers | 3 voor 7.00 €2,33 (was €2,49) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Sesam crackers 150 g €0,99
+9c8480a6 | AANB | dekamarkt | regel: 1 pak crackers | aanbieding: LU mini crackers | voor 1,69 €1,69 | 2026-11-25 t/m 2026-11-30 | gewone keuze: G'woon Mini crackers 250 g €0,99
+ff5fc645 | AANB | hoogvliet | regel: 1 pak crackers | aanbieding: Liga Cracotte luchtige crackers naturel | voor 1,79 €1,79 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Barber Cream crackers 300 gram €1,75
+d23792e1 | AANB | jumbo | regel: 1 pak crackers | aanbieding: Melba Crackers Naturel 125 g | 1+1 gratis €0,99 (was €1,99) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Party crackers 6 stuks €2,99
+1c82fc35 | AANB | vomar | regel: 1 pak crackers | aanbieding: Mitsuba Crackers | voor 1,89 €1,89 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Spaanse maaltijd cracker 265gr 265gr €1,99
+395bcef6 | AANB | hoogvliet | regel: 500 g spaghetti | aanbieding: La molisana Spaghetti | 1 + 1 Gratis €1,17 (was €2,34) | 2026-11-25 t/m 2026-12-01 | gewone keuze: G'woon Spaghetti 500 gram €0,93
+fea0ac5d | AANB | hoogvliet | regel: 500 g fusilli | aanbieding: La molisana Fusilli | 1 + 1 Gratis €1,20 (was €2,39) | 2026-11-25 t/m 2026-12-01 | gewone keuze: G'woon Fusilli 500 gram €1,18
+2e15ccf3 | AANB | hoogvliet | regel: 250 g tagliatelle | aanbieding: Verspakket tagliatelle | voor 4,49 €4,49 | 2026-11-25 t/m 2026-12-01 | gewone keuze: G'woon Tagliatelle 500 gram €1,85
+8a7b5be7 | AANB | vomar | regel: 500 g pasta | aanbieding: Daily Chef Verse Pasta | voor 1,00 €1,00 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Fl.brand trassi pasta 25gr 25gr €0,79
+34fd59bb | AANB | dirk | regel: 400 g basmatirijst | aanbieding: Basmatirijst | voor 1,89 €1,89 | 2026-11-25 t/m 2026-12-01 | gewone keuze: 1 de Beste Basmatirijst 400 g €1,39
+08b753a4 | AANB | ah | regel: 1 kg zilvervliesrijst | aanbieding: Lassie Zilvervliesrijst bio | 2+1 gratis €1,53 (was €2,29) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Zilvervliesrijst 1 kg €1,49
+1ca73622 | AANB | dirk | regel: 1 kg zilvervliesrijst | aanbieding: Zilvervliesrijst | voor 1,89 €1,89 | 2026-11-25 t/m 2026-12-01 | gewone keuze: 1 de Beste Zilvervliesrijst 1 kg €1,47
+24a83425 | AANB | ah | regel: 500 g rijst | aanbieding: Lassie Toverrijst | 2+1 gratis €0,77 (was €1,15) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Zilvervliesrijst 1 kg €1,49
+44d8313c | AANB | dirk | regel: 500 g rijst | aanbieding: Basmatirijst | voor 1,89 €1,89 | 2026-11-25 t/m 2026-12-01 | gewone keuze: 1 de Beste Zilvervliesrijst 1 kg €1,47
+939d44f9 | AANB | ah | regel: 250 g noedels | aanbieding: Samasaya Fijne noedels | 50% korting €1,14 (was €2,28) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Fijne noedels 250 g €2,79
+c8b7e368 | AANB | plus | regel: 250 g noedels | aanbieding: Knorr Wereldgerecht Hokkien Noedels | 2+3 gratis €2,00 (was €4,99) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Chunsi Noedels soba 300 g €1,83
+87ce6c6b | AANB | ah | regel: 200 g couscous | aanbieding: AH Slaverrijker couscous | 3 voor 6.00 €2,00 (was €2,29) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Couscous 400 g €1,29
+fa112adb | AANB | jumbo | regel: 200 g couscous | aanbieding: Verstegen World Spice Meal Couscous 50 g | 1+1 gratis €2,00 (was €3,99) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Biologisch Couscous 400 g 400 g €1,49
+719d32aa | AANB | ah | regel: 200 g bulgur | aanbieding: AH Bulgur witte kaas S | voor 2,99 €2,99 | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Biologisch Volkoren bulgur 400 g €1,59
+2591cdf7 | AANB | dirk | regel: 1 blik kokosmelk | aanbieding: Go-Tan kokosmelk | voor 2,99 €2,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Fairtrade Kokosmelk 400 ml €2,49
+e8b44876 | AANB | ah | regel: 1 pot pesto | aanbieding: Groene Pesto | voor 1,13 €1,13 | 2026-11-27 t/m 2026-12-03 | gewone keuze: AH Groene pesto 190 g €1,15
+ca14258a | AANB | poiesz | regel: 1 pot pesto | aanbieding: Qizini panini prosciutto of kip pesto | voor 2,00 €2,00 | 2026-11-25 t/m 2026-11-28
+0624ce7c | AANB | aldi | regel: 1 pot pesto | aanbieding: Gourmet Pesto | voor 1,89 €1,89 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Pesto rosso 190 g €1,13
+d591a792 | AANB | hoogvliet | regel: 1 pak kroepoek | aanbieding: Conimex Kroepoek Naturel | voor 0,99 €0,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Conimex Kroepoek Naturel 73 gram €1,54
+61b59433 | AANB | vomar | regel: 1 pak kroepoek | aanbieding: Conimex Kroepoek | voor 0,99 €0,99 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Conimex kroepoek bali 75gr 75gr €1,49
+e983e89c | AANB | poiesz | regel: 1 blikje tomatenpuree | aanbieding: Heinz tomatenpuree | voor 1,00 €1,00 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Verse aardappelpuree 500 gram €1,80
+bff2baf3 | AANB | ah | regel: 1 pot pastasaus | aanbieding: Bertolli Pastasaus in zak pittig | 1+1 gratis €1,82 (was €3,65) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Pastasaus klassiek 500 g €1,09
+96c1d881 | AANB | jumbo | regel: 1 blik mais | aanbieding: Hak Mais 190 g | 1+1 gratis €0,65 (was €1,29) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Hak Mais 190 g 190 g €1,29
+0c1d9b9b | AANB | dekamarkt | regel: 1 pot olijven | aanbieding: Olijven | voor 1,99 €1,99 | 2026-11-25 t/m 2026-11-30 | gewone keuze: DekaMarkt Olijven huismix 150 g €1,99
+35f9202b | AANB | lidl | regel: 1 pot olijven | aanbieding: Chef Select Olijven | voor 3,49 €3,49 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Kalamata olijven 200 g €1,69
+3c868c89 | AANB | ah | regel: 1 pot mosterd | aanbieding: Knorr Cup-a-soup mosterd | 1+1 gratis €1,07 (was €2,15) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Mosterd mild 250 g €0,85
+c5f7795b | AANB | hoogvliet | regel: 1 pot mosterd | aanbieding: Knorr Cup a soup mosterd | voor 1,19 €1,19 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Sanmarco Franse mosterd 370 gram €0,98
+19336e69 | AANB | aldi | regel: 1 pot mosterd | aanbieding: Marne Groninger of Franse mosterd | voor 0,99 €0,99 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Mosterd 250 g €0,71
+a9c0e4a6 | AANB | plus | regel: 1 fles ketchup | aanbieding: Chio POM-BAR Ketchup | 2 voor 2.99 €1,50 (was €1,99) | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Tomaten ketchup 490 ml €0,95
+da15df35 | AANB | plus | regel: 1 pot mayonaise | aanbieding: Zaanse Mayonaise | 2e halve prijs €1,27 (was €1,69) | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Mayonaise 350 ml €1,25
+3375781a | AANB | aldi | regel: 1 pot mayonaise | aanbieding: Gourmet Truffelmayonaise | voor 1,79 €1,79 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Mayonaise tube 190 ml €0,77
+9c27503c | AANB | hoogvliet | regel: 1 fles olijfolie | aanbieding: Carbonell olijfolie | voor 9,99 €9,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: G'woon Zonnebloem olijfolie 1 liter €3,59
+77b32758 | AANB | hoogvliet | regel: 2 el olijfolie | aanbieding: Carbonell olijfolie | voor 9,99 €9,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: G'woon Zonnebloem olijfolie 1 liter €3,59
+5c5b20f9 | AANB | ah | regel: 1 kg suiker | aanbieding: AH Excellent Suikerspinsuiker, 200 g | voor 2,49 €2,49 | 2026-11-27 t/m 2026-12-03 | gewone keuze: AH Kristalsuiker 1 kg €0,95
+37046507 | AANB | plus | regel: 1 kg suiker | aanbieding: Verkade Originals San Francisco 0% suiker | 2e halve prijs €1,72 (was €2,29) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Neutraal Suiker 1500 g €1,43
+b0d811b0 | AANB | poiesz | regel: 1 pak kippenbouillon | aanbieding: O'Cral runder- of kippenbouillon | voor 1,00 €1,00 | 2026-11-25 t/m 2026-11-28 | gewone keuze: O'Cral Kippenbouillon 340 milliliter €1,00
+57c25ea5 | AANB | ah | regel: 200 g amandelen | aanbieding: Alpro Barista amandel | 2e halve prijs €2,02 (was €2,69) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Amandelen gezouten 150 g €1,69
+66048b6f | AANB | plus | regel: 1 zak rozijnen | aanbieding: De Kleine Keuken 12+ Rozijnen Biologisch | voor 2,69 €2,69 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS blanke rozijnen 375 g €2,84
+b1a0995f | AANB | jumbo | regel: 1 blik ananas | aanbieding: Jumbo Ananas 250 g | 1+1 gratis €1,40 (was €2,79) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Ananas 175 g 175 g €2,49
+2a1f4ea7 | AANB | lidl | regel: 1 blik ananas | aanbieding: Ananas | -25% €1,49 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Ananas 453.59238 g €1,99
+cf46e633 | AANB | ah | regel: 1 pot appelmoes | aanbieding: Hak Appelmoes 0% | 1+1 gratis €1,25 (was €2,49) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Appelmoes 710 g €0,65
+a34a0149 | AANB | hoogvliet | regel: 1 pot appelmoes | aanbieding: Hak Appelmoes 0% | voor 0,99 €0,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Green Appelmoes 360 gram €0,59
+060dde6a | AANB | ah | regel: 1 tl komijn | aanbieding: AH Biologisch Jong belegen komijn 50+ plakken | 25% korting €3,35 (was €4,47) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Komijn gemalen 45 g €1,29
+9e9e061d | AANB | dirk | regel: 1 tl komijn | aanbieding: Kroon van Holland Jong belegen komijn 48+ plakken | voor 1,99 €1,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Silvo Komijn gemalen 37 g €1,29
+81f7acdd | AANB | hoogvliet | regel: 1 tl komijn | aanbieding: Milner 30+ Komijn Plakken | voor 1,99 €1,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Milner 30+ Komijn Plakken 150 gram €3,15
+a6a3db03 | AANB | jumbo | regel: 1 tl komijn | aanbieding: Milner Komijn Jong Belegen 30+ Kaas Plakken | voor 3,19 €3,19 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Euroma Essential N°02. Komijn 42 g €3,15
+a9e0b220 | AANB | plus | regel: 1 tl komijn | aanbieding: Beemster 48+ Jong Belegen Komijn Plakken | 2 voor 3.99 €2,00 (was €2,89) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Eru Goudkuipje komijn 100 g €1,39
+dcd172db | AANB | ah | regel: 1 tl kaneel | aanbieding: Kaneel | voor 0,69 €0,69 | 2026-11-27 t/m 2026-12-03 | gewone keuze: AH Kaneel gemalen 45 g €0,85
+c65bf696 | AANB | ah | regel: 1 tl oregano | aanbieding: AH Verse pureersoep tomaat oregano | 2 voor 7.00 €3,50 (was €4,49) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Oregano 15 g €1,19
+1e0e8070 | AANB | ah | regel: 1 tl kurkuma | aanbieding: Care Kurkuma & zwarte peper | 1+1 gratis €3,50 (was €6,99) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Biologisch Kurkuma 80 g €1,65
+76ee3852 | AANB | dirk | regel: 1 bakje verse basilicum | aanbieding: Daily Chef Raviolini provolone basilicum | voor 1,99 €1,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Basilicum 15 g €0,99
+2f26f3f3 | AANB | jumbo | regel: 1 bakje verse basilicum | aanbieding: Paolo Grissini Cruncy Basilicum en Knoflook 150 g | 1+1 gratis €0,82 (was €1,65) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Basilicum 25 g 25 gram €1,29
+d0b313d7 | AANB | aldi | regel: 1 bakje verse basilicum | aanbieding: Bieslook of basilicum in pot | 16% KORTING €1,49 (was €1,77) | 2026-11-25 t/m 2026-11-29 | gewone keuze: Basilicum in pot stuk €1,49
+bf6697bd | AANB | plus | regel: zout | aanbieding: Klene Puur zout | voor 1,99 €1,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jozo Tafelzout 125 g €0,59
+a2335488 | AANB | aldi | regel: peper | aanbieding: Gourmet Zoete pepers | voor 3,49 €3,49 | 2026-11-25 t/m 2026-11-29 | gewone keuze: 2-pack pepers 2-pack €0,89
+f6f553a4 | AANB | plus | regel: 1 l appelsap | aanbieding: GIJS Appelsap | voor 2,49 €2,49 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Appelsap 1000 ml €1,59
+7882035b | AANB | ah | regel: 1,5 l cola | aanbieding: Pepsi Regular cola | 2+1 gratis €0,57 (was €0,85) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Cola regular 1.5 l €0,79
+7a0c246e | AANB | dirk | regel: 1,5 l cola | aanbieding: Coca-Cola Zero 4 x 50cl | voor 3,16 €3,16 | 2026-11-25 t/m 2026-12-01 | gewone keuze: 1 de Beste Cola 1.5 liter €0,73
+98ea5917 | AANB | plus | regel: 1,5 l cola | aanbieding: Haribo Stixx cola | voor 1,69 €1,69 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Cola 250 ml €0,27
+2482fe28 | AANB | aldi | regel: 1,5 l cola | aanbieding: Dr. Foots Cola regular en zero | voor 1,00 €1,00 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Cola regular 1.5 l €0,75
+6b2d8cda | AANB | plus | regel: 6 flessen water | aanbieding: Lipton en Sourcy Vitaminwater | voor 0,99 €0,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Mineraalwater met koolzuur 3000 ml €2,32
+3a441d6e | AANB | vomar | regel: 6 flessen water | aanbieding: Royal Club of Sourcy Vitamin Water | voor 1,79 €1,79 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Evian  water kzv 1,5l. 1.5l €1,35
+287d0228 | AANB | dekamarkt | regel: 1 pak koffie | aanbieding: Douwe Egberts koffie | voor 14,99 €14,99 | 2026-11-25 t/m 2026-11-30 | gewone keuze: Van Nelle Filterkoffie 500 g €10,49
+0046e14e | AANB | plus | regel: 1 pak koffie | aanbieding: Douwe Egberts Aroma rood oploskoffie | voor 7,49 €7,49 | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Koffie wafels 150 g €1,41
+67ce9e8f | AANB | ah | regel: 500 g koffiebonen | aanbieding: Alle koffiebonen | 2e halve prijs | 2026-11-25 t/m 2026-11-29 | gewone keuze: Perla Huisblends Aroma koffiebonen 500 g €8,99
+5a50b1e4 | AANB | dekamarkt | regel: 500 g koffiebonen | aanbieding: Douwe Egberts koffiebonen | voor 14,99 €14,99 | 2026-11-25 t/m 2026-11-30 | gewone keuze: G'woon Koffiebonen roodmerk 500 g €7,19
+558ff151 | AANB | dirk | regel: 500 g koffiebonen | aanbieding: L'OR koffiebonen | voor 8,49 €8,49 | 2026-11-25 t/m 2026-12-01 | gewone keuze: 1 de Beste Koffiebonen rood 1 kg €9,99
+9e3d0ced | AANB | hoogvliet | regel: 500 g koffiebonen | aanbieding: Alle Lazarro koffiebonen | voor 9,99 €9,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: G'woon Koffiebonen caffeïnevrij 500 gram €7,49
+995d3c95 | AANB | jumbo | regel: 500 g koffiebonen | aanbieding: Jumbo's Dolce Koffiebonen 500 g | 2+1 gratis €6,66 (was €9,99) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo's Beste Koffiebonen Decaf 500 g 500 g €8,49
+a266fba3 | AANB | plus | regel: 500 g koffiebonen | aanbieding: Douwe Egberts Espresso koffiebonen | 50% korting € 3,00 €7,49 (was €14,98) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Illy Koffiebonen 250 g €7,69
+6dd5e0f7 | AANB | poiesz | regel: 500 g koffiebonen | aanbieding: Café Nova koffiebonen | voor 7,50 €7,50 | 2026-11-25 t/m 2026-11-28 | gewone keuze: Iglo Ping & Klaar Gegrilde Kipfilet, rösti en sperziebonen 390 gram €6,67
+a27339ec | AANB | vomar | regel: 500 g koffiebonen | aanbieding: Douwe Egberts Koffiebonen | voor 6,99 €6,99 | 2026-11-25 t/m 2026-11-28
+3b631d3d | AANB | ah | regel: 1 pak thee | aanbieding: Care Groene thee | 1+1 gratis €2,50 (was €4,99) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Groene thee puur 20 stuks €0,49
+02eaa7c0 | AANB | dirk | regel: 1 pak thee | aanbieding: Pickwick thee | voor 0,99 €0,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Caykur Thee turkse 500 g €4,75
+fc55ede2 | AANB | jumbo | regel: 1 pak thee | aanbieding: Lipton Thee | 1+1 gratis €1,50 (was €2,99) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Bosvruchten Thee 20 Stuks 30 g €0,65
+38229e4a | AANB | plus | regel: 1 pak thee | aanbieding: Van de Boom Groene thee peer | 1+1 gratis €0,99 (was €1,99) | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS IJsthee groene thee 500 ml €0,59
+66192d29 | AANB | ah | regel: 1 pak toiletpapier | aanbieding: Edet Ultra soft toiletpapier | voor 12,74 €12,74 | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Toiletpapier 3-laags 8=12 rollen 8 rollen €4,39
+03d49375 | AANB | dekamarkt | regel: 1 pak toiletpapier | aanbieding: G'woon toiletpapier | voor 7,99 €7,99 | 2026-11-25 t/m 2026-11-30 | gewone keuze: G'woon Toiletpapier 8 rollen 3-laags 8 stuks €2,69
+7595de03 | AANB | dirk | regel: 1 pak toiletpapier | aanbieding: Nalys Soft toiletpapier | voor 8,99 €8,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: 1 de Beste Toiletpapier 4 rollen 3laags maxi rol 4 stuks €2,09
+102a9d63 | AANB | plus | regel: 1 pak toiletpapier | aanbieding: Page Vochtig toiletpapier puur 38 st | 1+1 gratis €1,15 (was €2,29) | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Toiletpapier 3-laags 8 rollen €2,65
+fa0c7d8b | AANB | ah | regel: 1 rol keukenpapier | aanbieding: Edet Keukenpapier | voor 11,89 €11,89 | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Keukenpapier sterk 3=6 rollen 3 stuks €2,19
+467eb134 | AANB | plus | regel: 1 rol keukenpapier | aanbieding: A-merk keukenpapier | voor 3,69 €3,69 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Plenty Keukenpapier €11,89
+06f0eb32 | AANB | ah | regel: 1 fles afwasmiddel | aanbieding: Dreft Max power vloeibaar afwasmiddel citroen | voor 1,99 €1,99 | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Afwasmiddel citrus 0.5 l €0,65
+3c1e1789 | AANB | poiesz | regel: 1 fles afwasmiddel | aanbieding: Dreft handafwasmiddel | 1+1 GRATIS €1,48 (was €2,95) | 2026-11-25 t/m 2026-11-28 | gewone keuze: Eco Klok afwasmiddel 500 milliliter €1,49
+aebe329f | AANB | ah | regel: 1 pak vaatwastabletten | aanbieding: Dreft Platinum plus vaatwastabletten original | 1+2 gratis €6,33 (was €18,99) | 2026-11-25 t/m 2026-11-29 | gewone keuze: Finish Ultimate vaatwastabletten 17 stuks €10,39
+8c55aca8 | AANB | dirk | regel: 1 pak vaatwastabletten | aanbieding: Dreft vaatwastabletten | 67% korting €3,99 (was €12,09) | 2026-11-25 t/m 2026-12-01 | gewone keuze: 1 de Beste Vaatwastabletten eco 30 stuks €3,45
+8fe8b5a3 | AANB | hoogvliet | regel: 1 pak vaatwastabletten | aanbieding: Alle Finish of Dreft vaatwastabletten | 2+3 GRATIS €7,83 (was €19,58) | 2026-11-25 t/m 2026-12-01 | gewone keuze: G'woon Vaatwastabletten classic 60 stuks €3,69
+629a3eae | AANB | jumbo | regel: 1 pak vaatwastabletten | aanbieding: Finish Quantum Regular Vaatwastabletten 44 Stuks | 1+1 gratis €10,49 (was €20,99) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Jumbo Classic Vaatwastabletten 60 x 10 g 60 x 10 g €3,45
+5f3e3527 | AANB | vomar | regel: 1 pak vaatwastabletten | aanbieding: Sun Vaatwastabletten | 1+2 gratis €2,93 (was €8,79) | 2026-11-25 t/m 2026-11-28
+ef31456b | AANB | ah | regel: 1 fles wasmiddel | aanbieding: Ariel Vloeibaar+ ultra wasmiddel | 2+3 gratis €8,40 (was €20,99) | 2026-11-25 t/m 2026-11-29 | gewone keuze: AH Wasmiddel kleur 25 wasbeurten €2,29
+9e99031c | AANB | dirk | regel: 1 fles wasmiddel | aanbieding: Robijn wasmiddel | voor 7,99 €7,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: 1 de Beste Vloeibaar wasmiddel zwart 1.35 liter €2,39
+7650a502 | AANB | hoogvliet | regel: 1 fles wasmiddel | aanbieding: Robijn Wasmiddel wit | 1 + 2 Gratis €3,43 (was €10,29) | 2026-11-25 t/m 2026-12-01 | gewone keuze: G'woon Wasmiddel donker 1.35 liter €2,39
+f0fe2121 | AANB | jumbo | regel: 1 fles wasmiddel | aanbieding: Fleuril Black Wasmiddel 29WB | 1+1 gratis €7,50 (was €14,99) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Fleuril Black Wasmiddel 29WB €14,99
+a3704105 | AANB | lidl | regel: 1 fles wasmiddel | aanbieding: Formil Wasmiddel | voor 8,99 €8,99 | 2026-11-25 t/m 2026-11-29 | gewone keuze: Wasmiddel 2,2l 2.2 l €4,49
+9ba2371b | AANB | plus | regel: 1 fles wasmiddel | aanbieding: Witte Reus Vloeibaar wasmiddel wit 19sc | 1+2 gratis €3,10 (was €9,29) | 2026-11-25 t/m 2026-12-01 | gewone keuze: PLUS Wasmiddel vloeibaar zwart 1350 ml €3,12
+bc6d1381 | AANB | poiesz | regel: 1 fles wasmiddel | aanbieding: Dreft handafwasmiddel | 1+1 GRATIS €1,48 (was €2,95) | 2026-11-25 t/m 2026-11-28 | gewone keuze: Ecover Wasmiddel Color 28w 1000 milliliter €14,89
+de52ea66 | AANB | aldi | regel: 1 fles wasmiddel | aanbieding: Fleuril Wasmiddel | voor 8,49 €8,49 | 2026-11-25 t/m 2026-11-29
+75226b27 | AANB | ah | regel: 1 tube tandpasta | aanbieding: Aquafresh Tandsteen controle tandpasta | 2+3 gratis €1,04 (was €2,59) | 2026-11-25 t/m 2026-11-29 | gewone keuze: Care Sensitive tandpasta 125 ml €0,89
+5ad93472 | AANB | dirk | regel: 1 tube tandpasta | aanbieding: Sensodyne tandpasta | voor 2,99 €2,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Tandpasta fluor 125 ml €0,68
+5655e068 | AANB | jumbo | regel: 1 tube tandpasta | aanbieding: Oral-B Perfection Tandpasta 75ml | 2+3 gratis €2,20 (was €5,49) | 2026-11-25 t/m 2026-12-01 | gewone keuze: Aquafresh Coolmint Tandpasta 5 Stuks €9,99
+fa434005 | AANB | plus | regel: 1 tube tandpasta | aanbieding: Elmex Tandpasta | voor 9,99 €9,99 | 2026-11-25 t/m 2026-12-01 | gewone keuze: Smyle Tandpasta tabs fluoride 65 st €5,99
+
+## PRODUCTKEUZES (regex-toets zegt fout)
+89ff3480 | PROD | jumbo | regel: 1 ui | gekozen: Jumbo Jus Ui 18 g 18 g €0,39 | regex-toets: moet /\bui\b|uien/, niet /ring|soep|chips|gebakken|saus|jus|poeder|cracker/
+459ed3d0 | PROD | poiesz | regel: 1 bloemkool | gekozen: Verspakket ovenschotel bloemkool 1040 gram €5,50 | regex-toets: moet /bloemkool/, niet /rijst|soep|salade|puree|ovenschotel|kaas/
+b7f89af9 | PROD | ah | regel: 2 rode paprika | gekozen: AH Gegrilde rode paprika 295 g €2,25 | regex-toets: moet /paprika/, niet /chips|poeder|saus|spread|gegrild|geroosterd|kruiden/
+6b4b7c3e | PROD | dekamarkt | regel: 2 rode paprika | gekozen: Paolo Rode paprika geroosterd 450 g €3,49 | regex-toets: moet /paprika/, niet /chips|poeder|saus|spread|gegrild|geroosterd|kruiden/
+336cc293 | PROD | plus | regel: 2 rode paprika | gekozen: PLUS Geroosterde rode paprika 295 g €2,39 | regex-toets: moet /paprika/, niet /chips|poeder|saus|spread|gegrild|geroosterd|kruiden/
+c42db2b9 | PROD | spar | regel: 2 rode paprika | gekozen: Baktat gegrilde rode paprika 650 gram €3,99 | regex-toets: moet /paprika/, niet /chips|poeder|saus|spread|gegrild|geroosterd|kruiden/
+60ce948b | PROD | vomar | regel: 2 rode paprika | gekozen: Epixs ribbelchips paprika €1,59 (vervanger) | regex-toets: moet /paprika/, niet /chips|poeder|saus|spread|gegrild|geroosterd|kruiden/
+6ab5bd20 | PROD | dirk | regel: 1 groene paprika | gekozen: Zonnatura Groentespread paprika 135 g €2,89 (vervanger) | regex-toets: moet /groene paprika|paprika/, niet /chips|poeder|saus|spread|gegrild|geroosterd/
+3e5320eb | PROD | plus | regel: 1 groene paprika | gekozen: Zonnatura Groentespread paprika bio 135 g €2,99 (vervanger) | regex-toets: moet /groene paprika|paprika/, niet /chips|poeder|saus|spread|gegrild|geroosterd/
+b03c9f57 | PROD | spar | regel: 1 groene paprika | gekozen: Zonnatura groentespread paprika 135 gram €3,59 (vervanger) | regex-toets: moet /groene paprika|paprika/, niet /chips|poeder|saus|spread|gegrild|geroosterd/
+ea088671 | PROD | aldi | regel: 1 groene paprika | gekozen: Paprika- of naturelchips 50 g €0,50 (vervanger) | regex-toets: moet /groene paprika|paprika/, niet /chips|poeder|saus|spread|gegrild|geroosterd/
+109e42da | PROD | poiesz | regel: 4 tomaten | gekozen: Unox Soep Tomaten 300 milliliter €2,15 | regex-toets: moet /tomaat|tomaten/, niet /soep|saus|ketchup|puree|blokjes|passata|gedroogd|chips|sap|frito/
+b631c711 | PROD | jumbo | regel: 250 g cherrytomaten | gekozen: Heinz Pastasaus Zongerijpte Cherrytomaten & Basilicum 490g €3,79 | regex-toets: moet /cherry|snoep|tomaat|tomaten/, niet /soep|saus|ketchup|gedroogd|sap/
+572ab769 | PROD | poiesz | regel: 250 g cherrytomaten | gekozen: Unox Soep Tomaten 300 milliliter €2,15 (vervanger) | regex-toets: moet /cherry|snoep|tomaat|tomaten/, niet /soep|saus|ketchup|gedroogd|sap/
+fcd11e17 | PROD | poiesz | regel: 250 g champignons | gekozen: Unox Soep Champignon 800 milliliter €3,99 | regex-toets: moet /champignon/, niet /soep|saus|roomsaus|pizza|gemarineerd/
+71a77a6b | PROD | poiesz | regel: 250 g kastanjechampignons | gekozen: Unox Soep Champignon 800 milliliter €3,99 (vervanger) | regex-toets: moet /kastanje ?champignon/, niet /soep|saus/
+a0c8b743 | PROD | spar | regel: 250 g kastanjechampignons | gekozen: champignons kastanje 250 gram €2,15 (vervanger) | regex-toets: moet /kastanje ?champignon/, niet /soep|saus/
+59ae16ab | PROD | vomar | regel: 250 g kastanjechampignons | gekozen: Cupasoup champignon €1,79 (vervanger) | regex-toets: moet /kastanje ?champignon/, niet /soep|saus/
+57335b27 | PROD | ah | regel: 1 bosje lente-uitjes | gekozen: AH Gebakken uitjes 150 g €1,19 (vervanger) | regex-toets: moet /lente|bosui/
+3e10d7c3 | PROD | dekamarkt | regel: 1 bosje lente-uitjes | gekozen: Maggi Jus met uitjes 22 g €0,69 (vervanger) | regex-toets: moet /lente|bosui/
+91888f64 | PROD | dirk | regel: 1 bosje lente-uitjes | gekozen: 1 de Beste Amsterdamse uitjes 320 g €0,68 (vervanger) | regex-toets: moet /lente|bosui/
+08e16a97 | PROD | hoogvliet | regel: 1 bosje lente-uitjes | gekozen: G'woon Amsterdamse uitjes 320 gram €0,69 (vervanger) | regex-toets: moet /lente|bosui/
+b4b2c431 | PROD | jumbo | regel: 1 bosje lente-uitjes | gekozen: Jumbo Gebakken Uitjes 150 g 150 g €1,49 (vervanger) | regex-toets: moet /lente|bosui/
+7a0e95b5 | PROD | lidl | regel: 1 bosje lente-uitjes | gekozen: Gehaktmix met uitjes €0,69 (vervanger) | regex-toets: moet /lente|bosui/
+1ce99544 | PROD | plus | regel: 1 bosje lente-uitjes | gekozen: PLUS Gebakken uitjes 150 g €1,19 (vervanger) | regex-toets: moet /lente|bosui/
+50985a45 | PROD | poiesz | regel: 1 bosje lente-uitjes | gekozen: g'woon Amsterdamse Uitjes 370 milliliter €0,81 (vervanger) | regex-toets: moet /lente|bosui/
+414594ae | PROD | spar | regel: 1 bosje lente-uitjes | gekozen: g'woon Amsterdamse uitjes 320 gram €0,95 (vervanger) | regex-toets: moet /lente|bosui/
+14e29054 | PROD | vomar | regel: 1 bosje lente-uitjes | gekozen: Maggi jus met uitjes 21,4gr 21.4gr €0,79 (vervanger) | regex-toets: moet /lente|bosui/
+0378f258 | PROD | aldi | regel: 1 bosje lente-uitjes | gekozen: Zilveruitjes 320 g €0,65 (vervanger) | regex-toets: moet /lente|bosui/
+62e6057e | PROD | dekamarkt | regel: 150 g peultjes | gekozen: Krieltjes 500 g €0,99 (vervanger) | regex-toets: moet /peul/
+687c21ee | PROD | dirk | regel: 150 g peultjes | gekozen: 1 de Beste Krieltjes 500 g €0,99 (vervanger) | regex-toets: moet /peul/
+61745b5e | PROD | hoogvliet | regel: 150 g peultjes | gekozen: Krieltjes 500 gram €1,09 (vervanger) | regex-toets: moet /peul/
+45c353d3 | PROD | jumbo | regel: 150 g peultjes | gekozen: Jumbo Krieltjes 200 g 200 g €0,69 (vervanger) | regex-toets: moet /peul/
+064723a6 | PROD | lidl | regel: 150 g peultjes | gekozen: Kapperappeltjes 350 g €0,99 (vervanger) | regex-toets: moet /peul/
+c48415ba | PROD | poiesz | regel: 150 g peultjes | gekozen: Mini Krieltjes 200 gram €0,80 (vervanger) | regex-toets: moet /peul/
+d914d3f0 | PROD | spar | regel: 150 g peultjes | gekozen: krieltjes 500 gram €1,25 (vervanger) | regex-toets: moet /peul/
+d0c2f1ec | PROD | aldi | regel: 150 g peultjes | gekozen: Krieltjes 500 g €0,99 (vervanger) | regex-toets: moet /peul/
+5bbd62b7 | PROD | hoogvliet | regel: 1 rode peper | gekozen: ERU Goudkuipje Peper 100 gram €1,79 (vervanger) | regex-toets: moet /rode peper|chilipeper|peper rood|spaanse peper/, niet /saus|chips|vlokken|poeder|gemalen|zout/
+744e3261 | PROD | plus | regel: 1 rode peper | gekozen: PLUS Zwarte peper 50 g €0,75 (vervanger) | regex-toets: moet /rode peper|chilipeper|peper rood|spaanse peper/, niet /saus|chips|vlokken|poeder|gemalen|zout/
+a5678ef6 | PROD | poiesz | regel: 1 rode peper | gekozen: Partjes peper - zeezout 450 gram €2,50 (vervanger) | regex-toets: moet /rode peper|chilipeper|peper rood|spaanse peper/, niet /saus|chips|vlokken|poeder|gemalen|zout/
+2e9fb13c | PROD | aldi | regel: 1 rode peper | gekozen: 2-pack pepers 2-pack €0,89 (vervanger) | regex-toets: moet /rode peper|chilipeper|peper rood|spaanse peper/, niet /saus|chips|vlokken|poeder|gemalen|zout/
+9e93cc20 | PROD | jumbo | regel: 1 stukje gember | gekozen: Jumbo Kruidenthee Gember 15 x 2,5 g 15 x 2.5 g €1,19 | regex-toets: moet /gember/, niet /thee|shot|bier|ale|koek|siroop|gemberbolletje|poeder|gemalen|drank/
+5864e2ee | PROD | poiesz | regel: 1 stukje gember | gekozen: Aardbei-Gember Shot 125 milliliter €1,29 | regex-toets: moet /gember/, niet /thee|shot|bier|ale|koek|siroop|gemberbolletje|poeder|gemalen|drank/
+1119098a | PROD | vomar | regel: 1 bosje koriander | gekozen: Aard anders knoflook 390gr 390gr €3,49 (vervanger) | regex-toets: moet /koriander/, niet /gedroogd|gemalen|zaad/
+2d09613b | PROD | vomar | regel: 1 zak spitskool | gekozen: Thm houtskool 3kg 3kg €3,45 (vervanger) | regex-toets: moet /spitskool/
+429fa63f | PROD | poiesz | regel: 1 rodekool | gekozen: Iglo Rode Kool met Appeltjes 450 gram €2,22 (vervanger) | regex-toets: moet /rode ?kool/, niet /appeltjes|potje|zuur/
+6fad98c2 | PROD | poiesz | regel: 2 bieten | gekozen: Ambachtelijk Sap Bio Rode Biet 750 milliliter €3,49 | regex-toets: moet /biet/, niet /sap|salade|chips/
+35762292 | PROD | vomar | regel: 2 bieten | gekozen: Aviko oma's smulfrieten 750gr 750gr €2,75 (vervanger) | regex-toets: moet /biet/, niet /sap|salade|chips/
+4e887289 | PROD | lidl | regel: 6 bananen | gekozen: Bananencake €2,99 (vervanger) | regex-toets: moet /banaan|bananen/, niet /chips|brood|smoothie|drink|yoghurt|choco|ijs|cake|snoep/
+da698606 | PROD | dekamarkt | regel: 1 kg sinaasappel | gekozen: Wicky Sinaasappel 6x20 cl 1.2 liter €1,95 | regex-toets: moet /sinaasappel/, niet /sinaasappelsap|\bsap\b|nectar|\d+ ?l\b|\d+ ?cl\b|\d+ ?ml\b|marmelade|drink|limonade|chocolade|smaak/
+68032315 | PROD | dirk | regel: 1 kg sinaasappel | gekozen: Taksi Sinaasappel 10x20 cl 2 liter €1,89 | regex-toets: moet /sinaasappel/, niet /sinaasappelsap|\bsap\b|nectar|\d+ ?l\b|\d+ ?cl\b|\d+ ?ml\b|marmelade|drink|limonade|chocolade|smaak/
+04215565 | PROD | jumbo | regel: 1 kg sinaasappel | gekozen: 1FRUIT Sinaasappel 200ml 200 ml €0,99 | regex-toets: moet /sinaasappel/, niet /sinaasappelsap|\bsap\b|nectar|\d+ ?l\b|\d+ ?cl\b|\d+ ?ml\b|marmelade|drink|limonade|chocolade|smaak/
+02aaa084 | PROD | lidl | regel: 1 kg sinaasappel | gekozen: Sinaasappel 2L 2 l €2,59 | regex-toets: moet /sinaasappel/, niet /sinaasappelsap|\bsap\b|nectar|\d+ ?l\b|\d+ ?cl\b|\d+ ?ml\b|marmelade|drink|limonade|chocolade|smaak/
+d6f38d72 | PROD | plus | regel: 1 kg sinaasappel | gekozen: PLUS Sinaasappel nectar 1500 ml €1,59 | regex-toets: moet /sinaasappel/, niet /sinaasappelsap|\bsap\b|nectar|\d+ ?l\b|\d+ ?cl\b|\d+ ?ml\b|marmelade|drink|limonade|chocolade|smaak/
+dd292853 | PROD | poiesz | regel: 1 kg sinaasappel | gekozen: Appelsientje Fruitdrink Sinaasappel 1 liter €2,49 | regex-toets: moet /sinaasappel/, niet /sinaasappelsap|\bsap\b|nectar|\d+ ?l\b|\d+ ?cl\b|\d+ ?ml\b|marmelade|drink|limonade|chocolade|smaak/
+c4050676 | PROD | vomar | regel: 2 citroenen | gekozen: G'woon allesreiniger citroen €0,69 | regex-toets: moet /citroen/, niet /sap|thee|limonade|afwas|reinig|taart|cake|ijs|siroop|smaak|zeep|kip|peper|drink/
+2c162e83 | PROD | dekamarkt | regel: 1 limoen | gekozen: Optimel Drinkyoghurt limoen 1 liter €2,09 | regex-toets: moet /limoen/, niet /sap|limonade|cranberry|smaak|drink|siroop/
+00fce889 | PROD | dirk | regel: 1 limoen | gekozen: 1 de Beste Clear cranberry-limoen 1.5 liter €1,29 | regex-toets: moet /limoen/, niet /sap|limonade|cranberry|smaak|drink|siroop/
+c428dc9a | PROD | plus | regel: 1 limoen | gekozen: Bacardi Limón 700 ml €20,99 | regex-toets: moet /limoen/, niet /sap|limonade|cranberry|smaak|drink|siroop/
+addf4353 | PROD | poiesz | regel: 1 limoen | gekozen: Optimel Drinkyoghurt limoen 0% vet 1000 milliliter €2,09 | regex-toets: moet /limoen/, niet /sap|limonade|cranberry|smaak|drink|siroop/
+c1a2000c | PROD | spar | regel: 1 limoen | gekozen: Bacardi limon & lemonade blik 250 milliliter €2,85 | regex-toets: moet /limoen/, niet /sap|limonade|cranberry|smaak|drink|siroop/
+fd09e556 | PROD | vomar | regel: 1 limoen | gekozen: Optimel drink limoen 1l 1l €2,15 | regex-toets: moet /limoen/, niet /sap|limonade|cranberry|smaak|drink|siroop/
+035e981a | PROD | jumbo | regel: 500 g aardbeien | gekozen: Jumbo Aardbei Schepijs 1L 533 g €2,59 | regex-toets: moet /aardbei/, niet /jam|yoghurt|drink|smaak|ijs|taart|limonade|siroop|snoep|vla|kwark/
+acd64597 | PROD | poiesz | regel: 125 g blauwe bessen | gekozen: Activia Kefir bosbessmaak 0.28 kilogram €1,49 (vervanger) | regex-toets: moet /blauwe bes|blauwebes/, niet /jam|yoghurt|muffin|smaak|drink|sap|ijs/
+e36e33bb | PROD | spar | regel: 125 g blauwe bessen | gekozen: bessen blauw 300 gram €5,39 | regex-toets: moet /blauwe bes|blauwebes/, niet /jam|yoghurt|muffin|smaak|drink|sap|ijs/
+81fe823e | PROD | vomar | regel: 125 g blauwe bessen | gekozen: Fruti vr.wijn framb.bessen  1l 1l €3,85 (vervanger) | regex-toets: moet /blauwe bes|blauwebes/, niet /jam|yoghurt|muffin|smaak|drink|sap|ijs/
+ad558a15 | PROD | poiesz | regel: 1 ananas | gekozen: Ananas-Meloen-Mangosap 500 milliliter €2,69 | regex-toets: moet /ananas/, niet /sap|blik|stukjes op sap|smaak|drink/
+3692a3d1 | PROD | hoogvliet | regel: 2 peren | gekozen: G'woon Fruitijsjes peren 12 stuks €1,69 | regex-toets: moet /peer|peren/, niet /sap|moes|stroop|drank|cake|taart|ijs/
+16d2879a | PROD | jumbo | regel: 2 peren | gekozen: Jumbo Peren Waterijsjes 12 Stuks 50 g €1,49 | regex-toets: moet /peer|peren/, niet /sap|moes|stroop|drank|cake|taart|ijs/
+5944413c | PROD | poiesz | regel: 2 peren | gekozen: g'woon Peren Fruitijsjes 600 gram €1,58 | regex-toets: moet /peer|peren/, niet /sap|moes|stroop|drank|cake|taart|ijs/
+216c6f05 | PROD | vomar | regel: 1 granaatappel | gekozen: Morgana appelen los €2,79 (vervanger) | regex-toets: moet /granaatappel/, niet /sap|siroop/
+996c4dcd | PROD | vomar | regel: 1 meloen | gekozen: Red bull watermelon 250ml st. 250ml €1,65 (vervanger) | regex-toets: moet /meloen/
+599c51dd | PROD | vomar | regel: 500 g kipfilet | gekozen: Slagers filet americain uien €2,99 (vervanger) | regex-toets: moet /kipfilet/, niet /salade|beleg|smaak|soep|gesneden gerookt|gerookt|chips|gegrild|vleeswaren|spread|knak/
+fc289940 | PROD | poiesz | regel: 400 g kipdijfilet | gekozen: Kalkoenfilet 100 gram €2,69 (vervanger) | regex-toets: moet /kipdij/, niet /salade|soep/
+7127239e | PROD | vomar | regel: 400 g kipdijfilet | gekozen: Slagers filet americain uien €2,99 (vervanger) | regex-toets: moet /kipdij/, niet /salade|soep/
+e758eb19 | PROD | hoogvliet | regel: 4 kippendijen | gekozen: Peijnenburg Ontbijtkoek parelkandij ongesneden 465 gram €2,55 (vervanger) | regex-toets: moet /kipdij|kippendij|kippenbout|dijen/, niet /soep|salade/
+3ce3ffc4 | PROD | vomar | regel: 4 kippendijen | gekozen: Peijnenburg parelkandij 348gr 348gr €2,09 (vervanger) | regex-toets: moet /kipdij|kippendij|kippenbout|dijen/, niet /soep|salade/
+e966869d | PROD | lidl | regel: 300 g kipreepjes | gekozen: Vega kipreepjes €2,99 | regex-toets: moet /kip ?reepjes|kipfilet ?reepjes|kipshoarma|kipgyros|kip/, niet /salade|soep|vega|plantaardig/
+042985db | PROD | poiesz | regel: 300 g kipreepjes | gekozen: Aviko Maaltijdpannetje Roerbak Runderreepjes zak 450 gram €4,49 (vervanger) | regex-toets: moet /kip ?reepjes|kipfilet ?reepjes|kipshoarma|kipgyros|kip/, niet /salade|soep|vega|plantaardig/
+5dee9fcd | PROD | poiesz | regel: 1 hele kip | gekozen: Unox Soep Kip 300 milliliter €2,15 (vervanger) | regex-toets: moet /kip/, niet /filet|soep|salade|bouillon|reepjes|dij|vleugel|vega|plantaardig/
+30d5fb45 | PROD | aldi | regel: 1 hele kip | gekozen: Kipreepjes 150 g €1,99 (vervanger) | regex-toets: moet /kip/, niet /filet|soep|salade|bouillon|reepjes|dij|vleugel|vega|plantaardig/
+a6165aa1 | PROD | poiesz | regel: 500 g rundergehakt | gekozen: Italiaans Gehakt 500 gram €6,49 (vervanger) | regex-toets: moet /rundergehakt/, niet /vega|plantaardig|bal/
+c5a83650 | PROD | poiesz | regel: 4 hamburgers | gekozen: Oliehoorn Hamburgersaus 270 milliliter €2,82 (vervanger) | regex-toets: moet /hamburger/, niet /broodje|vega|plantaardig|saus|kaas/
+a8fd0d78 | PROD | ah | regel: 2 biefstukken | gekozen: Statesman Tonijn stukken in water 160 g €1,35 (vervanger) | regex-toets: moet /biefstuk/, niet /ossenworst|vega|plantaardig|chips/
+d07ab331 | PROD | dekamarkt | regel: 2 biefstukken | gekozen: G'woon Appelcompote met stukken 570 g €1,07 (vervanger) | regex-toets: moet /biefstuk/, niet /ossenworst|vega|plantaardig|chips/
+6c8985a3 | PROD | dirk | regel: 2 biefstukken | gekozen: Deepblue Inktvis stukken in olie met knoflook 111 g €2,29 (vervanger) | regex-toets: moet /biefstuk/, niet /ossenworst|vega|plantaardig|chips/
+2b5a41af | PROD | jumbo | regel: 2 biefstukken | gekozen: KoRo Gevriesdroogde Mangostukken 30g €3,99 (vervanger) | regex-toets: moet /biefstuk/, niet /ossenworst|vega|plantaardig|chips/
+3c922835 | PROD | lidl | regel: 2 biefstukken | gekozen: Ananasstukken 567 g €1,99 (vervanger) | regex-toets: moet /biefstuk/, niet /ossenworst|vega|plantaardig|chips/
+5aea616c | PROD | spar | regel: 2 biefstukken | gekozen: Vos Banket Spritsstukken Roomboter 300 gram €4,95 (vervanger) | regex-toets: moet /biefstuk/, niet /ossenworst|vega|plantaardig|chips/
+e23bc4e8 | PROD | dirk | regel: 500 g runderlappen | gekozen: Vleeschmeesters Varkenslappen mager 5 st. 875 g €9,35 (vervanger) | regex-toets: moet /runder ?lap|runder ?braadlap|sukade|riblap|stoof/
+e15ed721 | PROD | poiesz | regel: 500 g runderlappen | gekozen: Appelflappen 4 stuk €3,56 (vervanger) | regex-toets: moet /runder ?lap|runder ?braadlap|sukade|riblap|stoof/
+7d9fd89c | PROD | spar | regel: 500 g runderlappen | gekozen: Spar hamlappen 2 stuks 300 gram €3,72 (vervanger) | regex-toets: moet /runder ?lap|runder ?braadlap|sukade|riblap|stoof/
+98cb8325 | PROD | aldi | regel: 500 g runderlappen | gekozen: Verse hamlappen 500 g €4,99 (vervanger) | regex-toets: moet /runder ?lap|runder ?braadlap|sukade|riblap|stoof/
+64fec824 | PROD | ah | regel: 4 speklappen | gekozen: AH Kersenflappen met room 4 stuks €4,49 (vervanger) | regex-toets: moet /speklap/
+20a96379 | PROD | dirk | regel: 4 speklappen | gekozen: Vleeschmeesters Varkenslappen mager 5 st. 875 g €9,35 (vervanger) | regex-toets: moet /speklap/
+51dca18a | PROD | poiesz | regel: 4 speklappen | gekozen: Appelflappen 4 stuk €3,56 (vervanger) | regex-toets: moet /speklap/
+b663cf66 | PROD | vomar | regel: 4 speklappen | gekozen: Csw ierse runderlappen 3st €10,19 (vervanger) | regex-toets: moet /speklap/
+105e1f86 | PROD | ah | regel: 200 g spekjes | gekozen: AH Terra Plantaardige spekjes 140 g €1,45 | regex-toets: moet /spek/, niet /vega|plantaardig|chips|pannenkoek/
+f41874b5 | PROD | plus | regel: 200 g spekjes | gekozen: PLUS Plantaardige spekjes 160 g €2,95 | regex-toets: moet /spek/, niet /vega|plantaardig|chips|pannenkoek/
+a1ad986f | PROD | poiesz | regel: 200 g spekjes | gekozen: Aviko Aardappelspecialiteit Lachebekjes 450 gram €2,96 (vervanger) | regex-toets: moet /spek/, niet /vega|plantaardig|chips|pannenkoek/
+cb0e89a8 | PROD | aldi | regel: 1 rookworst | gekozen: Boterhamworst 150 g €1,36 (vervanger) | regex-toets: moet /rookworst/, niet /vega|plantaardig|soep|stamppot/
+0b358ad1 | PROD | vomar | regel: 2 braadworsten | gekozen: Unox geld. rookworst 285gr 285gr €3,69 (vervanger) | regex-toets: moet /braadworst|worst/, niet /vega|plantaardig|rook|droge|knak|boterham|lever/
+b6456571 | PROD | aldi | regel: 2 braadworsten | gekozen: Slagersknakworsten 320 g €2,99 (vervanger) | regex-toets: moet /braadworst|worst/, niet /vega|plantaardig|rook|droge|knak|boterham|lever/
+db7c86aa | PROD | vomar | regel: 8 knakworsten | gekozen: Unox magnetron rookworst 100gr 100gr €1,89 (vervanger) | regex-toets: moet /knakworst|knak/, niet /vega|plantaardig/
+8fc3d079 | PROD | vomar | regel: 200 g gerookte zalm | gekozen: Ovenschotel zalm  300gr 300gr €7,99 (vervanger) | regex-toets: moet /gerookte.*zalm|zalm.*gerookt/, niet /kauw|kat|hond|pate|salade|spread|smeer/
+4fcc9973 | PROD | hoogvliet | regel: 2 zalmfilets | gekozen: Gerookte zalmfilet 200 gram €5,99 | regex-toets: moet /zalm/, niet /gerookt|pate|salade|spread|kauw|kat|hond|smeer/
+f9a93b89 | PROD | poiesz | regel: 2 zalmfilets | gekozen: Gerookte Atlantische Zalmfilet 200 gram €6,49 | regex-toets: moet /zalm/, niet /gerookt|pate|salade|spread|kauw|kat|hond|smeer/
+f0c0203b | PROD | spar | regel: 2 zalmfilets | gekozen: gerookte zalmfilet Atlantisch 200 gram €6,59 | regex-toets: moet /zalm/, niet /gerookt|pate|salade|spread|kauw|kat|hond|smeer/
+6734c25b | PROD | vomar | regel: 2 zalmfilets | gekozen: Slagers filet americain uien €2,99 (vervanger) | regex-toets: moet /zalm/, niet /gerookt|pate|salade|spread|kauw|kat|hond|smeer/
+b22edb1c | PROD | dekamarkt | regel: 2 blikjes tonijn | gekozen: Maaltijdsalade tonijn 450 g €3,95 | regex-toets: moet /tonijn/, niet /salade|spread|pate|kat|hond|pizza|olijf|kroket/
+2a2f662c | PROD | dirk | regel: 2 blikjes tonijn | gekozen: 1 de Beste Salade tonijn 150 g €1,55 | regex-toets: moet /tonijn/, niet /salade|spread|pate|kat|hond|pizza|olijf|kroket/
+82d3edcc | PROD | aldi | regel: 2 blikjes tonijn | gekozen: Tonijn in olijfolie 160 g €1,89 | regex-toets: moet /tonijn/, niet /salade|spread|pate|kat|hond|pizza|olijf|kroket/
+5d40f5f1 | PROD | vomar | regel: 200 g kibbeling | gekozen: Elvive cremespoeling color €3,29 (vervanger) | regex-toets: moet /kibbeling/, niet /saus/
+4eaac004 | PROD | vomar | regel: 4 visstick | gekozen: Organix veggie sticks 15gr bio 15gr €1,09 (vervanger) | regex-toets: moet /vissticks?|fish ?stick/
+e85cad5a | PROD | jumbo | regel: 200 g gerookte makreel | gekozen: Minerva Makreel Pate 75 g 75 g €2,49 (vervanger) | regex-toets: moet /makreel/, niet /salade|spread|pate|kat|hond/
+3768d214 | PROD | ah | regel: 300 g shoarmavlees | gekozen: AH Rundersoepvlees ca. 315 g €7,69 (vervanger) | regex-toets: moet /shoarma|shawarma/, niet /saus|kruiden|vega|plantaardig/
+faf92ccb | PROD | dekamarkt | regel: 300 g shoarmavlees | gekozen: Smuldier Rundvlees 400 g €1,79 (vervanger) | regex-toets: moet /shoarma|shawarma/, niet /saus|kruiden|vega|plantaardig/
+bd66d6b1 | PROD | dirk | regel: 300 g shoarmavlees | gekozen: 1 de Beste Runderrookvlees 100 g €2,95 (vervanger) | regex-toets: moet /shoarma|shawarma/, niet /saus|kruiden|vega|plantaardig/
+e41ab61a | PROD | jumbo | regel: 300 g shoarmavlees | gekozen: Jumbo Runderrookvlees 100 g 100 g €2,69 (vervanger) | regex-toets: moet /shoarma|shawarma/, niet /saus|kruiden|vega|plantaardig/
+9daebfda | PROD | lidl | regel: 300 g shoarmavlees | gekozen: Runderrookvlees €3,49 (vervanger) | regex-toets: moet /shoarma|shawarma/, niet /saus|kruiden|vega|plantaardig/
+c7e04a37 | PROD | poiesz | regel: 300 g shoarmavlees | gekozen: Appelsientje Sinaasappel Extra Vruchtvlees 1 liter €2,99 (vervanger) | regex-toets: moet /shoarma|shawarma/, niet /saus|kruiden|vega|plantaardig/
+3ce8264d | PROD | spar | regel: 300 g shoarmavlees | gekozen: Spar hacheevlees 500 gram €13,00 (vervanger) | regex-toets: moet /shoarma|shawarma/, niet /saus|kruiden|vega|plantaardig/
+90ab9759 | PROD | vomar | regel: 300 g shoarmavlees | gekozen: Sum&sam boemboe rendang vlees €0,98 (vervanger) | regex-toets: moet /shoarma|shawarma/, niet /saus|kruiden|vega|plantaardig/
+85a3dabf | PROD | aldi | regel: 300 g shoarmavlees | gekozen: Runderrookvlees 100 g €2,49 (vervanger) | regex-toets: moet /shoarma|shawarma/, niet /saus|kruiden|vega|plantaardig/
+9b9b6a6b | PROD | hoogvliet | regel: 200 g gyros | gekozen: Verstegen Kruidenmix gyros 30 gram €1,46 | regex-toets: moet /gyros/, niet /saus|kruiden|vega|plantaardig/
+208eeba0 | PROD | ah | regel: 150 g plakjes ham | gekozen: AH Smeerkaas ham 15+ 200 g €1,39 (vervanger) | regex-toets: moet /ham/, niet /kaas|smeerkaas|chips|croissant|pizza|tosti|salade|hamburger|champignon/
+133c1c30 | PROD | dekamarkt | regel: 150 g plakjes ham | gekozen: Salade ham 150 g €2,29 (vervanger) | regex-toets: moet /ham/, niet /kaas|smeerkaas|chips|croissant|pizza|tosti|salade|hamburger|champignon/
+1dc90f59 | PROD | lidl | regel: 150 g plakjes ham | gekozen: Ham-kaashoorntje €0,99 (vervanger) | regex-toets: moet /ham/, niet /kaas|smeerkaas|chips|croissant|pizza|tosti|salade|hamburger|champignon/
+f78dada2 | PROD | plus | regel: 150 g plakjes ham | gekozen: PLUS Ham-kaascroissant 1 st €0,89 (vervanger) | regex-toets: moet /ham/, niet /kaas|smeerkaas|chips|croissant|pizza|tosti|salade|hamburger|champignon/
+15d86158 | PROD | aldi | regel: 150 g plakjes ham | gekozen: Ham-kaas knabbels 150 g €0,85 (vervanger) | regex-toets: moet /ham/, niet /kaas|smeerkaas|chips|croissant|pizza|tosti|salade|hamburger|champignon/
+340e32bb | PROD | spar | regel: 2 vegaburgers | gekozen: Hamburger 12 stuks €2,69 (vervanger) | regex-toets: moet /burger/, niet /broodje|saus|kip|rund|hamburger$/
+7b743b41 | PROD | aldi | regel: 2 vegaburgers | gekozen: Scharrelkipburgers 200 g €2,79 (vervanger) | regex-toets: moet /burger/, niet /broodje|saus|kip|rund|hamburger$/
+eeccb31a | PROD | dekamarkt | regel: 200 g vegetarische kipstukjes | gekozen: Vivera Kipstukjes 175 g €3,35 (vervanger) | regex-toets: moet /vega|plantaardig|vegetarisch/
+94f0fdd5 | PROD | dirk | regel: 200 g vegetarische kipstukjes | gekozen: Vivera Kipstukjes 175 g €3,29 (vervanger) | regex-toets: moet /vega|plantaardig|vegetarisch/
+83e8ffc5 | PROD | lidl | regel: 200 g vegetarische kipstukjes | gekozen: Z-A kipstukjes €3,99 (vervanger) | regex-toets: moet /vega|plantaardig|vegetarisch/
+fd3b1577 | PROD | aldi | regel: 200 g vegetarische kipstukjes | gekozen: Pindakaas met stukjes pinda 600 g €1,99 (vervanger) | regex-toets: moet /vega|plantaardig|vegetarisch/
+e7381bf9 | PROD | poiesz | regel: 1 blik kikkererwten | gekozen: Unox Soep Erwt 300 milliliter €2,15 (vervanger) | regex-toets: moet /kikkererwt/, niet /hummus|chips|meel/
+be5936fa | PROD | vomar | regel: 1 blik kikkererwten | gekozen: Unox erwten soep  800ml 800ml €2,99 (vervanger) | regex-toets: moet /kikkererwt/, niet /hummus|chips|meel/
+8ac8bba6 | PROD | poiesz | regel: 1 blik kidneybonen | gekozen: Iglo Ping & Klaar Gegrilde Kipfilet, rösti en sperziebonen 390 gram €6,67 (vervanger) | regex-toets: moet /kidney/, niet /chili|soep|mix/
+547d364b | PROD | poiesz | regel: 1 blik zwarte bonen | gekozen: Iglo Ping & Klaar Gegrilde Kipfilet, rösti en sperziebonen 390 gram €6,67 (vervanger) | regex-toets: moet /zwarte bonen/, niet /teriyaki|soep|saus|mix/
+f1f977c2 | PROD | spar | regel: 1 blik zwarte bonen | gekozen: g'woon bonen zwart 400 gram €0,99 | regex-toets: moet /zwarte bonen/, niet /teriyaki|soep|saus|mix/
+937c2e55 | PROD | vomar | regel: 1 blik zwarte bonen | gekozen: Unox bruine bonensoep 800ml 800ml €3,95 (vervanger) | regex-toets: moet /zwarte bonen/, niet /teriyaki|soep|saus|mix/
+78873b60 | PROD | poiesz | regel: 1 blik bruine bonen | gekozen: Unox Stevige Bruine bonensoep 800 milliliter €4,35 (vervanger) | regex-toets: moet /bruine bonen/, niet /soep|mix/
+0c4ef140 | PROD | spar | regel: 1 blik bruine bonen | gekozen: bonen bruine 500 gram €3,39 | regex-toets: moet /bruine bonen/, niet /soep|mix/
+e4f4c3bb | PROD | vomar | regel: 1 blik bruine bonen | gekozen: Unox bruine bonensoep 800ml 800ml €3,95 (vervanger) | regex-toets: moet /bruine bonen/, niet /soep|mix/
+8c9c9f0b | PROD | poiesz | regel: 1 blik witte bonen | gekozen: Iglo Ping & Klaar Gegrilde Kipfilet, rösti en sperziebonen 390 gram €6,67 (vervanger) | regex-toets: moet /witte bonen/, niet /tomatensaus|soep|mix/
+147815b3 | PROD | spar | regel: 1 blik witte bonen | gekozen: g'woon bonen witte 340 gram €1,45 | regex-toets: moet /witte bonen/, niet /tomatensaus|soep|mix/
+3e3df165 | PROD | vomar | regel: 1 blik witte bonen | gekozen: Unox bruine bonensoep 800ml 800ml €3,95 (vervanger) | regex-toets: moet /witte bonen/, niet /tomatensaus|soep|mix/
+e3045448 | PROD | aldi | regel: 1 blik witte bonen | gekozen: Witte bonen in tomatensaus 370 ml €0,59 | regex-toets: moet /witte bonen/, niet /tomatensaus|soep|mix/
+840a3dc1 | PROD | spar | regel: 1 l halfvolle melk | gekozen: Melkan halfvolle houdbare melk 500 milliliter €0,75 | regex-toets: moet /halfvolle melk|melk halfvol/, niet /koffie|chocolade|drink|choco|hagel|poeder|houdbaar.*koffie|lactosevrij/
+dd0cca06 | PROD | vomar | regel: 1 l halfvolle melk | gekozen: Arla melk hv lactofree 1lt 1l €1,85 (vervanger) | regex-toets: moet /halfvolle melk|melk halfvol/, niet /koffie|chocolade|drink|choco|hagel|poeder|houdbaar.*koffie|lactosevrij/
+113cff19 | PROD | vomar | regel: 1 l volle melk | gekozen: Arla melk hv lactofree 1lt 1l €1,85 (vervanger) | regex-toets: moet /volle melk|melk vol/, niet /koffie|chocolade|choco|hagel|poeder/
+ac9d89d0 | PROD | ah | regel: 200 g zure room | gekozen: AH Kersenflappen met room 4 stuks €4,49 (vervanger) | regex-toets: moet /zure room/, niet /dip|chips/
+20cd0a80 | PROD | poiesz | regel: 200 g zure room | gekozen: Alpro Cuisine Variatie op Room 0.25 liter €1,98 (vervanger) | regex-toets: moet /zure room/, niet /dip|chips/
+795d3bbb | PROD | vomar | regel: 200 g zure room | gekozen: Almhof roomyogh aardbei 500gr 500gr €2,39 (vervanger) | regex-toets: moet /zure room/, niet /dip|chips/
+2bb60d69 | PROD | aldi | regel: 200 g zure room | gekozen: Room saus 129 g €1,49 (vervanger) | regex-toets: moet /zure room/, niet /dip|chips/
+e54e4a68 | PROD | hoogvliet | regel: 500 g Griekse yoghurt | gekozen: Zuivelmeester Yoghurt Griekse stijl aardbei 1 kilo €2,49 | regex-toets: moet /griekse yoghurt|griekse stijl|yoghurt griekse/, niet /drink|toetje|aardbei|smaak|chips|honing|dressing/
+cb70ccd8 | PROD | vomar | regel: 500 g Griekse yoghurt | gekozen: Elinas griekse yoghurt aardbei €1,99 | regex-toets: moet /griekse yoghurt|griekse stijl|yoghurt griekse/, niet /drink|toetje|aardbei|smaak|chips|honing|dressing/
+402b145d | PROD | vomar | regel: 1 l magere yoghurt | gekozen: Optimel yoghurt vanille 1l 1l €1,95 (vervanger) | regex-toets: moet /yoghurt/, niet /drink|toetje|aardbei|smaak|dressing|saus|chips|perzik|framboos|vanille|ijs/
+ab664cf9 | PROD | dekamarkt | regel: 250 g roomboter | gekozen: Roomboter kaascroissant stuk €0,89 | regex-toets: moet /roomboter|boter/, niet /koek|cake|bladerdeeg|croissant|spritsen|sprits|stroopwafel|kruiden|boterham|knoflook|ham/
+49a9e191 | PROD | dirk | regel: 250 g roomboter | gekozen: 1 de Beste Spritsen roomboter 250 g €1,65 | regex-toets: moet /roomboter|boter/, niet /koek|cake|bladerdeeg|croissant|spritsen|sprits|stroopwafel|kruiden|boterham|knoflook|ham/
+25cb50e8 | PROD | hoogvliet | regel: 250 g roomboter | gekozen: G'woon Roomboter jodekoeken 300 gram €1,55 | regex-toets: moet /roomboter|boter/, niet /koek|cake|bladerdeeg|croissant|spritsen|sprits|stroopwafel|kruiden|boterham|knoflook|ham/
+585d75f4 | PROD | lidl | regel: 250 g roomboter | gekozen: Roomboter spritsen €1,19 | regex-toets: moet /roomboter|boter/, niet /koek|cake|bladerdeeg|croissant|spritsen|sprits|stroopwafel|kruiden|boterham|knoflook|ham/
+341fb749 | PROD | poiesz | regel: 250 g margarine | gekozen: Odorex Marine Fresh 50 milliliter €2,89 (vervanger) | regex-toets: moet /margarine|halvarine|bak en braad|blue band|becel/
+bceff72e | PROD | vomar | regel: 250 g margarine | gekozen: Odorex deoroller marine 50ml 50ml €2,65 (vervanger) | regex-toets: moet /margarine|halvarine|bak en braad|blue band|becel/
+aaff6280 | PROD | vomar | regel: 6 eieren | gekozen: Sum&sam chinese eiermie 250. €1,55 (vervanger) | regex-toets: moet /eieren|ei\b/, niet /paas|choco|kinder|noedel|salade|chocolade|spread|koek|pasta|biscuit/
+59918ca1 | PROD | vomar | regel: 10 eieren | gekozen: Sum&sam chinese eiermie 250. €1,55 (vervanger) | regex-toets: moet /eieren|ei\b/, niet /paas|choco|kinder|noedel|salade|chocolade|spread|koek|pasta|biscuit/
+1a46160d | PROD | vomar | regel: 400 g jong belegen kaas | gekozen: Aardappelgratin kaas 500gr. 500gr €2,39 (vervanger) | regex-toets: moet /jong ?beleg/, niet /blokjes|snack|smeer|crackers|chips|tosti|croissant|salami|worst/
+6f383793 | PROD | ah | regel: 100 g Parmezaanse kaas | gekozen: AH Truffelsalami met Parmezaanse kaas 60 g €3,29 | regex-toets: moet /parmezaan|parmigiano|pamigiano|grana padano|parmesan/, niet /salami|worst|chips|crackers|kruiden|truffel|pasta|saus|pesto|dressing/
+1fd9a1eb | PROD | dekamarkt | regel: 100 g Parmezaanse kaas | gekozen: Zuivelmeester Kaas 30+ geraspt 200 g €2,35 (vervanger) | regex-toets: moet /parmezaan|parmigiano|pamigiano|grana padano|parmesan/, niet /salami|worst|chips|crackers|kruiden|truffel|pasta|saus|pesto|dressing/
+865dd3f2 | PROD | dirk | regel: 100 g Parmezaanse kaas | gekozen: 1 de Beste Crackers kaas 200 g €1,65 (vervanger) | regex-toets: moet /parmezaan|parmigiano|pamigiano|grana padano|parmesan/, niet /salami|worst|chips|crackers|kruiden|truffel|pasta|saus|pesto|dressing/
+1c56f6d8 | PROD | hoogvliet | regel: 100 g Parmezaanse kaas | gekozen: Zuivelmeester Belegen stuk 940 gram €8,77 (vervanger) | regex-toets: moet /parmezaan|parmigiano|pamigiano|grana padano|parmesan/, niet /salami|worst|chips|crackers|kruiden|truffel|pasta|saus|pesto|dressing/
+e827be43 | PROD | poiesz | regel: 100 g Parmezaanse kaas | gekozen: Eru Cheddar 150 gram €2,00 (vervanger) | regex-toets: moet /parmezaan|parmigiano|pamigiano|grana padano|parmesan/, niet /salami|worst|chips|crackers|kruiden|truffel|pasta|saus|pesto|dressing/
+bf000748 | PROD | vomar | regel: 100 g Parmezaanse kaas | gekozen: Aardappelgratin kaas 500gr. 500gr €2,39 (vervanger) | regex-toets: moet /parmezaan|parmigiano|pamigiano|grana padano|parmesan/, niet /salami|worst|chips|crackers|kruiden|truffel|pasta|saus|pesto|dressing/
+e975540a | PROD | aldi | regel: 100 g Parmezaanse kaas | gekozen: Kaas saus 111 g €1,49 (vervanger) | regex-toets: moet /parmezaan|parmigiano|pamigiano|grana padano|parmesan/, niet /salami|worst|chips|crackers|kruiden|truffel|pasta|saus|pesto|dressing/
+9d29c3f3 | PROD | plus | regel: 200 g feta | gekozen: PLUS Borek spinazie & feta 1 st €1,09 | regex-toets: moet /feta/, niet /dip|olijf|salade|spinazie|pasta|kip|wrap|pizza|smeer/
+64f8756c | PROD | dekamarkt | regel: 100 g blauwe kaas | gekozen: Zuivelmeester Kaas 30+ geraspt 200 g €2,35 (vervanger) | regex-toets: moet /blauwe|blauwschimmel|cambozola|gorgonzola|roquefort|danablu|bleu|blue/
+4b3f6a54 | PROD | dirk | regel: 100 g blauwe kaas | gekozen: 1 de Beste Crackers kaas 200 g €1,65 (vervanger) | regex-toets: moet /blauwe|blauwschimmel|cambozola|gorgonzola|roquefort|danablu|bleu|blue/
+4b393396 | PROD | hoogvliet | regel: 100 g blauwe kaas | gekozen: Zuivelmeester Belegen stuk 940 gram €8,77 (vervanger) | regex-toets: moet /blauwe|blauwschimmel|cambozola|gorgonzola|roquefort|danablu|bleu|blue/
+2079b674 | PROD | poiesz | regel: 100 g blauwe kaas | gekozen: Eru Cheddar 150 gram €2,00 (vervanger) | regex-toets: moet /blauwe|blauwschimmel|cambozola|gorgonzola|roquefort|danablu|bleu|blue/
+79406b6f | PROD | vomar | regel: 100 g blauwe kaas | gekozen: Aardappelgratin kaas 500gr. 500gr €2,39 (vervanger) | regex-toets: moet /blauwe|blauwschimmel|cambozola|gorgonzola|roquefort|danablu|bleu|blue/
+b17d5126 | PROD | dekamarkt | regel: 6 krentenbollen | gekozen: DekaVers Fijn volkorenbollen 6 stuks stuk €1,19 (vervanger) | regex-toets: moet /krenten ?bol/
+f74d1e95 | PROD | poiesz | regel: 4 pitabroodjes | gekozen: Italiaanse bol afbakbroodjes 5 stuk €2,00 (vervanger) | regex-toets: moet /pita/, niet /chips|kruiden|saus/
+3f011b52 | PROD | vomar | regel: 4 pitabroodjes | gekozen: Vomar kaiserbroodjes 10 st. €1,95 (vervanger) | regex-toets: moet /pita/, niet /chips|kruiden|saus/
+e29777dd | PROD | ah | regel: 2 stokbroden | gekozen: AH Knäckebröd goudbruin 375 g €1,25 (vervanger) | regex-toets: moet /stokbro|baguette/, niet /kruiden|knoflook|kaas|pizza|tonijn/
+55eb54dd | PROD | dekamarkt | regel: 2 stokbroden | gekozen: Fjord Knäckebröd volkoren 250 g €0,99 (vervanger) | regex-toets: moet /stokbro|baguette/, niet /kruiden|knoflook|kaas|pizza|tonijn/
+17a0cd44 | PROD | dirk | regel: 2 stokbroden | gekozen: 1 de Beste Knäckebröd sesam 375 g €1,24 (vervanger) | regex-toets: moet /stokbro|baguette/, niet /kruiden|knoflook|kaas|pizza|tonijn/
+4485df28 | PROD | hoogvliet | regel: 2 stokbroden | gekozen: Fjord Knäckebröd volkoren 250 gram €0,95 (vervanger) | regex-toets: moet /stokbro|baguette/, niet /kruiden|knoflook|kaas|pizza|tonijn/
+5f04bea2 | PROD | jumbo | regel: 2 stokbroden | gekozen: Jumbo Knäckebröd Sesam 5 x 5 Stuks 375 g €1,19 (vervanger) | regex-toets: moet /stokbro|baguette/, niet /kruiden|knoflook|kaas|pizza|tonijn/
+340dd9fa | PROD | plus | regel: 2 stokbroden | gekozen: PLUS Knackebrod goudbruin 375 g €1,49 (vervanger) | regex-toets: moet /stokbro|baguette/, niet /kruiden|knoflook|kaas|pizza|tonijn/
+dbc1fa7c | PROD | spar | regel: 2 stokbroden | gekozen: Fjord Knackerbrod Volkoren 250 gram €1,19 (vervanger) | regex-toets: moet /stokbro|baguette/, niet /kruiden|knoflook|kaas|pizza|tonijn/
+915b2737 | PROD | dekamarkt | regel: 1 pot honing | gekozen: Marne Mosterd honing 235 g €1,55 | regex-toets: moet /honing/, niet /thee|rooibos|mosterd|ham|koek|cruesli|muesli|granola|rings|loops|ontbijtkoek|dressing|saus|kip|crackers|drop|yoghurt|pomelo|citroen|gember|sweet|smaak/
+42345af5 | PROD | jumbo | regel: 1 pot honing | gekozen: Jumbo Honing Pomelo €1,99 | regex-toets: moet /honing/, niet /thee|rooibos|mosterd|ham|koek|cruesli|muesli|granola|rings|loops|ontbijtkoek|dressing|saus|kip|crackers|drop|yoghurt|pomelo|citroen|gember|sweet|smaak/
+04cb5564 | PROD | poiesz | regel: 1 pot honing | gekozen: Elephant Pretzel honing-mosterd 70 gram €1,00 | regex-toets: moet /honing/, niet /thee|rooibos|mosterd|ham|koek|cruesli|muesli|granola|rings|loops|ontbijtkoek|dressing|saus|kip|crackers|drop|yoghurt|pomelo|citroen|gember|sweet|smaak/
+483fc279 | PROD | vomar | regel: 1 pot honing | gekozen: Elinas griekse yoghurt honing €1,99 | regex-toets: moet /honing/, niet /thee|rooibos|mosterd|ham|koek|cruesli|muesli|granola|rings|loops|ontbijtkoek|dressing|saus|kip|crackers|drop|yoghurt|pomelo|citroen|gember|sweet|smaak/
+2ab5a782 | PROD | aldi | regel: 1 pak cruesli | gekozen: High protein crunchy muesli 350 g €2,99 (vervanger) | regex-toets: moet /cruesli/
+803f6aa5 | PROD | poiesz | regel: 1 pak muesli | gekozen: Activia Yoghurt Muesli 500 gram €3,09 | regex-toets: moet /muesli/, niet /reep|koek|yoghurt|koffie/
+cdada17c | PROD | spar | regel: 1 pak muesli | gekozen: Activia yoghurt muesli 4 stuks €3,39 | regex-toets: moet /muesli/, niet /reep|koek|yoghurt|koffie/
+0f114fc4 | PROD | poiesz | regel: 1 pak crackers | gekozen: Snickers Gold ice cream caramel 204 gram €4,49 (vervanger) | regex-toets: moet /cracker/
+f8fd86bd | PROD | poiesz | regel: 500 g spaghetti | gekozen: Golden Fresh Spaghetti Bolognese 1000 gram €4,99 | regex-toets: moet /spaghetti/, niet /saus|bolognese|maaltijd|pompoen|courgette|groente/
+dc71108b | PROD | poiesz | regel: 400 g basmatirijst | gekozen: Koh Thai Rijst Vermicelli 100 gram €1,69 (vervanger) | regex-toets: moet /basmati/
+cabef054 | PROD | poiesz | regel: 1 kg zilvervliesrijst | gekozen: Koh Thai Rijst Vermicelli 100 gram €1,69 (vervanger) | regex-toets: moet /zilvervlies/, niet /wafel|koek|cracker/
+e6b54451 | PROD | poiesz | regel: 300 g risottorijst | gekozen: Koh Thai Rijst Vermicelli 100 gram €1,69 (vervanger) | regex-toets: moet /risotto|arborio/
+6b1d2d02 | PROD | aldi | regel: 300 g risottorijst | gekozen: Zilvervliesrijst 1 kg €0,94 (vervanger) | regex-toets: moet /risotto|arborio/
+9eebecb9 | PROD | poiesz | regel: 250 g mie | gekozen: HG Mierenlokdoos voor binnen en / of buiten 2 stuks €9,09 (vervanger) | regex-toets: moet /mie\b|mienestje|mie ?nest|noedel/, niet /soep|kip|smaak|beker|cup|chips|saus/
+b8752e94 | PROD | poiesz | regel: 250 g noedels | gekozen: Yum Yum Instant Noedels Garnalen 60 gram €0,69 | regex-toets: moet /noedel|mie|udon|rijstnoedel/, niet /soep|kip|smaak|beker|cup|chips|saus|instant/
+3f299f85 | PROD | ah | regel: 1 zakje tacokruiden | gekozen: AH Paneermeel kruiden 150 g €0,79 (vervanger) | regex-toets: moet /taco ?kruiden|taco ?mix|taco ?seasoning|taco spice/, niet /provencaal|italiaans|croutons|aardappel/
+d1120fe4 | PROD | dekamarkt | regel: 1 zakje tacokruiden | gekozen: Silvo Patatkruiden 83 g €2,79 (vervanger) | regex-toets: moet /taco ?kruiden|taco ?mix|taco ?seasoning|taco spice/, niet /provencaal|italiaans|croutons|aardappel/
+19c62708 | PROD | dirk | regel: 1 zakje tacokruiden | gekozen: 1 de Beste Paneermeel kruiden 150 g €0,72 (vervanger) | regex-toets: moet /taco ?kruiden|taco ?mix|taco ?seasoning|taco spice/, niet /provencaal|italiaans|croutons|aardappel/
+7a363837 | PROD | hoogvliet | regel: 1 zakje tacokruiden | gekozen: Paturain Kruiden 90 gram €1,99 (vervanger) | regex-toets: moet /taco ?kruiden|taco ?mix|taco ?seasoning|taco spice/, niet /provencaal|italiaans|croutons|aardappel/
+3e5d0025 | PROD | jumbo | regel: 1 zakje tacokruiden | gekozen: Jumbo Kruiden Soepcroutons 75 g 75 g €0,79 (vervanger) | regex-toets: moet /taco ?kruiden|taco ?mix|taco ?seasoning|taco spice/, niet /provencaal|italiaans|croutons|aardappel/
+a6398aa8 | PROD | lidl | regel: 1 zakje tacokruiden | gekozen: Kerriekruiden 45 g €0,53 (vervanger) | regex-toets: moet /taco ?kruiden|taco ?mix|taco ?seasoning|taco spice/, niet /provencaal|italiaans|croutons|aardappel/
+dc0220c4 | PROD | plus | regel: 1 zakje tacokruiden | gekozen: PLUS Kruiden paneermeel 150 g €0,75 (vervanger) | regex-toets: moet /taco ?kruiden|taco ?mix|taco ?seasoning|taco spice/, niet /provencaal|italiaans|croutons|aardappel/
+a9468864 | PROD | poiesz | regel: 1 zakje tacokruiden | gekozen: Kaptein Smeerkaas Tuinkruiden 20+ 100 gram €1,29 (vervanger) | regex-toets: moet /taco ?kruiden|taco ?mix|taco ?seasoning|taco spice/, niet /provencaal|italiaans|croutons|aardappel/
+cc532bf3 | PROD | spar | regel: 1 zakje tacokruiden | gekozen: Verstegen inmaakkruiden 5 gram €1,95 (vervanger) | regex-toets: moet /taco ?kruiden|taco ?mix|taco ?seasoning|taco spice/, niet /provencaal|italiaans|croutons|aardappel/
+bdaf63c6 | PROD | aldi | regel: 1 zakje tacokruiden | gekozen: Tuinkruiden saus 75 g €1,49 (vervanger) | regex-toets: moet /taco ?kruiden|taco ?mix|taco ?seasoning|taco spice/, niet /provencaal|italiaans|croutons|aardappel/
+f3fead92 | PROD | ah | regel: 1 zakje nasikruiden | gekozen: AH Pangasiusfilet tuinkruiden ca. 310 g €5,49 (vervanger) | regex-toets: moet /nasi/
+7a1b277b | PROD | dekamarkt | regel: 1 zakje nasikruiden | gekozen: Silvo Eikruiden 62 g €2,79 (vervanger) | regex-toets: moet /nasi/
+9262448c | PROD | dirk | regel: 1 zakje nasikruiden | gekozen: 1 de Beste Paneermeel kruiden 150 g €0,72 (vervanger) | regex-toets: moet /nasi/
+150301f7 | PROD | hoogvliet | regel: 1 zakje nasikruiden | gekozen: Paturain Kruiden 90 gram €1,99 (vervanger) | regex-toets: moet /nasi/
+c89b08f3 | PROD | lidl | regel: 1 zakje nasikruiden | gekozen: Kerriekruiden 45 g €0,53 (vervanger) | regex-toets: moet /nasi/
+fe94c07a | PROD | poiesz | regel: 1 zakje nasikruiden | gekozen: Kaptein Smeerkaas Tuinkruiden 20+ 100 gram €1,29 (vervanger) | regex-toets: moet /nasi/
+1ee770b0 | PROD | spar | regel: 1 zakje nasikruiden | gekozen: Verstegen inmaakkruiden 5 gram €1,95 (vervanger) | regex-toets: moet /nasi/
+99ab6f0c | PROD | aldi | regel: 1 zakje nasikruiden | gekozen: Tuinkruiden saus 75 g €1,49 (vervanger) | regex-toets: moet /nasi/
+c979388b | PROD | hoogvliet | regel: 150 ml teriyakisaus | gekozen: Boon Zwarte bonen in teriyakisaus 390 gram €2,74 | regex-toets: moet /teriyaki/, niet /bonen|kip|noedel|chips/
+2366ea97 | PROD | jumbo | regel: 150 ml teriyakisaus | gekozen: Boon Zwarte Bonen in Teriyakisaus 200 g 200 g €1,19 | regex-toets: moet /teriyaki/, niet /bonen|kip|noedel|chips/
+b6b21a97 | PROD | plus | regel: 150 ml teriyakisaus | gekozen: BOON Zwarte bonen in teriyakisaus 390 g €2,79 | regex-toets: moet /teriyaki/, niet /bonen|kip|noedel|chips/
+b1724cec | PROD | aldi | regel: 150 ml teriyakisaus | gekozen: Chilisaus 700 ml €1,49 (vervanger) | regex-toets: moet /teriyaki/, niet /bonen|kip|noedel|chips/
+e7b04e7a | PROD | aldi | regel: 150 ml sojasaus | gekozen: Slasaus halfvol 500 ml €1,45 (vervanger) | regex-toets: moet /soja ?saus|ketjap/, niet /bonen|melk|drink|yoghurt|scheuten|olie/
+a2a240bc | PROD | hoogvliet | regel: 1 pot rode currypasta | gekozen: G'woon Duopasta 750 gram €3,95 (vervanger) | regex-toets: moet /currypasta|curry ?pasta|curry paste|rode curry/, niet /saus|ketchup|poeder|soep/
+dc429b85 | PROD | plus | regel: 1 pot rode currypasta | gekozen: Smaakt Rode linzenpasta bio 200 g €2,96 (vervanger) | regex-toets: moet /currypasta|curry ?pasta|curry paste|rode curry/, niet /saus|ketchup|poeder|soep/
+e8f2fe97 | PROD | poiesz | regel: 1 pot rode currypasta | gekozen: Toko Lien Knoflookpasta 200 gram €2,29 (vervanger) | regex-toets: moet /currypasta|curry ?pasta|curry paste|rode curry/, niet /saus|ketchup|poeder|soep/
+63f82847 | PROD | vomar | regel: 1 pot rode currypasta | gekozen: Fl.brand trassi pasta 25gr 25gr €0,79 (vervanger) | regex-toets: moet /currypasta|curry ?pasta|curry paste|rode curry/, niet /saus|ketchup|poeder|soep/
+e7a7218e | PROD | aldi | regel: 1 pot rode currypasta | gekozen: Boterhampasta 750 g €2,49 (vervanger) | regex-toets: moet /currypasta|curry ?pasta|curry paste|rode curry/, niet /saus|ketchup|poeder|soep/
+bb2df7fe | PROD | dekamarkt | regel: 1 fles sweet chilisaus | gekozen: G'woon Chilisaus 300 ml €0,99 (vervanger) | regex-toets: moet /sweet chili/, niet /chips|kip|nootjes/
+d9ae4684 | PROD | dirk | regel: 1 fles sweet chilisaus | gekozen: 1 de Beste Chilisaus 300 ml €0,99 (vervanger) | regex-toets: moet /sweet chili/, niet /chips|kip|nootjes/
+f170ed38 | PROD | lidl | regel: 1 fles sweet chilisaus | gekozen: Chilisaus 700 ml €1,38 (vervanger) | regex-toets: moet /sweet chili/, niet /chips|kip|nootjes/
+7e43acc1 | PROD | spar | regel: 1 fles sweet chilisaus | gekozen: Go-Tan chilisaus pittig 270 milliliter €3,39 (vervanger) | regex-toets: moet /sweet chili/, niet /chips|kip|nootjes/
+b602deb7 | PROD | aldi | regel: 1 fles sweet chilisaus | gekozen: Chilisaus 700 ml €1,49 (vervanger) | regex-toets: moet /sweet chili/, niet /chips|kip|nootjes/
+edb12c3a | PROD | hoogvliet | regel: 150 g rijstvellen | gekozen: Frikandellen 20 stuks €3,59 (vervanger) | regex-toets: moet /rijstvel|rijstpapier/
+cabfc925 | PROD | plus | regel: 150 g rijstvellen | gekozen: Springhome Loempiavellen 550 g €3,49 (vervanger) | regex-toets: moet /rijstvel|rijstpapier/
+5c206909 | PROD | poiesz | regel: 1 blik tomatenblokjes | gekozen: Aanmaakblokjes Bruin 632 gram €2,69 (vervanger) | regex-toets: moet /tomatenblokjes|tomaten blokjes|gehakte tomaten|tomaten gehakt|tomatenstukjes|tomaten in stukjes/, niet /soep|saus|bouillon/
+9c7827a0 | PROD | vomar | regel: 1 blik tomatenblokjes | gekozen: Vanka satestokjes 18cm 100st €0,44 (vervanger) | regex-toets: moet /tomatenblokjes|tomaten blokjes|gehakte tomaten|tomaten gehakt|tomatenstukjes|tomaten in stukjes/, niet /soep|saus|bouillon/
+03b1c80f | PROD | hoogvliet | regel: 1 pak passata | gekozen: Heinz Tomato gezeefd 520 gram €1,22 | regex-toets: moet /passata|tomaten gezeefd|gezeefde tomaten/
+42979347 | PROD | poiesz | regel: 1 blikje tomatenpuree | gekozen: Verse aardappelpuree 500 gram €1,80 (vervanger) | regex-toets: moet /tomatenpuree|tomaten ?puree/
+90321cbd | PROD | vomar | regel: 1 blikje tomatenpuree | gekozen: G'woon aardappelpuree 3x60gr. 60gr €0,56 (vervanger) | regex-toets: moet /tomatenpuree|tomaten ?puree/
+c150570e | PROD | poiesz | regel: 1 pot pastasaus | gekozen: Yildriz Turkse Shoarmasaus 265 milliliter €2,64 (vervanger) | regex-toets: moet /pastasaus|pasta ?saus|bolognese|napoletana|arrabbiata|tomatensaus/, niet /spaghetti|penne|maaltijd/
+f80d515f | PROD | ah | regel: 1 blik mais | gekozen: AH Terra Bonenmix maïs 200 g €1,19 | regex-toets: moet /mais/, niet /bonen ?mix|bonenmix|cornflakes|chips|wafel|broodje|meel|kip|olie|tortilla|popcorn|kolf/
+1bc73e25 | PROD | vomar | regel: 1 blik mais | gekozen: G'woon maisolie 1 liter 1 liter €2,99 (vervanger) | regex-toets: moet /mais/, niet /bonen ?mix|bonenmix|cornflakes|chips|wafel|broodje|meel|kip|olie|tortilla|popcorn|kolf/
+0810d0ed | PROD | dirk | regel: 1 blik doperwten | gekozen: 1 de Beste Doperwten en wortelen 680 g €0,54 | regex-toets: moet /doperwt/, niet /wortel/
+485dc4ac | PROD | poiesz | regel: 1 blik doperwten | gekozen: Unox Soep Erwt 300 milliliter €2,15 (vervanger) | regex-toets: moet /doperwt/, niet /wortel/
+b817ad8e | PROD | vomar | regel: 1 blik doperwten | gekozen: Unox erwten soep  800ml 800ml €2,99 (vervanger) | regex-toets: moet /doperwt/, niet /wortel/
+9ea8bcae | PROD | poiesz | regel: 1 pot kappertjes | gekozen: Ambachtelijke Knappertjes 140 gram €1,87 (vervanger) | regex-toets: moet /kappertje/, niet /artisjok/
+b1bf795c | PROD | jumbo | regel: 1 fles ketchup | gekozen: Zaanse Curry Ketchup 190ml €1,49 | regex-toets: moet /ketchup/, niet /chips|curry|saus/
+e92aa678 | PROD | spar | regel: 1 fles ketchup | gekozen: Zaanse curry ketchup 190 ml 190 milliliter €1,69 | regex-toets: moet /ketchup/, niet /chips|curry|saus/
+951f09a7 | PROD | aldi | regel: 1 fles ketchup | gekozen: Curry ketchup 875 ml €1,79 | regex-toets: moet /ketchup/, niet /chips|curry|saus/
+8a55f564 | PROD | ah | regel: 1 pot mayonaise | gekozen: AH Sriracha mayonaise 60 g €1,39 | regex-toets: moet /mayonaise|mayo/, niet /truffel|sriracha|knoflook|wasabi|chips|salade|ei/
+7100df9a | PROD | aldi | regel: 1 fles olijfolie | gekozen: Tonijn in olijfolie 160 g €1,89 | regex-toets: moet /olijfolie|olive oil/, niet /tonijn|ansjovis|sardine|olijven|makreel|kip|tomaten|zongedroogd|artisjok|knoflook|brood|chips/
+64bff21c | PROD | aldi | regel: 1 fles zonnebloemolie | gekozen: Sardines in zonnebloemolie 120 g €1,69 | regex-toets: moet /zonnebloemolie/, niet /tonijn|makreel|sardine|chips|zalm/
+d4ec7094 | PROD | aldi | regel: 2 el olijfolie | gekozen: Tonijn in olijfolie 160 g €1,89 | regex-toets: moet /olijfolie|olive oil/, niet /tonijn|ansjovis|sardine|olijven|makreel|kip|tomaten|zongedroogd|artisjok|knoflook|brood|chips/
+2b405d6f | PROD | hoogvliet | regel: 1 el sesamolie | gekozen: G'woon Zonnebloemolie 1 liter €1,48 (vervanger) | regex-toets: moet /sesamolie|sesam olie/
+cdd4542e | PROD | aldi | regel: 1 el sesamolie | gekozen: Sardines in zonnebloemolie 120 g €1,69 (vervanger) | regex-toets: moet /sesamolie|sesam olie/
+53c76f32 | PROD | poiesz | regel: 1 kg bloem | gekozen: Allesreinigersdoekjes bloemen 80 stuks €1,25 | regex-toets: moet /bloem|tarwe ?bloem|patent/, niet /bloemkool|bloemen|kerstster|tas|honing|wijntas|fles/
+88b3397b | PROD | poiesz | regel: 1 pak poedersuiker | gekozen: g'woon Koekrepen 30% minder suiker 300 gram €1,87 (vervanger) | regex-toets: moet /poedersuik|poeder suiker/
+2bd8fb6e | PROD | vomar | regel: 1 pak poedersuiker | gekozen: Peijnenburg geen suiker gesn €2,09 (vervanger) | regex-toets: moet /poedersuik|poeder suiker/
+a535675f | PROD | poiesz | regel: 1 zakje bakpoeder | gekozen: Ecostyle stekpoeder 400 milliliter €5,99 (vervanger) | regex-toets: moet /bakpoeder/
+dca2f13c | PROD | vomar | regel: 1 zakje bakpoeder | gekozen: Omo wit waspoeder 14sc €5,39 (vervanger) | regex-toets: moet /bakpoeder/
+93275921 | PROD | poiesz | regel: 1 pakje bouillonblokjes | gekozen: Aanmaakblokjes Bruin 632 gram €2,69 (vervanger) | regex-toets: moet /bouillon/, niet /soep|tomaten|ballen/
+0b394977 | PROD | vomar | regel: 1 pakje bouillonblokjes | gekozen: Vanka satestokjes 18cm 100st €0,44 (vervanger) | regex-toets: moet /bouillon/, niet /soep|tomaten|ballen/
+add85c53 | PROD | aldi | regel: 1 pakje bouillonblokjes | gekozen: Tomatenblokjes 400 g €0,33 (vervanger) | regex-toets: moet /bouillon/, niet /soep|tomaten|ballen/
+a254fd83 | PROD | vomar | regel: 1 pak kippenbouillon | gekozen: Dhillon santen 198gr 198gr €2,19 (vervanger) | regex-toets: moet /kippenbouillon|bouillon ?(blokjes )?kip|kip ?bouillon|kippen ?bouillon/, niet /ballen/
+3577277a | PROD | dekamarkt | regel: 1 blok pure chocolade | gekozen: BioToday Rijstwafels pure chocolade 100 g €1,79 (vervanger) | regex-toets: moet /chocolade|chocola/, niet /melk|drink|hagel|koek|kruidnoot|pinda|rozijn|munten|letter|pasta|ijs|cake|mousse|vla|crispies|nootjes|repen|reep melk|wit/
+faf4ee6c | PROD | aldi | regel: 1 blok pure chocolade | gekozen: Chocolade pinda's melk 200 g €1,48 (vervanger) | regex-toets: moet /chocolade|chocola/, niet /melk|drink|hagel|koek|kruidnoot|pinda|rozijn|munten|letter|pasta|ijs|cake|mousse|vla|crispies|nootjes|repen|reep melk|wit/
+5e3ef896 | PROD | poiesz | regel: 200 g walnoten | gekozen: Epixs borrelnoten crunch 275 gram €1,99 (vervanger) | regex-toets: moet /walnoot|walnoten/, niet /brood|cake|olie/
+9232764c | PROD | vomar | regel: 200 g walnoten | gekozen: Noten vruchtenwijn 750ml 750ml €2,89 (vervanger) | regex-toets: moet /walnoot|walnoten/, niet /brood|cake|olie/
+81cc52cf | PROD | poiesz | regel: 200 g cashewnoten | gekozen: Ambachtelijke Kruidnoten 300 gram €2,00 (vervanger) | regex-toets: moet /cashew/, niet /drink|pasta|boter|reep|mix/
+26e122d0 | PROD | vomar | regel: 200 g cashewnoten | gekozen: Noten vruchtenwijn 750ml 750ml €2,89 (vervanger) | regex-toets: moet /cashew/, niet /drink|pasta|boter|reep|mix/
+e69b9cbf | PROD | vomar | regel: 100 g pijnboompitten | gekozen: Bio+ zonnebloempitten 500gr 500gr €2,99 (vervanger) | regex-toets: moet /pijnboompit/, niet /pesto/
+00bc79ce | PROD | jumbo | regel: 1 zak rozijnen | gekozen: Jumbo - Rozijnen Krentenbollen - 6 Stuks €1,48 | regex-toets: moet /rozijn/, niet /brood|bol|koek|mix|chocolade/
+6bd61b8d | PROD | poiesz | regel: 1 zak rozijnen | gekozen: g'woon Koekrepen Rozijn 390 gram €1,42 | regex-toets: moet /rozijn/, niet /brood|bol|koek|mix|chocolade/
+5e68ca3c | PROD | vomar | regel: 1 zak rozijnen | gekozen: G'woon koekreep rozijn €1,20 | regex-toets: moet /rozijn/, niet /brood|bol|koek|mix|chocolade/
+dd2c7046 | PROD | poiesz | regel: 1 blik ananas | gekozen: Ananas-Meloen-Mangosap 500 milliliter €2,69 | regex-toets: moet /ananas/, niet /sap|drink|smaak/
+361cee40 | PROD | poiesz | regel: 1 tl paprikapoeder | gekozen: Ecostyle stekpoeder 400 milliliter €5,99 (vervanger) | regex-toets: moet /paprikapoeder|paprika ?poeder|paprika edelzoet|gerookte paprika/, niet /chips|kruidenmix|kip|rood|geel|groen|saus/
+31c2c50c | PROD | dekamarkt | regel: 1 tl komijn | gekozen: DekaVers Kaasblokjes komijn 100 g €2,29 | regex-toets: moet /komijn|djinten|cumin/, niet /kaas/
+7f0619f3 | PROD | poiesz | regel: 1 tl komijn | gekozen: Kaptein Smeerkaas Komijn 20+ 100 gram €1,29 | regex-toets: moet /komijn|djinten|cumin/, niet /kaas/
+a41f8a25 | PROD | spar | regel: 1 tl komijn | gekozen: Melkan Kaas Komijn jong belegen plakken 190 gram €3,59 | regex-toets: moet /komijn|djinten|cumin/, niet /kaas/
+99c670fd | PROD | aldi | regel: 1 tl komijn | gekozen: Goudse kaas Toscaanse kruiden of komijn 30+ plakken 200 g €2,85 | regex-toets: moet /komijn|djinten|cumin/, niet /kaas/
+11549b8a | PROD | jumbo | regel: 1 tl kerriepoeder | gekozen: Jumbo Uienpoeder 30 g 30 g €1,79 (vervanger) | regex-toets: moet /kerrie|curry ?poeder|currypoeder/, niet /saus|ketchup|pasta|kip|worst|soep/
+e499fe73 | PROD | lidl | regel: 1 tl kerriepoeder | gekozen: Paprikapoeder 50 g €0,76 (vervanger) | regex-toets: moet /kerrie|curry ?poeder|currypoeder/, niet /saus|ketchup|pasta|kip|worst|soep/
+2ca48283 | PROD | poiesz | regel: 1 tl kerriepoeder | gekozen: Ecostyle stekpoeder 400 milliliter €5,99 (vervanger) | regex-toets: moet /kerrie|curry ?poeder|currypoeder/, niet /saus|ketchup|pasta|kip|worst|soep/
+4b994eab | PROD | vomar | regel: 1 tl kerriepoeder | gekozen: Omo wit waspoeder 14sc €5,39 (vervanger) | regex-toets: moet /kerrie|curry ?poeder|currypoeder/, niet /saus|ketchup|pasta|kip|worst|soep/
+c928505b | PROD | poiesz | regel: 1 tl kaneel | gekozen: Appel kaneel vlaai 1 stuk €6,99 | regex-toets: moet /kaneel/, niet /thee|koek|appel|smaak|beschuit|stroop|broodje|suiker/
+f04bb223 | PROD | spar | regel: 1 tl kaneel | gekozen: Hak Appelmoes Kaneel 355 gram €2,75 | regex-toets: moet /kaneel/, niet /thee|koek|appel|smaak|beschuit|stroop|broodje|suiker/
+9bf9fafc | PROD | poiesz | regel: 1 tl Italiaanse kruiden | gekozen: Krieltjes met groene kruiden 450 gram €2,50 (vervanger) | regex-toets: moet /italiaanse kruiden|kruiden italiaans|italian/, niet /pizza|brood|pasta|olie|kaas/
+a0011d34 | PROD | vomar | regel: 1 tl Italiaanse kruiden | gekozen: G'woon koekreep kruidkoek €1,24 (vervanger) | regex-toets: moet /italiaanse kruiden|kruiden italiaans|italian/, niet /pizza|brood|pasta|olie|kaas/
+6b39c775 | PROD | aldi | regel: 1 tl Italiaanse kruiden | gekozen: Aardappelpartjes gekruid 750 g €1,27 (vervanger) | regex-toets: moet /italiaanse kruiden|kruiden italiaans|italian/, niet /pizza|brood|pasta|olie|kaas/
+b2c35c6f | PROD | hoogvliet | regel: 1 tl chilivlokken | gekozen: Choca Vlokken 300 gram €1,99 (vervanger) | regex-toets: moet /chilivlok|chili vlok|chilipeper vlok|chili flakes|cayenne|chilipoeder|chili poeder|chilipeper gemalen|sambal/, niet /chips|saus|sweet/
+16151fc3 | PROD | plus | regel: 1 tl chilivlokken | gekozen: Choca Vlokken 300 g €1,79 (vervanger) | regex-toets: moet /chilivlok|chili vlok|chilipeper vlok|chili flakes|cayenne|chilipoeder|chili poeder|chilipeper gemalen|sambal/, niet /chips|saus|sweet/
+3742a78c | PROD | dekamarkt | regel: 1 tl gemberpoeder | gekozen: Mentholpoeder 75 g €3,65 (vervanger) | regex-toets: moet /gember/, niet /thee|shot|bier|koek|siroop|bolletje|drank|vers|stem/
+aed7a702 | PROD | dirk | regel: 1 tl gemberpoeder | gekozen: 1 de Beste Kaneelpoeder 40 g €0,65 (vervanger) | regex-toets: moet /gember/, niet /thee|shot|bier|koek|siroop|bolletje|drank|vers|stem/
+9097960d | PROD | hoogvliet | regel: 1 tl gemberpoeder | gekozen: G'woon Zwarte peperpoeder 50 gram €0,79 (vervanger) | regex-toets: moet /gember/, niet /thee|shot|bier|koek|siroop|bolletje|drank|vers|stem/
+931b8d77 | PROD | jumbo | regel: 1 tl gemberpoeder | gekozen: Jumbo Uienpoeder 30 g 30 g €1,79 (vervanger) | regex-toets: moet /gember/, niet /thee|shot|bier|koek|siroop|bolletje|drank|vers|stem/
+1538d436 | PROD | lidl | regel: 1 tl gemberpoeder | gekozen: Glitterpoeder €2,99 (vervanger) | regex-toets: moet /gember/, niet /thee|shot|bier|koek|siroop|bolletje|drank|vers|stem/
+01245941 | PROD | plus | regel: 1 tl gemberpoeder | gekozen: PLUS Paprikapoeder 48 g €0,70 (vervanger) | regex-toets: moet /gember/, niet /thee|shot|bier|koek|siroop|bolletje|drank|vers|stem/
+3a2b080f | PROD | poiesz | regel: 1 tl gemberpoeder | gekozen: Ecostyle stekpoeder 400 milliliter €5,99 (vervanger) | regex-toets: moet /gember/, niet /thee|shot|bier|koek|siroop|bolletje|drank|vers|stem/
+40c74ac1 | PROD | spar | regel: 1 tl gemberpoeder | gekozen: Verstegen uienpoeder 50 gram €3,45 (vervanger) | regex-toets: moet /gember/, niet /thee|shot|bier|koek|siroop|bolletje|drank|vers|stem/
+213c8f0f | PROD | vomar | regel: 1 tl gemberpoeder | gekozen: Omo wit waspoeder 14sc €5,39 (vervanger) | regex-toets: moet /gember/, niet /thee|shot|bier|koek|siroop|bolletje|drank|vers|stem/
+e72eba8e | PROD | aldi | regel: zout | gekozen: Zoute popcorn 100 g €0,88 (vervanger) | regex-toets: moet /zout/, niet /chips|zoute|popcorn|pinda|noot|drop|stick|vaatwas|strooi|boter|kerstst|haring|karamel|cracker|koek/
+7806f549 | PROD | poiesz | regel: peper | gekozen: Partjes peper - zeezout 450 gram €2,50 | regex-toets: moet /zwarte peper|peper zwart|peper gemalen|peper grof|peper molen|peper wit|witte peper|peper/, niet /rode|groene|paprika|chips|saus|zout|chili|sambal|pepermunt|peperkoek|spaanse|jalapeno|gele|chilipeper/
+f971675c | PROD | spar | regel: peper | gekozen: rode pepers 2 stuks €1,25 | regex-toets: moet /zwarte peper|peper zwart|peper gemalen|peper grof|peper molen|peper wit|witte peper|peper/, niet /rode|groene|paprika|chips|saus|zout|chili|sambal|pepermunt|peperkoek|spaanse|jalapeno|gele|chilipeper/
+cd755b3f | PROD | lidl | regel: 1 tl knoflookpoeder | gekozen: Salmiakpoeder €1,99 (vervanger) | regex-toets: moet /knoflook ?poeder|knoflookgranulaat|knoflook granulaat/, niet /saus/
+b62e6640 | PROD | poiesz | regel: 1 tl knoflookpoeder | gekozen: Ecostyle stekpoeder 400 milliliter €5,99 (vervanger) | regex-toets: moet /knoflook ?poeder|knoflookgranulaat|knoflook granulaat/, niet /saus/
+1f029de2 | PROD | vomar | regel: 1 tl knoflookpoeder | gekozen: Omo wit waspoeder 14sc €5,39 (vervanger) | regex-toets: moet /knoflook ?poeder|knoflookgranulaat|knoflook granulaat/, niet /saus/
+1aa22ce3 | PROD | dekamarkt | regel: 6 flessen water | gekozen: Gedemineraliseerd water 1 liter €0,84 | regex-toets: moet /water/, niet /meloen|bleek|ijs|kraanwater|zeep|kers|gedemineraliseerd|toilet|tonic|cocos|kokos|gearomatiseerd|smaak/
+0a5f4c50 | PROD | dirk | regel: 6 flessen water | gekozen: Gedemineraliseerd water 1 liter €0,72 | regex-toets: moet /water/, niet /meloen|bleek|ijs|kraanwater|zeep|kers|gedemineraliseerd|toilet|tonic|cocos|kokos|gearomatiseerd|smaak/
+3092a673 | PROD | plus | regel: 1 pak thee | gekozen: PLUS IJsthee groene thee 500 ml €0,59 | regex-toets: moet /thee/, niet /koek|ijs|kop|pot|glas|lepel/
+73b69ddd | PROD | jumbo | regel: 1 pak toiletpapier | gekozen: Jumbo Sensitive Vochtig Toiletpapier 40 Stuks €0,89 | regex-toets: moet /toiletpapier|wc-?papier/, niet /vochtig/
+081db11f | PROD | poiesz | regel: 1 pak toiletpapier | gekozen: Inpakpapier 200*70cm 1 stuks €1,00 (vervanger) | regex-toets: moet /toiletpapier|wc-?papier/, niet /vochtig/
+4d1ff329 | PROD | poiesz | regel: 1 rol keukenpapier | gekozen: Inpakpapier 200*70cm 1 stuks €1,00 (vervanger) | regex-toets: moet /keukenpapier|keukenrol/
+68e5bf8c | PROD | aldi | regel: 1 pak vaatwastabletten | gekozen: Aardappel-ovenkroketten 750 g €1,44 (vervanger) | regex-toets: moet /vaatwas/, niet /zout|glansspoel|afwasmiddel|reiniger/
+89764694 | PROD | poiesz | regel: 1 pak vuilniszakken | gekozen: Ovengebakken gehakt 100 gram €2,29 (vervanger) | regex-toets: moet /vuilniszak|vuilzak|afvalzak|pedaalemmerzak/
+ca2283ca | PROD | vomar | regel: 1 pak vuilniszakken | gekozen: Fl.br. gebakken emping 80gr . g €1,99 (vervanger) | regex-toets: moet /vuilniszak|vuilzak|afvalzak|pedaalemmerzak/
+00f78f68 | PROD | aldi | regel: 1 pak vuilniszakken | gekozen: Rookkaasplakken 45+ 150 g €1,99 (vervanger) | regex-toets: moet /vuilniszak|vuilzak|afvalzak|pedaalemmerzak/
+06eb3427 | PROD | aldi | regel: 1 tube tandpasta | gekozen: Boterhampasta 750 g €2,49 (vervanger) | regex-toets: moet /tandpasta/
+93c357f6 | PROD | dirk | regel: 1 rol aluminiumfolie | gekozen: 1 de Beste Olijfolie traditioneel 250 ml €3,05 (vervanger) | regex-toets: moet /aluminiumfolie|alufolie|aluminium/
+9b7802ec | PROD | poiesz | regel: 1 rol aluminiumfolie | gekozen: g'woon Olijfolie Traditioneel 250 milliliter €3,49 (vervanger) | regex-toets: moet /aluminiumfolie|alufolie|aluminium/
+2f55e903 | PROD | vomar | regel: 1 rol aluminiumfolie | gekozen: Biologische olijfolie €9,99 (vervanger) | regex-toets: moet /aluminiumfolie|alufolie|aluminium/
+7cbc343b | PROD | aldi | regel: 1 rol aluminiumfolie | gekozen: Tonijn in olijfolie 160 g €1,89 (vervanger) | regex-toets: moet /aluminiumfolie|alufolie|aluminium/
