@@ -52,13 +52,15 @@ md.push(`- Aanbiedingen: ${aanb.length} getoond bij ${stat.regels} controleregel
 md.push(`- Productkeuzes: ${prod.length} gekozen, ${fP.length} fout (${prod.length ? pctS(fP.length / prod.length) : '0%'}); ${stat.prodNietGevonden} keer niets gevonden.`);
 md.push(`- Datacontrole aanbiedingen: ${data.length} meldingen (${data.filter(d => d.live).length} bij aanbiedingen die nu in de app staan).`, '');
 // verouderde bron: >21 dagen geen enkele wijziging, of >25% van de folder-normaalprijzen wijkt af
-const oud = Object.entries(fresh).filter(([s, f]) => (f.paren >= 20 && f.afwijkend / f.paren > 0.25) || /^nooit/.test(f.laatsteWijziging) ||
-  (/^\d/.test(f.laatsteWijziging) && Date.parse(date) - Date.parse(f.laatsteWijziging) > 21 * 864e5)).map(([s]) => s);
+// eigen uitlezing van de winkelwebsite (bron met datum, bv. 'plus.nl 2026-11-25') van hooguit 7 dagen oud telt als actueel
+const eigen = f => { const m = (f.bron || '').match(/^[a-z.]+\.(?:nl|com) (\d{4}-\d\d-\d\d)/); return m && Date.parse(date) - Date.parse(m[1]) <= 7 * 864e5; };
+const oud = Object.entries(fresh).filter(([s, f]) => (f.paren >= 20 && f.afwijkend / f.paren > 0.25) || (!eigen(f) && (/^nooit/.test(f.laatsteWijziging) ||
+  (/^\d/.test(f.laatsteWijziging) && Date.parse(date) - Date.parse(f.laatsteWijziging) > 21 * 864e5)))).map(([s]) => s);
 md.push(`- Vaste prijzen mogelijk verouderd bij: **${oud.length ? oud.join(', ') : 'geen'}** (zie Versheid).`, '');
 md.push(`## Versheid vaste prijzen`, '', `Folder = normale prijs die de folder noemt bij een aanbieding, vergeleken met de vaste prijs in de app voor precies dezelfde productnaam. ` +
   `Laatste wijziging = laatste peildatum waarop de bron voor die winkel nog iets veranderde (data/db/snapshots.tsv).`, '',
-  `| winkel | vergeleken | wijkt af | laatste wijziging in bron |`, `|---|---:|---:|---|`);
-for (const [s, f] of Object.entries(fresh).sort()) md.push(`| ${s}${oud.includes(s) ? ' ⚠️' : ''} | ${f.paren} | ${f.paren ? f.afwijkend + ' (' + pctS(f.afwijkend / f.paren) + ')' : '–'} | ${f.laatsteWijziging} |`);
+  `| winkel | bron vaste prijzen | vergeleken | wijkt af | laatste wijziging in database |`, `|---|---|---:|---:|---|`);
+for (const [s, f] of Object.entries(fresh).sort()) md.push(`| ${s}${oud.includes(s) ? ' ⚠️' : ''} | ${f.bron || '?'} | ${f.paren} | ${f.paren ? f.afwijkend + ' (' + pctS(f.afwijkend / f.paren) + ')' : '–'} | ${f.laatsteWijziging} |`);
 md.push('');
 md.push(`## Per winkel`, '',`| winkel | aanbiedingen getoond | fout | productkeuzes | fout |`, `|---|---:|---:|---:|---:|`);
 for (const s of stores) md.push(`| ${s} | ${aanb.filter(c => c.s === s).length} | ${fA.filter(c => c.s === s).length} | ${prod.filter(c => c.s === s).length} | ${fP.filter(c => c.s === s).length} |`);

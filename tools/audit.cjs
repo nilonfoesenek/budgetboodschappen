@@ -85,7 +85,7 @@ for (const s of STORES) {
   let n = 0, diff = 0;
   for (const o of O.offers) if (o.s === s && o.was && m.has(deacc(o.n))) { n++; if (Math.abs(m.get(deacc(o.n)) - o.was) > 0.015) diff++; }
   const xs = snaps.filter(r => r[1] === s), chg = xs.slice(1).filter(r => +r[5] + +r[6] + +r[7] > 0).map(r => r[0]);
-  fresh[s] = { paren: n, afwijkend: diff, laatsteWijziging: chg.length ? chg[chg.length - 1] : (xs.length ? 'nooit sinds ' + xs[0][0] : '?') };
+  fresh[s] = { bron: (P.meta[s] && P.meta[s].source) || '', paren: n, afwijkend: diff, laatsteWijziging: chg.length ? chg[chg.length - 1] : (xs.length ? 'nooit sinds ' + xs[0][0] : '?') };
 }
 
 // Nieuw = nog nooit eerder beoordeeld. Bekende gevallen houden hun oordeel.

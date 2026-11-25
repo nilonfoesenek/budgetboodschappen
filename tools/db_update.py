@@ -3,7 +3,9 @@
 
 Gebruik (vanuit een werkmap buiten de kloon):
   python3 -I <kloon>/tools/db_update.py --cjb <checkjebon>/data/supermarkets.json [--aldi <kloon>/tools/aldi_products.txt]
-                                         [--offers <kloon>/data/offers.json] [--date JJJJ-MM-DD] [--ref <bronversie>]
+                                         [--offers <kloon>/data/offers.json] [--own <map met tools/scrape-uitvoer>] [--date JJJJ-MM-DD] [--ref <bronversie>]
+--own: eigen uitlezing van winkelwebsites; een volledige uitlezing vervangt voor die winkel de Checkjebon-gegevens (bron = website),
+       een gedeeltelijke (Lidl-weekpagina) wordt vastgelegd als aparte 'winkel' <winkel>_week.
 
 Schrijft in <kloon>/data/db/ (formaat: data/db/LEESMIJ.md):
   snapshots.tsv                 één regel per winkel per peildatum (aantallen, bron, bronversie)
@@ -16,7 +18,7 @@ import argparse, csv, datetime, json, os, pathlib, re, sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DB = ROOT / 'data' / 'db'
 ap = argparse.ArgumentParser()
-ap.add_argument('--cjb'); ap.add_argument('--aldi'); ap.add_argument('--offers')
+ap.add_argument('--cjb'); ap.add_argument('--aldi'); ap.add_argument('--offers'); ap.add_argument('--own')
 ap.add_argument('--date', default=datetime.date.today().isoformat()); ap.add_argument('--ref', default='')
 a = ap.parse_args()
 D = a.date
@@ -88,6 +90,23 @@ if a.aldi and os.path.exists(a.aldi):
         if pid not in cur: cur[pid] = (name, size, f'{pr:.2f}')
     if cur: stores['aldi'] = ('aldi.nl', cur)
 
+MIN_OWN = {'ah': 8000, 'plus': 10000, 'hoogvliet': 6000, 'dirk': 5000, 'dekamarkt': 5000, 'vomar': 3000, 'aldi': 800, 'jumbo': 8000, 'spar': 4000, 'poiesz': 1000}
+if a.own and os.path.isdir(a.own):
+    for f in sorted(pathlib.Path(a.own).glob('*.json')):
+        try: d = json.load(open(f, encoding='utf-8'))
+        except ValueError: continue
+        st = d.get('store'); rows = d.get('rows') or []
+        if not st: continue
+        cur = {}
+        for r in rows:
+            name, size = clean(r[0]), size_norm(r[2] if len(r) > 2 else '')
+            pr = money(r[5] if len(r) > 5 and r[5] else r[1])
+            if not name or pr is None: continue
+            pid = clean(r[3] if len(r) > 3 else '') or (name.lower() + '|' + size)
+            if pid not in cur: cur[pid] = (name, size, f'{pr:.2f}')
+        if d.get('partial'): stores[st + '_week'] = (d.get('source', st), cur)
+        elif len(cur) >= MIN_OWN.get(st, 1000): stores[st] = (d.get('source', st), cur)
+
 # ---- prijzen: alleen wijzigingen opslaan
 year = D[:4]
 for store, (src, cur) in sorted(stores.items()):
@@ -99,7 +118,7 @@ for store, (src, cur) in sorted(stores.items()):
         o = old.get(pid)
         if o is None: n_new += 1; rows.append([D, pid, name, size, pr])
         elif o != (name, size, pr): n_chg += 1; rows.append([D, pid, name, size, pr])
-    gone = [pid for pid in old if pid not in cur]
+    gone = [] if store.endswith('_week') else [pid for pid in old if pid not in cur]   # weekpagina: wat ontbreekt is niet verdwenen
     rows += [[D, pid, old[pid][0], old[pid][1], ''] for pid in gone]
     append_tsv(DB / 'prijzen' / year / f'{store}.tsv', PRICE_HEAD, rows)
     append_tsv(SNAP, SNAP_HEAD, [[D, store, src, a.ref, len(cur), n_new, n_chg, len(gone)]])

@@ -1,13 +1,21 @@
 """Bouwt data/prices.json voor de boodschappen-app.
 
-Gebruik: python3 -I build_prices.py <checkjebon_supermarkets.json> <aldi_dir> <out.json>
+Gebruik: python3 -I build_prices.py <checkjebon_supermarkets.json> <aldi_dir> <out.json> [--own <map>] [--offers <offers.json>]
+- --own <map>: eigen uitlezing van de winkelwebsites (tools/scrape/*, bestanden <winkel>.json). Een volledige uitlezing met genoeg
+  producten vervangt de Checkjebon-gegevens van die winkel; een gedeeltelijke (Lidl) werkt alleen de gevonden producten bij.
+- --offers <offers.json>: de normale prijs die de folder bij een aanbieding noemt, werkt de vaste prijs bij van precies hetzelfde product
+  bij winkels die nog op een verouderde bron draaien (AH, Lidl).
 - AH, Jumbo, Dirk, Plus, Lidl, DekaMarkt, Hoogvliet, SPAR, Vomar en Poiesz komen uit de Checkjebon open data (github.com/supermarkt/checkjebon).
   Lidl daar komt via boodschaapje.nl en wordt opgeschoond (non-food met artikelcode, prijs < 0,10 weg).
 - Aldi komt uit tekstbestanden in <aldi_dir> met regels: naam | inhoud | prijs
 """
 import json, sys, re, glob, os, datetime
 
-src, aldi_dir, out = sys.argv[1], sys.argv[2], sys.argv[3]
+args = sys.argv[1:]
+def opt(name):
+    if name in args: i = args.index(name); v = args[i + 1]; del args[i:i + 2]; return v
+own_dir, offers_path = opt('--own'), opt('--offers')
+src, aldi_dir, out = args[0], args[1], args[2]
 today = datetime.date.today().isoformat()
 
 def clean_size(s):
@@ -60,6 +68,65 @@ for f in sorted(glob.glob(os.path.join(aldi_dir, '*.txt'))):
         seen.add(key)
         aldi.append([name, price, clean_size(size)])
 stores['aldi'] = aldi
+src_note = {}
+partial = {}
+
+# ---- eigen uitlezing van de winkelwebsites
+MIN_OWN = {'ah': 8000, 'plus': 10000, 'hoogvliet': 6000, 'dirk': 5000, 'dekamarkt': 5000, 'vomar': 3000, 'aldi': 800, 'jumbo': 8000, 'spar': 4000, 'poiesz': 1000}
+if own_dir and os.path.isdir(own_dir):
+    for f in sorted(glob.glob(os.path.join(own_dir, '*.json'))):
+        try: d = json.load(open(f, encoding='utf-8'))
+        except ValueError: continue
+        st, rows = d.get('store'), d.get('rows') or []
+        if not st: continue
+        clean_rows, seen = [], set()
+        for r in rows:
+            name, normal, size = re.sub(r'\s+', ' ', str(r[0])).strip(), r[5] if len(r) > 5 and r[5] else r[1], clean_size(r[2] if len(r) > 2 else '')
+            try: normal = round(float(normal), 2)
+            except (TypeError, ValueError): continue
+            k = (name.lower(), size)
+            if normal <= 0 or k in seen: continue
+            seen.add(k); clean_rows.append([name, normal, size])
+        if d.get('partial'):
+            partial[st] = [(r[0], r[1], d.get('source', st), d.get('date', today), r[2]) for r in clean_rows]
+            print(f'{st}: gedeeltelijke uitlezing ({len(clean_rows)} normale prijzen) gaat naar het prijsgeheugen', file=sys.stderr)
+        elif len(clean_rows) >= MIN_OWN.get(st, 1000):
+            stores[st] = clean_rows; src_note[st] = f"{d.get('source')} {d.get('date')}"
+            if d.get('links'): links[st] = {**links.get(st, {}), **d['links']}
+            print(f'{st}: eigen uitlezing gebruikt ({len(clean_rows)} producten)', file=sys.stderr)
+        else:
+            print(f'{st}: eigen uitlezing te klein ({len(clean_rows)} < {MIN_OWN.get(st, 1000)}), Checkjebon gehouden', file=sys.stderr)
+
+# ---- prijsgeheugen voor winkels zonder volledige, actuele bron (AH, Lidl):
+# data/overrides/<winkel>.json bewaart elke normale prijs die we ergens zien (folder, Lidl-weekpagina) met datum.
+# Die prijzen vervangen de verouderde Checkjebon-prijs van precies hetzelfde product (zelfde naam), tot 183 dagen oud.
+ovdir = os.path.join(os.path.dirname(os.path.abspath(out)), 'overrides')
+offers = json.load(open(offers_path, encoding='utf-8')).get('offers', []) if offers_path and os.path.exists(offers_path) else []
+cut = (datetime.date.today() - datetime.timedelta(days=183)).isoformat()
+for st in ('ah', 'lidl'):
+    if st in src_note: continue                      # volledige eigen uitlezing: geen geheugen nodig
+    op = os.path.join(ovdir, st + '.json')
+    mem = json.load(open(op, encoding='utf-8')) if os.path.exists(op) else {}
+    for o in offers:
+        if o.get('s') == st and o.get('was') and o.get('from', '') <= today:
+            mem[re.sub(r'\s+', ' ', o['n']).strip().lower()] = [round(o['was'], 2), max(o.get('from', today), cut), 'folder', '']
+    for name, price, source, date, size in partial.get(st, []):
+        mem[name.lower()] = [price, date, source, size]
+    mem = {k: v for k, v in mem.items() if v[1] >= cut}
+    os.makedirs(ovdir, exist_ok=True)
+    json.dump(mem, open(op, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'), sort_keys=True)
+    cur = stores.get(st, []); idx = {}
+    for r in cur: idx.setdefault(r[0].lower(), []).append(r)
+    n = added = 0
+    for k, (price, date, source, *rest) in mem.items():
+        if k in idx:
+            for r in idx[k]:
+                if abs(r[1] - price) > 0.005: r[1] = price; n += 1
+        elif source != 'folder':                     # producten van de Lidl-weekpagina die nog niet in de lijst stonden
+            cur.append([k[:1].upper() + k[1:], price, rest[0] if rest else '']); added += 1
+    stores[st] = cur
+    if n or added: src_note[st] = f'prijsgeheugen: {n} prijzen bijgewerkt, {added} toegevoegd ({len(mem)} bekend)'
+    print(f'{st}: prijsgeheugen {len(mem)} producten, {n} vaste prijzen bijgewerkt, {added} toegevoegd', file=sys.stderr)
 
 meta = {
     'ah': {'label': 'Albert Heijn', 'source': 'Checkjebon open data', 'note': 'Vaste AH-prijzen in deze bron worden niet meer dagelijks bijgewerkt en kunnen afwijken.'},
@@ -74,6 +141,10 @@ meta = {
     'vomar': {'label': 'Vomar', 'source': 'Checkjebon open data', 'note': 'Kleine selectie van het assortiment, geen aanbiedingen.'},
     'poiesz': {'label': 'Poiesz', 'source': 'Checkjebon open data', 'note': 'Selectie van het assortiment, geen aanbiedingen.'},
 }
+for st, note in src_note.items():
+    if st not in meta: continue
+    if note.startswith('prijsgeheugen'): meta[st]['source'] += ' + ' + note
+    else: meta[st]['source'] = note; meta[st]['note'] = ''
 json.dump({'built': today, 'meta': meta, 'stores': stores}, open(out, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
 # productlinks per winkel (voor productfoto's via /api/img): data/links/<winkel>.json
 ldir = os.path.join(os.path.dirname(os.path.abspath(out)), 'links')

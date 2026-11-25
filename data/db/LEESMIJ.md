@@ -33,6 +33,10 @@ python3 tools/db_query.py aanbiedingen 2026-06-01 ah       # aanbiedingen die to
   (de datum is de commitdatum van de bron). Vanaf 25-11-2026 twee peildata per week (ma en wo).
 - **Aldi** vanaf 25-11-2026: eigen uitlezing van aldi.nl (29 categoriepagina's, ±900 producten = een **selectie** van het assortiment).
   Aldi-regels vóór juni 2026 komen uit Checkjebon en hebben andere id's.
+- **Eigen uitlezing van de winkelwebsites** (vanaf 30-11-2026, `tools/scrape/`): Plus, Hoogvliet, Dirk, DekaMarkt, Vomar en Aldi
+  (volledig online assortiment). Die vervangen vanaf dan Checkjebon voor die winkels; in `snapshots.tsv` staat de bron per peildatum.
+  Omdat de id's per bron verschillen, toont de eerste peildatum met de nieuwe bron alle oude producten als verdwenen en de nieuwe als nieuw.
+  Lidl publiceert alleen de producten van de week (met normale prijs); die staan als aparte winkel `lidl_week`.
 - **Aanbiedingen:** folderz.nl (weekfolders van alle 11 winkels), vanaf 23-11-2026.
 
 ## Belangrijke kanttekeningen voor onderzoek
