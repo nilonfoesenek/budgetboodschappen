@@ -3,7 +3,7 @@
 Gebruik: python3 -I tools/fetch_bonprijzen.py <url of json-bestand> <data/prices.json> <uitmap>
   url:  https://budgetboodschappen.netlify.app/api/bonprijzen  (sleutel: omgevingsvariabele BONPRIJZEN_KEY,
         of als netwerkgeheim dat de proxy als "Authorization: Bearer ..." toevoegt)
-  Schrijft <uitmap>/ah.json met "partial": true en "source": "kassabon"; tools/build_prices.py --own <uitmap> neemt die op
+  Schrijft <uitmap>/ah_bon.json (los van een volledige AH-uitlezing in ah.json) met "partial": true en "source": "kassabon"; tools/build_prices.py --own <uitmap> neemt die op
   in data/overrides/ah.json (de nieuwste datum per product wint, maximaal 183 dagen oud).
 
 Een bonregel ("AH Halfvolle melk 1 l", 1,19) wordt alleen gebruikt als hij duidelijk bij één AH-product hoort:
@@ -113,8 +113,8 @@ def main():
         rows.append([c, p, size, '', '', p, '', w])   # 8e veld: datum (maandag van de week van de bon)
     os.makedirs(outdir, exist_ok=True)
     out = {'store': 'ah', 'date': datetime.date.today().isoformat(), 'source': 'kassabon', 'partial': True, 'rows': rows}
-    json.dump(out, open(os.path.join(outdir, 'ah.json'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
-    print(f"kassabonnen: {data.get('bonnen', '?')} AH-bonnen, {n} regels, {hit} gekoppeld → {len(rows)} AH-producten in {os.path.join(outdir, 'ah.json')}")
+    json.dump(out, open(os.path.join(outdir, 'ah_bon.json'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+    print(f"kassabonnen: {data.get('bonnen', '?')} AH-bonnen, {n} regels, {hit} gekoppeld → {len(rows)} AH-producten in {os.path.join(outdir, 'ah_bon.json')}")
 
 
 if __name__ == '__main__':

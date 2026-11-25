@@ -14,7 +14,7 @@ twee bronnen. Per product wint de nieuwste datum, en een prijs telt maximaal 183
 - `netlify/functions/bonprijzen.mjs` (`/api/bonprijzen`, alleen met de sleutel) geeft losse regels `[naam, prijs, week]` terug en ruimt
   regels ouder dan 7 maanden op.
 - `tools/fetch_bonprijzen.py` koppelt elke bonregel aan precies één AH-product: woorden, inhoud en prijs (-30% tot +43%) moeten kloppen.
-  Bij twijfel wordt de regel niet gebruikt. Het script schrijft `<map>/ah.json` met `"partial": true` en `"source": "kassabon"`, met als 8e veld per regel de datum.
+  Bij twijfel wordt de regel niet gebruikt. Het script schrijft `<map>/ah_bon.json` met `"partial": true` en `"source": "kassabon"`, met als 8e veld per regel de datum.
 - `tools/build_prices.py --own <map>` zet die prijzen in het prijsgeheugen (sleutel `naam|inhoud`) en zet de datum als 4e veld in
   `data/prices.json`. `meta.ah.stale` = maand van de bevroren bron. De app toont "prijs van 23 nov" of "prijs uit nov 2025, mogelijk verouderd".
 - In de prijsdatabase (`tools/db_update.py`) komen deze regels als winkel `ah_week`.
