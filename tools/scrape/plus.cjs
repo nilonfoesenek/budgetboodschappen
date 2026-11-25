@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Plus: opent plus.nl/producten in Chromium en bladert door alle pagina's van het assortiment via dezelfde
-// productlijst-aanvraag die de pagina zelf doet (12 producten per pagina, ± 17.000 producten, ± 20-25 minuten).
+// productlijst-aanvraag die de pagina zelf doet (12 producten per pagina, ± 17.000 producten, ± 10 minuten met 3 tegelijk).
 // Gebruik: node tools/scrape/plus.cjs <uitmap>
 const { chromium } = require('playwright'); const fs = require('fs'), path = require('path');
 const out = process.argv[2]; fs.mkdirSync(out, { recursive: true });
@@ -29,16 +29,22 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   const add = d => { for (const x of d.ProductList.List) { const s = x.PLP_Str; const orig = +s.OriginalPrice || null, neu = +s.NewPrice || 0;
     rows.set(s.SKU, [s.Name.trim(), neu > 0 ? neu : orig, (s.Product_Subtitle || '').replace(/^per\s+/i, '').trim().toLowerCase(), s.SKU, s.EAN || '', orig, s.PromotionLabel || '']); } };
   add(first);
-  for (let n = 2; n <= pages; n++) {
-    let d = null;
-    for (let t = 0; t < 3 && !(d && d.ProductList); t++) {
-      try { d = await page(n); } catch (e) { d = null; }
-      if (!(d && d.ProductList)) { fails++; await sleep(3000); try { await open(); } catch (e) {} }
+  // een paar pagina's tegelijk (standaard 3): ± 10 minuten in plaats van ± 30, nog steeds rustig voor de website
+  const PAR = +(process.env.PLUS_PAR || 3), MAXP = +(process.env.PLUS_MAXPAGES || pages); let next = 2;
+  async function worker() {
+    while (next <= Math.min(pages, MAXP)) {
+      const n = next++; let d = null;
+      for (let t = 0; t < 3 && !(d && d.ProductList); t++) {
+        try { d = await page(n); } catch (e) { d = null; }
+        if (!(d && d.ProductList)) { fails++; await sleep(3000 * (t + 1)); }
+      }
+      if (d && d.ProductList) add(d);
+      if (n % 100 === 0) console.error(`  ${n}/${pages} (${rows.size})`);
+      await sleep(300);
     }
-    if (d && d.ProductList) add(d);
-    if (n % 100 === 0) console.error(`  ${n}/${pages} (${rows.size})`);
-    await sleep(350);
   }
+  await Promise.all(Array.from({ length: PAR }, worker));
+  if (fails > 20) { try { await open(); } catch (e) {} }
   await b.close();
   const list = [...rows.values()].filter(r => r[0] && r[1]);
   fs.writeFileSync(path.join(out, 'plus.json'), JSON.stringify({ store: 'plus', date: new Date().toISOString().slice(0, 10), source: 'plus.nl', total, rows: list }));
